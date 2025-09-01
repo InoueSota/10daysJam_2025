@@ -37,16 +37,16 @@ public class PlayerTear : MonoBehaviour
         }
 
         // 十字ボタンの左右どちらかを押したら、左右どちらかを破り捨てる
-        if (isActive && (Input.GetAxis("Horizontal2") < 0f || Input.GetAxis("Horizontal2") > 0f))
+        if (isActive && (Input.GetAxisRaw("Horizontal2") < 0f || Input.GetAxisRaw("Horizontal2") > 0f))
         {
             // 該当するFieldObjectを破る操作を行うが、破られるかどうかはAllFieldObjectManager内で判断する
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
-                if (Input.GetAxis("Horizontal2") < 0f && fieldObject.transform.position.x < Mathf.RoundToInt(transform.position.x))
+                if (Input.GetAxisRaw("Horizontal2") < 0f && fieldObject.transform.position.x < Mathf.RoundToInt(transform.position.x))
                 {
                     fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
                 }
-                else if (Input.GetAxis("Horizontal2") > 0f && fieldObject.transform.position.x > Mathf.RoundToInt(transform.position.x))
+                else if (Input.GetAxisRaw("Horizontal2") > 0f && fieldObject.transform.position.x > Mathf.RoundToInt(transform.position.x))
                 {
                     fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
                 }

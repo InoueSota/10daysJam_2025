@@ -34,9 +34,9 @@ public class PlayerController : MonoBehaviour
     void MoveUpdate()
     {
         // ‰E•ûŒü‚É“ü—Í
-        if (Input.GetAxis("Horizontal") > 0f) { xSpeed = moveSpeed; }
+        if (Input.GetAxisRaw("Horizontal") > 0f) { xSpeed = moveSpeed; }
         // ¶•ûŒü‚É“ü—Í
-        else if (Input.GetAxis("Horizontal") < 0f) { xSpeed = -moveSpeed; }
+        else if (Input.GetAxisRaw("Horizontal") < 0f) { xSpeed = -moveSpeed; }
         // –¢“ü—Í
         else { xSpeed = 0f; }
     }
