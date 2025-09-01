@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [Header("ジャンプパラメータ")]
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
+    [Header("頭打ちパラメータ")]
+    [SerializeField] private float hoveringTime;
 
     void Start()
     {

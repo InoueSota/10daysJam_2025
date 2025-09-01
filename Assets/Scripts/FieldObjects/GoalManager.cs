@@ -20,7 +20,7 @@ public class GoalManager : MonoBehaviour
     {
         foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
         {
-            if (fieldObject != gameObject &&
+            if (fieldObject != gameObject && !isLineActive &&
                 fieldObject.GetComponent<AllFieldObjectManager>().GetStatus() == allFieldObjectManager.GetStatus() &&
                 fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.GOAL &&
                 !fieldObject.GetComponent<GoalManager>().GetIsLineActive())
