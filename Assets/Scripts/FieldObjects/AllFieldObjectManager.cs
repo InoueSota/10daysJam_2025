@@ -6,6 +6,7 @@ public class AllFieldObjectManager : MonoBehaviour
     public enum ObjectType
     {
         GROUND,
+        GOAL,
         BLOCK
     }
     [SerializeField] private ObjectType objectType;
@@ -40,6 +41,29 @@ public class AllFieldObjectManager : MonoBehaviour
         switch (objectType)
         {
             // BLOCKはページ数によって当たり判定の有無とそれに伴う表示を変更する
+            case ObjectType.GOAL:
+
+                // どのページでも色をまず戻す
+                spriteRenderer.color = Color.white;
+
+                // ページ1のとき
+                if (transform.parent.gameObject.layer == page1Layer)
+                {
+                    status = Status.FIRST;
+                }
+                // ページ2のとき
+                else if (transform.parent.gameObject.layer == page2Layer)
+                {
+                    status = Status.SECOND;
+                    // 半透明にする
+                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                    // 当たり判定を一時的に無くす
+                    boxCollider2D.enabled = false;
+                }
+
+                break;
+
+            // BLOCKはページ数によって当たり判定の有無とそれに伴う表示を変更する
             case ObjectType.BLOCK:
 
                 // どのページでも色をまず戻す
@@ -71,6 +95,24 @@ public class AllFieldObjectManager : MonoBehaviour
     {
         switch (objectType)
         {
+            case ObjectType.GOAL:
+
+                switch (status)
+                {
+                    // 最前面のときは消去する
+                    case Status.FIRST:
+                        Destroy(gameObject);
+                        break;
+
+                    // 最前面にする
+                    case Status.SECOND:
+                        spriteRenderer.color = Color.white;
+                        status = Status.FIRST;
+                        boxCollider2D.enabled = true;
+                        break;
+                }
+
+                break;
             case ObjectType.BLOCK:
 
                 switch (status)
