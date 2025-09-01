@@ -23,11 +23,11 @@ public class PlayerTear : MonoBehaviour
         {
             if (Input.GetAxis("Horizontal2") < 0f)
             {
-                foreach(GameObject block in GameObject.FindGameObjectsWithTag("Block"))
+                foreach(GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
                 {
-                    if (block.transform.position.x < Mathf.RoundToInt(transform.position.x))
+                    if (fieldObject.transform.position.x < Mathf.RoundToInt(transform.position.x))
                     {
-                        Destroy(block);
+                        fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
                     }
                 }
 
@@ -35,11 +35,11 @@ public class PlayerTear : MonoBehaviour
             }
             else if (Input.GetAxis("Horizontal2") > 0f)
             {
-                foreach (GameObject block in GameObject.FindGameObjectsWithTag("Block"))
+                foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
                 {
-                    if (block.transform.position.x > Mathf.RoundToInt(transform.position.x))
+                    if (fieldObject.transform.position.x > Mathf.RoundToInt(transform.position.x))
                     {
-                        Destroy(block);
+                        fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
                     }
                 }
 

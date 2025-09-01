@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: BlockNormal
+  m_Name: Block
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 128efee86a3c5f943b45c6027f14a6b2, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: 4d015853377e7a740b0d9533a474839d, type: 3}
   m_DefaultGameObject: {fileID: 7921618599945661865, guid: 149502d61761e45468bf12a9a7f5b634, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []
