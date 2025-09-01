@@ -8,6 +8,11 @@ public class GoalManager : MonoBehaviour
     [Header("GoalLine")]
     [SerializeField] private GameObject goalLinePrefab;
 
+    // ëºÉSÅ[Éã
+    private GameObject otherGoalObj;
+    // ÉSÅ[Éãê¸
+    private GameObject goalLineObj;
+
     // ÉtÉâÉOóﬁ
     private bool isLineActive;
 
@@ -18,22 +23,46 @@ public class GoalManager : MonoBehaviour
 
     void Update()
     {
-        foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
+        if (!isLineActive)
         {
-            if (fieldObject != gameObject && !isLineActive &&
-                fieldObject.GetComponent<AllFieldObjectManager>().GetStatus() == allFieldObjectManager.GetStatus() &&
-                fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.GOAL &&
-                !fieldObject.GetComponent<GoalManager>().GetIsLineActive())
+            foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
-                if (Mathf.Abs(transform.position.x - fieldObject.transform.position.x) < 0.1f ||
-                    Mathf.Abs(transform.position.y - fieldObject.transform.position.y) < 0.1f)
+                if (fieldObject != gameObject &&
+                    fieldObject.GetComponent<AllFieldObjectManager>().GetStatus() == allFieldObjectManager.GetStatus() &&
+                    fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.GOAL &&
+                    !fieldObject.GetComponent<GoalManager>().GetIsLineActive())
                 {
-                    GameObject goalLine = Instantiate(goalLinePrefab);
-                    goalLine.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform);
+                    if (Mathf.Abs(transform.position.x - fieldObject.transform.position.x) < 0.1f ||
+                        Mathf.Abs(transform.position.y - fieldObject.transform.position.y) < 0.1f)
+                    {
+                        goalLineObj = Instantiate(goalLinePrefab);
 
-                    isLineActive = true;
-                    break;
+                        switch (allFieldObjectManager.GetStatus())
+                        {
+                            case AllFieldObjectManager.Status.FIRST:
+                                goalLineObj.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform, 1f);
+                                break;
+                            case AllFieldObjectManager.Status.SECOND:
+                                goalLineObj.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform, 0.2f);
+                                break;
+                        }
+
+                        // ëºÉSÅ[ÉãÇê›íË
+                        otherGoalObj = fieldObject;
+
+                        isLineActive = true;
+                        break;
+                    }
                 }
+            }
+        }
+        else
+        {
+            if (otherGoalObj.GetComponent<AllFieldObjectManager>().GetStatus() != allFieldObjectManager.GetStatus())
+            {
+                Destroy(goalLineObj);
+                otherGoalObj = null;
+                isLineActive = false;
             }
         }
     }

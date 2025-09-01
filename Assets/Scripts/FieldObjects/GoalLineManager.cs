@@ -6,7 +6,7 @@ public class GoalLineManager : MonoBehaviour
     private Transform pointB; // 終点
     private LineRenderer lineRenderer;
 
-    public void Initialize(Transform _pointA, Transform _pointB)
+    public void Initialize(Transform _pointA, Transform _pointB, float alpha)
     {
         // LineRendererを追加
         lineRenderer = gameObject.AddComponent<LineRenderer>();
@@ -30,5 +30,27 @@ public class GoalLineManager : MonoBehaviour
         // 2点間を設定
         lineRenderer.SetPosition(0, pointA.position);
         lineRenderer.SetPosition(1, pointB.position);
+
+        // 透明度の設定
+        SetAlpha(alpha);
+    }
+    void SetAlpha(float alpha)
+    {
+        // 現在の色を取得
+        Color start = lineRenderer.startColor;
+        Color end = lineRenderer.endColor;
+
+        // alphaを変更
+        start.a = alpha;
+        end.a = alpha;
+
+        // 設定
+        lineRenderer.startColor = start;
+        lineRenderer.endColor = end;
+    }
+
+    void Update()
+    {
+        if (pointA == null || pointB == null) { Destroy(gameObject); }
     }
 }
