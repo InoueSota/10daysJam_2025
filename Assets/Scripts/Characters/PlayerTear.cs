@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerTear : MonoBehaviour
 {
@@ -8,10 +10,20 @@ public class PlayerTear : MonoBehaviour
     // フラグ類
     private bool isActive;
 
+    // Global Volume
+    [SerializeField] private float fadePower;
+    [SerializeField] private Volume postEffectVolume;
+    private Vignette vignette;
+    private float maxIntensity = 0.5f;
+    private float targetIntensity = 0f;
+
     public void Initialize(PlayerController _controller)
     {
         // 自コンポーネントの取得
         controller = _controller;
+
+        // Global Volume
+        postEffectVolume.profile.TryGet(out vignette);
     }
 
     void Update()
@@ -20,6 +32,7 @@ public class PlayerTear : MonoBehaviour
         if (!isActive && controller.IsGrounded() && Input.GetButtonDown("Special"))
         {
             controller.SetDefault();
+            targetIntensity = maxIntensity;
             isActive = true;
         }
 
@@ -39,8 +52,12 @@ public class PlayerTear : MonoBehaviour
                 }
             }
 
+            targetIntensity = 0f;
             isActive = false;
         }
+
+        // Global Volume
+        vignette.intensity.value += (targetIntensity - vignette.intensity.value) * (fadePower * Time.deltaTime);
     }
 
     // Getter

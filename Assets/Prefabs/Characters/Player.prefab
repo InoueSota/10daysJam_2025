@@ -207,3 +207,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f4f64d9a9b370439c63dc687fdaf22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadePower: 12
+  postEffectVolume: {fileID: 0}
