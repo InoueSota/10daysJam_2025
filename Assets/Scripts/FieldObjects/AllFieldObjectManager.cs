@@ -19,7 +19,8 @@ public class AllFieldObjectManager : MonoBehaviour
     public enum Status
     {
         FIRST,
-        SECOND
+        SECOND,
+        THIRD
     }
     private Status status = Status.FIRST;
 
@@ -30,6 +31,7 @@ public class AllFieldObjectManager : MonoBehaviour
     // ページのレイヤー番号
     private int page1Layer;
     private int page2Layer;
+    private int page3Layer;
 
     void Start()
     {
@@ -40,6 +42,7 @@ public class AllFieldObjectManager : MonoBehaviour
         // ページのレイヤー番号を設定
         page1Layer = 6;
         page2Layer = 7;
+        page3Layer = 8;
 
         // ObjectTypeによって処理を変更
         AfterChangeLayer();
@@ -58,9 +61,15 @@ public class AllFieldObjectManager : MonoBehaviour
                 {
                     // 最前面にする
                     case Status.SECOND:
-                        spriteRenderer.color = Color.black;
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
                         status = Status.FIRST;
                         boxCollider2D.enabled = true;
+                        break;
+
+                    // １つ前面にする
+                    case Status.THIRD:
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                        status = Status.SECOND;
                         break;
                 }
 
@@ -76,9 +85,15 @@ public class AllFieldObjectManager : MonoBehaviour
 
                     // 最前面にする
                     case Status.SECOND:
-                        spriteRenderer.color = Color.white;
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
                         status = Status.FIRST;
                         boxCollider2D.enabled = true;
+                        break;
+
+                    // １つ前面にする
+                    case Status.THIRD:
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                        status = Status.SECOND;
                         break;
                 }
 
@@ -94,9 +109,15 @@ public class AllFieldObjectManager : MonoBehaviour
 
                     // 最前面にする
                     case Status.SECOND:
-                        spriteRenderer.color = Color.yellow;
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
                         status = Status.FIRST;
                         boxCollider2D.enabled = true;
+                        break;
+
+                    // １つ前面にする
+                    case Status.THIRD:
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                        status = Status.SECOND;
                         break;
                 }
 
@@ -131,6 +152,15 @@ public class AllFieldObjectManager : MonoBehaviour
                     // 当たり判定を一時的に無くす
                     boxCollider2D.enabled = false;
                 }
+                // ページ3のとき
+                else if (transform.parent.gameObject.layer == page3Layer)
+                {
+                    status = Status.SECOND;
+                    // 半透明にする
+                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
+                    // 当たり判定を一時的に無くす
+                    boxCollider2D.enabled = false;
+                }
 
                 break;
 
@@ -160,6 +190,17 @@ public class AllFieldObjectManager : MonoBehaviour
 
                     foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(0.2f); }
                 }
+                // ページ3のとき
+                else if (transform.parent.gameObject.layer == page3Layer)
+                {
+                    status = Status.THIRD;
+                    // 半透明にする
+                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
+                    // 当たり判定を一時的に無くす
+                    boxCollider2D.enabled = false;
+
+                    foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(0.02f); }
+                }
 
                 break;
 
@@ -182,6 +223,15 @@ public class AllFieldObjectManager : MonoBehaviour
                     status = Status.SECOND;
                     // 半透明にする
                     spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                    // 当たり判定を一時的に無くす
+                    boxCollider2D.enabled = false;
+                }
+                // ページ3のとき
+                else if (transform.parent.gameObject.layer == page3Layer)
+                {
+                    status = Status.THIRD;
+                    // 半透明にする
+                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
                     // 当たり判定を一時的に無くす
                     boxCollider2D.enabled = false;
                 }
