@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class AllFieldObjectManager : MonoBehaviour
 {
+
+    //レイヤーごとの色
+    [SerializeField] Color[] layerColor = new Color[3];
+
     // 該当するObjectType
     public enum ObjectType
     {
@@ -90,7 +94,7 @@ public class AllFieldObjectManager : MonoBehaviour
             case ObjectType.BLOCK:
 
                 // どのページでも色をまず戻す
-                spriteRenderer.color = Color.yellow;
+                spriteRenderer.color = layerColor[0];
 
                 // ページ1のとき
                 if (transform.parent.gameObject.layer == page1Layer)
