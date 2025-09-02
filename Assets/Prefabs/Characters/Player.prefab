@@ -189,12 +189,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 746758737c9f605418b316333ae1cb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  halfSize: 0.45
+  halfSize: 0.35
   moveSpeed: 5
   jumpPower: 12
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  hoveringTime: 0.3
 --- !u!114 &8985779831567453147
 MonoBehaviour:
   m_ObjectHideFlags: 0

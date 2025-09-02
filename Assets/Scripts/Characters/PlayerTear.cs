@@ -26,7 +26,7 @@ public class PlayerTear : MonoBehaviour
         postEffectVolume.profile.TryGet(out vignette);
     }
 
-    void Update()
+    public void ManualUpdate()
     {
         // îjÇËÅAäJén
         if (!isActive && controller.IsGrounded() && Input.GetButtonDown("Special"))

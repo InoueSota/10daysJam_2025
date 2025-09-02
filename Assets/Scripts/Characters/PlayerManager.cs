@@ -7,6 +7,9 @@ public class PlayerManager : MonoBehaviour
     private PlayerController controller;
     private PlayerTear tear;
 
+    // 他コンポーネント
+    [SerializeField] private ChangeLayerManager changeLayerManager;
+
     void Start()
     {
         // 自コンポーネントを取得
@@ -18,10 +21,16 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        // 自コンポーネントの更新
-        if (!tear.GetIsActive())
+        // レイヤー変更操作をしていない場合のみ更新
+        if (!changeLayerManager.GetIsActive())
         {
-            controller.ManualUpdate();
+            tear.ManualUpdate();
+
+            // 破り操作をしていない場合のみ更新
+            if (!tear.GetIsActive())
+            {
+                controller.ManualUpdate();
+            }
         }
 
         if (Input.GetButtonDown("Reset"))

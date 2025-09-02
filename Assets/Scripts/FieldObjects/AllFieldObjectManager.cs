@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class AllFieldObjectManager : MonoBehaviour
 {
+
+    //レイヤーごとの色
+    [SerializeField] Color[] layerColor = new Color[3];
+
     // 該当するObjectType
     public enum ObjectType
     {
@@ -38,77 +42,7 @@ public class AllFieldObjectManager : MonoBehaviour
         page2Layer = 7;
 
         // ObjectTypeによって処理を変更
-        switch (objectType)
-        {
-            // GROUNDはページ数によって当たり判定の有無とそれに伴う表示を変更する
-            case ObjectType.GROUND:
-
-                // どのページでも色をまず戻す
-                spriteRenderer.color = Color.black;
-
-                // ページ1のとき
-                if (transform.parent.gameObject.layer == page1Layer)
-                {
-                    status = Status.FIRST;
-                }
-                // ページ2のとき
-                else if (transform.parent.gameObject.layer == page2Layer)
-                {
-                    status = Status.SECOND;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
-                }
-
-                break;
-
-            // GOALはページ数によって当たり判定の有無とそれに伴う表示を変更する
-            case ObjectType.GOAL:
-
-                // どのページでも色をまず戻す
-                spriteRenderer.color = Color.white;
-
-                // ページ1のとき
-                if (transform.parent.gameObject.layer == page1Layer)
-                {
-                    status = Status.FIRST;
-                }
-                // ページ2のとき
-                else if (transform.parent.gameObject.layer == page2Layer)
-                {
-                    status = Status.SECOND;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
-                }
-
-                break;
-
-            // BLOCKはページ数によって当たり判定の有無とそれに伴う表示を変更する
-            case ObjectType.BLOCK:
-
-                // どのページでも色をまず戻す
-                spriteRenderer.color = Color.yellow;
-
-                // ページ1のとき
-                if (transform.parent.gameObject.layer == page1Layer)
-                {
-                    status = Status.FIRST;
-                }
-                // ページ2のとき
-                else if (transform.parent.gameObject.layer == page2Layer)
-                {
-                    status = Status.SECOND;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
-                }
-
-                break;
-        }
+        AfterChangeLayer();
     }
 
     /// <summary>
@@ -164,6 +98,88 @@ public class AllFieldObjectManager : MonoBehaviour
                         status = Status.FIRST;
                         boxCollider2D.enabled = true;
                         break;
+                }
+
+                break;
+        }
+    }
+
+    /// <summary>
+    /// レイヤーを切り替えたときの処理
+    /// </summary>]
+    public void AfterChangeLayer()
+    {
+        switch (objectType)
+        {
+            // GROUNDはページ数によって当たり判定の有無とそれに伴う表示を変更する
+            case ObjectType.GROUND:
+
+                // どのページでも色をまず戻す
+                spriteRenderer.color = Color.black;
+
+                // ページ1のとき
+                if (transform.parent.gameObject.layer == page1Layer)
+                {
+                    status = Status.FIRST;
+                }
+                // ページ2のとき
+                else if (transform.parent.gameObject.layer == page2Layer)
+                {
+                    status = Status.SECOND;
+                    // 半透明にする
+                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                    // 当たり判定を一時的に無くす
+                    boxCollider2D.enabled = false;
+                }
+
+                break;
+
+            // GOALはページ数によって当たり判定の有無とそれに伴う表示を変更する
+            case ObjectType.GOAL:
+
+                // どのページでも色をまず戻す
+                spriteRenderer.color = Color.white;
+
+                // ページ1のとき
+                if (transform.parent.gameObject.layer == page1Layer)
+                {
+                    status = Status.FIRST;
+                    // 当たり判定を一時的につける
+                    boxCollider2D.enabled = true;
+                }
+                // ページ2のとき
+                else if (transform.parent.gameObject.layer == page2Layer)
+                {
+                    status = Status.SECOND;
+                    // 半透明にする
+                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                    // 当たり判定を一時的に無くす
+                    boxCollider2D.enabled = false;
+                }
+
+                break;
+
+            // BLOCKはページ数によって当たり判定の有無とそれに伴う表示を変更する
+            case ObjectType.BLOCK:
+
+                // どのページでも色をまず戻す
+                spriteRenderer.color = layerColor[0];
+
+                // ページ1のとき
+                if (transform.parent.gameObject.layer == page1Layer)
+                {
+                    status = Status.FIRST;
+                    // 当たり判定を一時的につける
+                    boxCollider2D.enabled = true;
+                }
+                // ページ2のとき
+                else if (transform.parent.gameObject.layer == page2Layer)
+                {
+                    status = Status.SECOND;
+                    // 半透明にする
+                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                    // 当たり判定を一時的に無くす
+                    boxCollider2D.enabled = false;
                 }
 
                 break;
