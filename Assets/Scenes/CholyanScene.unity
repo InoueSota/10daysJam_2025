@@ -298,6 +298,7 @@ MonoBehaviour:
   changeRotation: {x: 15, y: -50, z: 0}
   selectLineObj: {fileID: 1141686663}
   selectNum: 0
+  isChoice: 0
   controller: {fileID: 1421194799}
   gridTransform: {fileID: 1159083513}
   diffValue: 3
@@ -966,6 +967,36 @@ Tilemap:
   m_GameObject: {fileID: 1024207766}
   m_Enabled: 1
   m_Tiles:
+  - first: {x: 3, y: -6, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 0
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
+  - first: {x: 4, y: -6, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 0
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
+  - first: {x: 4, y: -5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 0
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
   - first: {x: -7, y: -3, z: 0}
     second:
       serializedVersion: 2
@@ -1198,17 +1229,17 @@ Tilemap:
       m_AllTileFlags: 1073741826
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 21
+  - m_RefCount: 24
     m_Data: {fileID: 11400000, guid: 6999698331a724f44838830d71367882, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 9c44ced712a3d1c4984f811d413fbfdc, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 21
+  - m_RefCount: 24
     m_Data: {fileID: 21300000, guid: 4d015853377e7a740b0d9533a474839d, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -3457448024721243918, guid: c8cd9ff5a5c802a47b23fb815b3159b7, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 23
+  - m_RefCount: 26
     m_Data:
       e00: 1
       e01: 0
@@ -1227,10 +1258,10 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 23
+  - m_RefCount: 26
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray:
-  - m_RefCount: 21
+  - m_RefCount: 24
     m_Data: {fileID: 7921618599945661865, guid: 149502d61761e45468bf12a9a7f5b634, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 7921618599945661865, guid: 5398a9ad8ae02f54abb6eaaac768191a, type: 3}

@@ -26,7 +26,7 @@ public class ChangeLayerManager : MonoBehaviour
 
     // Choice Parameter
     private Transform choiseTransform;
-    private bool isChoice;
+    [SerializeField] private bool isChoice;
 
     [Header("Layer Parameter")]
     [SerializeField] private PlayerController controller;
@@ -102,6 +102,8 @@ public class ChangeLayerManager : MonoBehaviour
                     break;
                 case Status.ACTIVE:
 
+                    isChoice = false;
+
                     selectLineObj.SetActive(false);
                     selectLineObj.transform.position = new(0f, 0f, 0f);
                     selectLineRenderer.SetPosition(0, new(-10f, 13.5f, 0f));
@@ -168,19 +170,26 @@ public class ChangeLayerManager : MonoBehaviour
                         selectNum--;
                         selectNum = Mathf.Clamp(selectNum, 1, selectNum);
 
-                        // レイヤー入れ替え
-                        choiseTransform.parent.gameObject.layer--;
-                        pagesTransform[selectNum].transform.parent.gameObject.layer++;
-
                         // 場所入れ替え
                         Vector3 preChoisePosition = choiseTransform.position;
                         choiseTransform.position = pagesTransform[selectNum].transform.position;
                         pagesTransform[selectNum].transform.position = preChoisePosition;
 
+                        // レイヤー入れ替え
+                        choiseTransform.gameObject.layer--;
+                        pagesTransform[selectNum].transform.gameObject.layer++;
+
                         // Transform入れ替え
-                        Transform tmpTransform = pagesTransform[selectNum + 1];
-                        pagesTransform[selectNum + 1] = pagesTransform[selectNum];
-                        pagesTransform[selectNum] = tmpTransform;
+                        choiseTransform.SetSiblingIndex(choiseTransform.GetSiblingIndex() - 1);
+                        for (int i = 0; i < pagesTransform.Length; i++) { pagesTransform[i] = gridTransform.GetChild(i).transform; }
+
+                        foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterChangeLayer(); }
+
+                        selectLineObj.transform.position = new(0f, 0f, choiseTransform.position.z);
+                        selectLineRenderer.SetPosition(0, new(-10f, 13.5f, choiseTransform.position.z));
+                        selectLineRenderer.SetPosition(1, new(10f, 13.5f, choiseTransform.position.z));
+                        selectLineRenderer.SetPosition(2, new(10f, -1.5f, choiseTransform.position.z));
+                        selectLineRenderer.SetPosition(3, new(-10f, -1.5f, choiseTransform.position.z));
                     }
                 }
                 else if (Input.GetAxisRaw("Horizontal2") > 0f)
@@ -190,36 +199,42 @@ public class ChangeLayerManager : MonoBehaviour
                         selectNum++;
                         selectNum = Mathf.Clamp(selectNum, selectNum, 2);
 
-                        // レイヤー入れ替え
-                        choiseTransform.parent.gameObject.layer++;
-                        pagesTransform[selectNum].transform.parent.gameObject.layer--;
-
                         // 場所入れ替え
                         Vector3 preChoisePosition = choiseTransform.position;
                         choiseTransform.position = pagesTransform[selectNum].transform.position;
                         pagesTransform[selectNum].transform.position = preChoisePosition;
 
+                        // レイヤー入れ替え
+                        choiseTransform.gameObject.layer++;
+                        pagesTransform[selectNum].transform.gameObject.layer--;
+
                         // Transform入れ替え
-                        Transform tmpTransform = pagesTransform[selectNum - 1];
-                        pagesTransform[selectNum - 1] = pagesTransform[selectNum];
-                        pagesTransform[selectNum] = tmpTransform;
+                        choiseTransform.SetSiblingIndex(choiseTransform.GetSiblingIndex() + 1);
+                        for (int i = 0; i < pagesTransform.Length; i++) { pagesTransform[i] = gridTransform.GetChild(i).transform; }
+
+                        foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterChangeLayer(); }
+
+                        selectLineObj.transform.position = new(0f, 0f, choiseTransform.position.z);
+                        selectLineRenderer.SetPosition(0, new(-10f, 13.5f, choiseTransform.position.z));
+                        selectLineRenderer.SetPosition(1, new(10f, 13.5f, choiseTransform.position.z));
+                        selectLineRenderer.SetPosition(2, new(10f, -1.5f, choiseTransform.position.z));
+                        selectLineRenderer.SetPosition(3, new(-10f, -1.5f, choiseTransform.position.z));
                     }
                 }
                 isSelect = true;
             }
 
             if (isSelect && Input.GetAxisRaw("Horizontal2") == 0f) { isSelect = false; }
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                isChoice = false;
-            }
         }
 
         if (!isChoice && Input.GetButtonDown("Jump"))
         {
             choiseTransform = pagesTransform[selectNum];
             isChoice = true;
+        }
+        else if (isChoice && Input.GetButtonDown("Jump"))
+        {
+            isChoice = false;
         }
     }
 
