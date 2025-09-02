@@ -72,32 +72,35 @@ public class ChangeLayerManager : MonoBehaviour
             {
                 case Status.DEFAULT:
 
-                    selectLineObj.SetActive(true);
-
-                    for (int i = 0; i < pagesTransform.Length; i++) { pagesTransform[i] = gridTransform.GetChild(i).transform; }
-
-                    selectLineObj.transform.position = new(0f, 0f, pagesTransform[selectNum].transform.position.z);
-                    selectLineRenderer.SetPosition(0, new(-10f, 13.5f, pagesTransform[selectNum].transform.position.z));
-                    selectLineRenderer.SetPosition(1, new(10f, 13.5f, pagesTransform[selectNum].transform.position.z));
-                    selectLineRenderer.SetPosition(2, new(10f, -1.5f, pagesTransform[selectNum].transform.position.z));
-                    selectLineRenderer.SetPosition(3, new(-10f, -1.5f, pagesTransform[selectNum].transform.position.z));
-
-                    // Cameraの挙動
-                    transform.position = changePosition;
-                    transform.rotation = Quaternion.Euler(changeRotation);
-                    thisCamera.orthographicSize = 12f;
-
-                    // レイヤーの挙動
-                    for (int i = 0; i < pagesTransform.Length; i++)
+                    if (controller.IsGrounded())
                     {
-                        pagesTransform[i].transform.localPosition = new(pagesTransform[i].transform.localPosition.x, pagesTransform[i].transform.localPosition.y, pagesTransform[i].transform.localPosition.z + diffValue * (i - pagesTransform.Length * 0.5f));
+                        selectLineObj.SetActive(true);
+
+                        for (int i = 0; i < pagesTransform.Length; i++) { pagesTransform[i] = gridTransform.GetChild(i).transform; }
+
+                        selectLineObj.transform.position = new(0f, 0f, pagesTransform[selectNum].transform.position.z);
+                        selectLineRenderer.SetPosition(0, new(-10f, 13.5f, pagesTransform[selectNum].transform.position.z));
+                        selectLineRenderer.SetPosition(1, new(10f, 13.5f, pagesTransform[selectNum].transform.position.z));
+                        selectLineRenderer.SetPosition(2, new(10f, -1.5f, pagesTransform[selectNum].transform.position.z));
+                        selectLineRenderer.SetPosition(3, new(-10f, -1.5f, pagesTransform[selectNum].transform.position.z));
+
+                        // Cameraの挙動
+                        transform.position = changePosition;
+                        transform.rotation = Quaternion.Euler(changeRotation);
+                        thisCamera.orthographicSize = 12f;
+
+                        // レイヤーの挙動
+                        for (int i = 0; i < pagesTransform.Length; i++)
+                        {
+                            pagesTransform[i].transform.localPosition = new(pagesTransform[i].transform.localPosition.x, pagesTransform[i].transform.localPosition.y, pagesTransform[i].transform.localPosition.z + diffValue * (i - pagesTransform.Length * 0.5f));
+                        }
+
+                        // プレイヤーの挙動
+                        controller.SetDefault();
+
+                        // Status遷移
+                        status = Status.ACTIVE;
                     }
-
-                    // プレイヤーの挙動
-                    controller.SetDefault();
-
-                    // Status遷移
-                    status = Status.ACTIVE;
 
                     break;
                 case Status.ACTIVE:
@@ -123,7 +126,7 @@ public class ChangeLayerManager : MonoBehaviour
                     }
 
                     // プレイヤーの挙動
-                    controller.SetDefault();
+                    controller.SetBackToNormal();
 
                     // Status遷移
                     status = Status.DEFAULT;
@@ -136,12 +139,12 @@ public class ChangeLayerManager : MonoBehaviour
     {
         if (!isSelect && !isChoice)
         {
-            if (Input.GetAxisRaw("Horizontal2") < 0f)
+            if (Input.GetAxisRaw("Horizontal") < 0f)
             {
                 selectNum--;
                 selectNum = Mathf.Clamp(selectNum, 1, selectNum);
             }
-            else if (Input.GetAxisRaw("Horizontal2") > 0f)
+            else if (Input.GetAxisRaw("Horizontal") > 0f)
             {
                 selectNum++;
                 selectNum = Mathf.Clamp(selectNum, selectNum, 2);
@@ -155,7 +158,7 @@ public class ChangeLayerManager : MonoBehaviour
             isSelect = true;
         }
 
-        if (isSelect && !isChoice && Input.GetAxisRaw("Horizontal2") == 0f) { isSelect = false; }
+        if (isSelect && !isChoice && Input.GetAxisRaw("Horizontal") == 0f) { isSelect = false; }
     }
     void ChangeLayer()
     {
@@ -163,7 +166,7 @@ public class ChangeLayerManager : MonoBehaviour
         {
             if (!isSelect)
             {
-                if (Input.GetAxisRaw("Horizontal2") < 0f)
+                if (Input.GetAxisRaw("Horizontal") < 0f)
                 {
                     if (selectNum > 1)
                     {
@@ -192,7 +195,7 @@ public class ChangeLayerManager : MonoBehaviour
                         selectLineRenderer.SetPosition(3, new(-10f, -1.5f, choiseTransform.position.z));
                     }
                 }
-                else if (Input.GetAxisRaw("Horizontal2") > 0f)
+                else if (Input.GetAxisRaw("Horizontal") > 0f)
                 {
                     if (selectNum < 2)
                     {
@@ -224,7 +227,7 @@ public class ChangeLayerManager : MonoBehaviour
                 isSelect = true;
             }
 
-            if (isSelect && Input.GetAxisRaw("Horizontal2") == 0f) { isSelect = false; }
+            if (isSelect && Input.GetAxisRaw("Horizontal") == 0f) { isSelect = false; }
         }
 
         if (!isChoice && Input.GetButtonDown("Jump"))

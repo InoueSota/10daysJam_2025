@@ -146,6 +146,8 @@ public class AllFieldObjectManager : MonoBehaviour
                     status = Status.FIRST;
                     // 当たり判定を一時的につける
                     boxCollider2D.enabled = true;
+
+                    foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(1f); }
                 }
                 // ページ2のとき
                 else if (transform.parent.gameObject.layer == page2Layer)
@@ -155,6 +157,8 @@ public class AllFieldObjectManager : MonoBehaviour
                     spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
                     // 当たり判定を一時的に無くす
                     boxCollider2D.enabled = false;
+
+                    foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(0.2f); }
                 }
 
                 break;
