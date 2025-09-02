@@ -20,6 +20,14 @@ public class PageManager : MonoBehaviour
         
     }
 
+    // Getter
+    public bool IsNoPagePosition(Vector3 _objectPosition)
+    {
+        //if ()
+        return true;
+    }
+
+    // Setter
     public void SetTearInfomation(Vector3 _tearPosition, Vector3 _direction)
     {
         if (_direction.x < 0f)
@@ -31,7 +39,10 @@ public class PageManager : MonoBehaviour
         }
         else
         {
-
+            if (!isSetRightTear || (isSetRightTear && _tearPosition.x < saveRightTearPosition.x))
+            {
+                saveRightTearPosition = _tearPosition;
+            }
         }
     }
 }

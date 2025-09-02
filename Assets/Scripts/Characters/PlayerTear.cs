@@ -41,6 +41,13 @@ public class PlayerTear : MonoBehaviour
             targetIntensity = maxIntensity;
             isActive = true;
         }
+        else if (isActive && Input.GetButtonDown("Special"))
+        {
+            // 破り、終了
+            controller.SetBackToNormal();
+            targetIntensity = 0f;
+            isActive = false;
+        }
 
         // 十字ボタンの左右どちらかを押したら、左右どちらかを破り捨てる
         if (isActive && (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f))
@@ -60,11 +67,6 @@ public class PlayerTear : MonoBehaviour
 
             // 該当するレイヤーに破き情報を与える
             gridTransform.GetChild(1).GetComponent<PageManager>().SetTearInfomation(new(Mathf.RoundToInt(transform.position.x), 0f, 0f), new(Input.GetAxisRaw("Horizontal"), 0f, 0f));
-
-            // 破り、終了
-            controller.SetBackToNormal();
-            targetIntensity = 0f;
-            isActive = false;
         }
 
         // Global Volume

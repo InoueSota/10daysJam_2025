@@ -146,6 +146,11 @@ public class AllFieldObjectManager : MonoBehaviour
                 // ÉyÅ[ÉW2ÇÃÇ∆Ç´
                 else if (transform.parent.gameObject.layer == page2Layer)
                 {
+                    if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 1).GetComponent<PageManager>())
+                    {
+                        
+                    }
+
                     status = Status.SECOND;
                     // îºìßñæÇ…Ç∑ÇÈ
                     spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
