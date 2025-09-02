@@ -18,10 +18,9 @@ public class ChangeLayerManager : MonoBehaviour
     [SerializeField] private Vector3 changeRotation;
     private Camera thisCamera;
 
-    [Header("Select Parameter")]
-    [SerializeField] private GameObject selectLineObj;
-    private int selectNum;
+    private GameObject selectLineObj;
     private LineRenderer selectLineRenderer;
+    private int selectNum;
     private bool isSelect;
 
     // Choice Parameter
@@ -38,6 +37,7 @@ public class ChangeLayerManager : MonoBehaviour
     {
         thisCamera = GetComponent<Camera>();
 
+        selectLineObj = transform.GetChild(0).gameObject;
         selectLineRenderer = selectLineObj.GetComponent<LineRenderer>();
 
         gridTransform = GameObject.FindGameObjectWithTag("Grid").transform;
@@ -81,16 +81,16 @@ public class ChangeLayerManager : MonoBehaviour
 
                         for (int i = 0; i < pagesTransform.Length; i++) { pagesTransform[i] = gridTransform.GetChild(i).transform; }
 
+                        // Camera‚Ì‹““®
+                        transform.position = changePosition;
+                        transform.rotation = Quaternion.Euler(changeRotation);
+                        thisCamera.orthographicSize = 12f;
+
                         selectLineObj.transform.position = new(0f, 0f, pagesTransform[selectNum].transform.position.z);
                         selectLineRenderer.SetPosition(0, new(-10f, 13.5f, pagesTransform[selectNum].transform.position.z));
                         selectLineRenderer.SetPosition(1, new(10f, 13.5f, pagesTransform[selectNum].transform.position.z));
                         selectLineRenderer.SetPosition(2, new(10f, -1.5f, pagesTransform[selectNum].transform.position.z));
                         selectLineRenderer.SetPosition(3, new(-10f, -1.5f, pagesTransform[selectNum].transform.position.z));
-
-                        // Camera‚Ì‹““®
-                        transform.position = changePosition;
-                        transform.rotation = Quaternion.Euler(changeRotation);
-                        thisCamera.orthographicSize = 12f;
 
                         // ƒŒƒCƒ„[‚Ì‹““®
                         for (int i = 0; i < pagesTransform.Length; i++)
@@ -150,7 +150,7 @@ public class ChangeLayerManager : MonoBehaviour
             else if (Input.GetAxisRaw("Horizontal") > 0f)
             {
                 selectNum++;
-                selectNum = Mathf.Clamp(selectNum, selectNum, 2);
+                selectNum = Mathf.Clamp(selectNum, selectNum, 3);
             }
             selectLineObj.transform.position = new(0f, 0f, pagesTransform[selectNum].transform.position.z);
             selectLineRenderer.SetPosition(0, new(-10f, 13.5f, pagesTransform[selectNum].transform.position.z));
@@ -200,10 +200,10 @@ public class ChangeLayerManager : MonoBehaviour
                 }
                 else if (Input.GetAxisRaw("Horizontal") > 0f)
                 {
-                    if (selectNum < 2)
+                    if (selectNum < 3)
                     {
                         selectNum++;
-                        selectNum = Mathf.Clamp(selectNum, selectNum, 2);
+                        selectNum = Mathf.Clamp(selectNum, selectNum, 3);
 
                         // êŠ“ü‚ê‘Ö‚¦
                         Vector3 preChoisePosition = choiseTransform.position;
