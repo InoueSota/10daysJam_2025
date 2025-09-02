@@ -10,11 +10,18 @@ public class PlayerController : MonoBehaviour
     [Header("移動パラメータ")]
     [SerializeField] private float moveSpeed;
     private float xSpeed;
+    [Header("タイル状に正規化パラメータ")]
+    [SerializeField] private float tileChasePower;
+    private Vector3 targetTilePosition;
+    private bool isSetTile;
     [Header("ジャンプパラメータ")]
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
     [Header("頭打ちパラメータ")]
     [SerializeField] private float hoveringTime;
+    private float hoveringTimer;
+    private bool isHovering;
+    private bool canHovering;
 
     void Start()
     {
@@ -28,6 +35,23 @@ public class PlayerController : MonoBehaviour
         MoveUpdate();
         // ジャンプ処理
         JumpUpdate();
+        // ホバー処理
+        HoverUpdate();
+    }
+    public void SetTileUpdate()
+    {
+        if (!isSetTile && Input.GetButtonDown("Special"))
+        {
+            if (transform.position.x < Mathf.RoundToInt(transform.position.x)) { targetTilePosition.x = Mathf.RoundToInt(transform.position.x) - 0.5f; }
+            else if (transform.position.x > Mathf.RoundToInt(transform.position.x)) { targetTilePosition.x = Mathf.RoundToInt(transform.position.x) + 0.5f; }
+            isSetTile = true;
+        }
+
+        if (isSetTile)
+        {
+            targetTilePosition.y = transform.position.y;
+            transform.position = transform.position + (targetTilePosition - transform.position) * (tileChasePower * Time.deltaTime);
+        }
     }
 
     /// <summary>
@@ -36,9 +60,9 @@ public class PlayerController : MonoBehaviour
     void MoveUpdate()
     {
         // 右方向に入力
-        if (Input.GetAxisRaw("Horizontal") > 0f) { xSpeed = moveSpeed; }
+        if (Input.GetAxisRaw("Horizontal") > 0.5f) { xSpeed = moveSpeed; }
         // 左方向に入力
-        else if (Input.GetAxisRaw("Horizontal") < 0f) { xSpeed = -moveSpeed; }
+        else if (Input.GetAxisRaw("Horizontal") < -0.5f) { xSpeed = -moveSpeed; }
         // 未入力
         else { xSpeed = 0f; }
     }
@@ -49,6 +73,31 @@ public class PlayerController : MonoBehaviour
     void JumpUpdate()
     {
         if (Input.GetButtonDown("Jump") && IsGrounded()) { rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, jumpPower); }
+    }
+
+    /// <summary>
+    /// ホバー処理
+    /// </summary>
+    void HoverUpdate()
+    {
+        if (!isHovering && canHovering && IsHitHead())
+        {
+            rbody2D.linearVelocity = new(rbody2D.linearVelocity.x, 0f);
+            hoveringTimer = hoveringTime;
+            isHovering = true;
+        }
+        else if (isHovering)
+        {
+            rbody2D.gravityScale = 0f;
+
+            hoveringTimer -= Time.deltaTime;
+            if (hoveringTimer <= 0f)
+            {
+                rbody2D.gravityScale = 1f;
+                canHovering = false;
+                isHovering = false;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -64,28 +113,60 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         // 現在位置を反映
-        Vector3 currentLeftPosition  = transform.position;
+        Vector3 currentLeftPosition = transform.position;
         Vector3 currentRightPosition = transform.position;
 
         // ずらす
-        currentLeftPosition.x  -= halfSize;
+        currentLeftPosition.x -= halfSize;
         currentRightPosition.x += halfSize;
 
         // Rayの生成
-        RaycastHit2D leftHit  = Physics2D.Raycast(currentLeftPosition,  Vector2.down, 0.6f, groundLayer);
+        RaycastHit2D leftHit = Physics2D.Raycast(currentLeftPosition, Vector2.down, 0.6f, groundLayer);
         RaycastHit2D rightHit = Physics2D.Raycast(currentRightPosition, Vector2.down, 0.6f, groundLayer);
 
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
-        if (leftHit.collider != null ||  rightHit.collider != null)
+        if (leftHit.collider != null || rightHit.collider != null)
+        {
+            canHovering = true;
+            return true;
+        }
+        return false;
+    }
+    public bool IsHitHead()
+    {
+        // 現在位置を反映
+        Vector3 currentLeftPosition = transform.position;
+        Vector3 currentRightPosition = transform.position;
+
+        // ずらす
+        currentLeftPosition.x -= halfSize;
+        currentRightPosition.x += halfSize;
+
+        // Rayの生成
+        RaycastHit2D leftHit = Physics2D.Raycast(currentLeftPosition, Vector2.up, 0.45f, groundLayer);
+        RaycastHit2D rightHit = Physics2D.Raycast(currentRightPosition, Vector2.up, 0.45f, groundLayer);
+
+        // RayがgroundLayerに衝突していたら接地判定はtrueを返す
+        if (leftHit.collider != null || rightHit.collider != null)
         {
             return true;
         }
         return false;
     }
 
+    // Getter
+    public Vector3 GetTargetTilePosition() { return targetTilePosition; }
+
     // Setter
     public void SetDefault()
     {
         xSpeed = 0f;
+        rbody2D.gravityScale = 0f;
+    }
+    public void SetBackToNormal()
+    {
+        rbody2D.gravityScale = 1f;
+
+        isSetTile = false;
     }
 }

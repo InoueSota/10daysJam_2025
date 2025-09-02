@@ -58,7 +58,7 @@ public class GoalManager : MonoBehaviour
         }
         else
         {
-            if (otherGoalObj.GetComponent<AllFieldObjectManager>().GetStatus() != allFieldObjectManager.GetStatus())
+            if (otherGoalObj && otherGoalObj.GetComponent<AllFieldObjectManager>().GetStatus() != allFieldObjectManager.GetStatus())
             {
                 Destroy(goalLineObj);
                 otherGoalObj = null;
