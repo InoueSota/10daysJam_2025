@@ -146,25 +146,45 @@ public class AllFieldObjectManager : MonoBehaviour
                 // ページ2のとき
                 else if (transform.parent.gameObject.layer == page2Layer)
                 {
-                    if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 1).GetComponent<PageManager>())
+                    if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 1).GetComponent<PageManager>().IsNoPagePosition(transform.position))
                     {
-                        
+                        status = Status.FIRST;
                     }
-
-                    status = Status.SECOND;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
+                    else
+                    {
+                        status = Status.SECOND;
+                        // 半透明にする
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                        // 当たり判定を一時的に無くす
+                        boxCollider2D.enabled = false;
+                    }
                 }
                 // ページ3のとき
                 else if (transform.parent.gameObject.layer == page3Layer)
                 {
-                    status = Status.SECOND;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
+                    if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 1).GetComponent<PageManager>().IsNoPagePosition(transform.position))
+                    {
+                        if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 2).GetComponent<PageManager>().IsNoPagePosition(transform.position))
+                        {
+                            status = Status.FIRST;
+                        }
+                        else
+                        {
+                            status = Status.SECOND;
+                            // 半透明にする
+                            spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                            // 当たり判定を一時的に無くす
+                            boxCollider2D.enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        status = Status.THIRD;
+                        // 半透明にする
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
+                        // 当たり判定を一時的に無くす
+                        boxCollider2D.enabled = false;
+                    }
                 }
 
                 break;
@@ -187,24 +207,59 @@ public class AllFieldObjectManager : MonoBehaviour
                 // ページ2のとき
                 else if (transform.parent.gameObject.layer == page2Layer)
                 {
-                    status = Status.SECOND;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
+                    if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 1).GetComponent<PageManager>().IsNoPagePosition(transform.position))
+                    {
+                        status = Status.FIRST;
+                        // 当たり判定を一時的につける
+                        boxCollider2D.enabled = true;
 
-                    foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(0.2f); }
+                        foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(1f); }
+                    }
+                    else
+                    {
+                        status = Status.SECOND;
+                        // 半透明にする
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                        // 当たり判定を一時的に無くす
+                        boxCollider2D.enabled = false;
+
+                        foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(0.2f); }
+                    }
                 }
                 // ページ3のとき
                 else if (transform.parent.gameObject.layer == page3Layer)
                 {
-                    status = Status.THIRD;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
+                    if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 1).GetComponent<PageManager>().IsNoPagePosition(transform.position))
+                    {
+                        if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 2).GetComponent<PageManager>().IsNoPagePosition(transform.position))
+                        {
+                            status = Status.FIRST;
+                            // 当たり判定を一時的につける
+                            boxCollider2D.enabled = true;
 
-                    foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(0.02f); }
+                            foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(1f); }
+                        }
+                        else
+                        {
+                            status = Status.SECOND;
+                            // 半透明にする
+                            spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                            // 当たり判定を一時的に無くす
+                            boxCollider2D.enabled = false;
+
+                            foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(0.2f); }
+                        }
+                    }
+                    else
+                    {
+                        status = Status.THIRD;
+                        // 半透明にする
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
+                        // 当たり判定を一時的に無くす
+                        boxCollider2D.enabled = false;
+
+                        foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine")) { goalLine.GetComponent<GoalLineManager>().SetAlpha(0.02f); }
+                    }
                 }
 
                 break;
@@ -225,20 +280,49 @@ public class AllFieldObjectManager : MonoBehaviour
                 // ページ2のとき
                 else if (transform.parent.gameObject.layer == page2Layer)
                 {
-                    status = Status.SECOND;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
+                    if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 1).GetComponent<PageManager>().IsNoPagePosition(transform.position))
+                    {
+                        status = Status.FIRST;
+                        // 当たり判定を一時的につける
+                        boxCollider2D.enabled = true;
+                    }
+                    else
+                    {
+                        status = Status.SECOND;
+                        // 半透明にする
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                        // 当たり判定を一時的に無くす
+                        boxCollider2D.enabled = false;
+                    }
                 }
                 // ページ3のとき
                 else if (transform.parent.gameObject.layer == page3Layer)
                 {
-                    status = Status.THIRD;
-                    // 半透明にする
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
-                    // 当たり判定を一時的に無くす
-                    boxCollider2D.enabled = false;
+                    if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 1).GetComponent<PageManager>().IsNoPagePosition(transform.position))
+                    {
+                        if (transform.parent.parent.GetChild(transform.parent.GetSiblingIndex() - 2).GetComponent<PageManager>().IsNoPagePosition(transform.position))
+                        {
+                            status = Status.FIRST;
+                            // 当たり判定を一時的につける
+                            boxCollider2D.enabled = true;
+                        }
+                        else
+                        {
+                            status = Status.SECOND;
+                            // 半透明にする
+                            spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.2f);
+                            // 当たり判定を一時的に無くす
+                            boxCollider2D.enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        status = Status.THIRD;
+                        // 半透明にする
+                        spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.02f);
+                        // 当たり判定を一時的に無くす
+                        boxCollider2D.enabled = false;
+                    }
                 }
 
                 break;

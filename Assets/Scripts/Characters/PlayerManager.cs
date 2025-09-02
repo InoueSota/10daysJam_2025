@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour
         // レイヤー変更操作をしていない場合のみ更新
         if (!changeLayerManager.GetIsActive())
         {
+            controller.SetTileUpdate();
+
             tear.ManualUpdate();
 
             // 破り操作をしていない場合のみ更新

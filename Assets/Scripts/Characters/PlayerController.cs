@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     [Header("移動パラメータ")]
     [SerializeField] private float moveSpeed;
     private float xSpeed;
+    [Header("タイル状に正規化パラメータ")]
+    [SerializeField] private float tileChasePower;
+    private Vector3 targetTilePosition;
+    private bool isSetTile;
     [Header("ジャンプパラメータ")]
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
@@ -34,6 +38,21 @@ public class PlayerController : MonoBehaviour
         // ホバー処理
         HoverUpdate();
     }
+    public void SetTileUpdate()
+    {
+        if (!isSetTile && Input.GetButtonDown("Special"))
+        {
+            if (transform.position.x < Mathf.RoundToInt(transform.position.x)) { targetTilePosition.x = Mathf.RoundToInt(transform.position.x) - 0.5f; }
+            else if (transform.position.x > Mathf.RoundToInt(transform.position.x)) { targetTilePosition.x = Mathf.RoundToInt(transform.position.x) + 0.5f; }
+            isSetTile = true;
+        }
+
+        if (isSetTile)
+        {
+            targetTilePosition.y = transform.position.y;
+            transform.position = transform.position + (targetTilePosition - transform.position) * (tileChasePower * Time.deltaTime);
+        }
+    }
 
     /// <summary>
     /// 左右移動処理
@@ -41,9 +60,9 @@ public class PlayerController : MonoBehaviour
     void MoveUpdate()
     {
         // 右方向に入力
-        if (Input.GetAxisRaw("Horizontal") > 0f) { xSpeed = moveSpeed; }
+        if (Input.GetAxisRaw("Horizontal") > 0.5f) { xSpeed = moveSpeed; }
         // 左方向に入力
-        else if (Input.GetAxisRaw("Horizontal") < 0f) { xSpeed = -moveSpeed; }
+        else if (Input.GetAxisRaw("Horizontal") < -0.5f) { xSpeed = -moveSpeed; }
         // 未入力
         else { xSpeed = 0f; }
     }
@@ -135,6 +154,9 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    // Getter
+    public Vector3 GetTargetTilePosition() { return targetTilePosition; }
+
     // Setter
     public void SetDefault()
     {
@@ -144,5 +166,7 @@ public class PlayerController : MonoBehaviour
     public void SetBackToNormal()
     {
         rbody2D.gravityScale = 1f;
+
+        isSetTile = false;
     }
 }
