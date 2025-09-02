@@ -7,9 +7,11 @@ public class PlayerTear : MonoBehaviour
     // 自コンポーネント
     private PlayerController controller;
 
+    // 他コンポーネント
+    private Transform gridTransform;
+
     // フラグ類
     private bool isActive;
-    private bool isTear;
 
     // Global Volume
     [SerializeField] private float fadePower;
@@ -22,6 +24,9 @@ public class PlayerTear : MonoBehaviour
     {
         // 自コンポーネントの取得
         controller = _controller;
+
+        // 他コンポーネントの取得
+        gridTransform = GameObject.FindGameObjectWithTag("Grid").transform;
 
         // Global Volume
         postEffectVolume.profile.TryGet(out vignette);
@@ -36,16 +41,9 @@ public class PlayerTear : MonoBehaviour
             targetIntensity = maxIntensity;
             isActive = true;
         }
-        // 破り、終了
-        else if (isActive && Input.GetButtonDown("Special"))
-        {
-            controller.SetBackToNormal();
-            targetIntensity = 0f;
-            isActive = false;
-        }
 
         // 十字ボタンの左右どちらかを押したら、左右どちらかを破り捨てる
-        if (isActive && !isTear && (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f))
+        if (isActive && (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f))
         {
             // 該当するFieldObjectを破る操作を行うが、破られるかどうかはAllFieldObjectManager内で判断する
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
@@ -60,11 +58,14 @@ public class PlayerTear : MonoBehaviour
                 }
             }
 
-            isTear = true;
-        }
+            // 該当するレイヤーに破き情報を与える
+            gridTransform.GetChild(1).GetComponent<PageManager>().SetTearInfomation(new(Mathf.RoundToInt(transform.position.x), 0f, 0f), new(Input.GetAxisRaw("Horizontal"), 0f, 0f));
 
-        // 左スティックを離したら再入力を受け付けるようにする
-        if (isTear && Input.GetAxisRaw("Horizontal") == 0f) { isTear = false; }
+            // 破り、終了
+            controller.SetBackToNormal();
+            targetIntensity = 0f;
+            isActive = false;
+        }
 
         // Global Volume
         vignette.intensity.value += (targetIntensity - vignette.intensity.value) * (fadePower * Time.deltaTime);
