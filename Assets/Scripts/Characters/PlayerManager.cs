@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     private PlayerTear tear;
 
     // 他コンポーネント
-    [SerializeField] private ChangeLayerManager changeLayerManager;
+    private ChangeLayerManager changeLayerManager;
 
     void Start()
     {
@@ -17,6 +17,8 @@ public class PlayerManager : MonoBehaviour
         tear = GetComponent<PlayerTear>();
 
         tear.Initialize(controller);
+
+        changeLayerManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ChangeLayerManager>();
     }
 
     void Update()
