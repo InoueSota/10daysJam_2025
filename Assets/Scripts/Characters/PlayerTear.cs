@@ -65,11 +65,11 @@ public class PlayerTear : MonoBehaviour
             // ŠY“–‚·‚éFieldObject‚ğ”j‚é‘€ì‚ğs‚¤‚ªA”j‚ç‚ê‚é‚©‚Ç‚¤‚©‚ÍAllFieldObjectManager“à‚Å”»’f‚·‚é
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
-                if (Input.GetAxisRaw("Horizontal") < 0f && fieldObject.transform.position.x < Mathf.RoundToInt(transform.position.x))
+                if (Input.GetAxisRaw("Horizontal") < 0f && fieldObject.transform.position.x < controller.GetTargetTilePosition().x && Mathf.Abs(fieldObject.transform.position.x - controller.GetTargetTilePosition().x) > 0.1f)
                 {
                     fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
                 }
-                else if (Input.GetAxisRaw("Horizontal") > 0f && fieldObject.transform.position.x > Mathf.RoundToInt(transform.position.x))
+                else if (Input.GetAxisRaw("Horizontal") > 0f && fieldObject.transform.position.x > controller.GetTargetTilePosition().x && Mathf.Abs(fieldObject.transform.position.x - controller.GetTargetTilePosition().x) > 0.1f)
                 {
                     fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
                 }
