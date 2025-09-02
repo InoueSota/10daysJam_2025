@@ -20,18 +20,18 @@ public class ChangeLayerManager : MonoBehaviour
 
     [Header("Select Parameter")]
     [SerializeField] private GameObject selectLineObj;
-    [SerializeField] private int selectNum;
+    private int selectNum;
     private LineRenderer selectLineRenderer;
     private bool isSelect;
 
     // Choice Parameter
     private Transform choiseTransform;
-    [SerializeField] private bool isChoice;
+    private bool isChoice;
 
     [Header("Layer Parameter")]
-    [SerializeField] private PlayerController controller;
-    [SerializeField] private Transform gridTransform;
     [SerializeField] private float diffValue;
+    private PlayerController controller;
+    private Transform gridTransform;
     private Transform[] pagesTransform;
 
     void Start()
@@ -39,6 +39,9 @@ public class ChangeLayerManager : MonoBehaviour
         thisCamera = GetComponent<Camera>();
 
         selectLineRenderer = selectLineObj.GetComponent<LineRenderer>();
+
+        gridTransform = GameObject.FindGameObjectWithTag("Grid").transform;
+        controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         pagesTransform = new Transform[gridTransform.childCount];
 

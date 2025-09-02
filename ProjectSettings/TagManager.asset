@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FieldObject
   - GoalLine
+  - Grid
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - Page1
   - Page2
-  - 
+  - Page3
   - 
   - 
   - 
