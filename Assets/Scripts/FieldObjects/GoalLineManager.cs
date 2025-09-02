@@ -27,14 +27,10 @@ public class GoalLineManager : MonoBehaviour
         pointA = _pointA;
         pointB = _pointB;
 
-        // 2点間を設定
-        lineRenderer.SetPosition(0, pointA.position);
-        lineRenderer.SetPosition(1, pointB.position);
-
         // 透明度の設定
         SetAlpha(alpha);
     }
-    void SetAlpha(float alpha)
+    public void SetAlpha(float alpha)
     {
         // 現在の色を取得
         Color start = lineRenderer.startColor;
@@ -51,6 +47,10 @@ public class GoalLineManager : MonoBehaviour
 
     void Update()
     {
+        // 2点間を設定
+        lineRenderer.SetPosition(0, pointA.position);
+        lineRenderer.SetPosition(1, pointB.position);
+
         if (pointA == null || pointB == null) { Destroy(gameObject); }
     }
 }

@@ -139,5 +139,10 @@ public class PlayerController : MonoBehaviour
     public void SetDefault()
     {
         xSpeed = 0f;
+        rbody2D.gravityScale = 0f;
+    }
+    public void SetBackToNormal()
+    {
+        rbody2D.gravityScale = 1f;
     }
 }

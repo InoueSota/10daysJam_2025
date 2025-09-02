@@ -9,6 +9,7 @@ public class PlayerTear : MonoBehaviour
 
     // フラグ類
     private bool isActive;
+    private bool isTear;
 
     // Global Volume
     [SerializeField] private float fadePower;
@@ -35,26 +36,35 @@ public class PlayerTear : MonoBehaviour
             targetIntensity = maxIntensity;
             isActive = true;
         }
+        // 破り、終了
+        else if (isActive && Input.GetButtonDown("Special"))
+        {
+            controller.SetBackToNormal();
+            targetIntensity = 0f;
+            isActive = false;
+        }
 
         // 十字ボタンの左右どちらかを押したら、左右どちらかを破り捨てる
-        if (isActive && (Input.GetAxisRaw("Horizontal2") < 0f || Input.GetAxisRaw("Horizontal2") > 0f))
+        if (isActive && !isTear && (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f))
         {
             // 該当するFieldObjectを破る操作を行うが、破られるかどうかはAllFieldObjectManager内で判断する
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
-                if (Input.GetAxisRaw("Horizontal2") < 0f && fieldObject.transform.position.x < Mathf.RoundToInt(transform.position.x))
+                if (Input.GetAxisRaw("Horizontal") < 0f && fieldObject.transform.position.x < Mathf.RoundToInt(transform.position.x))
                 {
                     fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
                 }
-                else if (Input.GetAxisRaw("Horizontal2") > 0f && fieldObject.transform.position.x > Mathf.RoundToInt(transform.position.x))
+                else if (Input.GetAxisRaw("Horizontal") > 0f && fieldObject.transform.position.x > Mathf.RoundToInt(transform.position.x))
                 {
                     fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
                 }
             }
 
-            targetIntensity = 0f;
-            isActive = false;
+            isTear = true;
         }
+
+        // 左スティックを離したら再入力を受け付けるようにする
+        if (isTear && Input.GetAxisRaw("Horizontal") == 0f) { isTear = false; }
 
         // Global Volume
         vignette.intensity.value += (targetIntensity - vignette.intensity.value) * (fadePower * Time.deltaTime);
