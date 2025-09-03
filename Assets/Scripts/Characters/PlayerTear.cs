@@ -56,7 +56,11 @@ public class PlayerTear : MonoBehaviour
         else if (isActive && Input.GetButtonDown("Special"))
         {
             targetIntensity = 0f;
+
+            // êeÇå≥Ç…ñﬂÇ∑
+            foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.transform.parent = objectParent1; }
             isDivision = false;
+
             isActive = false;
             divisionLineObj.SetActive(false);
         }
