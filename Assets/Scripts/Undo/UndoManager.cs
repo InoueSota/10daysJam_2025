@@ -58,6 +58,7 @@ public class UndoManager : MonoBehaviour
         divisionLine = divisionLineObj.transform;
         state.divisionPosition = divisionLine.position;
         state.divisionLineActiveState = divisionLine.gameObject.activeSelf;
+        state.divisionLineRotation = divisionLine.rotation;
 
         history.Push(state);
     }
@@ -85,6 +86,7 @@ public class UndoManager : MonoBehaviour
 
         // ï™ífê¸ä÷åW
         divisionLine.position = prevState.divisionPosition;
+        divisionLine.rotation = prevState.divisionLineRotation;
         divisionLine.gameObject.SetActive(prevState.divisionLineActiveState);
     }
 }

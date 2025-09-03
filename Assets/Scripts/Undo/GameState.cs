@@ -16,5 +16,6 @@ public class GameState
 
     // •ª’füŠÖŒW
     public Vector3 divisionLinePosition;
+    public Quaternion divisionLineRotation;
     public bool divisionLineActiveState;
 }

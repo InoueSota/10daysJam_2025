@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     // 他コンポーネント
     private UndoManager undoManager;
+    private DivisionLineManager divisionLineManager;
 
     [Header("Basic Parameter")]
     [SerializeField] private float halfSize;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
+        divisionLineManager = tear.GetDivisionLineManager();
     }
 
     public void ManualUpdate()
@@ -85,10 +87,22 @@ public class PlayerController : MonoBehaviour
                 // 分断されている場合
                 if (tear.GetIsDivision())
                 {
-                    // 左側
-                    if (transform.position.x < tear.GetDivisionPosition().x) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
-                    // 右側
-                    else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                    // 上下線
+                    if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
+                    {
+                        // 左側
+                        if (transform.position.x < tear.GetDivisionPosition().x) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                        // 右側
+                        else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                    }
+                    // 左右線
+                    else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
+                    {
+                        // 上側
+                        if (transform.position.y > tear.GetDivisionPosition().y) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                        // 下側
+                        else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                    }
                 }
                 // 分断されていない場合
                 else { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
