@@ -9,13 +9,8 @@ public class TilemapManager : MonoBehaviour
 
     void Start()
     {
-        page1Renderer.enabled = false;
-        page2Renderer.enabled = false;
-        page3Renderer.enabled = false;
-    }
-
-    void Update()
-    {
-        
+        if (page1Renderer) { page1Renderer.enabled = false; }
+        if (page2Renderer) { page2Renderer.enabled = false; }
+        if (page3Renderer) { page3Renderer.enabled = false; }
     }
 }

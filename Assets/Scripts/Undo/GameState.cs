@@ -1,0 +1,20 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class GameState
+{
+    // ƒvƒŒƒCƒ„[ŠÖŒW
+    public Vector3 playerPosition;
+    public Vector2 divisionPosition;
+    public bool isDivision;
+
+    // ƒuƒƒbƒNŠÖŒW
+    public List<Vector3> blockPositions = new List<Vector3>();
+    public List<bool> blockActiveStates = new List<bool>();
+    public List<Transform> blockParents = new List<Transform>();
+
+    // •ª’füŠÖŒW
+    public Vector3 divisionLinePosition;
+    public bool divisionLineActiveState;
+}

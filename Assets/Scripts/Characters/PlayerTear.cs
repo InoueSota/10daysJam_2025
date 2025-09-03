@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 
 public class PlayerTear : MonoBehaviour
 {
@@ -8,86 +6,72 @@ public class PlayerTear : MonoBehaviour
     private PlayerController controller;
 
     // 他コンポーネント
-    private Transform gridTransform;
+    [SerializeField] private Transform objectParent1;
+    [SerializeField] private Transform objectParent2;
+    [SerializeField] private GameObject divisionLineObj;
+    private UndoManager undoManager;
 
-    // フラグ類
-    private bool isActive;
-    private bool isReleaseStick;
+    // 分断座標
+    private Vector2 divisionPosition;
+    // 分断フラグ
+    private bool isDivision;
 
-    // Global Volume
-    [SerializeField] private float fadePower;
-    [SerializeField] private Volume postEffectVolume;
-    private Vignette vignette;
-    private float maxIntensity = 0.5f;
-    private float targetIntensity = 0f;
-
-    public void Initialize(PlayerController _controller)
+    void Start()
     {
-        isReleaseStick = true;
+        controller = GetComponent<PlayerController>();
 
-        // 自コンポーネントの取得
-        controller = _controller;
-
-        // 他コンポーネントの取得
-        gridTransform = GameObject.FindGameObjectWithTag("Grid").transform;
-
-        // Global Volume
-        postEffectVolume.profile.TryGet(out vignette);
+        // 他コンポーネントを取得
+        undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
     }
 
     public void ManualUpdate()
     {
-        // 破り、開始
-        if (!isActive && controller.IsGrounded() && Input.GetButtonDown("Special"))
+        // ロケット移動をしておらず、地面に接地している時に分断可能
+        if (Input.GetButtonDown("Special") && !controller.GetIsRocketMoving() && controller.IsGrounded())
         {
-            if (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f)
+            // 移動前に保存
+            undoManager.SaveState();
+
+            // まだ分断していなかったら、初分断フラグをtrueにする
+            if (!isDivision) { isDivision = true; }
+            // 分断座標は整数丸めをしたプレイヤー座標
+            divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+
+            // 分断線の再表示
+            if (!divisionLineObj.activeSelf)
             {
-                isReleaseStick = false;
+                divisionLineObj.transform.parent = null;
+                divisionLineObj.SetActive(true);
             }
-            controller.SetDefault();
-            targetIntensity = maxIntensity;
-            isActive = true;
-        }
-        // 破り、終了
-        else if (isActive && Input.GetButtonDown("Special"))
-        {
-            controller.SetBackToNormal();
-            targetIntensity = 0f;
-            isActive = false;
-        }
+            // 分断線の位置を修正
+            divisionLineObj.transform.position = new Vector3(divisionPosition.x, 6f, 0f);
+            // 分断線に情報を与える
+            divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.VERTICAL);
 
-        // 指を一度話させる処理
-        if (isActive && !isReleaseStick && Input.GetAxisRaw("Horizontal") == 0f) { isReleaseStick = true; }
-
-        // 十字ボタンの左右どちらかを押したら、左右どちらかを破り捨てる
-        if (isActive && isReleaseStick && (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f))
-        {
-            // 該当するFieldObjectを破る操作を行うが、破られるかどうかはAllFieldObjectManager内で判断する
+            // 分断処理
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
-                if (Input.GetAxisRaw("Horizontal") < 0f && fieldObject.transform.position.x < controller.GetTargetTilePosition().x && Mathf.Abs(fieldObject.transform.position.x - controller.GetTargetTilePosition().x) > 0.1f)
-                {
-                    fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
-                }
-                else if (Input.GetAxisRaw("Horizontal") > 0f && fieldObject.transform.position.x > controller.GetTargetTilePosition().x && Mathf.Abs(fieldObject.transform.position.x - controller.GetTargetTilePosition().x) > 0.1f)
-                {
-                    fieldObject.GetComponent<AllFieldObjectManager>().HitTear();
-                }
+                // 左側
+                if (fieldObject.transform.position.x < Mathf.RoundToInt(transform.position.x)) { fieldObject.transform.parent = objectParent1; }
+                // 右側
+                else { fieldObject.transform.parent = objectParent2; }
             }
-
-            // 該当するレイヤーに破き情報を与える
-            gridTransform.GetChild(1).GetComponent<PageManager>().SetTearInfomation(new(Mathf.RoundToInt(transform.position.x), 0f, 0f), new(Input.GetAxisRaw("Horizontal"), 0f, 0f));
-
-            // 破り、終了
-            controller.SetBackToNormal();
-            targetIntensity = 0f;
-            isActive = false;
         }
-
-        // Global Volume
-        vignette.intensity.value += (targetIntensity - vignette.intensity.value) * (fadePower * Time.deltaTime);
     }
 
     // Getter
-    public bool GetIsActive() { return isActive; }
+    public bool GetIsDivision() { return isDivision; }
+    public Vector2 GetDivisionPosition() { return divisionPosition; }
+    public Transform GetObjectTransform(int _num)
+    {
+        if (_num == 1)
+        {
+            return objectParent1;
+        }
+        return objectParent2;
+    }
+
+    // Setter
+    public void SetDivisionPosition(Vector2 _divisionPosition) { divisionPosition = _divisionPosition; }
+    public void SetIsDivision(bool _isDivision) { isDivision = _isDivision; }
 }

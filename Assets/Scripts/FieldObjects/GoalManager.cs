@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class GoalManager : MonoBehaviour
 {
-    // 自コンポーネント
-    private AllFieldObjectManager allFieldObjectManager;
-
     [Header("GoalLine")]
     [SerializeField] private GameObject goalLinePrefab;
 
-    // 他ゴール
-    private GameObject otherGoalObj;
+    [Header("Hit Parameter")]
+    [SerializeField] private LayerMask groundLayer;
+
     // ゴール線
     private GameObject goalLineObj;
+    // 他ゴール
+    private GameObject otherGoalObj;
 
     // フラグ類
     private bool isLineActive;
 
     void Start()
     {
-        allFieldObjectManager = GetComponent<AllFieldObjectManager>();
+
     }
 
     void Update()
@@ -28,40 +28,61 @@ public class GoalManager : MonoBehaviour
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
                 if (fieldObject != gameObject &&
-                    fieldObject.GetComponent<AllFieldObjectManager>().GetStatus() == allFieldObjectManager.GetStatus() &&
                     fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.GOAL &&
                     !fieldObject.GetComponent<GoalManager>().GetIsLineActive())
                 {
                     if (Mathf.Abs(transform.position.x - fieldObject.transform.position.x) < 0.1f ||
                         Mathf.Abs(transform.position.y - fieldObject.transform.position.y) < 0.1f)
                     {
-                        goalLineObj = Instantiate(goalLinePrefab);
+                        bool noBlock = true;
 
-                        switch (allFieldObjectManager.GetStatus())
+                        foreach (RaycastHit2D hit in Physics2D.RaycastAll(transform.position, (fieldObject.transform.position - transform.position).normalized, Vector3.Distance(transform.position, fieldObject.transform.position), groundLayer))
                         {
-                            case AllFieldObjectManager.Status.FIRST:
-                                goalLineObj.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform, 1f);
+                            // TagがFieldObjectなら
+                            if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                            {
+                                noBlock = false;
                                 break;
-                            case AllFieldObjectManager.Status.SECOND:
-                                goalLineObj.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform, 0.2f);
-                                break;
+                            }
                         }
 
-                        // 他ゴールを設定
-                        otherGoalObj = fieldObject;
+                        if (noBlock)
+                        {
+                            goalLineObj = Instantiate(goalLinePrefab);
+                            goalLineObj.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform, 1f);
 
-                        isLineActive = true;
-                        break;
+                            otherGoalObj = fieldObject;
+
+                            isLineActive = true;
+                            break;
+                        }
                     }
                 }
             }
         }
         else
         {
-            if (otherGoalObj && otherGoalObj.GetComponent<AllFieldObjectManager>().GetStatus() != allFieldObjectManager.GetStatus())
+            bool noBlock = true;
+
+            foreach (RaycastHit2D hit in Physics2D.RaycastAll(transform.position, (otherGoalObj.transform.position - transform.position).normalized, Vector3.Distance(transform.position, otherGoalObj.transform.position), groundLayer))
+            {
+                // TagがFieldObjectなら
+                if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                {
+                    noBlock = false;
+                    break;
+                }
+            }
+
+            if (!noBlock)
             {
                 Destroy(goalLineObj);
-                otherGoalObj = null;
+                isLineActive = false;
+            }
+
+            if (Mathf.Abs(transform.position.x - otherGoalObj.transform.position.x) > 0.1f && Mathf.Abs(transform.position.y - otherGoalObj.transform.position.y) > 0.1f)
+            {
+                Destroy(goalLineObj);
                 isLineActive = false;
             }
         }

@@ -6,7 +6,7 @@ TagManager:
   tags:
   - FieldObject
   - GoalLine
-  - Grid
+  - DivisionLine
   layers:
   - Default
   - TransparentFX
