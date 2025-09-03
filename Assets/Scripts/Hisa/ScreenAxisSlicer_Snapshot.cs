@@ -60,6 +60,10 @@ public class ScreenAxisSlicer_Snapshot : MonoBehaviour
     List<Vector2> polyA, polyB;
     Vector2 lastCutDirLocal = Vector2.right;
 
+    //演出用に切った辺の座標を保存
+    public Vector3 tmpP0;
+    public Vector3 tmpP1;
+
     void Awake()
     {
         if (!targetCamera) targetCamera = Camera.main;
@@ -80,6 +84,15 @@ public class ScreenAxisSlicer_Snapshot : MonoBehaviour
         BuildInitialQuadAsPolygon();
         EnsureCCW(currentPoly);
         RebuildMainMesh(currentPoly);
+
+        if (lineRenderer)
+        {
+            lineRenderer.positionCount = 0;
+            lineRenderer.useWorldSpace = true;
+        }
+
+        // ★ここでスクリーンサイズにフィット（位置合わせ＋メッシュ再構築）
+        FitToScreenAtStart();
 
         if (lineRenderer)
         {
@@ -253,6 +266,9 @@ public class ScreenAxisSlicer_Snapshot : MonoBehaviour
             lineRenderer.SetPosition(0, p0);
             lineRenderer.SetPosition(1, p1);
             Invoke(nameof(ClearLine), 0.05f);
+
+            tmpP0 = p0;
+            tmpP1 = p1;
         }
 
         lastCutDirLocal = Vector2.up;
@@ -278,6 +294,8 @@ public class ScreenAxisSlicer_Snapshot : MonoBehaviour
             lineRenderer.SetPosition(0, p0);
             lineRenderer.SetPosition(1, p1);
             Invoke(nameof(ClearLine), 0.05f);
+            tmpP0 = p0;
+            tmpP1 = p1;
         }
 
         lastCutDirLocal = Vector2.right;
@@ -604,5 +622,51 @@ public class ScreenAxisSlicer_Snapshot : MonoBehaviour
 
         ps.Play();
         Destroy(psObj, confettiLife + 1.0f); // 自動クリーンアップ
+    }
+
+    // ★ 追加: 起動時にスクリーンサイズへフィット
+    void FitToScreenAtStart()
+    {
+        if (!targetCamera) targetCamera = Camera.main;
+
+        // カメラ中心のXYに合わせ、Zは zPlane に固定
+        var cam = targetCamera;
+        var pos = cam.transform.position;
+        transform.position = new Vector3(pos.x, pos.y, zPlane);
+
+        // 回転・スケールは素直に
+        transform.rotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+
+        // 画面サイズを算出（オーソ/パース対応）
+        float halfW, halfH;
+        if (cam.orthographic)
+        {
+            halfH = cam.orthographicSize;
+            halfW = halfH * cam.aspect;
+        }
+        else
+        {
+            // パース時: カメラから zPlane までの距離で可視サイズを計算
+            float dist = Mathf.Abs(cam.transform.position.z - zPlane);
+            halfH = Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad) * dist;
+            halfW = halfH * cam.aspect;
+        }
+
+        // そのサイズで初期ポリゴンを作る
+        BuildInitialQuadAsPolygon(halfW * 2f, halfH * 2f);
+        EnsureCCW(currentPoly);
+        RebuildMainMesh(currentPoly);
+    }
+
+    // ★ 変更: 引数付きの初期四角形ビルド（幅w, 高さh）
+    void BuildInitialQuadAsPolygon(float w, float h)
+    {
+        currentPoly.Clear();
+        // 左下→右下→右上→左上（CCW）
+        currentPoly.Add(new Vector2(-w * 0.5f, -h * 0.5f));
+        currentPoly.Add(new Vector2(+w * 0.5f, -h * 0.5f));
+        currentPoly.Add(new Vector2(+w * 0.5f, +h * 0.5f));
+        currentPoly.Add(new Vector2(-w * 0.5f, +h * 0.5f));
     }
 }
