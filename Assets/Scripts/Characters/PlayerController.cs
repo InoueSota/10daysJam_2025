@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerController : MonoBehaviour
 {
@@ -63,9 +61,9 @@ public class PlayerController : MonoBehaviour
         prePosition = currentPosition;
         currentPosition = transform.position;
         // ジャンプ可能か判定
-        if ((IsGrounded() && rbody2D.linearVelocity.y <= 0f) || 
+        if (!canJump &&　((IsGrounded() && rbody2D.linearVelocity.y <= 0f) || 
             (tear.GetIsDivision() && prePosition.x < tear.GetDivisionPosition().x && tear.GetDivisionPosition().x <= currentPosition.x) || 
-            (tear.GetIsDivision() && prePosition.x > tear.GetDivisionPosition().x && tear.GetDivisionPosition().x >= currentPosition.x)) 
+            (tear.GetIsDivision() && prePosition.x > tear.GetDivisionPosition().x && tear.GetDivisionPosition().x >= currentPosition.x)))
         {
             if (isHitHead) { isHitHead = false; }
             canJump = true;
@@ -75,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && canJump) { rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, jumpPower); canJump = false; }
 
         // 頭突き処理
-        if (!isHitHead && IsHitHead())
+        if (!isHitHead && IsHitHead() && rbody2D.linearVelocity.y > 0f)
         {
             if (tear.GetIsDivision())
             {
@@ -86,6 +84,7 @@ public class PlayerController : MonoBehaviour
             {
                 tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + Vector3.up;
             }
+            transform.position = transform.position + Vector3.up;
             rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, 0f);
             isHitHead = true;
         }
