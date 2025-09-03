@@ -7,6 +7,8 @@ public class GoalManager : MonoBehaviour
 
     // ゴール線
     private GameObject goalLineObj;
+    // 他ゴール
+    private GameObject otherGoalObj;
 
     // フラグ類
     private bool isLineActive;
@@ -32,10 +34,20 @@ public class GoalManager : MonoBehaviour
                         goalLineObj = Instantiate(goalLinePrefab);
                         goalLineObj.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform, 1f);
 
+                        otherGoalObj = fieldObject;
+
                         isLineActive = true;
                         break;
                     }
                 }
+            }
+        }
+        else
+        {
+            if (Mathf.Abs(transform.position.x - otherGoalObj.transform.position.x) > 0.1f && Mathf.Abs(transform.position.y - otherGoalObj.transform.position.y) > 0.1f)
+            {
+                Destroy(goalLineObj);
+                isLineActive = false;
             }
         }
     }
