@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerController : MonoBehaviour
 {
@@ -70,8 +68,6 @@ public class PlayerController : MonoBehaviour
             if (isHitHead) { isHitHead = false; }
             canJump = true;
         }
-
-        Debug.Log(IsGrounded());
 
         // ジャンプ開始
         if (Input.GetButtonDown("Jump") && canJump) { rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, jumpPower); canJump = false; }
