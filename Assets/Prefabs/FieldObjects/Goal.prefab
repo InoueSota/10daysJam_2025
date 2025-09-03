@@ -190,3 +190,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalLinePrefab: {fileID: 7921618599945661865, guid: 7ed4477d0b497ed4ba353f2d086bfd3a, type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8

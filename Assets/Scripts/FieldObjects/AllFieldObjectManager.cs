@@ -38,10 +38,6 @@ public class AllFieldObjectManager : MonoBehaviour
         switch (objectType)
         {
             case ObjectType.GROUND:
-
-
-
-                break;
             case ObjectType.GOAL:
             case ObjectType.BLOCK:
             case ObjectType.SPONGE:
