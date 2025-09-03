@@ -161,6 +161,12 @@ public class PlayerController : MonoBehaviour
             if (leftHit.collider != null)  { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); }
             if (rightHit.collider != null) { hitAllFieldObjectManager = rightHit.collider.GetComponent<AllFieldObjectManager>(); }
 
+            // 当たったブロック単体に起こす処理
+            if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.FRAGILE)
+            {
+                hitAllFieldObjectManager.gameObject.SetActive(false);
+            }
+
             return true;
         }
         return false;

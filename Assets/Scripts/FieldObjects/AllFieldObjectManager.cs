@@ -8,7 +8,8 @@ public class AllFieldObjectManager : MonoBehaviour
         GROUND,
         GOAL,
         BLOCK,
-        SPONGE
+        SPONGE,
+        FRAGILE
     }
     [SerializeField] private ObjectType objectType;
 
@@ -63,6 +64,12 @@ public class AllFieldObjectManager : MonoBehaviour
                         gameObject.SetActive(false);
                     }
                 }
+
+                break;
+
+            case ObjectType.FRAGILE:
+
+
 
                 break;
         }
