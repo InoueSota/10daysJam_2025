@@ -71,11 +71,6 @@ public class PlayerController : MonoBehaviour
             canJump = true;
         }
 
-<<<<<<< HEAD
-        Debug.Log(IsGrounded());
-
-=======
->>>>>>> 327de5e2b89bcd090b15a2338625ecd1ef5b0fcb
         // ジャンプ開始
         if (Input.GetButtonDown("Jump") && canJump) { rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, jumpPower); canJump = false; }
 
