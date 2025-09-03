@@ -6,18 +6,17 @@ public class PlayerController : MonoBehaviour
     private PlayerTear tear;
     private Rigidbody2D rbody2D;
 
-    [Header("基本パラメータ")]
+    // 他コンポーネント
+    private UndoManager undoManager;
+
+    [Header("Basic Parameter")]
     [SerializeField] private float halfSize;
-    [Header("移動パラメータ")]
-    [SerializeField] private float moveSpeed;
-    private float xSpeed;
-    private Vector3 prePosition;
-    private Vector3 currentPosition;
-    [Header("ジャンプパラメータ")]
-    [SerializeField] private float jumpPower;
+    [Header("Rocket Parameter")]
+    [SerializeField] private float rocketSpeed;
+    private Vector3 rocketVector;
+    private bool isRocketMoving;
+    [Header("Ground Judgement")]
     [SerializeField] private LayerMask groundLayer;
-    private bool isHitHead;
-    private bool canJump;
 
     void Start()
     {
@@ -25,79 +24,92 @@ public class PlayerController : MonoBehaviour
         tear = GetComponent<PlayerTear>();
         rbody2D = GetComponent<Rigidbody2D>();
 
-        currentPosition = transform.position;
+        // 他コンポーネントを取得
+        undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
     }
 
     public void ManualUpdate()
     {
         // 左右移動処理
         MoveUpdate();
-        // ジャンプ処理
-        JumpUpdate();
+        // 頭突き処理
+        HeadbuttUpdate();
+
+        // Undo
+        if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
     }
 
     /// <summary>
-    /// 左右移動処理
+    /// 移動処理
     /// </summary>
     void MoveUpdate()
     {
-        // 右方向に入力
-        if (Input.GetAxisRaw("Horizontal") > 0.5f) { xSpeed = moveSpeed; }
-        // 左方向に入力
-        else if (Input.GetAxisRaw("Horizontal") < -0.5f) { xSpeed = -moveSpeed; }
-        // 未入力
-        else { xSpeed = 0f; }
+        if (!isRocketMoving && IsGrounded() && Input.GetButtonDown("Jump") &&
+            (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
+        {
+            // 移動前に保存
+            undoManager.SaveState();
+
+            // 移動ベクトルの初期化
+            rocketVector = Vector2.zero;
+            // 重力を無くす
+            rbody2D.gravityScale = 0f;
+
+            // 右方向に入力
+            if (Input.GetAxisRaw("Horizontal") > 0.5f) { rocketVector.x = rocketSpeed; }
+            // 左方向に入力
+            else if (Input.GetAxisRaw("Horizontal") < -0.5f) { rocketVector.x = -rocketSpeed; }
+            // 上方向に入力
+            else if (Input.GetAxisRaw("Vertical") > 0.5f) { rocketVector.y = rocketSpeed; }
+            // 下方向に入力
+            else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector.y = -rocketSpeed; }
+
+            // フラグの変更
+            isRocketMoving = true;
+        }
     }
 
     /// <summary>
-    /// ジャンプ処理
+    /// 頭突き処理
     /// </summary>
-    void JumpUpdate()
+    void HeadbuttUpdate()
     {
-        // 頭突き可能に再設定
-        if (isHitHead && IsGrounded()) { isHitHead = false; }
-
-        // 前回フレーム座標の保存
-        prePosition = currentPosition;
-        currentPosition = transform.position;
-        // ジャンプ可能か判定
-        if (!canJump &&　((IsGrounded() && rbody2D.linearVelocity.y <= 0f) || 
-            (tear.GetIsDivision() && prePosition.x < tear.GetDivisionPosition().x && tear.GetDivisionPosition().x <= currentPosition.x) || 
-            (tear.GetIsDivision() && prePosition.x > tear.GetDivisionPosition().x && tear.GetDivisionPosition().x >= currentPosition.x)))
-        {
-            if (isHitHead) { isHitHead = false; }
-            canJump = true;
-        }
-
-        // ジャンプ開始
-        if (Input.GetButtonDown("Jump") && canJump) { rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, jumpPower); canJump = false; }
-
         // 頭突き処理
-        if (!isHitHead && IsHitHead() && rbody2D.linearVelocity.y > 0f)
+        if (isRocketMoving && IsHitHead())
         {
+            // 分断されている場合
             if (tear.GetIsDivision())
             {
-                if (transform.position.x < tear.GetDivisionPosition().x) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + Vector3.up; }
-                else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + Vector3.up; }
+                // 左側
+                if (transform.position.x < tear.GetDivisionPosition().x) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                // 右側
+                else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + rocketVector.normalized; }
             }
-            else
-            {
-                tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + Vector3.up;
-            }
-            transform.position = transform.position + Vector3.up;
-            rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, 0f);
-            isHitHead = true;
+            // 分断されていない場合
+            else { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+
+            // 分断処理
+            foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt()); }
+
+            // 移動を無くす
+            rbody2D.linearVelocity = Vector2.zero;
+            // 重力を受けるように戻す
+            rbody2D.gravityScale = 1f;
+
+            // フラグの変更
+            isRocketMoving = false;
         }
+    }
+    bool IsHorizontalHeadbutt()
+    {
+        if (Mathf.Abs(rocketVector.x) > 0.1f) { return true; }
+        return false;
     }
 
     void FixedUpdate()
     {
-        // 現在の値を取得
-        Vector2 velocity = rbody2D.linearVelocity;
-        // X方向の移動速度を代入
-        velocity.x = xSpeed;
-        // Rigidbody2Dに反映
-        rbody2D.linearVelocity = velocity;
+        // ロケット移動をしている時のみRigidbody2Dに反映
+        if (isRocketMoving) { rbody2D.linearVelocity = rocketVector; }
     }
 
     // 接地判定群
@@ -125,16 +137,24 @@ public class PlayerController : MonoBehaviour
     public bool IsHitHead()
     {
         // 現在位置を反映
-        Vector3 currentLeftPosition = transform.position;
-        Vector3 currentRightPosition = transform.position;
+        Vector3 currentOnePosition = transform.position;
+        Vector3 currentTwoPosition = transform.position;
 
         // ずらす
-        currentLeftPosition.x -= halfSize;
-        currentRightPosition.x += halfSize;
+        if (Mathf.Abs(rocketVector.x) > 0f)
+        {
+            currentOnePosition.y -= halfSize;
+            currentTwoPosition.y += halfSize;
+        }
+        else
+        {
+            currentOnePosition.x -= halfSize;
+            currentTwoPosition.x += halfSize;
+        }
 
         // Rayの生成
-        RaycastHit2D leftHit = Physics2D.Raycast(currentLeftPosition, Vector2.up, 0.45f, groundLayer);
-        RaycastHit2D rightHit = Physics2D.Raycast(currentRightPosition, Vector2.up, 0.45f, groundLayer);
+        RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.45f, groundLayer);
+        RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.45f, groundLayer);
 
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
         if (leftHit.collider != null || rightHit.collider != null)
@@ -144,14 +164,6 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    // Setter
-    public void SetDefault()
-    {
-        xSpeed = 0f;
-        rbody2D.gravityScale = 0f;
-    }
-    public void SetBackToNormal()
-    {
-        rbody2D.gravityScale = 1f;
-    }
+    // Getter
+    public bool GetIsRocketMoving() { return isRocketMoving; }
 }
