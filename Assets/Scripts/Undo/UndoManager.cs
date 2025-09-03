@@ -6,6 +6,7 @@ public class UndoManager : MonoBehaviour
     // プレイヤー関係
     private Transform player;
     private PlayerTear tear;
+    private PlayerController controller;
 
     // ブロック関係
     private List<Transform> blocks = new List<Transform>();
@@ -20,6 +21,7 @@ public class UndoManager : MonoBehaviour
     {
         // プレイヤー情報の取得
         tear = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerTear>();
+        controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         // 最初に一度だけブロック一覧を登録する
         GameObject[] blockObjects = GameObject.FindGameObjectsWithTag("FieldObject");
@@ -71,6 +73,7 @@ public class UndoManager : MonoBehaviour
         player.position = prevState.playerPosition;
         tear.SetDivisionPosition(prevState.divisionPosition);
         tear.SetIsDivision(prevState.isDivision);
+        controller.RocketInitialize();
 
         // ブロック関係
         for (int i = 0; i < blocks.Count; i++)

@@ -91,13 +91,8 @@ public class PlayerController : MonoBehaviour
             // 分断処理
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt()); }
 
-            // 移動を無くす
-            rbody2D.linearVelocity = Vector2.zero;
-            // 重力を受けるように戻す
-            rbody2D.gravityScale = 1f;
-
-            // フラグの変更
-            isRocketMoving = false;
+            // 変数の初期化
+            RocketInitialize();
         }
     }
     bool IsHorizontalHeadbutt()
@@ -162,6 +157,18 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    // Setter
+    public void RocketInitialize()
+    {
+        // 移動を無くす
+        rbody2D.linearVelocity = Vector2.zero;
+        // 重力を受けるように戻す
+        rbody2D.gravityScale = 1f;
+
+        // フラグの変更
+        isRocketMoving = false;
     }
 
     // Getter
