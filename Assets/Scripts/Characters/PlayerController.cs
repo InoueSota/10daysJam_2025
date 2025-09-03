@@ -66,7 +66,10 @@ public class PlayerController : MonoBehaviour
         if ((IsGrounded() && rbody2D.linearVelocity.y <= 0f) || 
             (tear.GetIsDivision() && prePosition.x < tear.GetDivisionPosition().x && tear.GetDivisionPosition().x <= currentPosition.x) || 
             (tear.GetIsDivision() && prePosition.x > tear.GetDivisionPosition().x && tear.GetDivisionPosition().x >= currentPosition.x)) 
-        { canJump = true; }
+        {
+            if (isHitHead) { isHitHead = false; }
+            canJump = true;
+        }
 
         Debug.Log(IsGrounded());
 
