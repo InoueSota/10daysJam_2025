@@ -298,6 +298,8 @@ MonoBehaviour:
   objectParent1: {fileID: 0}
   objectParent2: {fileID: 0}
   divisionLineObj: {fileID: 5203099502078435929}
+  fadePower: 6
+  postEffectVolume: {fileID: 0}
 --- !u!1001 &2727529132337844208
 PrefabInstance:
   m_ObjectHideFlags: 0

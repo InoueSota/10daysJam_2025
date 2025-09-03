@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerTear : MonoBehaviour
 {
@@ -11,10 +13,21 @@ public class PlayerTear : MonoBehaviour
     [SerializeField] private GameObject divisionLineObj;
     private UndoManager undoManager;
 
+    // フラグ類
+    private bool isActive;
+    private bool isReleaseStick;
+
     // 分断座標
     private Vector2 divisionPosition;
     // 分断フラグ
     private bool isDivision;
+
+    // Global Volume
+    [SerializeField] private float fadePower;
+    [SerializeField] private Volume postEffectVolume;
+    private Vignette vignette;
+    private float maxIntensity = 0.5f;
+    private float targetIntensity = 0f;
 
     void Start()
     {
@@ -22,12 +35,35 @@ public class PlayerTear : MonoBehaviour
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
+
+        // Global Volume
+        postEffectVolume.profile.TryGet(out vignette);
     }
 
     public void ManualUpdate()
     {
+        // 破り、開始
+        if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
+        {
+            if (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f)
+            {
+                isReleaseStick = false;
+            }
+            targetIntensity = maxIntensity;
+            isActive = true;
+        }
+        // 破り、終了
+        else if (isActive && Input.GetButtonDown("Special"))
+        {
+            targetIntensity = 0f;
+            isActive = false;
+        }
+
+        // 指を一度離させる処理
+        if (isActive && !isReleaseStick && Input.GetAxisRaw("Horizontal") == 0f) { isReleaseStick = true; }
+
         // ロケット移動をしておらず、地面に接地している時に分断可能
-        if (Input.GetButtonDown("Special") && !controller.GetIsRocketMoving() && controller.IsGrounded())
+        if (isActive && isReleaseStick && (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f))
         {
             // 移動前に保存
             undoManager.SaveState();
@@ -35,8 +71,9 @@ public class PlayerTear : MonoBehaviour
             // まだ分断していなかったら、初分断フラグをtrueにする
             if (!isDivision) { isDivision = true; }
             // 分断座標は整数丸めをしたプレイヤー座標
-            divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
-
+            if (Input.GetAxisRaw("Horizontal") < 0f) { divisionPosition = new Vector2(Mathf.FloorToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); }
+            if (Input.GetAxisRaw("Horizontal") > 0f) { divisionPosition = new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); }
+            
             // 分断線の再表示
             if (!divisionLineObj.activeSelf)
             {
@@ -56,7 +93,13 @@ public class PlayerTear : MonoBehaviour
                 // 右側
                 else { fieldObject.transform.parent = objectParent2; }
             }
+
+            targetIntensity = 0f;
+            isActive = false;
         }
+
+        // Global Volume
+        vignette.intensity.value += (targetIntensity - vignette.intensity.value) * (fadePower * Time.deltaTime);
     }
 
     // Getter
