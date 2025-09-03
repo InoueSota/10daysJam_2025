@@ -1,8 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerController : MonoBehaviour
 {
     // 自コンポーネント
+    private PlayerTear tear;
     private Rigidbody2D rbody2D;
 
     [Header("基本パラメータ")]
@@ -10,23 +13,21 @@ public class PlayerController : MonoBehaviour
     [Header("移動パラメータ")]
     [SerializeField] private float moveSpeed;
     private float xSpeed;
-    [Header("タイル状に正規化パラメータ")]
-    [SerializeField] private float tileChasePower;
-    private Vector3 targetTilePosition;
-    private bool isSetTile;
+    private Vector3 prePosition;
+    private Vector3 currentPosition;
     [Header("ジャンプパラメータ")]
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
-    [Header("頭打ちパラメータ")]
-    [SerializeField] private float hoveringTime;
-    private float hoveringTimer;
-    private bool isHovering;
-    private bool canHovering;
+    private bool isHitHead;
+    private bool canJump;
 
     void Start()
     {
         // 自コンポーネントを取得
+        tear = GetComponent<PlayerTear>();
         rbody2D = GetComponent<Rigidbody2D>();
+
+        currentPosition = transform.position;
     }
 
     public void ManualUpdate()
@@ -35,23 +36,6 @@ public class PlayerController : MonoBehaviour
         MoveUpdate();
         // ジャンプ処理
         JumpUpdate();
-        // ホバー処理
-        HoverUpdate();
-    }
-    public void SetTileUpdate()
-    {
-        if (!isSetTile && Input.GetButtonDown("Special"))
-        {
-            if (transform.position.x < Mathf.RoundToInt(transform.position.x)) { targetTilePosition.x = Mathf.RoundToInt(transform.position.x) - 0.5f; }
-            else if (transform.position.x > Mathf.RoundToInt(transform.position.x)) { targetTilePosition.x = Mathf.RoundToInt(transform.position.x) + 0.5f; }
-            isSetTile = true;
-        }
-
-        if (isSetTile)
-        {
-            targetTilePosition.y = transform.position.y;
-            transform.position = transform.position + (targetTilePosition - transform.position) * (tileChasePower * Time.deltaTime);
-        }
     }
 
     /// <summary>
@@ -72,31 +56,37 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void JumpUpdate()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded()) { rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, jumpPower); }
-    }
+        // 頭突き可能に再設定
+        if (isHitHead && IsGrounded()) { isHitHead = false; }
 
-    /// <summary>
-    /// ホバー処理
-    /// </summary>
-    void HoverUpdate()
-    {
-        if (!isHovering && canHovering && IsHitHead())
-        {
-            rbody2D.linearVelocity = new(rbody2D.linearVelocity.x, 0f);
-            hoveringTimer = hoveringTime;
-            isHovering = true;
-        }
-        else if (isHovering)
-        {
-            rbody2D.gravityScale = 0f;
+        // 前回フレーム座標の保存
+        prePosition = currentPosition;
+        currentPosition = transform.position;
+        // ジャンプ可能か判定
+        if ((IsGrounded() && rbody2D.linearVelocity.y <= 0f) || 
+            (tear.GetIsDivision() && prePosition.x < tear.GetDivisionPosition().x && tear.GetDivisionPosition().x <= currentPosition.x) || 
+            (tear.GetIsDivision() && prePosition.x > tear.GetDivisionPosition().x && tear.GetDivisionPosition().x >= currentPosition.x)) 
+        { canJump = true; }
 
-            hoveringTimer -= Time.deltaTime;
-            if (hoveringTimer <= 0f)
+        Debug.Log(IsGrounded());
+
+        // ジャンプ開始
+        if (Input.GetButtonDown("Jump") && canJump) { rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, jumpPower); canJump = false; }
+
+        // 頭突き処理
+        if (!isHitHead && IsHitHead())
+        {
+            if (tear.GetIsDivision())
             {
-                rbody2D.gravityScale = 1f;
-                canHovering = false;
-                isHovering = false;
+                if (transform.position.x < tear.GetDivisionPosition().x) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + Vector3.up; }
+                else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + Vector3.up; }
             }
+            else
+            {
+                tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + Vector3.up;
+            }
+            rbody2D.linearVelocity = new Vector2(rbody2D.linearVelocity.x, 0f);
+            isHitHead = true;
         }
     }
 
@@ -110,6 +100,7 @@ public class PlayerController : MonoBehaviour
         rbody2D.linearVelocity = velocity;
     }
 
+    // 接地判定群
     public bool IsGrounded()
     {
         // 現在位置を反映
@@ -121,13 +112,12 @@ public class PlayerController : MonoBehaviour
         currentRightPosition.x += halfSize;
 
         // Rayの生成
-        RaycastHit2D leftHit = Physics2D.Raycast(currentLeftPosition, Vector2.down, 0.6f, groundLayer);
-        RaycastHit2D rightHit = Physics2D.Raycast(currentRightPosition, Vector2.down, 0.6f, groundLayer);
+        RaycastHit2D leftHit = Physics2D.Raycast(currentLeftPosition, Vector2.down, 0.45f, groundLayer);
+        RaycastHit2D rightHit = Physics2D.Raycast(currentRightPosition, Vector2.down, 0.45f, groundLayer);
 
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
         if (leftHit.collider != null || rightHit.collider != null)
         {
-            canHovering = true;
             return true;
         }
         return false;
@@ -154,9 +144,6 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    // Getter
-    public Vector3 GetTargetTilePosition() { return targetTilePosition; }
-
     // Setter
     public void SetDefault()
     {
@@ -166,7 +153,5 @@ public class PlayerController : MonoBehaviour
     public void SetBackToNormal()
     {
         rbody2D.gravityScale = 1f;
-
-        isSetTile = false;
     }
 }
