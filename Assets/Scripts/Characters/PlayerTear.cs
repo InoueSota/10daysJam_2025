@@ -56,7 +56,9 @@ public class PlayerTear : MonoBehaviour
         else if (isActive && Input.GetButtonDown("Special"))
         {
             targetIntensity = 0f;
+            isDivision = false;
             isActive = false;
+            divisionLineObj.SetActive(false);
         }
 
         // 指を一度離させる処理
@@ -73,7 +75,7 @@ public class PlayerTear : MonoBehaviour
             // 分断座標は整数丸めをしたプレイヤー座標
             if (Input.GetAxisRaw("Horizontal") < 0f) { divisionPosition = new Vector2(Mathf.FloorToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); }
             if (Input.GetAxisRaw("Horizontal") > 0f) { divisionPosition = new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); }
-            
+
             // 分断線の再表示
             if (!divisionLineObj.activeSelf)
             {
