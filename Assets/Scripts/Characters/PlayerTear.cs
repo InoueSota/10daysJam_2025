@@ -95,7 +95,7 @@ public class PlayerTear : MonoBehaviour
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
                 // ç∂ë§
-                if (fieldObject.transform.position.x < Mathf.RoundToInt(transform.position.x)) { fieldObject.transform.parent = objectParent1; }
+                if (fieldObject.transform.position.x < divisionPosition.x) { fieldObject.transform.parent = objectParent1; }
                 // âEë§
                 else { fieldObject.transform.parent = objectParent2; }
             }
