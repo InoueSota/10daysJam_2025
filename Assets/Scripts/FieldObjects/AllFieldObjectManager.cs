@@ -30,6 +30,9 @@ public class AllFieldObjectManager : MonoBehaviour
         // À•W‚ÌXV
         currentPosition = transform.position;
 
+        // •ª’fü‚Ìæ“¾
+        GameObject divisionLine = GameObject.FindGameObjectWithTag("DivisionLine");
+
         switch (objectType)
         {
             case ObjectType.GROUND:
@@ -39,12 +42,27 @@ public class AllFieldObjectManager : MonoBehaviour
                 break;
             case ObjectType.GOAL:
 
-
+                // ‰¡•ûŒü‚©‚ç‚Ì“ª“Ë‚«
+                if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
+                {
+                    if ((prePosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= currentPosition.x) ||
+                        (currentPosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= prePosition.x))
+                    {
+                        gameObject.SetActive(false);
+                    }
+                }
+                // c•ûŒü‚©‚ç‚Ì“ª“Ë‚«
+                else if (!_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
+                {
+                    if ((prePosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= currentPosition.y) ||
+                        (currentPosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= prePosition.y))
+                    {
+                        gameObject.SetActive(false);
+                    }
+                }
 
                 break;
             case ObjectType.BLOCK:
-
-                GameObject divisionLine = GameObject.FindGameObjectWithTag("DivisionLine");
 
                 // ‰¡•ûŒü‚©‚ç‚Ì“ª“Ë‚«
                 if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
