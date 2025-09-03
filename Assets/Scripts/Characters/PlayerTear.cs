@@ -12,7 +12,7 @@ public class PlayerTear : MonoBehaviour
     private UndoManager undoManager;
 
     // •ª’fÀ•W
-    [SerializeField] private Vector2 divisionPosition;
+    private Vector2 divisionPosition;
     // •ª’fƒtƒ‰ƒO
     private bool isDivision;
 

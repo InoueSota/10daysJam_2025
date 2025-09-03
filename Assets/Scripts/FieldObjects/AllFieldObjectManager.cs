@@ -7,7 +7,8 @@ public class AllFieldObjectManager : MonoBehaviour
     {
         GROUND,
         GOAL,
-        BLOCK
+        BLOCK,
+        SPONGE
     }
     [SerializeField] private ObjectType objectType;
 
@@ -41,28 +42,8 @@ public class AllFieldObjectManager : MonoBehaviour
 
                 break;
             case ObjectType.GOAL:
-
-                // ‰¡•ûŒü‚©‚ç‚Ì“ª“Ë‚«
-                if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
-                {
-                    if ((prePosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= currentPosition.x) ||
-                        (currentPosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= prePosition.x))
-                    {
-                        gameObject.SetActive(false);
-                    }
-                }
-                // c•ûŒü‚©‚ç‚Ì“ª“Ë‚«
-                else if (!_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
-                {
-                    if ((prePosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= currentPosition.y) ||
-                        (currentPosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= prePosition.y))
-                    {
-                        gameObject.SetActive(false);
-                    }
-                }
-
-                break;
             case ObjectType.BLOCK:
+            case ObjectType.SPONGE:
 
                 // ‰¡•ûŒü‚©‚ç‚Ì“ª“Ë‚«
                 if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)

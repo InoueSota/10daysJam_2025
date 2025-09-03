@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rocketSpeed;
     private Vector3 rocketVector;
     private bool isRocketMoving;
+    private AllFieldObjectManager hitAllFieldObjectManager;
     [Header("Ground Judgement")]
     [SerializeField] private LayerMask groundLayer;
 
@@ -75,21 +76,24 @@ public class PlayerController : MonoBehaviour
     void HeadbuttUpdate()
     {
         // “ª“Ë‚«ˆ—
-        if (isRocketMoving && IsHitHead())
+        if (isRocketMoving && IsHeadbutt())
         {
-            // •ª’f‚³‚ê‚Ä‚¢‚éê‡
-            if (tear.GetIsDivision())
+            if (hitAllFieldObjectManager.GetObjectType() != AllFieldObjectManager.ObjectType.SPONGE)
             {
-                // ¶‘¤
-                if (transform.position.x < tear.GetDivisionPosition().x) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
-                // ‰E‘¤
-                else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + rocketVector.normalized; }
-            }
-            // •ª’f‚³‚ê‚Ä‚¢‚È‚¢ê‡
-            else { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                // •ª’f‚³‚ê‚Ä‚¢‚éê‡
+                if (tear.GetIsDivision())
+                {
+                    // ¶‘¤
+                    if (transform.position.x < tear.GetDivisionPosition().x) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                    // ‰E‘¤
+                    else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                }
+                // •ª’f‚³‚ê‚Ä‚¢‚È‚¢ê‡
+                else { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
 
-            // •ª’fˆ—
-            foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt()); }
+                // •ª’fˆ—
+                foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt()); }
+            }
 
             // •Ï”‚Ì‰Šú‰»
             RocketInitialize();
@@ -129,7 +133,7 @@ public class PlayerController : MonoBehaviour
         }
         return false;
     }
-    public bool IsHitHead()
+    public bool IsHeadbutt()
     {
         // Œ»İˆÊ’u‚ğ”½‰f
         Vector3 currentOnePosition = transform.position;
@@ -154,6 +158,9 @@ public class PlayerController : MonoBehaviour
         // Ray‚ªgroundLayer‚ÉÕ“Ë‚µ‚Ä‚¢‚½‚çÚ’n”»’è‚Ítrue‚ğ•Ô‚·
         if (leftHit.collider != null || rightHit.collider != null)
         {
+            if (leftHit.collider != null)  { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); }
+            if (rightHit.collider != null) { hitAllFieldObjectManager = rightHit.collider.GetComponent<AllFieldObjectManager>(); }
+
             return true;
         }
         return false;
