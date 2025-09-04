@@ -10,7 +10,8 @@ public class AllFieldObjectManager : MonoBehaviour
         BLOCK,
         SPONGE,
         FRAGILE,
-        WARP
+        WARP,
+        GLASS
     }
     [SerializeField] private ObjectType objectType;
 
@@ -44,6 +45,7 @@ public class AllFieldObjectManager : MonoBehaviour
             case ObjectType.SPONGE:
             case ObjectType.FRAGILE:
             case ObjectType.WARP:
+            case ObjectType.GLASS:
 
                 // ‰¡•ûŒü‚©‚ç‚Ì“ª“Ë‚«
                 if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)

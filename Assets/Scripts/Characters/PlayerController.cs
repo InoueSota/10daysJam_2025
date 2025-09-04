@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject hitObj = null;
 
-            if (leftHit.collider != null)  { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = leftHit.collider.gameObject; }
+            if (leftHit.collider != null) { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = leftHit.collider.gameObject; }
             if (rightHit.collider != null) { hitAllFieldObjectManager = rightHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = rightHit.collider.gameObject; }
 
             // 当たったブロック単体に起こす処理
@@ -204,7 +204,13 @@ public class PlayerController : MonoBehaviour
                 }
                 return false;
             }
+            else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.GLASS)
+            {
+                hitAllFieldObjectManager.gameObject.SetActive(false);
+                return false;
+            }
 
+            // 頭突きに成功したらワープObjを初期化する
             warpObj = null;
             return true;
         }
