@@ -195,6 +195,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  mapMoveTime: 0.2
 --- !u!114 &8985779831567453147
 MonoBehaviour:
   m_ObjectHideFlags: 0

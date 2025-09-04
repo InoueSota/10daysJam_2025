@@ -9,7 +9,9 @@ public class AllFieldObjectManager : MonoBehaviour
         GOAL,
         BLOCK,
         SPONGE,
-        FRAGILE
+        FRAGILE,
+        WARP,
+        GLASS
     }
     [SerializeField] private ObjectType objectType;
 
@@ -41,6 +43,9 @@ public class AllFieldObjectManager : MonoBehaviour
             case ObjectType.GOAL:
             case ObjectType.BLOCK:
             case ObjectType.SPONGE:
+            case ObjectType.FRAGILE:
+            case ObjectType.WARP:
+            case ObjectType.GLASS:
 
                 // ‰¡•ûŒü‚©‚ç‚Ì“ª“Ë‚«
                 if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
@@ -62,15 +67,15 @@ public class AllFieldObjectManager : MonoBehaviour
                 }
 
                 break;
-
-            case ObjectType.FRAGILE:
-
-
-
-                break;
         }
     }
 
     // Getter
     public ObjectType GetObjectType() { return objectType; }
+    public Vector3 GetPrePosition() { return prePosition; }
+    public Vector3 GetCurrentPosition() { return currentPosition; }
+
+    // Setter
+    public void SetPrePosition(Vector3 _prePosition) { prePosition = _prePosition; }
+    public void SetCurrentPosition(Vector3 _currentPosition) { currentPosition = _currentPosition; }
 }

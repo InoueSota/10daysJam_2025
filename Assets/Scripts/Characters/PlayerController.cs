@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class PlayerController : MonoBehaviour
     private AllFieldObjectManager hitAllFieldObjectManager;
     [Header("Ground Judgement")]
     [SerializeField] private LayerMask groundLayer;
+
+    [Header("Map Move Parameter")]
+    [SerializeField] private float mapMoveTime;
+
+    // ワープ
+    private GameObject warpObj;
 
     void Start()
     {
@@ -69,6 +76,9 @@ public class PlayerController : MonoBehaviour
             // 下方向に入力
             else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector.y = -rocketSpeed; }
 
+            // ワープ対象オブジェクトの情報を初期化する
+            warpObj = null;
+
             // フラグの変更
             isRocketMoving = true;
         }
@@ -93,28 +103,28 @@ public class PlayerController : MonoBehaviour
                     if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
                     {
                         // 左側
-                        if (transform.position.x < cut.GetDivisionPosition().x) { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                        if (transform.position.x < cut.GetDivisionPosition().x) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
                         // 右側
-                        else { cut.GetObjectTransform(2).transform.position = cut.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
                     }
                     // 左右線
                     else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
                     {
                         // 上側
-                        if (transform.position.y > cut.GetDivisionPosition().y) { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                        if (transform.position.y > cut.GetDivisionPosition().y) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
                         // 下側
-                        else { cut.GetObjectTransform(2).transform.position = cut.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
                     }
                 }
                 // 分断されていない場合
-                else { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                else { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt()); }
 
                 // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
                 RaycastHit2D hit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector.normalized, 0.8f, groundLayer);
-                if (hit.collider != null) { transform.position = beforeHeadbuttPosition + rocketVector.normalized; }
+                if (hit.collider != null) { transform.DOMove(beforeHeadbuttPosition + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
             }
 
             // 変数の初期化
@@ -180,15 +190,32 @@ public class PlayerController : MonoBehaviour
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
         if (leftHit.collider != null || rightHit.collider != null)
         {
-            if (leftHit.collider != null)  { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); }
-            if (rightHit.collider != null) { hitAllFieldObjectManager = rightHit.collider.GetComponent<AllFieldObjectManager>(); }
+            GameObject hitObj = null;
+
+            if (leftHit.collider != null) { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = leftHit.collider.gameObject; }
+            if (rightHit.collider != null) { hitAllFieldObjectManager = rightHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = rightHit.collider.gameObject; }
 
             // 当たったブロック単体に起こす処理
             if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.FRAGILE)
             {
                 hitAllFieldObjectManager.gameObject.SetActive(false);
             }
+            else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
+            {
+                if (hitObj != warpObj)
+                {
+                    hitObj.GetComponent<WarpManager>().DoWarp(transform, ref warpObj);
+                }
+                return false;
+            }
+            else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.GLASS)
+            {
+                hitAllFieldObjectManager.gameObject.SetActive(false);
+                return false;
+            }
 
+            // 頭突きに成功したらワープObjを初期化する
+            warpObj = null;
             return true;
         }
         return false;
@@ -208,4 +235,24 @@ public class PlayerController : MonoBehaviour
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
+
+    /// <summary>
+    /// 当たり判定群
+    /// </summary>
+    void OnTriggerEnter2D(Collider2D collision) { OnTrigger2D(collision); }
+    void OnTriggerStay2D(Collider2D collision) { OnTrigger2D(collision); }
+    void OnTrigger2D(Collider2D collision)
+    {
+        if (collision.CompareTag("FieldObject"))
+        {
+            if (collision.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
+            {
+                if (collision.gameObject != warpObj)
+                {
+                    collision.GetComponent<WarpManager>().DoWarp(transform, ref warpObj);
+                    rbody2D.linearVelocity = Vector2.zero;
+                }
+            }
+        }
+    }
 }
