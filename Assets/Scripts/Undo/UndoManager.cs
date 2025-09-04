@@ -16,6 +16,7 @@ public class UndoManager : MonoBehaviour
     private Transform divisionLine;
 
     private Stack<GameState> history = new Stack<GameState>();
+    private GameState initialState;
 
     void Start()
     {
@@ -31,10 +32,11 @@ public class UndoManager : MonoBehaviour
         }
         divisionLineObj = GameObject.FindGameObjectWithTag("DivisionLine");
         divisionLineObj.SetActive(cut.GetIsCreateLineStart());
-    }
 
-    // 現在の状態を保存
-    public void SaveState()
+        // 最初の状態を保存
+        initialState = CaptureState();
+    }
+    private GameState CaptureState()
     {
         GameState state = new GameState();
 
@@ -60,7 +62,34 @@ public class UndoManager : MonoBehaviour
         state.divisionLineActiveState = divisionLine.gameObject.activeSelf;
         state.divisionLineRotation = divisionLine.rotation;
 
-        history.Push(state);
+        return state;
+    }
+    private void RestoreState(GameState state)
+    {
+        // プレイヤー復元
+        player.position = state.playerPosition;
+        cut.SetDivisionPosition(state.divisionPosition);
+        cut.SetIsDivision(state.isDivision);
+        controller.RocketInitialize();
+
+        // ブロック関係
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            blocks[i].position = state.blockPositions[i];
+            blocks[i].gameObject.SetActive(state.blockActiveStates[i]);
+            blocks[i].SetParent(state.blockParents[i]);
+        }
+
+        // 分断線関係
+        divisionLine.position = state.divisionPosition;
+        divisionLine.rotation = state.divisionLineRotation;
+        divisionLine.gameObject.SetActive(state.divisionLineActiveState);
+    }
+
+    // 現在の状態を保存
+    public void SaveState()
+    {
+        history.Push(CaptureState());
     }
 
     // ひとつ前に戻す
@@ -88,5 +117,16 @@ public class UndoManager : MonoBehaviour
         divisionLine.position = prevState.divisionPosition;
         divisionLine.rotation = prevState.divisionLineRotation;
         divisionLine.gameObject.SetActive(prevState.divisionLineActiveState);
+    }
+
+    // リセットする
+    public void ResetToInitialState()
+    {
+        if (initialState == null) return;
+
+        RestoreState(initialState);
+
+        // Undo履歴もリセット
+        history.Clear();
     }
 }

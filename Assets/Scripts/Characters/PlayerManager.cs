@@ -7,12 +7,18 @@ public class PlayerManager : MonoBehaviour
     private PlayerController controller;
     private PlayerCut cut;
 
-    void Start()
+	// 他コンポーネント
+	private UndoManager undoManager;
+
+	void Start()
     {
         // 自コンポーネントを取得
         controller = GetComponent<PlayerController>();
         cut = GetComponent<PlayerCut>();
-    }
+
+		// 他コンポーネントを取得
+		undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
+	}
 
     void Update()
     {
@@ -21,7 +27,7 @@ public class PlayerManager : MonoBehaviour
 
         if (Input.GetButtonDown("Reset"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            undoManager.ResetToInitialState();
         }
     }
 }
