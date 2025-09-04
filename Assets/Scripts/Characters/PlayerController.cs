@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     // 自コンポーネント
     private PlayerCut cut;
     private Rigidbody2D rbody2D;
+    private Animator animator;
+    private PlayerSpriteScript playerSpriteScript;
 
     // 他コンポーネント
     private UndoManager undoManager;
@@ -33,11 +35,16 @@ public class PlayerController : MonoBehaviour
     // ワープ
     private GameObject warpObj;
 
+    //Animation系
+    private int direction= 0;
+
     void Start()
     {
         // 自コンポーネントを取得
         cut = GetComponent<PlayerCut>();
         rbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        playerSpriteScript = GetComponent<PlayerSpriteScript>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
@@ -62,6 +69,9 @@ public class PlayerController : MonoBehaviour
             else { wasUndo = false; }
         }
 
+        animator.SetBool("isDash", isRocketMoving);
+        playerSpriteScript.SetDirection(direction);
+
         // Undo
         if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
     }
@@ -85,13 +95,13 @@ public class PlayerController : MonoBehaviour
             rbody2D.gravityScale = 0f;
 
             // 右方向に入力
-            if (Input.GetAxisRaw("Horizontal") > 0.5f) { rocketVector.x = rocketSpeed; }
+            if (Input.GetAxisRaw("Horizontal") > 0.5f) { rocketVector.x = rocketSpeed; direction = 0; }
             // 左方向に入力
-            else if (Input.GetAxisRaw("Horizontal") < -0.5f) { rocketVector.x = -rocketSpeed; }
+            else if (Input.GetAxisRaw("Horizontal") < -0.5f) { rocketVector.x = -rocketSpeed; direction = 2; }
             // 上方向に入力
-            else if (Input.GetAxisRaw("Vertical") > 0.5f) { rocketVector.y = rocketSpeed; }
+            else if (Input.GetAxisRaw("Vertical") > 0.5f) { rocketVector.y = rocketSpeed; direction = 1; }
             // 下方向に入力
-            else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector.y = -rocketSpeed; }
+            else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector.y = -rocketSpeed; direction = 3; }
 
             // ワープ対象オブジェクトの情報を初期化する
             warpObj = null;
