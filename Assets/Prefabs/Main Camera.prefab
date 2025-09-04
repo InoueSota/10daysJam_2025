@@ -154,7 +154,6 @@ GameObject:
   - component: {fileID: 6391218342999623146}
   - component: {fileID: 7952219107085956201}
   - component: {fileID: 7227346146924933937}
-  - component: {fileID: 9042266316868238196}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -188,7 +187,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.2679245, g: 0.2679245, b: 0.2679245, a: 0}
+  m_BackGroundColor: {r: 0.735849, g: 0.73465896, b: 0.73237807, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -254,7 +253,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -305,18 +304,3 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!114 &9042266316868238196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5466348301700637960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9fc668816bdd6b41a38851777fa8fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  changePosition: {x: 13, y: 10, z: -10}
-  changeRotation: {x: 15, y: -50, z: 0}
-  diffValue: 3

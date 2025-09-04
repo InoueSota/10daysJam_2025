@@ -84,7 +84,6 @@ public class TilemapManager : MonoBehaviour
         TileType selfType = (TileType)grid[cx, cy];
         TileType otherType = (TileType)grid[x, y];
 
-        Debug.Log(selfType);
         return (selfType == otherType) ? 1 : 0;
     }
 
