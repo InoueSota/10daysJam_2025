@@ -40,6 +40,12 @@ public class UndoManager : MonoBehaviour
     {
         GameState state = new GameState();
 
+        // •ª’füŠÖŒW
+        divisionLine = divisionLineObj.transform;
+        state.divisionPosition = divisionLine.position;
+        state.divisionLineActiveState = divisionLine.gameObject.activeSelf;
+        state.divisionLineRotation = divisionLine.rotation;
+
         // ƒvƒŒƒCƒ„[ŠÖŒW
         player = GameObject.FindGameObjectWithTag("Player").transform;
         state.playerPosition = player.position;
@@ -52,38 +58,37 @@ public class UndoManager : MonoBehaviour
         foreach (var block in blocks)
         {
             state.blockPositions.Add(block.position);
+            state.blockPrePositions.Add(block.GetComponent<AllFieldObjectManager>().GetPrePosition());
+            state.blockCurrentPositions.Add(block.GetComponent<AllFieldObjectManager>().GetCurrentPosition());
             state.blockActiveStates.Add(block.gameObject.activeSelf);
             state.blockParents.Add(block.parent);
         }
-
-        // •ª’füŠÖŒW
-        divisionLine = divisionLineObj.transform;
-        state.divisionPosition = divisionLine.position;
-        state.divisionLineActiveState = divisionLine.gameObject.activeSelf;
-        state.divisionLineRotation = divisionLine.rotation;
 
         return state;
     }
     private void RestoreState(GameState state)
     {
+        // •ª’füŠÖŒW
+        divisionLine.position = state.divisionPosition;
+        divisionLine.rotation = state.divisionLineRotation;
+        divisionLine.gameObject.SetActive(state.divisionLineActiveState);
+
         // ƒvƒŒƒCƒ„[•œŒ³
         player.position = state.playerPosition;
         cut.SetDivisionPosition(state.divisionPosition);
         cut.SetIsDivision(state.isDivision);
         controller.RocketInitialize();
+        controller.FlagInitialize();
 
         // ƒuƒƒbƒNŠÖŒW
         for (int i = 0; i < blocks.Count; i++)
         {
             blocks[i].position = state.blockPositions[i];
+            blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(state.blockPrePositions[i]);
+            blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(state.blockCurrentPositions[i]);
             blocks[i].gameObject.SetActive(state.blockActiveStates[i]);
             blocks[i].SetParent(state.blockParents[i]);
         }
-
-        // •ª’füŠÖŒW
-        divisionLine.position = state.divisionPosition;
-        divisionLine.rotation = state.divisionLineRotation;
-        divisionLine.gameObject.SetActive(state.divisionLineActiveState);
     }
 
     // Œ»İ‚Ìó‘Ô‚ğ•Û‘¶
@@ -99,24 +104,27 @@ public class UndoManager : MonoBehaviour
 
         GameState prevState = history.Pop();
 
+        // •ª’füŠÖŒW
+        divisionLine.position = prevState.divisionPosition;
+        divisionLine.rotation = prevState.divisionLineRotation;
+        divisionLine.gameObject.SetActive(prevState.divisionLineActiveState);
+
         // ƒvƒŒƒCƒ„[•œŒ³
         player.position = prevState.playerPosition;
         cut.SetDivisionPosition(prevState.divisionPosition);
         cut.SetIsDivision(prevState.isDivision);
         controller.RocketInitialize();
+        controller.FlagInitialize();
 
         // ƒuƒƒbƒNŠÖŒW
         for (int i = 0; i < blocks.Count; i++)
         {
             blocks[i].position = prevState.blockPositions[i];
+            blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(prevState.blockPrePositions[i]);
+            blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(prevState.blockCurrentPositions[i]);
             blocks[i].gameObject.SetActive(prevState.blockActiveStates[i]);
             blocks[i].SetParent(prevState.blockParents[i]);
         }
-
-        // •ª’füŠÖŒW
-        divisionLine.position = prevState.divisionPosition;
-        divisionLine.rotation = prevState.divisionLineRotation;
-        divisionLine.gameObject.SetActive(prevState.divisionLineActiveState);
     }
 
     // ƒŠƒZƒbƒg‚·‚é

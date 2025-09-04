@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class AllFieldObjectManager : MonoBehaviour
@@ -9,7 +10,10 @@ public class AllFieldObjectManager : MonoBehaviour
         GOAL,
         BLOCK,
         SPONGE,
-        FRAGILE
+        FRAGILE,
+        WARP,
+        GLASS,
+        NAIL
     }
     [SerializeField] private ObjectType objectType;
 
@@ -17,20 +21,32 @@ public class AllFieldObjectManager : MonoBehaviour
     private Vector3 prePosition;
     private Vector3 currentPosition;
 
+    [Header("Hit Layer")]
+    [SerializeField] private LayerMask groundLayer;
+
     void Start()
     {
         currentPosition = transform.position;
+
+        switch (objectType)
+        {
+            case ObjectType.NAIL:
+
+                transform.parent = null;
+
+                break;
+        }
     }
 
     /// <summary>
     /// 動かされたあとの処理
     /// </summary>
-    public void AfterHeadbutt(bool _horizontalHeadbutt)
+    public void AfterHeadbutt(bool _horizontalHeadbutt, Vector3 _rocketVector)
     {
         // 前フレーム座標の保存
         prePosition = currentPosition;
         // 座標の更新
-        currentPosition = transform.position;
+        currentPosition = transform.position + _rocketVector;
 
         // 分断線の取得
         GameObject divisionLine = GameObject.FindGameObjectWithTag("DivisionLine");
@@ -41,6 +57,9 @@ public class AllFieldObjectManager : MonoBehaviour
             case ObjectType.GOAL:
             case ObjectType.BLOCK:
             case ObjectType.SPONGE:
+            case ObjectType.FRAGILE:
+            case ObjectType.WARP:
+            case ObjectType.GLASS:
 
                 // 横方向からの頭突き
                 if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
@@ -62,15 +81,19 @@ public class AllFieldObjectManager : MonoBehaviour
                 }
 
                 break;
-
-            case ObjectType.FRAGILE:
-
-
-
-                break;
         }
+
+        // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
+        RaycastHit2D hit = Physics2D.Raycast(currentPosition, _rocketVector, 0.4f, groundLayer);
+        if (objectType != ObjectType.NAIL && hit.collider != null && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() == ObjectType.NAIL) { gameObject.SetActive(false); }
     }
 
     // Getter
     public ObjectType GetObjectType() { return objectType; }
+    public Vector3 GetPrePosition() { return prePosition; }
+    public Vector3 GetCurrentPosition() { return currentPosition; }
+
+    // Setter
+    public void SetPrePosition(Vector3 _prePosition) { prePosition = _prePosition; }
+    public void SetCurrentPosition(Vector3 _currentPosition) { currentPosition = _currentPosition; }
 }

@@ -53,6 +53,9 @@ public class PlayerCut : MonoBehaviour
             // •ª’fˆ—
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
+                // •ª’f‚Ì‰e‹¿‚ğó‚¯‚È‚¢‚à‚Ì
+                if (fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL) { continue; }
+
                 if (divisionLineObj.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
                 {
                     // ¶‘¤
@@ -88,7 +91,13 @@ public class PlayerCut : MonoBehaviour
                 targetIntensity = 0f;
 
                 // e‚ğŒ³‚É–ß‚·
-                foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.transform.parent = objectParent1; }
+                foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
+                {
+                    // •ª’f‚Ì‰e‹¿‚ğó‚¯‚È‚¢‚à‚Ì
+                    if (fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL) { continue; }
+
+                    fieldObject.transform.parent = objectParent1;
+                }
                 isDivision = false;
 
                 isActive = false;
@@ -140,6 +149,9 @@ public class PlayerCut : MonoBehaviour
                 // •ª’fˆ—
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
                 {
+                    // •ª’f‚Ì‰e‹¿‚ğó‚¯‚È‚¢‚à‚Ì
+                    if (fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL) { continue; }
+
                     if (Input.GetAxisRaw("Horizontal") < -0.3f || Input.GetAxisRaw("Horizontal") > 0.3f)
                     {
                         // ¶‘¤
