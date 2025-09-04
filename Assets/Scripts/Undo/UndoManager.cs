@@ -40,18 +40,18 @@ public class UndoManager : MonoBehaviour
     {
         GameState state = new GameState();
 
+        // •ª’füŠÖŒW
+        divisionLine = divisionLineObj.transform;
+        state.divisionPosition = divisionLine.position;
+        state.divisionLineActiveState = divisionLine.gameObject.activeSelf;
+        state.divisionLineRotation = divisionLine.rotation;
+
         // ƒvƒŒƒCƒ„[ŠÖŒW
         player = GameObject.FindGameObjectWithTag("Player").transform;
         state.playerPosition = player.position;
         // ƒvƒŒƒCƒ„[‚Ì•Ï”‚ğ•Û‘¶
         state.divisionPosition = cut.GetDivisionPosition();
         state.isDivision = cut.GetIsDivision();
-
-        // •ª’füŠÖŒW
-        divisionLine = divisionLineObj.transform;
-        state.divisionPosition = divisionLine.position;
-        state.divisionLineActiveState = divisionLine.gameObject.activeSelf;
-        state.divisionLineRotation = divisionLine.rotation;
 
         // ƒuƒƒbƒNŠÖŒW
         state.blockPositions = new List<Vector3>();
@@ -66,16 +66,16 @@ public class UndoManager : MonoBehaviour
     }
     private void RestoreState(GameState state)
     {
+        // •ª’füŠÖŒW
+        divisionLine.position = state.divisionPosition;
+        divisionLine.rotation = state.divisionLineRotation;
+        divisionLine.gameObject.SetActive(state.divisionLineActiveState);
+
         // ƒvƒŒƒCƒ„[•œŒ³
         player.position = state.playerPosition;
         cut.SetDivisionPosition(state.divisionPosition);
         cut.SetIsDivision(state.isDivision);
         controller.RocketInitialize();
-
-        // •ª’füŠÖŒW
-        divisionLine.position = state.divisionPosition;
-        divisionLine.rotation = state.divisionLineRotation;
-        divisionLine.gameObject.SetActive(state.divisionLineActiveState);
 
         // ƒuƒƒbƒNŠÖŒW
         for (int i = 0; i < blocks.Count; i++)
@@ -99,16 +99,16 @@ public class UndoManager : MonoBehaviour
 
         GameState prevState = history.Pop();
 
+        // •ª’füŠÖŒW
+        divisionLine.position = prevState.divisionPosition;
+        divisionLine.rotation = prevState.divisionLineRotation;
+        divisionLine.gameObject.SetActive(prevState.divisionLineActiveState);
+
         // ƒvƒŒƒCƒ„[•œŒ³
         player.position = prevState.playerPosition;
         cut.SetDivisionPosition(prevState.divisionPosition);
         cut.SetIsDivision(prevState.isDivision);
         controller.RocketInitialize();
-
-        // •ª’füŠÖŒW
-        divisionLine.position = prevState.divisionPosition;
-        divisionLine.rotation = prevState.divisionLineRotation;
-        divisionLine.gameObject.SetActive(prevState.divisionLineActiveState);
 
         // ƒuƒƒbƒNŠÖŒW
         for (int i = 0; i < blocks.Count; i++)
