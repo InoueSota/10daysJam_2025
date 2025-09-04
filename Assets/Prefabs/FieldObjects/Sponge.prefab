@@ -176,3 +176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
