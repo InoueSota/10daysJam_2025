@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
             warpObj = null;
 
             // ƒtƒ‰ƒO‚Ì•ÏX
+            isMoving = true;
             isRocketMoving = true;
         }
     }
