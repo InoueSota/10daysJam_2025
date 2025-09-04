@@ -9,7 +9,8 @@ public class AllFieldObjectManager : MonoBehaviour
         GOAL,
         BLOCK,
         SPONGE,
-        FRAGILE
+        FRAGILE,
+        WARP
     }
     [SerializeField] private ObjectType objectType;
 
@@ -41,6 +42,8 @@ public class AllFieldObjectManager : MonoBehaviour
             case ObjectType.GOAL:
             case ObjectType.BLOCK:
             case ObjectType.SPONGE:
+            case ObjectType.FRAGILE:
+            case ObjectType.WARP:
 
                 // ‰¡•ûŒü‚©‚ç‚Ì“ª“Ë‚«
                 if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
@@ -60,12 +63,6 @@ public class AllFieldObjectManager : MonoBehaviour
                         gameObject.SetActive(false);
                     }
                 }
-
-                break;
-
-            case ObjectType.FRAGILE:
-
-
 
                 break;
         }
