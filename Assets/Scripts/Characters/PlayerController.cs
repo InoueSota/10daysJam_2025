@@ -205,6 +205,7 @@ public class PlayerController : MonoBehaviour
                 return false;
             }
 
+            warpObj = null;
             return true;
         }
         return false;
