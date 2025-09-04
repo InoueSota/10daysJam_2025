@@ -78,7 +78,7 @@ public class UndoManager : MonoBehaviour
         cut.SetDivisionPosition(state.divisionPosition);
         cut.SetIsDivision(state.isDivision);
         controller.RocketInitialize();
-        controller.SetIsMoving(false);
+        controller.FlagInitialize();
 
         // ブロック関係
         for (int i = 0; i < blocks.Count; i++)
@@ -114,7 +114,7 @@ public class UndoManager : MonoBehaviour
         cut.SetDivisionPosition(prevState.divisionPosition);
         cut.SetIsDivision(prevState.isDivision);
         controller.RocketInitialize();
-        controller.SetIsMoving(false);
+        controller.FlagInitialize();
 
         // ブロック関係
         for (int i = 0; i < blocks.Count; i++)

@@ -1,5 +1,6 @@
-using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,7 +26,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float mapMoveTime;
 
     // フラグ
-    private bool isMoving;
+    [SerializeField] private bool isMoving;
+    [SerializeField] private bool isStacking;
+    private bool wasUndo;
 
     // ワープ
     private GameObject warpObj;
@@ -43,10 +46,21 @@ public class PlayerController : MonoBehaviour
 
     public void ManualUpdate()
     {
-        // 左右移動処理
-        MoveUpdate();
-        // 頭突き処理
-        HeadbuttUpdate();
+        if (!isStacking)
+        {
+            // 左右移動処理
+            MoveUpdate();
+            // 頭突き処理
+            HeadbuttUpdate();
+
+            if (!wasUndo)
+            {
+                // スタックしているか判定
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
+                if (hit.collider != null) { isStacking = true; }
+            }
+            else { wasUndo = false; }
+        }
 
         // Undo
         if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
@@ -237,7 +251,14 @@ public class PlayerController : MonoBehaviour
         // フラグの変更
         isRocketMoving = false;
     }
-    public void SetIsMoving(bool _isMoving) { isMoving = _isMoving; }
+    public void FlagInitialize()
+    {
+        DOTween.KillAll();
+
+        isMoving = false;
+        isStacking = false;
+        wasUndo = true;
+    }
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
