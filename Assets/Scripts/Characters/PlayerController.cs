@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     [Header("Map Move Parameter")]
     [SerializeField] private float mapMoveTime;
 
+    // フラグ
+    private bool isMoving;
+
     // ワープ
     private GameObject warpObj;
 
@@ -56,7 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isRocketMoving) { rbody2D.linearVelocity = new Vector2(0f, rbody2D.linearVelocity.y); }
 
-        if (!isRocketMoving && IsGrounded() && Input.GetButtonDown("Jump") &&
+        if (!isRocketMoving && !isMoving && IsGrounded() && Input.GetButtonDown("Jump") &&
             (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             // 移動前に保存
@@ -103,21 +106,21 @@ public class PlayerController : MonoBehaviour
                     if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
                     {
                         // 左側
-                        if (transform.position.x < cut.GetDivisionPosition().x) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
+                        if (transform.position.x < cut.GetDivisionPosition().x) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
                         // 右側
-                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
+                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
                     }
                     // 左右線
                     else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
                     {
                         // 上側
-                        if (transform.position.y > cut.GetDivisionPosition().y) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
+                        if (transform.position.y > cut.GetDivisionPosition().y) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
                         // 下側
-                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
+                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
                     }
                 }
                 // 分断されていない場合
-                else { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
+                else { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt(), rocketVector.normalized); }
@@ -136,6 +139,7 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(rocketVector.x) > 0.1f) { return true; }
         return false;
     }
+    void FinishMapMove() { isMoving = false; }
 
     void FixedUpdate()
     {
@@ -232,6 +236,7 @@ public class PlayerController : MonoBehaviour
         // フラグの変更
         isRocketMoving = false;
     }
+    public void SetIsMoving(bool _isMoving) { isMoving = _isMoving; }
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }

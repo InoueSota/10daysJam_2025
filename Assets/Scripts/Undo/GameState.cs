@@ -8,6 +8,7 @@ public class GameState
     public Vector3 playerPosition;
     public Vector2 divisionPosition;
     public bool isDivision;
+    public bool isMoving;
 
     // ƒuƒƒbƒNŠÖŒW
     public List<Vector3> blockPositions = new List<Vector3>();
