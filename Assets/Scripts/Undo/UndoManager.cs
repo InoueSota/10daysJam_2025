@@ -58,6 +58,8 @@ public class UndoManager : MonoBehaviour
         foreach (var block in blocks)
         {
             state.blockPositions.Add(block.position);
+            state.blockPrePositions.Add(block.GetComponent<AllFieldObjectManager>().GetPrePosition());
+            state.blockCurrentPositions.Add(block.GetComponent<AllFieldObjectManager>().GetCurrentPosition());
             state.blockActiveStates.Add(block.gameObject.activeSelf);
             state.blockParents.Add(block.parent);
         }
@@ -81,6 +83,8 @@ public class UndoManager : MonoBehaviour
         for (int i = 0; i < blocks.Count; i++)
         {
             blocks[i].position = state.blockPositions[i];
+            blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(state.blockPrePositions[i]);
+            blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(state.blockCurrentPositions[i]);
             blocks[i].gameObject.SetActive(state.blockActiveStates[i]);
             blocks[i].SetParent(state.blockParents[i]);
         }
@@ -114,6 +118,8 @@ public class UndoManager : MonoBehaviour
         for (int i = 0; i < blocks.Count; i++)
         {
             blocks[i].position = prevState.blockPositions[i];
+            blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(prevState.blockPrePositions[i]);
+            blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(prevState.blockCurrentPositions[i]);
             blocks[i].gameObject.SetActive(prevState.blockActiveStates[i]);
             blocks[i].SetParent(prevState.blockParents[i]);
         }
