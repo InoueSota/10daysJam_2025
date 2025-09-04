@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4114167489620392497}
   - component: {fileID: 6736328188321697422}
   m_Layer: 3
-  m_Name: Block
+  m_Name: Nail
   m_TagString: FieldObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 5172824731864273737, guid: a17b9f171022f904a870690b68eef09f, type: 3}
-  m_Color: {r: 0.2507565, g: 0.2507565, b: 0.3301887, a: 1}
+  m_Color: {r: 0.3509434, g: 0.1852438, b: 0.05760767, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe52732e0fa79884eb8ab9b58b2cc051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 2
+  objectType: 7
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
