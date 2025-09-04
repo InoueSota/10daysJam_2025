@@ -6,6 +6,7 @@ public class PlayerCut : MonoBehaviour
 {
     // 自コンポーネント
     private PlayerController controller;
+    private PlayerAnimationScript anim;
 
     // 他コンポーネント
     [SerializeField] private Transform objectParent1;
@@ -31,9 +32,13 @@ public class PlayerCut : MonoBehaviour
     private float maxIntensity = 0.5f;
     private float targetIntensity = 0f;
 
+    //アニメーション関連
+    int direction = 0;
+
     void Start()
     {
         controller = GetComponent<PlayerController>();
+        anim = GetComponent<PlayerAnimationScript>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
@@ -126,10 +131,10 @@ public class PlayerCut : MonoBehaviour
                 // まだ分断していなかったら、初分断フラグをtrueにする
                 if (!isDivision) { isDivision = true; }
                 // 分断座標は整数丸めをしたプレイヤー座標
-                if (Input.GetAxisRaw("Horizontal") < -0.3f) { divisionPosition = new Vector2(Mathf.FloorToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); }
-                if (Input.GetAxisRaw("Horizontal") > 0.3f) { divisionPosition = new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); }
-                if (Input.GetAxisRaw("Vertical") < -0.3f) { divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) - 0.5f); }
-                if (Input.GetAxisRaw("Vertical") > 0.3f) { divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) + 0.5f); }
+                if (Input.GetAxisRaw("Horizontal") < -0.3f) { divisionPosition = new Vector2(Mathf.FloorToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); direction = 2; }
+                if (Input.GetAxisRaw("Horizontal") > 0.3f) { divisionPosition = new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); direction = 0; }
+                if (Input.GetAxisRaw("Vertical") < -0.3f) { divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) - 0.5f); direction = 3; }
+                if (Input.GetAxisRaw("Vertical") > 0.3f) { divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) + 0.5f); direction = 1; }
 
                 // 分断線の再表示
                 if (!divisionLineObj.activeSelf)
@@ -170,6 +175,8 @@ public class PlayerCut : MonoBehaviour
 
                 targetIntensity = 0f;
                 isActive = false;
+                //アニメーショントリガー
+                anim.StartCut();
             }
 
             // Global Volume
@@ -190,6 +197,9 @@ public class PlayerCut : MonoBehaviour
     }
     public DivisionLineManager GetDivisionLineManager() { return divisionLineObj.GetComponent<DivisionLineManager>(); }
     public bool GetIsCreateLineStart() { return isCreateLineStart; }
+   public bool GetIsActive() { return isActive; }
+    public int GetDirection() { return direction; }
+    public void SetDirection(int direction_) { direction = direction_; }
 
     // Setter
     public void SetDivisionPosition(Vector2 _divisionPosition) { divisionPosition = _divisionPosition; }

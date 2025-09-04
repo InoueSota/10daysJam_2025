@@ -394,6 +394,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   mapMoveTime: 0.2
+  isMoving: 0
+  isStacking: 0
 --- !u!95 &3105969351732074512
 Animator:
   serializedVersion: 7
@@ -36669,6 +36671,7 @@ GameObject:
   - component: {fileID: 8985779830625856788}
   - component: {fileID: 3105969351732074512}
   - component: {fileID: 8985779830625856789}
+  - component: {fileID: 8985779830625856790}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -36862,6 +36865,19 @@ MonoBehaviour:
   - name: CutDown
     texture: {fileID: 2800000, guid: 3ff52a2224b15ab479bc0049fa548ccb, type: 3}
     sprites: []
+--- !u!114 &8985779830625856790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921618599272450918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3aa73e58835a04ea481818a365caa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

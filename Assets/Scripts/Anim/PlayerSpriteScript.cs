@@ -105,12 +105,21 @@ public class PlayerSpriteScript : MonoBehaviour
             int num = (parts.Length > 1) ? int.Parse(parts[1]) : 0; // ññîˆî‘çÜ
 
 
-            if ((animName == "Dash" ||
-                animName == "Cut" )&& 
-                (direction == 1 || direction == 3))
+            if (animName == "Dash"  && (direction == 1 || direction == 3))
             {
                 if (direction == 1) animName += "Up"; 
                 else if (direction == 3) animName += "Down";
+
+                AnimationSprite? animBase = GetAnimationByName(animName);
+
+                if (animBase != null)
+                {
+                    spriteRenderer.sprite = animBase.Value.sprites[num];
+                }
+
+            }else if (animName == "Cut" && (direction == 2 || direction == 0))
+            {
+                animName += "Up";
 
                 AnimationSprite? animBase = GetAnimationByName(animName);
 

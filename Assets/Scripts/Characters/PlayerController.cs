@@ -7,8 +7,7 @@ public class PlayerController : MonoBehaviour
     // 自コンポーネント
     private PlayerCut cut;
     private Rigidbody2D rbody2D;
-    private Animator animator;
-    private PlayerSpriteScript playerSpriteScript;
+    private PlayerAnimationScript animationScript;
 
     // 他コンポーネント
     private UndoManager undoManager;
@@ -43,8 +42,7 @@ public class PlayerController : MonoBehaviour
         // 自コンポーネントを取得
         cut = GetComponent<PlayerCut>();
         rbody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        playerSpriteScript = GetComponent<PlayerSpriteScript>();
+        animationScript = GetComponent<PlayerAnimationScript>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
@@ -68,9 +66,6 @@ public class PlayerController : MonoBehaviour
             }
             else { wasUndo = false; }
         }
-
-        animator.SetBool("isDash", isRocketMoving);
-        playerSpriteScript.SetDirection(direction);
 
         // Undo
         if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
@@ -109,6 +104,10 @@ public class PlayerController : MonoBehaviour
             // フラグの変更
             isMoving = true;
             isRocketMoving = true;
+
+            //アニメーショントリガー
+            animationScript.StartRocket();
+
         }
     }
 
@@ -178,6 +177,7 @@ public class PlayerController : MonoBehaviour
             RocketInitialize();
         }
     }
+
     bool IsHorizontalHeadbutt()
     {
         if (Mathf.Abs(rocketVector.x) > 0.1f) { return true; }
@@ -291,6 +291,9 @@ public class PlayerController : MonoBehaviour
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
+
+    public int GetDirection() { return direction; }
+    public void SetDirection(int direction_) { direction = direction_; }
 
     /// <summary>
     /// 当たり判定群
