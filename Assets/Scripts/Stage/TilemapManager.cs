@@ -15,6 +15,8 @@ public class TilemapManager : MonoBehaviour
     [SerializeField] private TileBase blockTile;
 
     [SerializeField] Sprite[] blocks;
+    int maxX = 0;
+    int maxY = 0;
 
     private int[,] grid;
 
@@ -31,6 +33,8 @@ public class TilemapManager : MonoBehaviour
         BoundsInt bounds = tilemap_.cellBounds;
         Vector3Int bottomLeft = new Vector3Int(bounds.xMin, bounds.yMin, 0);
         Vector3Int topRight = new Vector3Int(bounds.xMax - 1, bounds.yMax - 1, 0);
+        maxX = bounds.size.x - 1;
+        maxY = bounds.size.y - 1;
 
         int width = bounds.size.x;
         int height = bounds.size.y;
@@ -74,11 +78,13 @@ public class TilemapManager : MonoBehaviour
 
     public int CompareTileType(int cx, int cy, int x, int y)
     {
+        if(x < 0 || y < 0 || x > maxX || y > maxY) return 0;
         if (grid == null) return 0;
 
         TileType selfType = (TileType)grid[cx, cy];
         TileType otherType = (TileType)grid[x, y];
 
+        Debug.Log(selfType);
         return (selfType == otherType) ? 1 : 0;
     }
 
