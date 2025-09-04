@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // 自コンポーネント
-    private PlayerTear tear;
+    private PlayerCut cut;
     private Rigidbody2D rbody2D;
 
     // 他コンポーネント
@@ -23,12 +23,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // 自コンポーネントを取得
-        tear = GetComponent<PlayerTear>();
+        cut = GetComponent<PlayerCut>();
         rbody2D = GetComponent<Rigidbody2D>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
-        divisionLineManager = tear.GetDivisionLineManager();
+        divisionLineManager = cut.GetDivisionLineManager();
     }
 
     public void ManualUpdate()
@@ -87,27 +87,27 @@ public class PlayerController : MonoBehaviour
                 Vector3 beforeHeadbuttPosition = transform.position;
 
                 // 分断されている場合
-                if (tear.GetIsDivision())
+                if (cut.GetIsDivision())
                 {
                     // 上下線
                     if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
                     {
                         // 左側
-                        if (transform.position.x < tear.GetDivisionPosition().x) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                        if (transform.position.x < cut.GetDivisionPosition().x) { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
                         // 右側
-                        else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                        else { cut.GetObjectTransform(2).transform.position = cut.GetObjectTransform(2).transform.position + rocketVector.normalized; }
                     }
                     // 左右線
                     else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
                     {
                         // 上側
-                        if (transform.position.y > tear.GetDivisionPosition().y) { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                        if (transform.position.y > cut.GetDivisionPosition().y) { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
                         // 下側
-                        else { tear.GetObjectTransform(2).transform.position = tear.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                        else { cut.GetObjectTransform(2).transform.position = cut.GetObjectTransform(2).transform.position + rocketVector.normalized; }
                     }
                 }
                 // 分断されていない場合
-                else { tear.GetObjectTransform(1).transform.position = tear.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                else { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt()); }
@@ -115,8 +115,6 @@ public class PlayerController : MonoBehaviour
                 // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
                 RaycastHit2D hit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector.normalized, 0.8f, groundLayer);
                 if (hit.collider != null) { transform.position = beforeHeadbuttPosition + rocketVector.normalized; }
-
-                Debug.Log(hit.collider);
             }
 
             // 変数の初期化

@@ -5,18 +5,18 @@ public class PlayerManager : MonoBehaviour
 {
     // 自コンポーネント
     private PlayerController controller;
-    private PlayerTear tear;
+    private PlayerCut cut;
 
     void Start()
     {
         // 自コンポーネントを取得
         controller = GetComponent<PlayerController>();
-        tear = GetComponent<PlayerTear>();
+        cut = GetComponent<PlayerCut>();
     }
 
     void Update()
     {
-        tear.ManualUpdate();
+        cut.ManualUpdate();
         controller.ManualUpdate();
 
         if (Input.GetButtonDown("Reset"))

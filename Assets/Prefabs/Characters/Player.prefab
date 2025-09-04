@@ -292,13 +292,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7921618599945661865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f4f64d9a9b370439c63dc687fdaf22, type: 3}
+  m_Script: {fileID: 11500000, guid: e55a9c67d96a67943b7f47db5897342d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectParent1: {fileID: 0}
   objectParent2: {fileID: 0}
   divisionLineObj: {fileID: 5203099502078435929}
-  fadePower: 6
+  fadePower: 8
   postEffectVolume: {fileID: 0}
 --- !u!1001 &2727529132337844208
 PrefabInstance:

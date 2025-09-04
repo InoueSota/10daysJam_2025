@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class PlayerTear : MonoBehaviour
+public class PlayerCut : MonoBehaviour
 {
     // 自コンポーネント
     private PlayerController controller;
