@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: -2030415479911111613}
   - component: {fileID: -4114167489620392497}
   - component: {fileID: 6736328188321697422}
-  - component: {fileID: -1993164836909388836}
   m_Layer: 3
-  m_Name: Goal
+  m_Name: Fragile
   m_TagString: FieldObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,9 +78,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -3457448024721243918, guid: c8cd9ff5a5c802a47b23fb815b3159b7, type: 3}
-  m_Color: {r: 0.9921569, g: 0.42352945, b: 0.4156863, a: 1}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 5172824731864273737, guid: a17b9f171022f904a870690b68eef09f, type: 3}
+  m_Color: {r: 0.20392159, g: 0.20000002, b: 0.20392159, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -176,20 +175,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe52732e0fa79884eb8ab9b58b2cc051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 1
---- !u!114 &-1993164836909388836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7921618599945661865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43efb01b893f45647bb05858278ba84e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goalLinePrefab: {fileID: 7921618599945661865, guid: 7ed4477d0b497ed4ba353f2d086bfd3a, type: 3}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  objectType: 4

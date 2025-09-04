@@ -5,6 +5,9 @@ public class GoalManager : MonoBehaviour
     [Header("GoalLine")]
     [SerializeField] private GameObject goalLinePrefab;
 
+    [Header("Hit Parameter")]
+    [SerializeField] private LayerMask groundLayer;
+
     // ÉSÅ[Éãê¸
     private GameObject goalLineObj;
     // ëºÉSÅ[Éã
@@ -31,19 +34,52 @@ public class GoalManager : MonoBehaviour
                     if (Mathf.Abs(transform.position.x - fieldObject.transform.position.x) < 0.1f ||
                         Mathf.Abs(transform.position.y - fieldObject.transform.position.y) < 0.1f)
                     {
-                        goalLineObj = Instantiate(goalLinePrefab);
-                        goalLineObj.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform, 1f);
+                        bool noBlock = true;
 
-                        otherGoalObj = fieldObject;
+                        foreach (RaycastHit2D hit in Physics2D.RaycastAll(transform.position, (fieldObject.transform.position - transform.position).normalized, Vector3.Distance(transform.position, fieldObject.transform.position), groundLayer))
+                        {
+                            // TagÇ™FieldObjectÇ»ÇÁ
+                            if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                            {
+                                noBlock = false;
+                                break;
+                            }
+                        }
 
-                        isLineActive = true;
-                        break;
+                        if (noBlock)
+                        {
+                            goalLineObj = Instantiate(goalLinePrefab);
+                            goalLineObj.GetComponent<GoalLineManager>().Initialize(transform, fieldObject.transform, 1f);
+
+                            otherGoalObj = fieldObject;
+
+                            isLineActive = true;
+                            break;
+                        }
                     }
                 }
             }
         }
         else
         {
+            bool noBlock = true;
+
+            foreach (RaycastHit2D hit in Physics2D.RaycastAll(transform.position, (otherGoalObj.transform.position - transform.position).normalized, Vector3.Distance(transform.position, otherGoalObj.transform.position), groundLayer))
+            {
+                // TagÇ™FieldObjectÇ»ÇÁ
+                if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                {
+                    noBlock = false;
+                    break;
+                }
+            }
+
+            if (!noBlock)
+            {
+                Destroy(goalLineObj);
+                isLineActive = false;
+            }
+
             if (Mathf.Abs(transform.position.x - otherGoalObj.transform.position.x) > 0.1f && Mathf.Abs(transform.position.y - otherGoalObj.transform.position.y) > 0.1f)
             {
                 Destroy(goalLineObj);

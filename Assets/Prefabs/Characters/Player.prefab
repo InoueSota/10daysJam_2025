@@ -118,11 +118,12 @@ Transform:
   m_GameObject: {fileID: 7921618599945661865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7.5, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3848673215732298193}
+  - {fileID: 2915037767052081566}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8102084386079561552
@@ -278,8 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   halfSize: 0.35
-  moveSpeed: 5
-  jumpPower: 12
+  rocketSpeed: 16
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -297,4 +297,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectParent1: {fileID: 0}
   objectParent2: {fileID: 0}
-  divisionLinePrefab: {fileID: 7921618599945661865, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+  divisionLineObj: {fileID: 5203099502078435929}
+  fadePower: 6
+  postEffectVolume: {fileID: 0}
+--- !u!1001 &2727529132337844208
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 985842109485053550}
+    m_Modifications:
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921618599945661865, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_Name
+      value: Division Line
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+--- !u!4 &2915037767052081566 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 985842109485053550, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+  m_PrefabInstance: {fileID: 2727529132337844208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5203099502078435929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7921618599945661865, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+  m_PrefabInstance: {fileID: 2727529132337844208}
+  m_PrefabAsset: {fileID: 0}
