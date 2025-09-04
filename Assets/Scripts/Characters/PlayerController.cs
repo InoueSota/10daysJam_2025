@@ -114,6 +114,9 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 beforeHeadbuttPosition = transform.position;
 
+                // 動いている親オブジェクト
+                Transform movingParent = null;
+
                 // 分断されている場合
                 if (cut.GetIsDivision())
                 {
@@ -121,24 +124,40 @@ public class PlayerController : MonoBehaviour
                     if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
                     {
                         // 左側
-                        if (transform.position.x < cut.GetDivisionPosition().x) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
+                        if (transform.position.x < cut.GetDivisionPosition().x)
+                        {
+                            cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
+                            movingParent = cut.GetObjectTransform(1);
+                        }
                         // 右側
-                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
+                        else
+                        {
+                            cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
+                            movingParent = cut.GetObjectTransform(2);
+                        }
                     }
                     // 左右線
                     else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
                     {
                         // 上側
-                        if (transform.position.y > cut.GetDivisionPosition().y) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
+                        if (transform.position.y > cut.GetDivisionPosition().y)
+                        {
+                            cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
+                            movingParent = cut.GetObjectTransform(1);
+                        }
                         // 下側
-                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
+                        else
+                        {
+                            cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
+                            movingParent = cut.GetObjectTransform(2);
+                        }
                     }
                 }
                 // 分断されていない場合
                 else { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
 
                 // 分断処理
-                foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt(), rocketVector.normalized); }
+                foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt(), rocketVector.normalized, movingParent); }
 
                 // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
                 RaycastHit2D hit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector.normalized, 0.8f, groundLayer);
