@@ -54,9 +54,8 @@ public class PlayerCut : MonoBehaviour
             isActive = false;
             divisionLineObj.SetActive(false);
         }
-
-        // îjÇËÅAäJén
-        if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
+        // ï™ífê¸ÇÃê∂ê¨
+        else if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
         {
             if (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Vertical") < 0f || Input.GetAxisRaw("Vertical") > 0f)
             {
