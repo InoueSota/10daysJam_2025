@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Glass
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: c8fd5c1b11f74c7418d82afb8bc0a7c7, type: 3}
+  m_DefaultSprite: {fileID: 6724095690519611359, guid: 13965e199e9606c478738c98d623aa34, type: 3}
   m_DefaultGameObject: {fileID: 7921618599945661865, guid: fc184064e404b534b9f0f805b38e156e, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []

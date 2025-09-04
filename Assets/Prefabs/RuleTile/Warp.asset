@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Warp
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: d04d49da714223342b06f1024bf7afb0, type: 3}
+  m_DefaultSprite: {fileID: -640147567963672447, guid: d8e71939e049b9f4889b5c48751e9123, type: 3}
   m_DefaultGameObject: {fileID: 7921618599945661865, guid: b52b1eaf3148d6440a9496d234c60421, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []
