@@ -30,7 +30,7 @@ public class UndoManager : MonoBehaviour
             blocks.Add(blockObject.transform);
         }
         divisionLineObj = GameObject.FindGameObjectWithTag("DivisionLine");
-        divisionLineObj.SetActive(false);
+        divisionLineObj.SetActive(cut.GetIsCreateLineStart());
     }
 
     // åªç›ÇÃèÛë‘Çï€ë∂
