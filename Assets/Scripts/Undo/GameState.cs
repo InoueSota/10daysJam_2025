@@ -14,6 +14,7 @@ public class GameState
     public List<Vector3> blockPositions = new List<Vector3>();
     public List<Vector3> blockPrePositions = new List<Vector3>();
     public List<Vector3> blockCurrentPositions = new List<Vector3>();
+    public List<Vector3> blockPreRocketVector = new List<Vector3>();
     public List<bool> blockActiveStates = new List<bool>();
     public List<Transform> blockParents = new List<Transform>();
 

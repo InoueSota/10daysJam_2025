@@ -20,6 +20,7 @@ public class AllFieldObjectManager : MonoBehaviour
     // 座標群
     private Vector3 prePosition;
     private Vector3 currentPosition;
+    private Vector3 preRocketVector;
 
     [Header("Hit Layer")]
     [SerializeField] private LayerMask groundLayer;
@@ -27,6 +28,7 @@ public class AllFieldObjectManager : MonoBehaviour
     void Start()
     {
         currentPosition = transform.position;
+        preRocketVector = Vector3.zero;
 
         switch (objectType)
         {
@@ -41,46 +43,52 @@ public class AllFieldObjectManager : MonoBehaviour
     /// <summary>
     /// 動かされたあとの処理
     /// </summary>
-    public void AfterHeadbutt(bool _horizontalHeadbutt, Vector3 _rocketVector)
+    public void AfterHeadbutt(bool _horizontalHeadbutt, Vector3 _rocketVector, Transform _movingParent)
     {
         // 前フレーム座標の保存
-        prePosition = currentPosition;
+        prePosition = currentPosition - preRocketVector;
         // 座標の更新
         currentPosition = transform.position + _rocketVector;
+        // ロケット移動の方向を保存
+        preRocketVector = _rocketVector;
 
         // 分断線の取得
         GameObject divisionLine = GameObject.FindGameObjectWithTag("DivisionLine");
 
-        switch (objectType)
+        // 移動すべきオブジェクトか判断する
+        if (transform.parent == _movingParent)
         {
-            case ObjectType.GROUND:
-            case ObjectType.GOAL:
-            case ObjectType.BLOCK:
-            case ObjectType.SPONGE:
-            case ObjectType.FRAGILE:
-            case ObjectType.WARP:
-            case ObjectType.GLASS:
+            switch (objectType)
+            {
+                case ObjectType.GROUND:
+                case ObjectType.GOAL:
+                case ObjectType.BLOCK:
+                case ObjectType.SPONGE:
+                case ObjectType.FRAGILE:
+                case ObjectType.WARP:
+                case ObjectType.GLASS:
 
-                // 横方向からの頭突き
-                if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
-                {
-                    if ((prePosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= currentPosition.x) ||
-                        (currentPosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= prePosition.x))
+                    // 横方向からの頭突き
+                    if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
                     {
-                        gameObject.SetActive(false);
+                        if ((prePosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= currentPosition.x) ||
+                            (currentPosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= prePosition.x))
+                        {
+                            gameObject.SetActive(false);
+                        }
                     }
-                }
-                // 縦方向からの頭突き
-                else if (!_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
-                {
-                    if ((prePosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= currentPosition.y) ||
-                        (currentPosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= prePosition.y))
+                    // 縦方向からの頭突き
+                    else if (!_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
                     {
-                        gameObject.SetActive(false);
+                        if ((prePosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= currentPosition.y) ||
+                            (currentPosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= prePosition.y))
+                        {
+                            gameObject.SetActive(false);
+                        }
                     }
-                }
 
-                break;
+                    break;
+            }
         }
 
         // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
@@ -92,8 +100,10 @@ public class AllFieldObjectManager : MonoBehaviour
     public ObjectType GetObjectType() { return objectType; }
     public Vector3 GetPrePosition() { return prePosition; }
     public Vector3 GetCurrentPosition() { return currentPosition; }
+    public Vector3 GetPreRocketVector() { return preRocketVector; }
 
     // Setter
     public void SetPrePosition(Vector3 _prePosition) { prePosition = _prePosition; }
     public void SetCurrentPosition(Vector3 _currentPosition) { currentPosition = _currentPosition; }
+    public void SetPreRocketVector(Vector3 _preRocketVector) { preRocketVector = _preRocketVector; }
 }
