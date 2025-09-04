@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Judgement")]
     [SerializeField] private LayerMask groundLayer;
 
+    // ワープ
+    private GameObject warpObj;
+
     void Start()
     {
         // 自コンポーネントを取得
@@ -68,6 +71,9 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetAxisRaw("Vertical") > 0.5f) { rocketVector.y = rocketSpeed; }
             // 下方向に入力
             else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector.y = -rocketSpeed; }
+
+            // ワープ対象オブジェクトの情報を初期化する
+            warpObj = null;
 
             // フラグの変更
             isRocketMoving = true;
@@ -180,13 +186,23 @@ public class PlayerController : MonoBehaviour
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
         if (leftHit.collider != null || rightHit.collider != null)
         {
-            if (leftHit.collider != null)  { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); }
-            if (rightHit.collider != null) { hitAllFieldObjectManager = rightHit.collider.GetComponent<AllFieldObjectManager>(); }
+            GameObject hitObj = null;
+
+            if (leftHit.collider != null)  { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = leftHit.collider.gameObject; }
+            if (rightHit.collider != null) { hitAllFieldObjectManager = rightHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = rightHit.collider.gameObject; }
 
             // 当たったブロック単体に起こす処理
             if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.FRAGILE)
             {
                 hitAllFieldObjectManager.gameObject.SetActive(false);
+            }
+            else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
+            {
+                if (hitObj != warpObj)
+                {
+                    hitObj.GetComponent<WarpManager>().DoWarp(transform, ref warpObj);
+                }
+                return false;
             }
 
             return true;
@@ -208,4 +224,24 @@ public class PlayerController : MonoBehaviour
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
+
+    /// <summary>
+    /// 当たり判定群
+    /// </summary>
+    void OnTriggerEnter2D(Collider2D collision) { OnTrigger2D(collision); }
+    void OnTriggerStay2D(Collider2D collision) { OnTrigger2D(collision); }
+    void OnTrigger2D(Collider2D collision)
+    {
+        if (collision.CompareTag("FieldObject"))
+        {
+            if (collision.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
+            {
+                if (collision.gameObject != warpObj)
+                {
+                    collision.GetComponent<WarpManager>().DoWarp(transform, ref warpObj);
+                    rbody2D.linearVelocity = Vector2.zero;
+                }
+            }
+        }
+    }
 }
