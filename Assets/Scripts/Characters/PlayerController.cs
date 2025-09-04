@@ -84,6 +84,8 @@ public class PlayerController : MonoBehaviour
         {
             if (hitAllFieldObjectManager.GetObjectType() != AllFieldObjectManager.ObjectType.SPONGE)
             {
+                Vector3 beforeHeadbuttPosition = transform.position;
+
                 // 分断されている場合
                 if (tear.GetIsDivision())
                 {
@@ -109,6 +111,12 @@ public class PlayerController : MonoBehaviour
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt()); }
+
+                // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
+                RaycastHit2D hit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector.normalized, 0.8f, groundLayer);
+                if (hit.collider != null) { transform.position = beforeHeadbuttPosition + rocketVector.normalized; }
+
+                Debug.Log(hit.collider);
             }
 
             // 変数の初期化
