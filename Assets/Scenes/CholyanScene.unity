@@ -251,7 +251,7 @@ PrefabInstance:
     - target: {fileID: 2735281959320979884, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: changeLayerManager
       value: 
-      objectReference: {fileID: 8194089834802495768}
+      objectReference: {fileID: 0}
     - target: {fileID: 2915037767052081566, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
@@ -29208,17 +29208,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
---- !u!114 &8194089834802495768 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9042266316868238196, guid: 98077ea4391c32f42b7c93663a585244, type: 3}
-  m_PrefabInstance: {fileID: 8236961842973521847}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9fc668816bdd6b41a38851777fa8fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8236961842973521847
 PrefabInstance:
   m_ObjectHideFlags: 0
