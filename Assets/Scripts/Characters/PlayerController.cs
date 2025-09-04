@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class PlayerController : MonoBehaviour
     private AllFieldObjectManager hitAllFieldObjectManager;
     [Header("Ground Judgement")]
     [SerializeField] private LayerMask groundLayer;
+
+    [Header("Map Move Parameter")]
+    [SerializeField] private float mapMoveTime;
 
     // ワープ
     private GameObject warpObj;
@@ -99,28 +103,28 @@ public class PlayerController : MonoBehaviour
                     if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
                     {
                         // 左側
-                        if (transform.position.x < cut.GetDivisionPosition().x) { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                        if (transform.position.x < cut.GetDivisionPosition().x) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
                         // 右側
-                        else { cut.GetObjectTransform(2).transform.position = cut.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
                     }
                     // 左右線
                     else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
                     {
                         // 上側
-                        if (transform.position.y > cut.GetDivisionPosition().y) { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                        if (transform.position.y > cut.GetDivisionPosition().y) { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
                         // 下側
-                        else { cut.GetObjectTransform(2).transform.position = cut.GetObjectTransform(2).transform.position + rocketVector.normalized; }
+                        else { cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
                     }
                 }
                 // 分断されていない場合
-                else { cut.GetObjectTransform(1).transform.position = cut.GetObjectTransform(1).transform.position + rocketVector.normalized; }
+                else { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt()); }
 
                 // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
                 RaycastHit2D hit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector.normalized, 0.8f, groundLayer);
-                if (hit.collider != null) { transform.position = beforeHeadbuttPosition + rocketVector.normalized; }
+                if (hit.collider != null) { transform.DOMove(beforeHeadbuttPosition + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
             }
 
             // 変数の初期化
