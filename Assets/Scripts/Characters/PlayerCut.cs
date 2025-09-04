@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class PlayerTear : MonoBehaviour
+public class PlayerCut : MonoBehaviour
 {
     // 自コンポーネント
     private PlayerController controller;
@@ -42,18 +42,8 @@ public class PlayerTear : MonoBehaviour
 
     public void ManualUpdate()
     {
-        // 破り、開始
-        if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
-        {
-            if (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Vertical") < 0f || Input.GetAxisRaw("Vertical") > 0f)
-            {
-                isReleaseStick = false;
-            }
-            targetIntensity = maxIntensity;
-            isActive = true;
-        }
-        // 破り、終了
-        else if (isActive && Input.GetButtonDown("Special"))
+        // 分断線の削除
+        if (Input.GetButtonDown("Cancel") || (isActive && Input.GetButtonDown("Special")))
         {
             targetIntensity = 0f;
 
@@ -63,6 +53,17 @@ public class PlayerTear : MonoBehaviour
 
             isActive = false;
             divisionLineObj.SetActive(false);
+        }
+
+        // 破り、開始
+        if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
+        {
+            if (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Vertical") < 0f || Input.GetAxisRaw("Vertical") > 0f)
+            {
+                isReleaseStick = false;
+            }
+            targetIntensity = maxIntensity;
+            isActive = true;
         }
 
         // 指を一度離させる処理
