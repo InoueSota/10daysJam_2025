@@ -13,15 +13,53 @@ public class StageCell : MonoBehaviour
 
 
     // [SerializeField] StageCell[] connectStage = new StageCell[4];
+    [SerializeField, Header("このセルで遷移するステージ")] string stageName;
     [Header("自分を基準に接続先のステージ")]
     [SerializeField] StageCell upConnectStage;
     [SerializeField] StageCell leftConnectStage;
     [SerializeField] StageCell downConnectStage;
     [SerializeField] StageCell rightConnectStage;
 
-    public void SetColor(Color set) {
-    
-        GetComponent<SpriteRenderer>().color = set;
+    [SerializeField] GameObject activeObj;
+    [SerializeField] GameObject notActiveObj;
+
+    [SerializeField] SpriteRenderer selectTex;
+
+    public bool active;
+    public bool GetSetActive
+    {
+        get { return active; }
+        set { active = value;
+            if (value)
+            {
+                activeObj.SetActive(true);
+                notActiveObj.SetActive(false);
+            }
+            else
+            {
+                activeObj.SetActive(false);
+                notActiveObj.SetActive(true);
+            }
+        
+        }
+    }
+
+    private void Awake()
+    {
+        activeObj.SetActive(false);
+        notActiveObj.SetActive(true);
+    }
+
+    public void SetColor(Color set)
+    {
+
+        selectTex.color = set;
+    }
+
+    [ContextMenu("起動")]
+    void SetActiveTrue()
+    {
+        GetSetActive = true;
     }
 
     public void SetGetConnectStage(StageDirection direction, StageCell targetStage)
@@ -52,19 +90,19 @@ public class StageCell : MonoBehaviour
 
         //}
 
-        if (direction == StageDirection.up && upConnectStage != null&& upConnectStage.gameObject.activeSelf)
+        if (direction == StageDirection.up && upConnectStage != null && upConnectStage.GetSetActive)
         {
             return upConnectStage;
         }
-        else if (direction == StageDirection.left && leftConnectStage != null && leftConnectStage.gameObject.activeSelf)
+        else if (direction == StageDirection.left && leftConnectStage != null && leftConnectStage.GetSetActive)
         {
             return leftConnectStage;
         }
-        else if (direction == StageDirection.down && downConnectStage != null && downConnectStage.gameObject.activeSelf)
+        else if (direction == StageDirection.down && downConnectStage != null && downConnectStage.GetSetActive)
         {
             return downConnectStage;
         }
-        else if (direction == StageDirection.right && rightConnectStage != null && rightConnectStage.gameObject.activeSelf)
+        else if (direction == StageDirection.right && rightConnectStage != null && rightConnectStage.GetSetActive)
         {
             return rightConnectStage;
         }
@@ -72,6 +110,6 @@ public class StageCell : MonoBehaviour
         return null;
     }
 
-
+    public string GetStageName() { return stageName; }
 
 }

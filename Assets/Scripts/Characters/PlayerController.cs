@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         if (!definitelyStack)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
-            if (hit.collider != null) { isStacking = true; }
+            if (hit.collider != null && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP) { isStacking = true; }
             else { isStacking = false; }
         }
     }
@@ -273,8 +273,8 @@ public class PlayerController : MonoBehaviour
                 AdjustRayPosition(ref currentTwoPosition, false);
 
                 // RayÇÃê∂ê¨
-                RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.45f, groundLayer);
-                RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.45f, groundLayer);
+                RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.2f, groundLayer);
+                RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.2f, groundLayer);
 
                 return HeadbuttChecker(leftHit, rightHit);
             }
@@ -283,9 +283,6 @@ public class PlayerController : MonoBehaviour
                 hitAllFieldObjectManager.gameObject.SetActive(false);
                 return false;
             }
-
-            // ì™ìÀÇ´Ç…ê¨å˜ÇµÇΩÇÁÉèÅ[ÉvObjÇèâä˙âªÇ∑ÇÈ
-            warpObj = null;
             return true;
         }
         return false;
