@@ -316,6 +316,19 @@ public class PlayerController : MonoBehaviour
         definitelyStack = false;
     }
     public void SetDirection(int direction_) { direction = direction_; }
+    public void SetDeathFreeze()
+    {
+        // ロケット移動をしていない判定に
+        isRocketMoving = false;
+        // 移動を無くす
+        rbody2D.linearVelocity = Vector2.zero;
+        // 座標を丸める
+        transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+        // 重力をなくす
+        rbody2D.gravityScale = 0f;
+        // 当たり判定を無くす
+        boxCollider2D.enabled = false;
+    }
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }

@@ -411,6 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffectSpawner: {fileID: 7229796195907965412}
+  deathTime: 1
 --- !u!114 &-6296218169858510744
 MonoBehaviour:
   m_ObjectHideFlags: 0
