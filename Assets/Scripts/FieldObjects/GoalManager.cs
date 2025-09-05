@@ -14,7 +14,7 @@ public class GoalManager : MonoBehaviour
     private GameObject otherGoalObj;
 
     // ƒtƒ‰ƒO—Þ
-    private bool isLineActive;
+    [SerializeField] private bool isLineActive;
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class GoalManager : MonoBehaviour
             {
                 if (fieldObject != gameObject &&
                     fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.GOAL &&
-                    !fieldObject.GetComponent<GoalManager>().GetIsLineActive())
+                    !fieldObject.GetComponent<GoalManager>().GetIsLineActive() && fieldObject.activeSelf)
                 {
                     if (Mathf.Abs(transform.position.x - fieldObject.transform.position.x) < 0.1f ||
                         Mathf.Abs(transform.position.y - fieldObject.transform.position.y) < 0.1f)
@@ -74,19 +74,16 @@ public class GoalManager : MonoBehaviour
                 }
             }
 
-            if (!noBlock)
-            {
-                Destroy(goalLineObj);
-                isLineActive = false;
-            }
-
-            if (Mathf.Abs(transform.position.x - otherGoalObj.transform.position.x) > 0.1f && Mathf.Abs(transform.position.y - otherGoalObj.transform.position.y) > 0.1f)
+            if (!noBlock || !otherGoalObj.activeSelf || (Mathf.Abs(transform.position.x - otherGoalObj.transform.position.x) > 0.1f && Mathf.Abs(transform.position.y - otherGoalObj.transform.position.y) > 0.1f))
             {
                 Destroy(goalLineObj);
                 isLineActive = false;
             }
         }
     }
+
+    // Setter
+    public void SetIsLineActive(bool _isLineActive) { isLineActive = _isLineActive; }
 
     // Getter
     public bool GetIsLineActive() { return isLineActive; }
