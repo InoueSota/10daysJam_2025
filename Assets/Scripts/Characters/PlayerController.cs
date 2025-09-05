@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector = Vector3.down; direction = 3; }
 
             // ロケットの移動速度を変える
-            DOVirtual.Float(0f, rocketMaxSpeed, toMaxSpeedTime, value => { rocketSpeed = value; } ).SetEase(Ease.Linear);
+            DOVirtual.Float(0f, rocketMaxSpeed, toMaxSpeedTime, value => { rocketSpeed = value; }).SetEase(Ease.Linear);
 
             // ワープ対象オブジェクトの情報を初期化する
             warpObj = null;
@@ -226,30 +226,32 @@ public class PlayerController : MonoBehaviour
         // 現在位置を反映
         Vector3 currentOnePosition = transform.position;
         Vector3 currentTwoPosition = transform.position;
-
-        // ずらす
-        if (Mathf.Abs(rocketVector.x) > 0f)
-        {
-            currentOnePosition.y -= halfSize;
-            currentTwoPosition.y += halfSize;
-        }
-        else
-        {
-            currentOnePosition.x -= halfSize;
-            currentTwoPosition.x += halfSize;
-        }
+        AdjustRayPosition(ref currentOnePosition, true);
+        AdjustRayPosition(ref currentTwoPosition, false);
 
         // Rayの生成
         RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.45f, groundLayer);
         RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.45f, groundLayer);
 
+        return HeadbuttChecker(leftHit, rightHit);
+    }
+    void AdjustRayPosition(ref Vector3 _position, bool _isOne)
+    {
+        // ずらす
+        if (Mathf.Abs(rocketVector.x) > 0f && _isOne) { _position.y -= halfSize; }
+        else if (Mathf.Abs(rocketVector.x) > 0f && !_isOne) { _position.y -= halfSize; }
+        else if (Mathf.Abs(rocketVector.y) > 0f && _isOne) { _position.x -= halfSize; }
+        else if (Mathf.Abs(rocketVector.y) > 0f && !_isOne) { _position.x += halfSize; }
+    }
+    bool HeadbuttChecker(RaycastHit2D _leftHit, RaycastHit2D _rightHit)
+    {
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
-        if (leftHit.collider != null || rightHit.collider != null)
+        if (_leftHit.collider != null || _rightHit.collider != null)
         {
             GameObject hitObj = null;
 
-            if (leftHit.collider != null) { hitAllFieldObjectManager = leftHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = leftHit.collider.gameObject; }
-            if (rightHit.collider != null) { hitAllFieldObjectManager = rightHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = rightHit.collider.gameObject; }
+            if (_leftHit.collider != null) { hitAllFieldObjectManager = _leftHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = _leftHit.collider.gameObject; }
+            if (_rightHit.collider != null) { hitAllFieldObjectManager = _rightHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = _rightHit.collider.gameObject; }
 
             // 当たったブロック単体に起こす処理
             if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.FRAGILE)
@@ -261,8 +263,20 @@ public class PlayerController : MonoBehaviour
                 if (hitObj != warpObj)
                 {
                     hitObj.GetComponent<WarpManager>().DoWarp(transform, ref warpObj);
+                    return false;
                 }
-                return false;
+
+                // 現在位置を反映
+                Vector3 currentOnePosition = transform.position + rocketVector;
+                Vector3 currentTwoPosition = transform.position + rocketVector;
+                AdjustRayPosition(ref currentOnePosition, true);
+                AdjustRayPosition(ref currentTwoPosition, false);
+
+                // Rayの生成
+                RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.45f, groundLayer);
+                RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.45f, groundLayer);
+
+                return HeadbuttChecker(leftHit, rightHit);
             }
             else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.GLASS)
             {
