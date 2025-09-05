@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static UnityEditor.PlayerSettings;
 
 public class PlayerSpriteScript : MonoBehaviour
@@ -13,6 +14,7 @@ public class PlayerSpriteScript : MonoBehaviour
     [SerializeField] int direction = 0;
 
     bool isLeft = false;
+    [SerializeField] bool isScissors = true;
 
     [SerializeField] private int sliceWidth = 32;   // êÿÇËï™ÇØÇÈïù
     [SerializeField] private int sliceHeight = 32;  // êÿÇËï™ÇØÇÈçÇÇ≥
@@ -104,8 +106,21 @@ public class PlayerSpriteScript : MonoBehaviour
             string animName = parts[0]; // Stand, Walk Ç»Ç«
             int num = (parts.Length > 1) ? int.Parse(parts[1]) : 0; // ññîˆî‘çÜ
 
+            if ((animName == "Dash" ||
+                animName == "Idle")
+                && isScissors == true)
+            {
+                animName += "S";
 
-            if (animName == "Dash"  && (direction == 1 || direction == 3))
+                AnimationSprite? animBase = GetAnimationByName(animName);
+
+                if (animBase != null)
+                {
+                    spriteRenderer.sprite = animBase.Value.sprites[num];
+                }
+            }
+
+            if (animName == "Dash" || animName == "DashS" && (direction == 1 || direction == 3))
             {
                 if (direction == 1) animName += "Up"; 
                 else if (direction == 3) animName += "Down";
@@ -117,7 +132,8 @@ public class PlayerSpriteScript : MonoBehaviour
                     spriteRenderer.sprite = animBase.Value.sprites[num];
                 }
 
-            }else if (animName == "Cut" && (direction == 2 || direction == 0))
+            }
+            else if (animName == "Cut" && (direction == 2 || direction == 0))
             {
                 animName += "Up";
 
@@ -158,5 +174,10 @@ public class PlayerSpriteScript : MonoBehaviour
     public void SetLeft(bool left)
     {
         isLeft = left;
+    }
+
+    public void SetScissors(bool scissors_)
+    {
+        isScissors = scissors_;
     }
 }
