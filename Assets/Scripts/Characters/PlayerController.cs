@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private GameObject warpObj;
 
     //Animationån
-    private int direction= 0;
+    private int direction = 0;
 
     void Start()
     {
@@ -125,36 +125,15 @@ public class PlayerController : MonoBehaviour
                 if (cut.GetIsDivision())
                 {
                     // è„â∫ê¸
-                    if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
+                    if ((transform.position.x < cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL) ||
+                        (transform.position.y > cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
-                        // ç∂ë§
-                        if (transform.position.x < cut.GetDivisionPosition().x)
-                        {
-                            cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
-                            movingParent = cut.GetObjectTransform(1);
-                        }
-                        // âEë§
-                        else
-                        {
-                            cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
-                            movingParent = cut.GetObjectTransform(2);
-                        }
+                        MoveObjectTransform(1, ref movingParent);
                     }
-                    // ç∂âEê¸
-                    else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
+                    else if ((transform.position.x >= cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL) ||
+                             (transform.position.y <= cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
-                        // è„ë§
-                        if (transform.position.y > cut.GetDivisionPosition().y)
-                        {
-                            cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
-                            movingParent = cut.GetObjectTransform(1);
-                        }
-                        // â∫ë§
-                        else
-                        {
-                            cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
-                            movingParent = cut.GetObjectTransform(2);
-                        }
+                        MoveObjectTransform(2, ref movingParent);
                     }
                 }
                 // ï™ífÇ≥ÇÍÇƒÇ¢Ç»Ç¢èÍçá
@@ -173,6 +152,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Mathf.Abs(rocketVector.x) > 0.1f) { return true; }
         return false;
+    }
+    void MoveObjectTransform(int _parentObjectNumber, ref Transform _movingParent)
+    {
+        cut.GetObjectTransform(_parentObjectNumber).transform.DOMove(cut.GetObjectTransform(_parentObjectNumber).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
+        _movingParent = cut.GetObjectTransform(_parentObjectNumber);
     }
     void FinishMapMove() { isMoving = false; }
 
