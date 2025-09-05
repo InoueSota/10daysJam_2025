@@ -181,6 +181,12 @@ MonoBehaviour:
   - name: IdleS
     texture: {fileID: 2800000, guid: f778e410767b6904582e7be4b2ea5d3c, type: 3}
     sprites: []
+  - name: DeathUp
+    texture: {fileID: 2800000, guid: 4fecdcdd6de2db045b1f62b0666bc7a2, type: 3}
+    sprites: []
+  - name: DeathDown
+    texture: {fileID: 2800000, guid: 16e7b94eccaac124ab2769afa3a62b18, type: 3}
+    sprites: []
 --- !u!114 &8072642564401454438
 MonoBehaviour:
   m_ObjectHideFlags: 0

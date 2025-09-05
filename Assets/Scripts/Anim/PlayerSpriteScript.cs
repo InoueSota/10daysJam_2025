@@ -9,7 +9,7 @@ public class PlayerSpriteScript : MonoBehaviour
 {
 
     SpriteRenderer spriteRenderer;
-    [SerializeField] Animator animator  = null;
+    //[SerializeField] Animator animator  = null;
 
     [SerializeField] int direction = 0;
 
