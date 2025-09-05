@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    // 他コンポーネント
+    private PlayerManager playerManager;
+
     // 原点
     private Vector3 originPosition;
-
-    // 覗きしているか
-    private bool isPeek;
 
     [Header("カメラ移動速度")]
     [SerializeField] private float floatRange;
@@ -25,6 +25,9 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
+        // 他コンポーネントの取得
+        playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+
         originPosition = transform.position;
     }
 
@@ -43,14 +46,14 @@ public class CameraManager : MonoBehaviour
 
         Vector3 floatPosition = Vector3.zero;
 
-        if (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
+        if (playerManager.GetIsDeath() || (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f))
         {
             floatPosition = originPosition;
         }
         floatPosition.x += Mathf.Cos(rotateValue) * floatRange;
         floatPosition.y += Mathf.Sin(rotateValue * 2f) * floatRange;
 
-        if (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f)
+        if (!playerManager.GetIsDeath() && (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f))
         {
             Vector3 peekPosition = originPosition;
             peekPosition.x += Input.GetAxisRaw("Horizontal") * peekRange;
