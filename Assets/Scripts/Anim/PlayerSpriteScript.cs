@@ -120,7 +120,7 @@ public class PlayerSpriteScript : MonoBehaviour
                 }
             }
 
-            if (animName == "Dash" || animName == "DashS" && (direction == 1 || direction == 3))
+            if ((animName == "Dash" || animName == "DashS"  || animName == "Death") && (direction == 1 || direction == 3))
             {
                 if (direction == 1) animName += "Up"; 
                 else if (direction == 3) animName += "Down";

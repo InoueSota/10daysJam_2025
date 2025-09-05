@@ -192,6 +192,16 @@ public class PlayerAnimationScript : MonoBehaviour
         cutTween.Kill();
     }
 
+    public void StartDeath()
+    {
+        animator.SetTrigger("death");
+    }
+
+    public void StartRespawn()
+    {
+        animator.SetTrigger("respawn");
+    }
+
     private void Init()
     {
         if (scissors != null)

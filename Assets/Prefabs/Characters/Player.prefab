@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bc3e54a638c974e886c76cc50173a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4419386137143282054}
   direction: 0
   isScissors: 1
   sliceWidth: 32
@@ -417,6 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffectSpawner: {fileID: 7229796195907965412}
+  animationScript: {fileID: 8072642564401454438}
   deathTime: 1
 --- !u!114 &-6296218169858510744
 MonoBehaviour:
