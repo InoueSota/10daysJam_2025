@@ -8,6 +8,8 @@ public class GoalManager : MonoBehaviour
     [Header("Hit Parameter")]
     [SerializeField] private LayerMask groundLayer;
 
+    Animator animator;
+
     // ƒS[ƒ‹ü
     private GameObject goalLineObj;
     // ‘¼ƒS[ƒ‹
@@ -18,7 +20,7 @@ public class GoalManager : MonoBehaviour
 
     void Start()
     {
-
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -80,6 +82,8 @@ public class GoalManager : MonoBehaviour
                 isLineActive = false;
             }
         }
+
+        animator.SetBool("on", isLineActive);
     }
 
     // Setter
