@@ -47,7 +47,7 @@ public class GoalLineManager : MonoBehaviour
 
     void Update()
     {
-        if (pointA == null || pointB == null) { Destroy(gameObject); }
+        if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); }
 
         // 2ì_ä‘Çê›íË
         lineRenderer.SetPosition(0, pointA.position);
