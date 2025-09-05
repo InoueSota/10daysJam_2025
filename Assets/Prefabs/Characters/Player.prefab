@@ -91,7 +91,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5697493938638811651}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4419386137143282054}
   direction: 0
+  isScissors: 1
   sliceWidth: 32
   sliceHeight: 32
   animations:
@@ -168,6 +169,18 @@ MonoBehaviour:
   - name: CutDown
     texture: {fileID: 2800000, guid: 3ff52a2224b15ab479bc0049fa548ccb, type: 3}
     sprites: []
+  - name: DashS
+    texture: {fileID: 2800000, guid: 988e94d48684d1e4eb8ddce3347fc784, type: 3}
+    sprites: []
+  - name: DashSUp
+    texture: {fileID: 2800000, guid: cd7af95240e351b408408ab06aea6eee, type: 3}
+    sprites: []
+  - name: DashSDown
+    texture: {fileID: 2800000, guid: 45b4145ca0731e44cb61b4dae560574b, type: 3}
+    sprites: []
+  - name: IdleS
+    texture: {fileID: 2800000, guid: f778e410767b6904582e7be4b2ea5d3c, type: 3}
+    sprites: []
 --- !u!114 &8072642564401454438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +193,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3aa73e58835a04ea481818a365caa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpriteRenderer: {fileID: 0}
+  scissorsPrefab: {fileID: 2389614121927726389, guid: 56759be9933f23d41bc68a561e46c024, type: 3}
+  scissors: {fileID: 0}
+  isCutReady: 0
   direction: 0
+  dashFlowSpeed: 1200
+  dashFlowMulti: 0.1
+  scissorsHoldOffset: {x: 0, y: 1, z: 0}
+  scissorsMoveSpeed: 30
+  scissorsCutTime: 0.4
+  scissorsSizePlusSpeed: 8
+  scissorsMaxSize: 2
+  isCut: 0
+  preIsCut: 0
+  screenSize: {x: 20, y: 15}
 --- !u!95 &4419386137143282054
 Animator:
   serializedVersion: 7
@@ -250,7 +277,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7921618599945661865}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
