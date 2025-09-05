@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
                 // 死亡箇所にエフェクトを出す
                 deathEffectSpawner.SpawnEffect(transform.position);
                 // プレイヤーを静止させる
-                controller.SetDeathFreeze();
+                controller.SetDeathFreeze(viewportPos);
                 // インターバルの設定
                 deathTimer = deathTime;
                 // フラグの切り替え
