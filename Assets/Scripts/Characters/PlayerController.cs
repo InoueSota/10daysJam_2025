@@ -162,10 +162,6 @@ public class PlayerController : MonoBehaviour
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt(), rocketVector.normalized, movingParent); }
-
-                // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
-                RaycastHit2D hit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector.normalized, 0.8f, groundLayer);
-                if (hit.collider != null) { transform.DOMove(beforeHeadbuttPosition + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
             }
 
             // 変数の初期化
