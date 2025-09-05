@@ -196,11 +196,11 @@ public class PlayerCut : MonoBehaviour
     }
     public DivisionLineManager GetDivisionLineManager() { return divisionLineObj.GetComponent<DivisionLineManager>(); }
     public bool GetIsCreateLineStart() { return isCreateLineStart; }
-   public bool GetIsActive() { return isActive; }
+    public bool GetIsActive() { return isActive; }
     public int GetDirection() { return direction; }
-    public void SetDirection(int direction_) { direction = direction_; }
 
     // Setter
     public void SetDivisionPosition(Vector2 _divisionPosition) { divisionPosition = _divisionPosition; }
     public void SetIsDivision(bool _isDivision) { isDivision = _isDivision; }
+    public void SetDirection(int direction_) { direction = direction_; }
 }
