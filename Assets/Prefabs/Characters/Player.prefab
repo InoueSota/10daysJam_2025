@@ -46,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circlePrefab: {fileID: 4155152517066043622, guid: f785b6ebe653e6d4fbbd324bad0a835c, type: 3}
   circleCount: 8
-  radius: 0.5
-  expandSpeed: 1
-  fadeDuration: 1
+  radius: 0
+  expandSpeed: 3
+  fadeDuration: 0.4
 --- !u!1 &5697493938638811651
 GameObject:
   m_ObjectHideFlags: 0
