@@ -8,28 +8,31 @@ public class GoalManager : MonoBehaviour
     [Header("Hit Parameter")]
     [SerializeField] private LayerMask groundLayer;
 
+    Animator animator;
+
     // ÉSÅ[Éãê¸
     private GameObject goalLineObj;
     // ëºÉSÅ[Éã
     private GameObject otherGoalObj;
 
     // ÉtÉâÉOóﬁ
-    [SerializeField] private bool isLineActive;
+    [SerializeField] private bool isCreateLine;
+    private bool isLineActive;
 
     void Start()
     {
-
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (!isLineActive)
+        if (!isCreateLine)
         {
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
             {
                 if (fieldObject != gameObject &&
                     fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.GOAL &&
-                    !fieldObject.GetComponent<GoalManager>().GetIsLineActive() && fieldObject.activeSelf)
+                    !fieldObject.GetComponent<GoalManager>().GetIsCreateLine() && fieldObject.activeSelf)
                 {
                     if (Mathf.Abs(transform.position.x - fieldObject.transform.position.x) < 0.1f ||
                         Mathf.Abs(transform.position.y - fieldObject.transform.position.y) < 0.1f)
@@ -53,7 +56,7 @@ public class GoalManager : MonoBehaviour
 
                             otherGoalObj = fieldObject;
 
-                            isLineActive = true;
+                            isCreateLine = true;
                             break;
                         }
                     }
@@ -77,14 +80,28 @@ public class GoalManager : MonoBehaviour
             if (!noBlock || !otherGoalObj.activeSelf || (Mathf.Abs(transform.position.x - otherGoalObj.transform.position.x) > 0.1f && Mathf.Abs(transform.position.y - otherGoalObj.transform.position.y) > 0.1f))
             {
                 Destroy(goalLineObj);
-                isLineActive = false;
+                SetIsCreateLine(false);
             }
         }
+
+        animator.SetBool("on", isLineActive);
     }
 
     // Setter
+    public void SetIsCreateLine(bool _isCreateLine)
+    {
+        isCreateLine = _isCreateLine;
+
+        // Ç‡Çµê¸Çè¡Ç∑Ç»ÇÁå©ÇΩñ⁄Ç‡èCê≥Ç∑ÇÈ
+        if (!_isCreateLine)
+        {
+            isLineActive = false;
+            if (otherGoalObj) { otherGoalObj.GetComponent<GoalManager>().SetIsLineActive(false); }
+        }
+    }
     public void SetIsLineActive(bool _isLineActive) { isLineActive = _isLineActive; }
 
     // Getter
+    public bool GetIsCreateLine() { return isCreateLine; }
     public bool GetIsLineActive() { return isLineActive; }
 }

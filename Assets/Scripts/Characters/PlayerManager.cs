@@ -13,6 +13,11 @@ public class PlayerManager : MonoBehaviour
     private UndoManager undoManager;
     private Camera mainCamera;
 
+    [Header("死亡関係")]
+    [SerializeField] private float deathTime;
+    private float deathTimer;
+    private bool isDeath;
+
     void Start()
     {
         // 自コンポーネントを取得
@@ -26,11 +31,8 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        // スタックしていないとき
-        if (!controller.GetIsStacking())
-        {
-            cut.ManualUpdate();
-        }
+        // スタックしていないときに分断操作可能
+        if (!controller.GetIsStacking()) { cut.ManualUpdate(); }
         controller.ManualUpdate();
 
         // 死亡処理
@@ -42,16 +44,37 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     void DeathChecker()
     {
-        // プレイヤーの位置をビューポート座標に変換
-        Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
-
-        // 画面内チェック（0～1の範囲）
-        if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1)
+        if (!isDeath)
         {
-            // 死亡箇所にエフェクトを出す
-            deathEffectSpawner.SpawnEffect(transform.position);
+            // プレイヤーの位置をビューポート座標に変換
+            Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
 
-            undoManager.Undo();
+            // 画面内チェック（0～1の範囲）
+            if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1)
+            {
+                // 死亡箇所にエフェクトを出す
+                deathEffectSpawner.SpawnEffect(transform.position);
+                // プレイヤーを静止させる
+                controller.SetDeathFreeze();
+                // インターバルの設定
+                deathTimer = deathTime;
+                // フラグの切り替え
+                isDeath = true;
+            }
+        }
+        else
+        {
+            // インターバルの更新
+            deathTimer -= Time.deltaTime;
+
+            // フリーズ終了
+            if (deathTimer <= 0f)
+            {
+                // Undo
+                undoManager.Undo();
+                // フラグの切り替え
+                isDeath = false;
+            }
         }
     }
 }
