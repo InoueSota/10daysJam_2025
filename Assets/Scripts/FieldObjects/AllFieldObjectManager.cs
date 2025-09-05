@@ -70,6 +70,8 @@ public class AllFieldObjectManager : MonoBehaviour
                         if ((prePosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= currentPosition.x) ||
                             (currentPosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= prePosition.x))
                         {
+                            if (objectType == ObjectType.GOAL) { GetComponent<GoalManager>().SetIsLineActive(false); }
+
                             gameObject.SetActive(false);
                         }
                     }
@@ -79,6 +81,8 @@ public class AllFieldObjectManager : MonoBehaviour
                         if ((prePosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= currentPosition.y) ||
                             (currentPosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= prePosition.y))
                         {
+                            if (objectType == ObjectType.GOAL) { GetComponent<GoalManager>().SetIsLineActive(false); }
+
                             gameObject.SetActive(false);
                         }
                     }

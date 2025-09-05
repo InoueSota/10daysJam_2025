@@ -88,6 +88,9 @@ public class GoalManager : MonoBehaviour
         }
     }
 
+    // Setter
+    public void SetIsLineActive(bool _isLineActive) { isLineActive = _isLineActive; }
+
     // Getter
     public bool GetIsLineActive() { return isLineActive; }
 }
