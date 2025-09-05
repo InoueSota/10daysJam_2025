@@ -6,13 +6,13 @@ public class PlayerCut : MonoBehaviour
 {
     // 自コンポーネント
     private PlayerController controller;
-    private PlayerAnimationScript anim;
 
     // 他コンポーネント
     [SerializeField] private Transform objectParent1;
     [SerializeField] private Transform objectParent2;
     [SerializeField] private GameObject divisionLineObj;
     private UndoManager undoManager;
+    [SerializeField] private PlayerAnimationScript animationScript;
 
     // フラグ類
     private bool isActive;
@@ -38,7 +38,6 @@ public class PlayerCut : MonoBehaviour
     void Start()
     {
         controller = GetComponent<PlayerController>();
-        anim = GetComponent<PlayerAnimationScript>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
@@ -176,7 +175,7 @@ public class PlayerCut : MonoBehaviour
                 targetIntensity = 0f;
                 isActive = false;
                 //アニメーショントリガー
-                anim.StartCut();
+                animationScript.StartCut();
             }
 
             // Global Volume
@@ -197,11 +196,11 @@ public class PlayerCut : MonoBehaviour
     }
     public DivisionLineManager GetDivisionLineManager() { return divisionLineObj.GetComponent<DivisionLineManager>(); }
     public bool GetIsCreateLineStart() { return isCreateLineStart; }
-   public bool GetIsActive() { return isActive; }
+    public bool GetIsActive() { return isActive; }
     public int GetDirection() { return direction; }
-    public void SetDirection(int direction_) { direction = direction_; }
 
     // Setter
     public void SetDivisionPosition(Vector2 _divisionPosition) { divisionPosition = _divisionPosition; }
     public void SetIsDivision(bool _isDivision) { isDivision = _isDivision; }
+    public void SetDirection(int direction_) { direction = direction_; }
 }

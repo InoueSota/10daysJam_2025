@@ -60,7 +60,6 @@ public class UndoManager : MonoBehaviour
             state.blockPositions.Add(block.position);
             state.blockPrePositions.Add(block.GetComponent<AllFieldObjectManager>().GetPrePosition());
             state.blockCurrentPositions.Add(block.GetComponent<AllFieldObjectManager>().GetCurrentPosition());
-            state.blockPreRocketVector.Add(block.GetComponent<AllFieldObjectManager>().GetPreRocketVector());
             state.blockActiveStates.Add(block.gameObject.activeSelf);
             state.blockParents.Add(block.parent);
         }
@@ -87,7 +86,6 @@ public class UndoManager : MonoBehaviour
             blocks[i].position = state.blockPositions[i];
             blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(state.blockPrePositions[i]);
             blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(state.blockCurrentPositions[i]);
-            blocks[i].GetComponent<AllFieldObjectManager>().SetPreRocketVector(state.blockPreRocketVector[i]);
             blocks[i].gameObject.SetActive(state.blockActiveStates[i]);
             blocks[i].SetParent(state.blockParents[i]);
         }
@@ -124,7 +122,6 @@ public class UndoManager : MonoBehaviour
             blocks[i].position = prevState.blockPositions[i];
             blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(prevState.blockPrePositions[i]);
             blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(prevState.blockCurrentPositions[i]);
-            blocks[i].GetComponent<AllFieldObjectManager>().SetPreRocketVector(prevState.blockPreRocketVector[i]);
             blocks[i].gameObject.SetActive(prevState.blockActiveStates[i]);
             blocks[i].SetParent(prevState.blockParents[i]);
         }

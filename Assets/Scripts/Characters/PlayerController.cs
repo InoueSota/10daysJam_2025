@@ -7,11 +7,11 @@ public class PlayerController : MonoBehaviour
     // 自コンポーネント
     private PlayerCut cut;
     private Rigidbody2D rbody2D;
-    private PlayerAnimationScript animationScript;
 
     // 他コンポーネント
     private UndoManager undoManager;
     private DivisionLineManager divisionLineManager;
+    [SerializeField] private PlayerAnimationScript animationScript;
 
     [Header("Basic Parameter")]
     [SerializeField] private float halfSize;
@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     // フラグ
     [SerializeField] private bool isMoving;
     [SerializeField] private bool isStacking;
-    private bool wasUndo;
 
     // ワープ
     private GameObject warpObj;
@@ -42,7 +41,6 @@ public class PlayerController : MonoBehaviour
         // 自コンポーネントを取得
         cut = GetComponent<PlayerCut>();
         rbody2D = GetComponent<Rigidbody2D>();
-        animationScript = GetComponent<PlayerAnimationScript>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
@@ -57,15 +55,12 @@ public class PlayerController : MonoBehaviour
             MoveUpdate();
             // 頭突き処理
             HeadbuttUpdate();
-
-            if (!wasUndo)
-            {
-                // スタックしているか判定
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
-                if (hit.collider != null) { isStacking = true; }
-            }
-            else { wasUndo = false; }
         }
+
+        // スタックしているか判定
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
+        if (hit.collider != null) { isStacking = true; }
+        else { isStacking = false; }
 
         // Undo
         if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
@@ -78,7 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isRocketMoving) { rbody2D.linearVelocity = new Vector2(0f, rbody2D.linearVelocity.y); }
 
-        if (!isRocketMoving && !isMoving && IsGrounded() && Input.GetButtonDown("Jump") &&
+        if (!isRocketMoving && !isMoving && IsGrounded() && !cut.GetIsActive() && Input.GetButtonDown("Jump") &&
             (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             // 移動前に保存
@@ -286,7 +281,6 @@ public class PlayerController : MonoBehaviour
 
         isMoving = false;
         isStacking = false;
-        wasUndo = true;
     }
 
     // Getter
