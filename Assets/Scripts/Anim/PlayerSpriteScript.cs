@@ -118,7 +118,6 @@ public class PlayerSpriteScript : MonoBehaviour
                 {
                     spriteRenderer.sprite = animBase.Value.sprites[num];
                 }
-                Debug.Log(animName);
             }
 
             if (animName == "Dash" || animName == "DashS" && (direction == 1 || direction == 3))
