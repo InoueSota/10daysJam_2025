@@ -23,13 +23,15 @@ public class StageCell : MonoBehaviour
     [SerializeField] GameObject activeObj;
     [SerializeField] GameObject notActiveObj;
 
-    [SerializeField] SpriteRenderer selectTex;
+    [SerializeField] GameObject selectObj;
 
     public bool active;
     public bool GetSetActive
     {
         get { return active; }
-        set { active = value;
+        set
+        {
+            active = value;
             if (value)
             {
                 activeObj.SetActive(true);
@@ -40,21 +42,20 @@ public class StageCell : MonoBehaviour
                 activeObj.SetActive(false);
                 notActiveObj.SetActive(true);
             }
-        
+
         }
     }
+
+    public void SetSelectObj(bool active) { selectObj.SetActive(active); }
 
     private void Awake()
     {
         activeObj.SetActive(false);
+        selectObj.SetActive(false);
         notActiveObj.SetActive(true);
     }
 
-    public void SetColor(Color set)
-    {
 
-        selectTex.color = set;
-    }
 
     [ContextMenu("‹N“®")]
     void SetActiveTrue()
