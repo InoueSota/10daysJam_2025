@@ -86,7 +86,7 @@ public class AllFieldObjectManager : MonoBehaviour
                     break;
             }
 
-            // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
+            // 釘ブロックに当たったら消滅する
             RaycastHit2D hit = Physics2D.Raycast(currentPosition, _rocketVector, 0.4f, groundLayer);
             if (objectType != ObjectType.NAIL && hit.collider != null && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() == ObjectType.NAIL) { gameObject.SetActive(false); }
         }
