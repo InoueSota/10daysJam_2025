@@ -30,18 +30,8 @@ public class PlayerManager : MonoBehaviour
         if (!controller.GetIsStacking()) { cut.ManualUpdate(); }
         controller.ManualUpdate();
 
-        // ƒS[ƒ‹ˆ—
-        GoalChecker();
         // €–Sˆ—
         DeathChecker();
-    }
-
-    /// <summary>
-    /// ƒS[ƒ‹ˆ—
-    /// </summary>
-    void GoalChecker()
-    {
-
     }
 
     /// <summary>

@@ -6,6 +6,8 @@ public class GoalLineManager : MonoBehaviour
     private Transform pointB; // 終点
     private LineRenderer lineRenderer;
 
+    [SerializeField] private LayerMask characterLayer;
+
     public void Initialize(Transform _pointA, Transform _pointB, float alpha)
     {
         // ゴールの見た目を変更する
@@ -56,5 +58,18 @@ public class GoalLineManager : MonoBehaviour
         // 2点間を設定
         lineRenderer.SetPosition(0, pointA.position);
         lineRenderer.SetPosition(1, pointB.position);
+    }
+
+    // Getter
+    public bool IsGoal()
+    {
+        // プレイヤーが触れたか判定
+        RaycastHit2D hit = Physics2D.Raycast(pointA.position, (pointB.position - pointA.position).normalized, Vector3.Distance(pointB.position, pointA.position), characterLayer);
+
+        if (hit.collider != null)
+        {
+            return true;
+        }
+        return false;
     }
 }
