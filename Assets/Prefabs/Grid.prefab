@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 6762548328019382567}
   - component: {fileID: 2272007797013094051}
   - component: {fileID: 6125859340515612659}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Empty Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 5069327744559235923}
   - component: {fileID: 1808667917559640110}
   - component: {fileID: 7957023092268709405}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Write Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
