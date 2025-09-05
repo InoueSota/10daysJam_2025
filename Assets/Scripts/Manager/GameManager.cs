@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour
                 isGoal = true;
             }
         }
+        else
+        {
+            if (Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; }
+        }
     }
 
     void LateUpdate()

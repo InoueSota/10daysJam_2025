@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatRange: 0.06
   addRotateValue: 0.5
-  peekPower: 8
+  peekPower: 6
   peekRange: 0.15
   shakeTime: 0.3
   shakePower: 0.2
