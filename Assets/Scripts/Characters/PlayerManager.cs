@@ -77,4 +77,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+
+    // Getter
+    public bool GetIsDeath() { return isDeath; }
 }
