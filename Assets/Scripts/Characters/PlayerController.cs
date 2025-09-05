@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider2D;
 
     // 他コンポーネント
+    private CameraManager cameraManager;
     private UndoManager undoManager;
     private DivisionLineManager divisionLineManager;
     [SerializeField] private PlayerAnimationScript animationScript;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
 
         // 他コンポーネントを取得
+        cameraManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
         divisionLineManager = cut.GetDivisionLineManager();
     }
@@ -163,6 +165,9 @@ public class PlayerController : MonoBehaviour
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt(), rocketVector.normalized, movingParent); }
+
+                // カメラシェイクをする
+                cameraManager.ShakeCamera();
             }
 
             // 変数の初期化
