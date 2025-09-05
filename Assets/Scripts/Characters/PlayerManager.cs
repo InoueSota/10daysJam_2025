@@ -35,12 +35,6 @@ public class PlayerManager : MonoBehaviour
 
         // €–Sˆ—
         DeathChecker();
-
-        // Undo
-        if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
-
-        // Reset
-        if (Input.GetButtonDown("Reset")) { undoManager.ResetToInitialState(); }
     }
 
     /// <summary>

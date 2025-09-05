@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4730203fdd324841bd8debcd53f7217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  undoManager: {fileID: 2001972069336573037}
 --- !u!114 &2001972069336573037
 MonoBehaviour:
   m_ObjectHideFlags: 0
