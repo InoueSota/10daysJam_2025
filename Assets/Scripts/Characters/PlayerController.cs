@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,6 +6,7 @@ public class PlayerController : MonoBehaviour
     // 自コンポーネント
     private PlayerCut cut;
     private Rigidbody2D rbody2D;
+    private BoxCollider2D boxCollider2D;
 
     // 他コンポーネント
     private UndoManager undoManager;
@@ -29,18 +29,20 @@ public class PlayerController : MonoBehaviour
     // フラグ
     [SerializeField] private bool isMoving;
     [SerializeField] private bool isStacking;
+    [SerializeField] private bool definitelyStack;
 
     // ワープ
     private GameObject warpObj;
 
-    //Animation系
-    private int direction= 0;
+    // Animation系
+    private int direction = 0;
 
     void Start()
     {
         // 自コンポーネントを取得
         cut = GetComponent<PlayerCut>();
         rbody2D = GetComponent<Rigidbody2D>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     public void ManualUpdate()
     {
-        if (!isStacking)
+        if (!isStacking && !definitelyStack)
         {
             // 左右移動処理
             MoveUpdate();
@@ -57,13 +59,13 @@ public class PlayerController : MonoBehaviour
             HeadbuttUpdate();
         }
 
-        // スタックしているか判定
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
-        if (hit.collider != null) { isStacking = true; }
-        else { isStacking = false; }
-
-        // Undo
-        if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
+        // 確定スタックじゃないときに判定を取る
+        if (!definitelyStack)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
+            if (hit.collider != null) { isStacking = true; }
+            else { isStacking = false; }
+        }
     }
 
     /// <summary>
@@ -124,61 +126,61 @@ public class PlayerController : MonoBehaviour
                 // 分断されている場合
                 if (cut.GetIsDivision())
                 {
-                    // 上下線
-                    if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
+                    // 左側 || 上側
+                    if ((transform.position.x < cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL) ||
+                        (transform.position.y > cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
-                        // 左側
-                        if (transform.position.x < cut.GetDivisionPosition().x)
-                        {
-                            cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
-                            movingParent = cut.GetObjectTransform(1);
-                        }
-                        // 右側
-                        else
-                        {
-                            cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
-                            movingParent = cut.GetObjectTransform(2);
-                        }
+                        MoveObjectTransform(1, ref movingParent);
                     }
-                    // 左右線
-                    else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
+                    // 右側 || 下側
+                    else if ((transform.position.x >= cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL) ||
+                             (transform.position.y <= cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
-                        // 上側
-                        if (transform.position.y > cut.GetDivisionPosition().y)
-                        {
-                            cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
-                            movingParent = cut.GetObjectTransform(1);
-                        }
-                        // 下側
-                        else
-                        {
-                            cut.GetObjectTransform(2).transform.DOMove(cut.GetObjectTransform(2).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
-                            movingParent = cut.GetObjectTransform(2);
-                        }
+                        MoveObjectTransform(2, ref movingParent);
                     }
                 }
                 // 分断されていない場合
-                else { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
+                else { MoveObjectTransform(1, ref movingParent); }
+
+                // 進行方向に不動オブジェクトがあるかどうか判定
+                RaycastHit2D forwardHit = Physics2D.Raycast(beforeHeadbuttPosition, rocketVector, 0.8f, groundLayer);
+                // 逆進行方向に可動オブジェクトがあるかどうか判定
+                RaycastHit2D backHit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector, 0.8f, groundLayer);
+                // 進行方向に不動オブジェクトがあり、逆進行方向に可動オブジェクトがあるとき確実にスタックする
+                if (forwardHit.collider && backHit.collider && (forwardHit.transform.parent != movingParent || forwardHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL))
+                {
+                    // 座標を丸める
+                    transform.position = new Vector3(SnapToNearestHalf(beforeHeadbuttPosition.x), Mathf.Round(beforeHeadbuttPosition.y));
+                    // 重力をなくす
+                    rbody2D.gravityScale = 0f;
+                    // 当たり判定を無くす
+                    boxCollider2D.enabled = false;
+
+                    // フラグの設定
+                    isStacking = true;
+                    definitelyStack = true;
+                }
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt(), rocketVector.normalized, movingParent); }
-
-                // プレイヤーがずらしによって埋もれる場合のみ１マス前に動かす
-                RaycastHit2D hit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector.normalized, 0.8f, groundLayer);
-                if (hit.collider != null) { transform.DOMove(beforeHeadbuttPosition + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine); }
             }
 
             // 変数の初期化
             RocketInitialize();
         }
     }
-
     bool IsHorizontalHeadbutt()
     {
         if (Mathf.Abs(rocketVector.x) > 0.1f) { return true; }
         return false;
     }
-    void FinishMapMove() { isMoving = false; }
+    void MoveObjectTransform(int _parentObjectNumber, ref Transform _movingParent)
+    {
+        cut.GetObjectTransform(_parentObjectNumber).transform.DOMove(cut.GetObjectTransform(_parentObjectNumber).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
+        _movingParent = cut.GetObjectTransform(_parentObjectNumber);
+    }
+    void FinishMapMove() { isMoving = false; definitelyStack = false; }
+    float SnapToNearestHalf(float _value) { return Mathf.Round(_value - 0.5f) + 0.5f; }
 
     void FixedUpdate()
     {
@@ -269,25 +271,33 @@ public class PlayerController : MonoBehaviour
     {
         // 移動を無くす
         rbody2D.linearVelocity = Vector2.zero;
-        // 重力を受けるように戻す
-        rbody2D.gravityScale = 1f;
+        // 確定スタックでないとき重力を受けるように戻す
+        if (!definitelyStack) { rbody2D.gravityScale = 1f; }
 
         // フラグの変更
         isRocketMoving = false;
     }
     public void FlagInitialize()
     {
+        // 重力を戻す
+        rbody2D.gravityScale = 1f;
+        // 当たり判定を戻す
+        boxCollider2D.enabled = true;
+
+        // 移動中オブジェクトを止める
         DOTween.KillAll();
 
+        // フラグの初期化
         isMoving = false;
         isStacking = false;
+        definitelyStack = false;
     }
+    public void SetDirection(int direction_) { direction = direction_; }
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
-
+    public bool GetIsStacking() { return isStacking; }
     public int GetDirection() { return direction; }
-    public void SetDirection(int direction_) { direction = direction_; }
 
     /// <summary>
     /// 当たり判定群

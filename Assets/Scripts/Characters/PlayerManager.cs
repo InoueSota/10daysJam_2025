@@ -6,27 +6,32 @@ public class PlayerManager : MonoBehaviour
     private PlayerController controller;
     private PlayerCut cut;
 
-	// 他コンポーネント
-	private UndoManager undoManager;
+    // 他コンポーネント
+    private UndoManager undoManager;
 
-	void Start()
+    void Start()
     {
         // 自コンポーネントを取得
         controller = GetComponent<PlayerController>();
         cut = GetComponent<PlayerCut>();
 
-		// 他コンポーネントを取得
-		undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
-	}
+        // 他コンポーネントを取得
+        undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
+    }
 
     void Update()
     {
-        cut.ManualUpdate();
+        // スタックしていないとき
+        if (!controller.GetIsStacking())
+        {
+            cut.ManualUpdate();
+        }
         controller.ManualUpdate();
 
-        if (Input.GetButtonDown("Reset"))
-        {
-            undoManager.ResetToInitialState();
-        }
+        // Undo
+        if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
+
+        // Reset
+        if (Input.GetButtonDown("Reset")) { undoManager.ResetToInitialState(); }
     }
 }

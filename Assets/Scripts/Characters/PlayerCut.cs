@@ -32,7 +32,7 @@ public class PlayerCut : MonoBehaviour
     private float maxIntensity = 0.5f;
     private float targetIntensity = 0f;
 
-    //アニメーション関連
+    // アニメーション関連
     int direction = 0;
 
     void Start()
