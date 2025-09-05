@@ -5,11 +5,13 @@ using UnityEngine;
 public class TargetFollow2DScript : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float easeT = 20f;
-    [SerializeField] bool getX;
-    [SerializeField] bool getY;
-    [SerializeField] float zPos;
+    [SerializeField] float easeT = 0.3f;//値が小さいほど早い
+    [SerializeField] bool getX = true;
+    [SerializeField] bool getY = true;
+    [SerializeField] float zPos = -10;
 
+    private Vector2 velocity = Vector3.zero; // SmoothDampで必要な内部速度
+    public void SetTarget(Transform set) { target = set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class TargetFollow2DScript : MonoBehaviour
         transform.position = new Vector3(newPos.x, newPos.y, zPos);
     }
 
-    public void SetTarget(Transform targetTransform)
+    public void SetTargetImmediately(Transform targetTransform)
     {
         target = targetTransform;
         if (target == null) { return; }
@@ -50,7 +52,7 @@ public class TargetFollow2DScript : MonoBehaviour
     void LateUpdate()
     {
         if (target == null) { return; }
-        Vector2 newPos = Vector2.Lerp(transform.position, target.position, easeT * Time.unscaledDeltaTime);
+        Vector2 newPos = Vector2.SmoothDamp(transform.position, target.position, ref velocity, easeT);
         if (!getX)
         {
 

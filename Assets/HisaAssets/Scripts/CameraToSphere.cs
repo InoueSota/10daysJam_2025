@@ -46,8 +46,16 @@ public class CameraToSphere : MonoBehaviour
         ApplyPropertyBlockOnce(); // ç≈èâÇÃàÍâÒîΩâf
     }
 
-    void OnDisable() => Teardown();
-    void OnDestroy() => Teardown();
+    void OnDisable()
+    {
+        if (sourceCamera && sourceCamera.targetTexture == _rt)
+            sourceCamera.targetTexture = null;
+    }
+
+    void OnDestroy()
+    {
+        Teardown(); // é¿ç€ÇÃîjä¸ÇÕÇ±Ç±Ç≈
+    }
 
     void Update()
     {
@@ -152,7 +160,7 @@ public class CameraToSphere : MonoBehaviour
             if (sourceCamera && sourceCamera.targetTexture == _rt)
                 sourceCamera.targetTexture = null;
             _rt.Release();
-            DestroyImmediate(_rt);
+            Destroy(_rt);
             _rt = null;
         }
 
@@ -199,7 +207,7 @@ public class CameraToSphere : MonoBehaviour
         if (_rt != null)
         {
             _rt.Release();
-            DestroyImmediate(_rt);
+            Destroy(_rt);
             _rt = null;
         }
 

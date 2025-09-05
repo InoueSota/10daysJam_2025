@@ -7,7 +7,7 @@ public class StageSelectManager : MonoBehaviour
 
     public StageCell curSelectStage;
     public Vector2 inputDire = Vector2.zero;
-
+    [SerializeField] TargetFollow2DScript cameraFollow;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -62,6 +62,7 @@ public class StageSelectManager : MonoBehaviour
             curSelectStage.GetStageCell(direction).SetColor(Color.red);
             curSelectStage.SetColor(Color.white);
             curSelectStage = curSelectStage.GetStageCell(direction);
+            cameraFollow.SetTarget(curSelectStage.transform);
         }
     }
 }
