@@ -368,13 +368,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationScript: {fileID: 8072642564401454438}
   halfSize: 0.35
-  rocketSpeed: 16
+  toMaxSpeedTime: 0.3
+  rocketMaxSpeed: 25
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   mapMoveTime: 0.2
-  isMoving: 0
-  isStacking: 0
 --- !u!114 &8985779831567453147
 MonoBehaviour:
   m_ObjectHideFlags: 0
