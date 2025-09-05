@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
     [Header("Basic Parameter")]
     [SerializeField] private float halfSize;
     [Header("Rocket Parameter")]
-    [SerializeField] private float rocketSpeed;
+    [SerializeField] private float toMaxSpeedTime;
+    [SerializeField] private float rocketMaxSpeed;
+    private float rocketSpeed;
     private Vector3 rocketVector;
     private bool isRocketMoving;
     private AllFieldObjectManager hitAllFieldObjectManager;
@@ -28,9 +30,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float mapMoveTime;
 
     // フラグ
-    [SerializeField] private bool isMoving;
-    [SerializeField] private bool isStacking;
-    [SerializeField] private bool definitelyStack;
+    private bool isMoving;
+    private bool isStacking;
+    private bool definitelyStack;
 
     // ワープ
     private GameObject warpObj;
@@ -89,13 +91,16 @@ public class PlayerController : MonoBehaviour
             rbody2D.gravityScale = 0f;
 
             // 右方向に入力
-            if (Input.GetAxisRaw("Horizontal") > 0.5f) { rocketVector.x = rocketSpeed; direction = 0; }
+            if (Input.GetAxisRaw("Horizontal") > 0.5f) { rocketVector = Vector3.right; direction = 0; }
             // 左方向に入力
-            else if (Input.GetAxisRaw("Horizontal") < -0.5f) { rocketVector.x = -rocketSpeed; direction = 2; }
+            else if (Input.GetAxisRaw("Horizontal") < -0.5f) { rocketVector = Vector3.left; direction = 2; }
             // 上方向に入力
-            else if (Input.GetAxisRaw("Vertical") > 0.5f) { rocketVector.y = rocketSpeed; direction = 1; }
+            else if (Input.GetAxisRaw("Vertical") > 0.5f) { rocketVector = Vector3.up; direction = 1; }
             // 下方向に入力
-            else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector.y = -rocketSpeed; direction = 3; }
+            else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector = Vector3.down; direction = 3; }
+
+            // ロケットの移動速度を変える
+            DOVirtual.Float(0f, rocketMaxSpeed, toMaxSpeedTime, value => { rocketSpeed = value; } ).SetEase(Ease.Linear);
 
             // ワープ対象オブジェクトの情報を初期化する
             warpObj = null;
@@ -106,7 +111,6 @@ public class PlayerController : MonoBehaviour
 
             //アニメーショントリガー
             animationScript.StartRocket();
-
         }
     }
 
@@ -190,7 +194,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // ロケット移動をしている時のみRigidbody2Dに反映
-        if (isRocketMoving) { rbody2D.linearVelocity = rocketVector; }
+        if (isRocketMoving) { rbody2D.linearVelocity = rocketVector * rocketSpeed; }
     }
 
     // 接地判定群
