@@ -1,5 +1,159 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5697493938638811651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8530841901491933785}
+  - component: {fileID: 1596435409394160806}
+  - component: {fileID: 62916180736175286}
+  - component: {fileID: 8072642564401454438}
+  - component: {fileID: 4419386137143282054}
+  m_Layer: 0
+  m_Name: PlayerSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8530841901491933785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697493938638811651}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 985842109485053550}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1596435409394160806
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697493938638811651}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1235580501, guid: 6fc237038c2bfb24aa6bf29d2406d2ee, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &62916180736175286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697493938638811651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bc3e54a638c974e886c76cc50173a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4419386137143282054}
+  direction: 0
+  sliceWidth: 32
+  sliceHeight: 32
+  animations:
+  - name: DashUp
+    texture: {fileID: 2800000, guid: 964c0278837bea64eaa9260a23e7cd17, type: 3}
+    sprites: []
+  - name: DashDown
+    texture: {fileID: 2800000, guid: 229a88b86f6bd4f4082bb6317673e1c5, type: 3}
+    sprites: []
+  - name: CutUp
+    texture: {fileID: 2800000, guid: 3ff52a2224b15ab479bc0049fa548ccb, type: 3}
+    sprites: []
+  - name: CutDown
+    texture: {fileID: 2800000, guid: 3ff52a2224b15ab479bc0049fa548ccb, type: 3}
+    sprites: []
+--- !u!114 &8072642564401454438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697493938638811651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3aa73e58835a04ea481818a365caa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 0
+--- !u!95 &4419386137143282054
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697493938638811651}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03e3bde7527a2ff418539e14d5dd4e6e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7921618599945661865
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,9 +169,6 @@ GameObject:
   - component: {fileID: 2735281959320979884}
   - component: {fileID: -6296218169858510744}
   - component: {fileID: 8985779831567453147}
-  - component: {fileID: 5208007251301978383}
-  - component: {fileID: 3325228915182510918}
-  - component: {fileID: 6082054222013401437}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -39,6 +190,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2915037767052081566}
+  - {fileID: 8530841901491933785}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8102084386079561552
@@ -48,7 +200,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7921618599945661865}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -193,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 746758737c9f605418b316333ae1cb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationScript: {fileID: 8072642564401454438}
   halfSize: 0.35
   rocketSpeed: 16
   groundLayer:
@@ -216,73 +369,10 @@ MonoBehaviour:
   objectParent1: {fileID: 0}
   objectParent2: {fileID: 0}
   divisionLineObj: {fileID: 5203099502078435929}
+  animationScript: {fileID: 8072642564401454438}
   isCreateLineStart: 0
   fadePower: 8
   postEffectVolume: {fileID: 0}
---- !u!114 &5208007251301978383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7921618599945661865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77bc3e54a638c974e886c76cc50173a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 3325228915182510918}
-  direction: 0
-  sliceWidth: 32
-  sliceHeight: 32
-  animations:
-  - name: DashUp
-    texture: {fileID: 2800000, guid: 964c0278837bea64eaa9260a23e7cd17, type: 3}
-    sprites: []
-  - name: DashDown
-    texture: {fileID: 2800000, guid: 229a88b86f6bd4f4082bb6317673e1c5, type: 3}
-    sprites: []
-  - name: CutUp
-    texture: {fileID: 2800000, guid: 3ff52a2224b15ab479bc0049fa548ccb, type: 3}
-    sprites: []
-  - name: CutDown
-    texture: {fileID: 2800000, guid: 3ff52a2224b15ab479bc0049fa548ccb, type: 3}
-    sprites: []
---- !u!95 &3325228915182510918
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7921618599945661865}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 03e3bde7527a2ff418539e14d5dd4e6e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6082054222013401437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7921618599945661865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3aa73e58835a04ea481818a365caa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 0
 --- !u!1001 &2727529132337844208
 PrefabInstance:
   m_ObjectHideFlags: 0

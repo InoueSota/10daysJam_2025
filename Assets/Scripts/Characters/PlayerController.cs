@@ -7,11 +7,11 @@ public class PlayerController : MonoBehaviour
     // 自コンポーネント
     private PlayerCut cut;
     private Rigidbody2D rbody2D;
-    private PlayerAnimationScript animationScript;
 
     // 他コンポーネント
     private UndoManager undoManager;
     private DivisionLineManager divisionLineManager;
+    [SerializeField] private PlayerAnimationScript animationScript;
 
     [Header("Basic Parameter")]
     [SerializeField] private float halfSize;
@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour
         // 自コンポーネントを取得
         cut = GetComponent<PlayerCut>();
         rbody2D = GetComponent<Rigidbody2D>();
-        animationScript = GetComponent<PlayerAnimationScript>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();

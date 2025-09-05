@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerAnimationScript : MonoBehaviour
 {
+    private GameObject player;
     private PlayerSpriteScript spriteScript;
     private Animator animator;
     private PlayerController controller;
@@ -15,10 +16,11 @@ public class PlayerAnimationScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player = transform.parent.gameObject;
         animator = GetComponent<Animator>();
         spriteScript = GetComponent<PlayerSpriteScript>();
-        controller = GetComponent<PlayerController>();
-        cut = GetComponent<PlayerCut>();
+        controller = player.GetComponent<PlayerController>();
+        cut = player.GetComponent<PlayerCut>();
     }
 
     // Update is called once per frame
