@@ -16,6 +16,7 @@ public class StageSelectManager : MonoBehaviour
     void Start()
     {
         curSelectStage.SetColor(Color.red);
+        curSelectStage.GetSetActive=true;
     }
 
     // Update is called once per frame

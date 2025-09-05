@@ -552,15 +552,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5bbfbe56097465846b089076950509f0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.46083003
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bbfbe56097465846b089076950509f0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.46083006
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bbfbe56097465846b089076950509f0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.46083003
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bbfbe56097465846b089076950509f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -601,6 +601,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 5bbfbe56097465846b089076950509f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -18.005981
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5bbfbe56097465846b089076950509f0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5bbfbe56097465846b089076950509f0, type: 3}
       propertyPath: m_Name
@@ -674,6 +678,10 @@ PrefabInstance:
       propertyPath: leftConnectStage
       value: 
       objectReference: {fileID: 379329261}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_Text
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: 3
@@ -1021,43 +1029,6 @@ PrefabInstance:
       addedObject: {fileID: 1957325603}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb1ff42a47232d340b0801ecde02ae83, type: 3}
---- !u!84 &1061261293
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: CameraToSphere_RT_1280x720
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 1280
-  m_Height: 720
-  m_AntiAliasing: 1
-  m_MipCount: 1
-  m_DepthStencilFormat: 92
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 0
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!4 &1071100887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
@@ -1321,7 +1292,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 1024
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 1061261293}
+  m_TargetTexture: {fileID: 1973301814}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -1388,9 +1359,9 @@ Transform:
   m_GameObject: {fileID: 1438786370}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7955245, y: 0.01285821, z: 0.09405904, w: 0.5984382}
-  m_LocalPosition: {x: -24.512672, y: -0.9054098, z: 2.9390764}
+  m_LocalPosition: {x: -24.63, y: -0.1, z: 2.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1954365143}
   m_Father: {fileID: 0}
@@ -1459,11 +1430,13 @@ PrefabInstance:
       propertyPath: downConnectStage
       value: 
       objectReference: {fileID: 379329261}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_Text
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: '2
-
-'
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1513,9 +1486,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a435d20213355429375776be2d121d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 100
   once: 1
+  randomMode: 1
   rotateSpeed: {x: 0, y: 0, z: 180}
+  rotate: {x: 0, y: 0, z: 0}
 --- !u!1 &1957325602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,6 +1577,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!84 &1973301814
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CameraToSphere_RT_1280x720
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 1280
+  m_Height: 720
+  m_AntiAliasing: 1
+  m_MipCount: 1
+  m_DepthStencilFormat: 92
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 0
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!4 &2023079201 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bb1ff42a47232d340b0801ecde02ae83, type: 3}

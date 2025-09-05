@@ -10,7 +10,7 @@ public class HitPoint : MonoBehaviour
     public float curHelth;
     float curGaugeRatio;
 
-    bool curFrameHited;  // 今のframeで攻撃を受けたか
+    //bool curFrameHited;  // 今のframeで攻撃を受けたか
 
     private bool isDisplayDamageUI;
 
@@ -100,7 +100,7 @@ public class HitPoint : MonoBehaviour
     private void Start()
     {
         isDisplayDamageUI = true;
-        curFrameHited = false;
+        //curFrameHited = false;
         curHelth = maxHealth;
         if (selectDestroyObj == null)
         {
@@ -134,7 +134,7 @@ public class HitPoint : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        curFrameHited = true;
+        //curFrameHited = true;
 
         //待機開始前にに変化前のHPを保存しておく
         if (curDiffTime <= 0 && curdiffGaugeChangeTime <= 0)
