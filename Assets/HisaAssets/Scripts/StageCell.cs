@@ -13,6 +13,7 @@ public class StageCell : MonoBehaviour
 
 
     // [SerializeField] StageCell[] connectStage = new StageCell[4];
+    [SerializeField,Header("このセルで遷移するステージ")] string stageName;
     [Header("自分を基準に接続先のステージ")]
     [SerializeField] StageCell upConnectStage;
     [SerializeField] StageCell leftConnectStage;
@@ -72,6 +73,6 @@ public class StageCell : MonoBehaviour
         return null;
     }
 
-
+    public string GetStageName() { return stageName; }
 
 }

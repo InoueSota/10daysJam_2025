@@ -179,7 +179,7 @@ public class CameraToSphere : MonoBehaviour
         {
             name = $"CameraToSphere_RT_{w}x{h}",
             wrapMode = TextureWrapMode.Clamp,
-            filterMode = FilterMode.Bilinear
+            filterMode = FilterMode.Point
         };
         _rt.Create();
 #else
@@ -189,7 +189,7 @@ public class CameraToSphere : MonoBehaviour
             useMipMap = false,
             autoGenerateMips = false,
             wrapMode = TextureWrapMode.Clamp,
-            filterMode = FilterMode.Bilinear
+            filterMode = FilterMode.Point 
         };
         _rt.Create();
 #endif
