@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 804930425087901697}
   - component: {fileID: 7229796195907965412}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DeathEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 62916180736175286}
   - component: {fileID: 8072642564401454438}
   - component: {fileID: 4419386137143282054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 2735281959320979884}
   - component: {fileID: -6296218169858510744}
   - component: {fileID: 8985779831567453147}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -417,6 +417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffectSpawner: {fileID: 7229796195907965412}
+  deathTime: 1
 --- !u!114 &-6296218169858510744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,6 +508,10 @@ PrefabInstance:
     - target: {fileID: 7921618599945661865, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
       propertyPath: m_Name
       value: Division Line
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921618599945661865, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
