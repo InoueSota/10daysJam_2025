@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     // フラグ
     [SerializeField] private bool isMoving;
     [SerializeField] private bool isStacking;
-    private bool wasUndo;
 
     // ワープ
     private GameObject warpObj;
@@ -56,15 +55,12 @@ public class PlayerController : MonoBehaviour
             MoveUpdate();
             // 頭突き処理
             HeadbuttUpdate();
-
-            if (!wasUndo)
-            {
-                // スタックしているか判定
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
-                if (hit.collider != null) { isStacking = true; }
-            }
-            else { wasUndo = false; }
         }
+
+        // スタックしているか判定
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
+        if (hit.collider != null) { isStacking = true; }
+        else { isStacking = false; }
 
         // Undo
         if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
@@ -285,7 +281,6 @@ public class PlayerController : MonoBehaviour
 
         isMoving = false;
         isStacking = false;
-        wasUndo = true;
     }
 
     // Getter
