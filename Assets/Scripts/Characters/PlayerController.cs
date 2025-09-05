@@ -14,19 +14,21 @@ public class PlayerController : MonoBehaviour
     private DivisionLineManager divisionLineManager;
     [SerializeField] private PlayerAnimationScript animationScript;
 
-    [Header("Basic Parameter")]
+    [Header("基本的なパラメータ")]
     [SerializeField] private float halfSize;
-    [Header("Rocket Parameter")]
+
+    [Header("ロケットパラメータ")]
     [SerializeField] private float toMaxSpeedTime;
     [SerializeField] private float rocketMaxSpeed;
     private float rocketSpeed;
     private Vector3 rocketVector;
     private bool isRocketMoving;
     private AllFieldObjectManager hitAllFieldObjectManager;
-    [Header("Ground Judgement")]
+
+    [Header("当たり判定を行うレイヤー")]
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("Map Move Parameter")]
+    [Header("ステージオブジェクトが動く速度")]
     [SerializeField] private float mapMoveTime;
 
     // フラグ
@@ -285,6 +287,7 @@ public class PlayerController : MonoBehaviour
 
         // フラグの変更
         isRocketMoving = false;
+        if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.SPONGE) { isMoving = false; }
     }
     public void FlagInitialize()
     {
