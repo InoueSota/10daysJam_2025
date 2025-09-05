@@ -316,14 +316,21 @@ public class PlayerController : MonoBehaviour
         definitelyStack = false;
     }
     public void SetDirection(int direction_) { direction = direction_; }
-    public void SetDeathFreeze()
+    public void SetDeathFreeze(Vector3 _viewPortPos)
     {
         // ロケット移動をしていない判定に
         isRocketMoving = false;
         // 移動を無くす
         rbody2D.linearVelocity = Vector2.zero;
-        // 座標を丸める
-        transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+        // 座標を調整
+        // 左
+        if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize, transform.position.y, 0f); }
+        // 右
+        if (_viewPortPos.x > 1) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - halfSize, transform.position.y, 0f); }
+        // 下
+        if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize, 0f); }
+        // 上
+        if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize, 0f); }
         // 重力をなくす
         rbody2D.gravityScale = 0f;
         // 当たり判定を無くす

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     // 他コンポーネント
     private UIManager uiManager;
+    private PlayerManager playerManager;
 
     // ゴール関係
     private bool isGoal;
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
         // 他コンポーネントの取得
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
+        playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
     }
 
     void Update()
@@ -44,14 +45,18 @@ public class GameManager : MonoBehaviour
                 isGoal = true;
             }
         }
+        else
+        {
+            if (Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; }
+        }
     }
 
     void LateUpdate()
     {
         // Undo
-        if (Input.GetButtonDown("Undo")) { undoManager.Undo(); }
+        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo")) { undoManager.Undo(); }
 
         // Reset
-        if (Input.GetButtonDown("Reset")) { undoManager.ResetToInitialState(); }
+        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { undoManager.ResetToInitialState(); }
     }
 }
