@@ -124,12 +124,13 @@ public class PlayerController : MonoBehaviour
                 // ï™ífÇ≥ÇÍÇƒÇ¢ÇÈèÍçá
                 if (cut.GetIsDivision())
                 {
-                    // è„â∫ê¸
+                    // ç∂ë§ || è„ë§
                     if ((transform.position.x < cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL) ||
                         (transform.position.y > cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
                         MoveObjectTransform(1, ref movingParent);
                     }
+                    // âEë§ || â∫ë§
                     else if ((transform.position.x >= cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL) ||
                              (transform.position.y <= cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
@@ -137,7 +138,9 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 // ï™ífÇ≥ÇÍÇƒÇ¢Ç»Ç¢èÍçá
-                else { cut.GetObjectTransform(1).transform.DOMove(cut.GetObjectTransform(1).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove); }
+                else { MoveObjectTransform(1, ref movingParent); }
+
+                // êiçsï˚å¸Ç…
 
                 // ï™ífèàóù
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt(), rocketVector.normalized, movingParent); }
