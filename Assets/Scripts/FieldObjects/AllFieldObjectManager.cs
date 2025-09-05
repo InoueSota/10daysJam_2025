@@ -46,7 +46,7 @@ public class AllFieldObjectManager : MonoBehaviour
     public void AfterHeadbutt(bool _horizontalHeadbutt, Vector3 _rocketVector, Transform _movingParent)
     {
         // 前フレーム座標の保存
-        prePosition = currentPosition - preRocketVector;
+        prePosition = transform.position;
         // 座標の更新
         currentPosition = transform.position + _rocketVector;
         // ロケット移動の方向を保存
