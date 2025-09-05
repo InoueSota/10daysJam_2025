@@ -20,7 +20,6 @@ public class AllFieldObjectManager : MonoBehaviour
     // 座標群
     private Vector3 prePosition;
     private Vector3 currentPosition;
-    private Vector3 preRocketVector;
 
     [Header("Hit Layer")]
     [SerializeField] private LayerMask groundLayer;
@@ -28,7 +27,6 @@ public class AllFieldObjectManager : MonoBehaviour
     void Start()
     {
         currentPosition = transform.position;
-        preRocketVector = Vector3.zero;
 
         switch (objectType)
         {
@@ -49,8 +47,6 @@ public class AllFieldObjectManager : MonoBehaviour
         prePosition = transform.position;
         // 座標の更新
         currentPosition = transform.position + _rocketVector;
-        // ロケット移動の方向を保存
-        preRocketVector = _rocketVector;
 
         // 分断線の取得
         GameObject divisionLine = GameObject.FindGameObjectWithTag("DivisionLine");
@@ -100,10 +96,8 @@ public class AllFieldObjectManager : MonoBehaviour
     public ObjectType GetObjectType() { return objectType; }
     public Vector3 GetPrePosition() { return prePosition; }
     public Vector3 GetCurrentPosition() { return currentPosition; }
-    public Vector3 GetPreRocketVector() { return preRocketVector; }
 
     // Setter
     public void SetPrePosition(Vector3 _prePosition) { prePosition = _prePosition; }
     public void SetCurrentPosition(Vector3 _currentPosition) { currentPosition = _currentPosition; }
-    public void SetPreRocketVector(Vector3 _preRocketVector) { preRocketVector = _preRocketVector; }
 }
