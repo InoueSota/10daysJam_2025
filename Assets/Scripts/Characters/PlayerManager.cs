@@ -26,15 +26,22 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        // スタックしていないとき
-        if (!controller.GetIsStacking())
-        {
-            cut.ManualUpdate();
-        }
+        // スタックしていないときに分断操作可能
+        if (!controller.GetIsStacking()) { cut.ManualUpdate(); }
         controller.ManualUpdate();
 
+        // ゴール処理
+        GoalChecker();
         // 死亡処理
         DeathChecker();
+    }
+
+    /// <summary>
+    /// ゴール処理
+    /// </summary>
+    void GoalChecker()
+    {
+
     }
 
     /// <summary>
