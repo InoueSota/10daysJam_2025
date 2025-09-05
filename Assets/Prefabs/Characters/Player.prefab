@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2481849136766643091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 804930425087901697}
+  - component: {fileID: 7229796195907965412}
+  m_Layer: 0
+  m_Name: DeathEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &804930425087901697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2481849136766643091}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 985842109485053550}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7229796195907965412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2481849136766643091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0d66c981e627640b8d521555a2b3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circlePrefab: {fileID: 4155152517066043622, guid: f785b6ebe653e6d4fbbd324bad0a835c, type: 3}
+  circleCount: 8
+  radius: 0.5
+  expandSpeed: 1
+  fadeDuration: 1
 --- !u!1 &5697493938638811651
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +240,7 @@ Transform:
   m_Children:
   - {fileID: 2915037767052081566}
   - {fileID: 8530841901491933785}
+  - {fileID: 804930425087901697}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8102084386079561552
@@ -333,6 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce5d8cc2e6f42940951e3a4693134d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffectSpawner: {fileID: 7229796195907965412}
 --- !u!114 &-6296218169858510744
 MonoBehaviour:
   m_ObjectHideFlags: 0

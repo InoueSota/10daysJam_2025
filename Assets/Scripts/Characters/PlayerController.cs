@@ -25,9 +25,6 @@ public class PlayerController : MonoBehaviour
     private bool isRocketMoving;
     private AllFieldObjectManager hitAllFieldObjectManager;
 
-    [Header("画面外死亡パラメータ")]
-    private Camera mainCamera;
-
     [Header("当たり判定を行うレイヤー")]
     [SerializeField] private LayerMask groundLayer;
 
@@ -56,8 +53,6 @@ public class PlayerController : MonoBehaviour
         cameraManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
         divisionLineManager = cut.GetDivisionLineManager();
-
-        mainCamera = Camera.main;
     }
 
     public void ManualUpdate()
@@ -68,8 +63,6 @@ public class PlayerController : MonoBehaviour
             MoveUpdate();
             // 頭突き処理
             HeadbuttUpdate();
-            // 死亡処理
-            DeathChecker();
         }
 
         // 確定スタックじゃないときに判定を取る
@@ -200,21 +193,6 @@ public class PlayerController : MonoBehaviour
     void FinishMapMove() { isMoving = false; definitelyStack = false; }
     float SnapToNearestHalf(float _value) { return Mathf.Round(_value - 0.5f) + 0.5f; }
 
-    /// <summary>
-    /// 死亡処理
-    /// </summary>
-    void DeathChecker()
-    {
-        // プレイヤーの位置をビューポート座標に変換
-        Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
-
-        // 画面内チェック（0～1の範囲）
-        if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1)
-        {
-            undoManager.Undo();
-        }
-    }
-
     void FixedUpdate()
     {
         // ロケット移動をしている時のみRigidbody2Dに反映
@@ -309,7 +287,7 @@ public class PlayerController : MonoBehaviour
 
         // フラグの変更
         isRocketMoving = false;
-        if (hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.SPONGE) { isMoving = false; }
+        if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.SPONGE) { isMoving = false; }
     }
     public void FlagInitialize()
     {
