@@ -37,7 +37,7 @@ public class PlayerAnimationScript : MonoBehaviour
     [Foldout("ハサミ")][SerializeField] private float scissorsMaxSize = 2f;
     [Foldout("確認")][SerializeField] bool isCut = false, preIsCut = false;
     float angle = 0f;
-    Tween cutTween;
+    [Foldout("調整")][SerializeField] Tween cutTween;
 
     [Foldout("調整")][SerializeField] Vector2 screenSize;
 
@@ -64,6 +64,8 @@ public class PlayerAnimationScript : MonoBehaviour
 
         preIsDash = !isDash;
         isDash = controller.GetIsRocketMoving();
+
+        if (Input.GetButtonDown("Reset")) Init();
 
         if (isCutReady == true)
         {
@@ -116,15 +118,18 @@ public class PlayerAnimationScript : MonoBehaviour
 
                     if (direction == 0) { pos.x += 0.5f; pos.y = cameraPos.y + screenSize.y * 0.5f; }
                     else if (direction == 2) { pos.x += -0.5f; pos.y = cameraPos.y + screenSize.y * 0.5f; }
-                    else if (direction == 1) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += 0.5f; angle = 90.0f; }
-                    else if (direction == 3) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += -0.5f; angle = 90.0f; }
+                    else if (direction == 1) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += 0.5f; }
+                    else if (direction == 3) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += -0.5f; }
 
                     scissors.transform.position = pos;
 
                     if (direction == 1 || direction == 3) { pos.x += screenSize.x; }
                     else if (direction == 0 || direction == 2) { pos.y += -screenSize.y; }
 
-                    cutTween = scissors.transform.DOMove(pos, scissorsCutTime).SetEase(Ease.OutSine).OnComplete(() =>
+                    if (direction == 0 || direction == 2) angle = 0.0f;
+                    else if (direction == 1 || direction == 3) angle = 90.0f;
+
+                    cutTween = scissors.transform.DOMove(pos, scissorsCutTime).SetEase(Ease.OutCubic).OnComplete(() =>
                     {
                         preIsCut = false;
                         isCut = false;
@@ -133,13 +138,17 @@ public class PlayerAnimationScript : MonoBehaviour
                     spriteScript.SetScissors(false);
                 }
 
+
+                
+
                 preIsCut = isCut;
                 size = Mathf.MoveTowards(size, scissorsMaxSize, scissorsSizePlusSpeed * Time.deltaTime);
             }
         }
         else if (isCut == false && isCutReady == false && scissors != null)
         {
-             size = Mathf.MoveTowards(size, 1f, scissorsSizePlusSpeed * Time.deltaTime);
+
+            size = Mathf.MoveTowards(size, 1f, scissorsSizePlusSpeed * Time.deltaTime);
             scissors.transform.position = Vector3.MoveTowards(
              scissors.transform.position,          // 現在位置
             this.transform.position,
@@ -156,10 +165,6 @@ public class PlayerAnimationScript : MonoBehaviour
 
         }
 
-        if(scissors == null)
-        {
-            isCut = false;
-        }
 
         if (scissors != null)
         {
@@ -187,5 +192,19 @@ public class PlayerAnimationScript : MonoBehaviour
         cutTween.Kill();
     }
 
-
+    private void Init()
+    {
+        if (scissors != null)
+        {
+            Destroy(scissors.gameObject);
+        }
+        isCutReady = false;
+        size = 1f;
+        angle = 0;
+        spriteScript.SetDirection(0);
+        preIsCut = false;
+        isCut = false;
+        cutTween.Kill();
     }
+
+}
