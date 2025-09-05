@@ -17572,6 +17572,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
+      propertyPath: m_TileAssetArray.Array.data[1].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_TileAssetArray.Array.data[2].m_Data
       value: 
       objectReference: {fileID: 11400000, guid: 41a8aaae46f2c1b43945fdc85f280bb3, type: 2}
@@ -17725,6 +17729,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_TileAssetArray.Array.data[0].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
+      propertyPath: m_TileAssetArray.Array.data[1].m_RefCount
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
@@ -36972,6 +36980,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
+      propertyPath: m_TileObjectToInstantiateArray.Array.data[1].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_TileObjectToInstantiateArray.Array.data[2].m_Data
       value: 
       objectReference: {fileID: 7921618599945661865, guid: b52b1eaf3148d6440a9496d234c60421, type: 3}
@@ -36981,6 +36993,10 @@ PrefabInstance:
       objectReference: {fileID: 7921618599945661865, guid: 149502d61761e45468bf12a9a7f5b634, type: 3}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_TileObjectToInstantiateArray.Array.data[0].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
+      propertyPath: m_TileObjectToInstantiateArray.Array.data[1].m_RefCount
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
