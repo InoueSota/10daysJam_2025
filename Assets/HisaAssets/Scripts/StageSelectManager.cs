@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static StageCell;
 
 public class StageSelectManager : MonoBehaviour
@@ -12,13 +13,19 @@ public class StageSelectManager : MonoBehaviour
     bool stageChangeFlag;
     float stageChangeCT=0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
     float curStageChangeCT;
+
+    [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
+
+    [SerializeField] SpriteRenderer curVisualStageImage;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //SetColor(Color.red);
         curSelectStage.GetSetActive=true;
         curSelectStage.SetSelectObj(true);
-
+        curVisualStageImage.sprite= curSelectStage.GetStageImage();
     }
 
     // Update is called once per frame
@@ -77,6 +84,7 @@ public class StageSelectManager : MonoBehaviour
             curSelectStage.SetSelectObj(false);
             curSelectStage = curSelectStage.GetStageCell(direction);
             cameraFollow.SetTarget(curSelectStage.transform);
+            curVisualStageImage.sprite = curSelectStage.GetStageImage();
         }
     }
 
@@ -102,5 +110,23 @@ public class StageSelectManager : MonoBehaviour
             Debug.Log("バック");
         }
 
+    }
+
+    [ContextMenu("エリアセレクト")]
+    public void AreaSelectAnime()
+    {
+        for (int i = 0; i < selectAnime.Length; i++)
+        {
+            selectAnime[i].SetBool("StageSelect",false);
+        }
+    }
+
+    [ContextMenu("ステージセレクト")]
+    public void StageSelectAnime()
+    {
+        for (int i = 0; i < selectAnime.Length; i++)
+        {
+            selectAnime[i].SetBool("StageSelect", true);
+        }
     }
 }

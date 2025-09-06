@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageCell : MonoBehaviour
 {
@@ -14,12 +15,14 @@ public class StageCell : MonoBehaviour
 
     // [SerializeField] StageCell[] connectStage = new StageCell[4];
     [SerializeField, Header("このセルで遷移するステージ")] string stageName;
+    [SerializeField, Header("このセルのステージ画像")] Sprite stageImage;
     [Header("自分を基準に接続先のステージ")]
     [SerializeField] StageCell upConnectStage;
     [SerializeField] StageCell leftConnectStage;
     [SerializeField] StageCell downConnectStage;
     [SerializeField] StageCell rightConnectStage;
 
+    [Header("コンポーネント")]
     [SerializeField] GameObject activeObj;
     [SerializeField] GameObject notActiveObj;
 
@@ -47,6 +50,8 @@ public class StageCell : MonoBehaviour
     }
 
     public void SetSelectObj(bool active) { selectObj.SetActive(active); }
+
+    public Sprite GetStageImage() { return stageImage; }
 
     private void Awake()
     {
