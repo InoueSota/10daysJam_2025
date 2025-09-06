@@ -336,11 +336,13 @@ public class PlayerController : MonoBehaviour
         // “–‚½‚è”»’è‚ð–³‚­‚·
         boxCollider2D.enabled = false;
     }
+    public void SetWarpObj(GameObject _warpObj) { warpObj = _warpObj; }
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
     public bool GetIsStacking() { return isStacking; }
     public int GetDirection() { return direction; }
+    public GameObject GetWarpObj() { return warpObj; }
 
     /// <summary>
     /// “–‚½‚è”»’èŒQ
@@ -353,7 +355,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collision.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
             {
-                if (collision.gameObject != warpObj)
+                if (!isRocketMoving && collision.gameObject != warpObj)
                 {
                     collision.GetComponent<WarpManager>().DoWarp(transform, ref warpObj);
                     rbody2D.linearVelocity = Vector2.zero;
