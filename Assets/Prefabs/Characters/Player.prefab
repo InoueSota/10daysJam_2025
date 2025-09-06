@@ -127,7 +127,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_Sprite: {fileID: 1235580501, guid: 6fc237038c2bfb24aa6bf29d2406d2ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bc3e54a638c974e886c76cc50173a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4419386137143282054}
   direction: 0
   isScissors: 1
   sliceWidth: 32
@@ -181,6 +180,12 @@ MonoBehaviour:
   - name: IdleS
     texture: {fileID: 2800000, guid: f778e410767b6904582e7be4b2ea5d3c, type: 3}
     sprites: []
+  - name: DeathUp
+    texture: {fileID: 2800000, guid: 4fecdcdd6de2db045b1f62b0666bc7a2, type: 3}
+    sprites: []
+  - name: DeathDown
+    texture: {fileID: 2800000, guid: 16e7b94eccaac124ab2769afa3a62b18, type: 3}
+    sprites: []
 --- !u!114 &8072642564401454438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +202,8 @@ MonoBehaviour:
   scissorsPrefab: {fileID: 2389614121927726389, guid: 56759be9933f23d41bc68a561e46c024, type: 3}
   scissors: {fileID: 0}
   isCutReady: 0
+  isHit: 0
+  preIsHit: 0
   direction: 0
   dashFlowSpeed: 1200
   dashFlowMulti: 0.1
@@ -208,6 +215,7 @@ MonoBehaviour:
   isCut: 0
   preIsCut: 0
   screenSize: {x: 20, y: 15}
+  hitMoveTime: 0.2
 --- !u!95 &4419386137143282054
 Animator:
   serializedVersion: 7
@@ -245,6 +253,7 @@ GameObject:
   - component: {fileID: 2735281959320979884}
   - component: {fileID: -6296218169858510744}
   - component: {fileID: 8985779831567453147}
+  - component: {fileID: 6244370603164470395}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -411,7 +420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffectSpawner: {fileID: 7229796195907965412}
-  deathTime: 1
+  animationScript: {fileID: 8072642564401454438}
+  deathTime: 0.5
 --- !u!114 &-6296218169858510744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +461,28 @@ MonoBehaviour:
   isCreateLineStart: 0
   fadePower: 8
   postEffectVolume: {fileID: 0}
+--- !u!95 &6244370603164470395
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921618599945661865}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e10dcf593e4e6fd4db17319e90151e1c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2727529132337844208
 PrefabInstance:
   m_ObjectHideFlags: 0

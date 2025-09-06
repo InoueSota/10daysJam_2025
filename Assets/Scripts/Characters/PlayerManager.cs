@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 
     // 子コンポーネント
     [SerializeField] private DeathEffectSpawner deathEffectSpawner;
+    [SerializeField] private PlayerAnimationScript animationScript;
 
     // 他コンポーネント
     private UndoManager undoManager;
@@ -60,6 +61,8 @@ public class PlayerManager : MonoBehaviour
                 deathTimer = deathTime;
                 // フラグの切り替え
                 isDeath = true;
+                //アニメーショントリガー
+                animationScript.StartDeath();
             }
         }
         else
@@ -74,10 +77,15 @@ public class PlayerManager : MonoBehaviour
                 undoManager.Undo();
                 // フラグの切り替え
                 isDeath = false;
+
+                //アニメーショントリガー
+                animationScript.StartRespawn();
             }
         }
     }
 
     // Getter
     public bool GetIsDeath() { return isDeath; }
+
+    public float GetDeathTime() { return deathTime; }
 }

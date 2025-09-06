@@ -289,6 +289,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 62916180736175286, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 985842109485053550, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.5
@@ -309,6 +313,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1596435409394160806, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2735281959320979884, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: changeLayerManager
       value: 
@@ -317,13 +325,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 5697493938638811651, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7921618599945661865, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7921618599945661865, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072642564401454438, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: hitMoveTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8072642564401454438, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: dashFlowSpeed
       value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102084386079561552, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8985779831567453147, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: objectParent1
