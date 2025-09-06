@@ -172,6 +172,9 @@ MonoBehaviour:
   cameraFollow: {fileID: 5250808940803350313}
   curVisualStageImage: {fileID: 0}
   imageAmpritude: {fileID: 0}
+  selectAnime: []
+  cellParent: {fileID: 4561980678309152160}
+  cells: []
 --- !u!1 &4419852109636498477
 GameObject:
   m_ObjectHideFlags: 0

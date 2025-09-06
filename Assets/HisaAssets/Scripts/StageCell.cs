@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,10 +26,12 @@ public class StageCell : MonoBehaviour
     [Header("コンポーネント")]
     [SerializeField] GameObject activeObj;
     [SerializeField] GameObject notActiveObj;
-
+    [SerializeField] GameObject clearObj;
     [SerializeField] GameObject selectObj;
 
     public bool active;
+
+    public bool clear;
     public bool GetSetActive
     {
         get { return active; }
@@ -49,6 +52,16 @@ public class StageCell : MonoBehaviour
         }
     }
 
+    public bool GetSetClear
+    {
+        set { clear = value;
+            if (clear) {
+                clearObj.SetActive(true);
+            }
+        }
+        get { return clear; }
+    }
+
     public void SetSelectObj(bool active) { selectObj.SetActive(active); }
 
     public Sprite GetStageImage() { return stageImage; }
@@ -57,9 +70,10 @@ public class StageCell : MonoBehaviour
     {
         activeObj.SetActive(false);
         selectObj.SetActive(false);
+        clearObj.SetActive(clear);
         notActiveObj.SetActive(true);
 
-        GetSetActive=active;
+        GetSetActive = active;
     }
 
 

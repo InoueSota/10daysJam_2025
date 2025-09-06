@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using static StageCell;
 
@@ -11,6 +13,23 @@ public class AreaManager : MonoBehaviour
     [SerializeField] AmpritudePosition imageAmpritude;
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
 
+    [SerializeField] Transform cellParent;
+    public List<StageCell> cells = new List<StageCell>();
+    [SerializeField] GameObject trophyObj;
+    public int GetClearStageNum()
+    {
+        int clearStage = 0;
+
+        for (int i = 0; i < cells.Count; i++)
+        {
+            if (cells[i].GetSetClear)
+            {
+                clearStage++;
+            }
+        }
+        return clearStage;
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,6 +37,21 @@ public class AreaManager : MonoBehaviour
         curSelectStage.GetSetActive = true;
         curSelectStage.SetSelectObj(false);
         curVisualStageImage.sprite = curSelectStage.GetStageImage();
+
+        for (int i = 0; i < cellParent.childCount; i++)
+        {
+            cells.Add(cellParent.GetChild(i).GetComponent<StageCell>());
+        }
+
+        if(GetClearStageNum()== cellParent.childCount)
+        {
+            trophyObj.SetActive(true);
+        }
+        else
+        {
+            trophyObj.SetActive(false);
+        }
+
     }
 
 
