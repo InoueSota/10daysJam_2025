@@ -15,8 +15,10 @@ public class StageSelectManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        curSelectStage.SetColor(Color.red);
+        //SetColor(Color.red);
         curSelectStage.GetSetActive=true;
+        curSelectStage.SetSelectObj(true);
+
     }
 
     // Update is called once per frame
@@ -71,8 +73,8 @@ public class StageSelectManager : MonoBehaviour
     {
         if (curSelectStage.GetStageCell(direction) != null)
         {
-            curSelectStage.GetStageCell(direction).SetColor(Color.red);
-            curSelectStage.SetColor(Color.white);
+            curSelectStage.GetStageCell(direction).SetSelectObj(true);
+            curSelectStage.SetSelectObj(false);
             curSelectStage = curSelectStage.GetStageCell(direction);
             cameraFollow.SetTarget(curSelectStage.transform);
         }

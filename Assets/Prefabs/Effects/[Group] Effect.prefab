@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7804063623286721094}
   m_Layer: 0
-  m_Name: Group - Particle
+  m_Name: '[Group] Effect'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
