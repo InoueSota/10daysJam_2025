@@ -267,8 +267,8 @@ public class PlayerController : MonoBehaviour
                 }
 
                 // åªç›à íuÇîΩâf
-                Vector3 currentOnePosition = transform.position + rocketVector;
-                Vector3 currentTwoPosition = transform.position + rocketVector;
+                Vector3 currentOnePosition = transform.position + (rocketVector * 0.8f);
+                Vector3 currentTwoPosition = transform.position + (rocketVector * 0.8f);
                 AdjustRayPosition(ref currentOnePosition, true);
                 AdjustRayPosition(ref currentTwoPosition, false);
 
