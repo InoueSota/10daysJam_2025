@@ -297,6 +297,10 @@ public class PlayerAnimationScript : MonoBehaviour
         preIsCut = false;
         isCut = false;
         cutTween.Kill();
+        this.transform.localRotation = Quaternion.identity;
+        this.transform.localPosition = Vector3.zero;
+        preIsHit = false;
+        isHit = false;
     }
 
 }
