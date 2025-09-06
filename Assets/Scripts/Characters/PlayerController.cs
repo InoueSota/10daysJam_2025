@@ -90,6 +90,8 @@ public class PlayerController : MonoBehaviour
         if (!isRocketMoving && !isMoving && IsGrounded() && !cut.GetIsActive() && Input.GetButtonDown("Jump") &&
             (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
+            // 座標を丸める
+            transform.position = new Vector3(SnapToNearestHalf(transform.position.x), Mathf.Round(transform.position.y));
             // 移動前に保存
             undoManager.SaveState();
 
@@ -163,8 +165,6 @@ public class PlayerController : MonoBehaviour
                 // 進行方向に不動オブジェクトがあり、逆進行方向に可動オブジェクトがあるとき確実にスタックする
                 if (forwardHit.collider && backHit.collider && (forwardHit.transform.parent != movingParent || forwardHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL))
                 {
-                    // 座標を丸める
-                    transform.position = new Vector3(SnapToNearestHalf(beforeHeadbuttPosition.x), Mathf.Round(beforeHeadbuttPosition.y));
                     // 重力をなくす
                     rbody2D.gravityScale = 0f;
                     // 当たり判定を無くす
@@ -174,6 +174,9 @@ public class PlayerController : MonoBehaviour
                     isStacking = true;
                     definitelyStack = true;
                 }
+
+                // 座標を丸める
+                transform.position = new Vector3(SnapToNearestHalf(beforeHeadbuttPosition.x), Mathf.Round(beforeHeadbuttPosition.y));
 
                 // 分断処理
                 foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject")) { fieldObject.GetComponent<AllFieldObjectManager>().AfterHeadbutt(IsHorizontalHeadbutt(), rocketVector.normalized, movingParent); }
@@ -202,14 +205,24 @@ public class PlayerController : MonoBehaviour
 
     void WarpInitialize(GameObject _hitWarpObj, ref Vector3 _warpPosition, ref GameObject _warpObj)
     {
-        // ワープ情報の取得
-        _hitWarpObj.GetComponent<WarpManager>().SetWarpPosition(ref _warpPosition, ref _warpObj);
+        if (!isWarping)
+        {
+            // 座標を丸める
+            transform.position = _hitWarpObj.transform.position;
 
-        // ワープ演出の開始
-        animator.SetTrigger("InWarp");
+            // ワープ情報の取得
+            _hitWarpObj.GetComponent<WarpManager>().SetWarpPosition(ref _warpPosition, ref _warpObj);
 
-        // フラグ
-        isWarping = true;
+            // ワープ演出の開始
+            animator.SetTrigger("InWarp");
+
+            // 移動関係
+            rbody2D.linearVelocity = Vector2.zero;
+            rbody2D.gravityScale = 0f;
+
+            // フラグ
+            isWarping = true;
+        }
     }
     public void DoWarp()
     {
@@ -217,6 +230,7 @@ public class PlayerController : MonoBehaviour
     }
     public void FinishWarp()
     {
+        rbody2D.gravityScale = 1f;
         isWarping = false;
     }
 
@@ -400,7 +414,19 @@ public class PlayerController : MonoBehaviour
                 if (!isRocketMoving && collision.gameObject != warpObj)
                 {
                     WarpInitialize(collision.gameObject, ref warpPosition, ref warpObj);
-                    rbody2D.linearVelocity = Vector2.zero;
+                }
+            }
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("FieldObject"))
+        {
+            if (collision.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
+            {
+                if (collision.gameObject == warpObj)
+                {
+                    warpObj = null;
                 }
             }
         }
