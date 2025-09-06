@@ -52,6 +52,7 @@ public class UndoManager : MonoBehaviour
         // プレイヤーの変数を保存
         state.divisionPosition = cut.GetDivisionPosition();
         state.isDivision = cut.GetIsDivision();
+        state.warpObj = controller.GetWarpObj();
 
         // ブロック関係
         state.blockPositions = new List<Vector3>();
@@ -79,6 +80,7 @@ public class UndoManager : MonoBehaviour
         cut.SetIsDivision(state.isDivision);
         controller.RocketInitialize();
         controller.FlagInitialize();
+        controller.SetWarpObj(state.warpObj);
 
         // ブロック関係
         for (int i = 0; i < blocks.Count; i++)
@@ -104,27 +106,7 @@ public class UndoManager : MonoBehaviour
 
         GameState prevState = history.Pop();
 
-        // 分断線関係
-        divisionLine.position = prevState.divisionPosition;
-        divisionLine.rotation = prevState.divisionLineRotation;
-        divisionLine.gameObject.SetActive(prevState.divisionLineActiveState);
-
-        // プレイヤー復元
-        player.position = prevState.playerPosition;
-        cut.SetDivisionPosition(prevState.divisionPosition);
-        cut.SetIsDivision(prevState.isDivision);
-        controller.RocketInitialize();
-        controller.FlagInitialize();
-
-        // ブロック関係
-        for (int i = 0; i < blocks.Count; i++)
-        {
-            blocks[i].position = prevState.blockPositions[i];
-            blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(prevState.blockPrePositions[i]);
-            blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(prevState.blockCurrentPositions[i]);
-            blocks[i].gameObject.SetActive(prevState.blockActiveStates[i]);
-            blocks[i].SetParent(prevState.blockParents[i]);
-        }
+        RestoreState(prevState);
     }
 
     // リセットする

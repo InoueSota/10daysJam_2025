@@ -2,16 +2,6 @@ using UnityEngine;
 
 public class WarpManager : MonoBehaviour
 {
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
     // Setter
     public void DoWarp(Transform _playerTransform, ref GameObject _warpObj)
     {
