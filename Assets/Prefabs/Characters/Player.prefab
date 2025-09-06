@@ -127,7 +127,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_Sprite: {fileID: 1235580501, guid: 6fc237038c2bfb24aa6bf29d2406d2ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathEffectSpawner: {fileID: 7229796195907965412}
   animationScript: {fileID: 8072642564401454438}
-  deathTime: 1
+  deathTime: 0.5
 --- !u!114 &-6296218169858510744
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -127,6 +127,15 @@ public class UndoManager : MonoBehaviour
         }
     }
 
+    public Vector3 GetPrevPlayerPosition()
+    {
+        if (history.Count == 0) return Vector3.zero;
+
+        GameState prevState = history.Peek();
+
+        return prevState.playerPosition;
+    }
+
     // ƒŠƒZƒbƒg‚·‚é
     public void ResetToInitialState()
     {

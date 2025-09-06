@@ -1,5 +1,6 @@
 using DG.Tweening;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI;
@@ -8,10 +9,12 @@ public class PlayerAnimationScript : MonoBehaviour
 {
     private GameObject player;
     private PlayerSpriteScript spriteScript;
+    private PlayerManager manager;
     private Animator animator;
     private PlayerController controller;
     private PlayerCut cut;
     private SpriteRenderer spriteRenderer;
+    private UndoManager undoManager;
     [SerializeField] SpriteRenderer playerSpriteRenderer;
 
     [SerializeField] private ScissorsScript scissorsPrefab;
@@ -19,6 +22,7 @@ public class PlayerAnimationScript : MonoBehaviour
 
     [Foldout("確認")][SerializeField] private bool isCutReady = false;
     private bool isDash = false, preIsDash = false;
+    bool isDeath = false;
 
     float size = 1f;
 
@@ -41,6 +45,10 @@ public class PlayerAnimationScript : MonoBehaviour
 
     [Foldout("調整")][SerializeField] Vector2 screenSize;
 
+    Vector3 pos, prePos;
+
+    ScissorsScript deathScissors;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -48,6 +56,7 @@ public class PlayerAnimationScript : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteScript = GetComponent<PlayerSpriteScript>();
         controller = player.GetComponent<PlayerController>();
+        manager = player.GetComponent<PlayerManager>();
         cut = player.GetComponent<PlayerCut>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
@@ -55,11 +64,14 @@ public class PlayerAnimationScript : MonoBehaviour
         playerSpriteRenderer.enabled = false;
         spriteRenderer.enabled = true;
 
+        undoManager = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<UndoManager>();
+
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
+
         Vector3 cameraPos = Camera.main.transform.position;
 
         preIsDash = !isDash;
@@ -67,17 +79,19 @@ public class PlayerAnimationScript : MonoBehaviour
 
         if (Input.GetButtonDown("Reset")) Init();
 
-        if (isCutReady == true)
-        {
-            //カットモード入った時はカットモードのdirection優先
-            direction = cut.GetDirection();
-            controller.SetDirection(direction);
-        }
-        else
-        {
-            //その逆
-            direction = controller.GetDirection();
-            cut.SetDirection(direction);
+        if (isDeath == false) {
+            if (isCutReady == true)
+            {
+                //カットモード入った時はカットモードのdirection優先
+                direction = cut.GetDirection();
+                controller.SetDirection(direction);
+            }
+            else
+            {
+                //その逆
+                direction = controller.GetDirection();
+                cut.SetDirection(direction);
+            }
         }
 
         if (isDash == true)
@@ -165,7 +179,6 @@ public class PlayerAnimationScript : MonoBehaviour
 
         }
 
-
         if (scissors != null)
         {
             scissors.transform.localScale = Vector3.one * size;
@@ -176,6 +189,7 @@ public class PlayerAnimationScript : MonoBehaviour
         animator.SetBool("isCutReady", isCutReady);
         animator.SetBool("isDash", isDash);
         spriteScript.SetDirection(direction);
+
 
     }
 
@@ -195,15 +209,38 @@ public class PlayerAnimationScript : MonoBehaviour
     public void StartDeath()
     {
         animator.SetTrigger("death");
+
+        pos = this.transform.position;
+        prePos = undoManager.GetPrevPlayerPosition();
+
+        Vector3 distancePos = pos - prePos;
+
+
+        if (Mathf.Abs(distancePos.y) > Mathf.Abs(distancePos.x) && distancePos.y < 0) direction = 3;
+
+        float deathTime = manager.GetDeathTime();
+
+        deathScissors = Instantiate(scissorsPrefab, this.transform.position, Quaternion.identity);
+        deathScissors.transform.DORotate(Vector3.forward * 720f,deathTime,RotateMode.LocalAxisAdd);
+        deathScissors.transform.DOMove(prePos, deathTime).SetEase(Ease.Linear).OnComplete(() =>
+        {
+                Destroy(deathScissors.gameObject);
+        });
+
+        isDeath = true;
     }
 
     public void StartRespawn()
     {
+        if (deathScissors != null) Destroy(deathScissors.gameObject);
         animator.SetTrigger("respawn");
+        isDeath = false;
     }
 
     private void Init()
     {
+       // if(deathScissors != null) Destroy(deathScissors.gameObject);
+
         if (scissors != null)
         {
             Destroy(scissors.gameObject);
