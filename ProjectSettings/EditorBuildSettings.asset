@@ -20,6 +20,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hisa/Area1Stage2.unity
     guid: 5efb72071b7a7ac41bf3086dee9a5c29
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A21_(5\u30B9\u30C6\u30FC\u30B8)/Stage1\u2192.unity"
+    guid: da2e88d235560c64f9c1427363838e4b
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A21_(5\u30B9\u30C6\u30FC\u30B8)/Stage2\u2191\u2193.unity"
+    guid: 4d366f48d8864f6488c53a9ffcce1d64
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A21_(5\u30B9\u30C6\u30FC\u30B8)/Stage3\u2191.unity"
+    guid: d78d36d1c6213644bbf8b8e09a28e4e2
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A21_(5\u30B9\u30C6\u30FC\u30B8)/Stage4_\u2192.unity"
+    guid: 9ce0d956a15e2fb4584a503bde7aa704
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A21_(5\u30B9\u30C6\u30FC\u30B8)/Stage5_\u2190.unity"
+    guid: 800ab92116d6478448c9997da9c37663
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
         playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
 
+        stageName=SceneManager.GetActiveScene().name;
+
 
     }
 
