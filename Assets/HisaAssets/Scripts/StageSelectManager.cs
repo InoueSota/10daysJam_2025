@@ -23,6 +23,7 @@ public class StageSelectManager : MonoBehaviour
     //[SerializeField] AmpritudePosition imageAmpritude;
 
     int curSelectAreaIndex;
+    int preSelectAreaIndex;
 
     bool areaSelect;
 
@@ -39,6 +40,8 @@ public class StageSelectManager : MonoBehaviour
         //curSelectStage.SetSelectObj(true);
         //curVisualStageImage.sprite= curSelectStage.GetStageImage();
         areaSelect = true;
+
+        areaManagers[0].AreaSelectAnime("ChangeArea");//エリア1のアニメーションは再生する
     }
 
     // Update is called once per frame
@@ -87,10 +90,11 @@ public class StageSelectManager : MonoBehaviour
         if (inputDire.x > 0)
         {
             curSelectAreaIndex++;
+            
         }
         else if (inputDire.x < 0)
         {
-            curSelectAreaIndex++;
+            curSelectAreaIndex--;
         }
 
         if (curSelectAreaIndex >= areaManagers.Length)
@@ -105,11 +109,33 @@ public class StageSelectManager : MonoBehaviour
 
         areaPixelCameraTransform.rotation = Quaternion.Euler(0f, 90f * curSelectAreaIndex, 0f);
 
+        if (preSelectAreaIndex != curSelectAreaIndex) {
+            areaManagers[preSelectAreaIndex].AreaSelectAnime("BackAreaSelect");//前のアニメーションはStop状態にして
+            areaManagers[curSelectAreaIndex].AreaSelectAnime("ChangeArea");//次のアニメーションは再生する
+           
+
+            preSelectAreaIndex = curSelectAreaIndex;
+
+        }
+
+        if (Input.GetButtonDown("Select"))
+        {
+            areaSelect = false;
+            areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
+            areaManagers[curSelectAreaIndex].SetSelectActive(true);
+        }
+
     }
 
     void StageSelect()
     {
-
+        if (Input.GetButtonDown("Back"))
+        {
+            areaSelect = true;
+            areaManagers[curSelectAreaIndex].AreaSelectAnime(false);
+            areaManagers[curSelectAreaIndex].SetSelectActive(false);
+        }
+        areaManagers[curSelectAreaIndex].ChangeCell(inputDire);
     }
 
     //void ChangeCell()

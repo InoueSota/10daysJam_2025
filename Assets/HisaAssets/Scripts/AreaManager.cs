@@ -9,6 +9,7 @@ public class AreaManager : MonoBehaviour
 
     [SerializeField] SpriteRenderer curVisualStageImage;//UIのステージ内部の画像
     [SerializeField] AmpritudePosition imageAmpritude;
+    [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,11 +21,11 @@ public class AreaManager : MonoBehaviour
     }
 
 
-    //どのエリアを選ぶか確定した時にステージ選択を始められるようにする
-    public void AreaSelect()
+    //どのエリアを選ぶか確定した時にステージ選択を始められるようにする,エリア選択にもどる時にステージ選択の枠を消す
+    public void SetSelectActive(bool active)
     {
-        curSelectStage.GetSetActive = true;
-        curSelectStage.SetSelectObj(true);
+        //curSelectStage.GetSetActive = active;
+        curSelectStage.SetSelectObj(active);
         //curVisualStageImage.sprite = curSelectStage.GetStageImage();
     }
 
@@ -72,4 +73,22 @@ public class AreaManager : MonoBehaviour
             }
         }
     }
+
+    public void AreaSelectAnime(bool flag)
+    {
+        for (int i = 0; i < selectAnime.Length; i++)
+        {
+            selectAnime[i].SetBool("StageSelect", flag);
+        }
+    }
+
+    public void AreaSelectAnime(string triggerName)
+    {
+        for (int i = 0; i < selectAnime.Length; i++)
+        {
+            selectAnime[i].SetTrigger(triggerName);
+        }
+    }
+
+   
 }
