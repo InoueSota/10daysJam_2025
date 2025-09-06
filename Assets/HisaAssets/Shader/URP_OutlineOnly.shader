@@ -8,7 +8,7 @@ Shader "Hisa/Outline/URP_OutlineOnly_Extended"
         _DistanceComp ("Distance Compensation", Range(0,20)) = 0.3
 
         // 追加: Zオフセット（ポリゴンオフセット）
-        _ZOffsetFactor ("Z Offset Factor", Range(-5,5)) = 0.0
+        _ZOffsetFactor ("Z Offset Factor", Range(-5,50)) = 0.0
         _ZOffsetUnits  ("Z Offset Units", Range(-200,200)) = 0.0
 
         // 追加: グラデーション

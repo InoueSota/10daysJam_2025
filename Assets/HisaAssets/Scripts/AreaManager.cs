@@ -17,7 +17,7 @@ public class AreaManager : MonoBehaviour
     {
         curSelectStage.GetSetActive = true;
         curSelectStage.SetSelectObj(false);
-        //curVisualStageImage.sprite = curSelectStage.GetStageImage();
+        curVisualStageImage.sprite = curSelectStage.GetStageImage();
     }
 
 
@@ -37,8 +37,8 @@ public class AreaManager : MonoBehaviour
             curSelectStage.SetSelectObj(false);
             curSelectStage = curSelectStage.GetStageCell(direction);
             cameraFollow.SetTarget(curSelectStage.transform);
-            //curVisualStageImage.sprite = curSelectStage.GetStageImage();
-            //imageAmpritude.EaseStart();
+            curVisualStageImage.sprite = curSelectStage.GetStageImage();
+            imageAmpritude.EaseStart();
         }
     }
 

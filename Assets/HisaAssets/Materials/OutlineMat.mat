@@ -52,7 +52,7 @@ Material:
     - _GradOffset: 2.11
     - _GradScale: 0.18
     - _OutlineWidth: 0.173
-    - _ZOffsetFactor: 2.69
+    - _ZOffsetFactor: 4.1
     - _ZOffsetUnits: 0
     - _ZWrite: 0
     m_Colors:
