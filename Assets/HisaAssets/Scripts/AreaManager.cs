@@ -54,7 +54,7 @@ public class AreaManager : MonoBehaviour
             trophyObj.SetActive(false);
         }
         Test();
-        ClearDateLoad();
+        ActiveDateLoad();
     }
 
 
@@ -165,18 +165,8 @@ public class AreaManager : MonoBehaviour
         if (playEffect) SaveSystem.Save(save, 1);//気休め程度の処理軽減、クリア演出した時だけ保存する
     }
 
-    public void TestSave()
-    {
-        SaveData save = SaveSystem.Load(1) ?? new SaveData();
-        // 2) 進行を更新（例：右方向でクリア、ステージ演出を付ける）
-        SaveUtil.SetCleared(save, areaName, cells[0].GetStageName(), ClearDirection.Right, true);
-        //SaveUtil.MarkEffectShown(save, areaName, cells[0].GetStageName(), true);
-
-        // 3) 保存
-        SaveSystem.Save(save, 1);
-    }
-
-    public void ClearDateLoad()
+    //シーン開始時にセーブを読み込んでアクティブやクリアを変える
+    public void ActiveDateLoad()
     {
         var loaded = SaveSystem.Load(1);
         if (loaded != null)
@@ -185,10 +175,13 @@ public class AreaManager : MonoBehaviour
             {
                 var dirs = SaveUtil.GetClearedDirs(loaded, areaName, cells[i].GetStageName());
 
+
                 if (dirs.Count == 0)
                 {
                     continue;
                 }
+                //どこかの方向にクリアしてる時
+                cells[i].GetSetClear = true;
 
                 if (dirs.Contains(ClearDirection.Up))
                 {
@@ -214,31 +207,10 @@ public class AreaManager : MonoBehaviour
     public void Test()
     {
         SaveData save = SaveSystem.Load(1) ?? new SaveData();
-        SaveUtil.SetCleared(save, areaName, cells[0].GetStageName(), ClearDirection.Up, true);
+        SaveUtil.SetCleared(save, areaName, cells[0].GetStageName(), ClearDirection.Right, true);
+        SaveUtil.SetCleared(save, areaName, cells[2].GetStageName(), ClearDirection.Left, true);
         SaveSystem.Save(save, 1);
 
     }
-    void OnStageCleared(string areaId, string stageId, ClearDirection clearedDir)
-    {
-        SaveData save = SaveSystem.Load(1) ?? new SaveData();
 
-        // 1) クリア方向を記録
-        SaveUtil.SetCleared(save, areaId, stageId, clearedDir, true);
-
-        //// 2) ステージ演出（まだなら再生して記録）
-        //if (!SaveUtil.IsEffectShown(save, areaId, stageId))
-        //{
-        //    // → ここで演出再生する処理を実行
-        //    SaveUtil.MarkEffectShown(save, areaId, stageId, true);
-        //}
-
-        // 3) 基準方向で隣接ステージを解放（例: Rightを基準に解放するルール）
-        IStageGraph graph = new SimpleStageGraph();
-        SaveUtil.UnlockByBaseline(save, areaId, stageId, clearedDir, ClearDirection.Right, graph);
-
-        // 4) 保存
-        SaveSystem.Save(save, 1);
-
-        Debug.Log($"{areaId}-{stageId} を {clearedDir} 方向でクリア → 保存しました");
-    }
 }

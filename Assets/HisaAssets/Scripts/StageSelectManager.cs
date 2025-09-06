@@ -24,7 +24,7 @@ public class StageSelectManager : MonoBehaviour
     //[SerializeField] AmpritudePosition imageAmpritude;
 
     int curSelectAreaIndex;
-    int preSelectAreaIndex;
+    int preSelectAreaIndex = -1;
 
     bool areaSelect;
 
@@ -42,7 +42,7 @@ public class StageSelectManager : MonoBehaviour
         //curVisualStageImage.sprite= curSelectStage.GetStageImage();
         areaSelect = true;
 
-        areaManagers[0].AreaSelectAnime("ChangeArea");//エリア1のアニメーションは再生する
+        // areaManagers[0].AreaSelectAnime("ChangeArea");//エリア1のアニメーションは再生する
     }
 
     // Update is called once per frame
@@ -54,7 +54,7 @@ public class StageSelectManager : MonoBehaviour
         if (areaSelect)
         {
             AreaSelect();
-            
+
         }
         else
         {
@@ -92,7 +92,7 @@ public class StageSelectManager : MonoBehaviour
         if (inputDire.x > 0)
         {
             curSelectAreaIndex++;
-            
+
         }
         else if (inputDire.x < 0)
         {
@@ -108,18 +108,19 @@ public class StageSelectManager : MonoBehaviour
             curSelectAreaIndex = areaManagers.Length - 1;
         }
 
-        
 
 
 
-        if (preSelectAreaIndex != curSelectAreaIndex) {
-            areaManagers[preSelectAreaIndex].AreaSelectAnime("BackAreaSelect");//前のアニメーションはStop状態にして
+        //エリアを切り替えた時
+        if (preSelectAreaIndex != curSelectAreaIndex)
+        {
+            if (preSelectAreaIndex >= 0 && preSelectAreaIndex < areaManagers.Length) areaManagers[preSelectAreaIndex].AreaSelectAnime("BackAreaSelect");//前のアニメーションはStop状態にして
             areaManagers[curSelectAreaIndex].AreaSelectAnime("ChangeArea");//次のアニメーションは再生する
 
             areaPixelCamera.StartRotation(90f * curSelectAreaIndex);
 
             preSelectAreaIndex = curSelectAreaIndex;
-
+            areaManagers[curSelectAreaIndex].ClearEffect();
         }
 
         if (Input.GetButtonDown("Select"))
@@ -142,7 +143,7 @@ public class StageSelectManager : MonoBehaviour
         areaManagers[curSelectAreaIndex].ChangeCell(inputDire);
     }
 
-    
+
 
     void ChangeScene()
     {
@@ -203,6 +204,6 @@ public class StageSelectManager : MonoBehaviour
     void SaveDelete()
     {
         SaveSystem.Delete(1);
-        
+
     }
 }
