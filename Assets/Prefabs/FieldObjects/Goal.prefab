@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 40
   m_Sprite: {fileID: -3457448024721243918, guid: c8cd9ff5a5c802a47b23fb815b3159b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  isLineActive: 0
+  isCreateLine: 0
 --- !u!95 &296543618358444339
 Animator:
   serializedVersion: 7
