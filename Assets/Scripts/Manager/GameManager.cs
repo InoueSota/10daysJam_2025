@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     // ゴール関係
     private bool isGoal;
+    private enum GoalDirection { LEFT, RIGHT, UP, DOWN }
+    private GoalDirection goalDirection;
 
     void Start()
     {
@@ -39,8 +41,13 @@ public class GameManager : MonoBehaviour
 
             if (goalLine != null && goalLine.GetComponent<GoalLineManager>().IsGoal())
             {
+                // プレイヤーからゴール方向を取得する
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                if (!player.GetComponent<PlayerController>().GetIsRocketMoving()) { goalDirection = GoalDirection.DOWN; }
+                else { goalDirection = (GoalDirection)player.GetComponent<PlayerController>().GetDirection(); }
+
                 // UIの更新
-                uiManager.Goal();
+                uiManager.Goal((int)goalDirection);
 
                 isGoal = true;
             }
