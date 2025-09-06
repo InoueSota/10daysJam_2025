@@ -58,6 +58,8 @@ public class StageCell : MonoBehaviour
         activeObj.SetActive(false);
         selectObj.SetActive(false);
         notActiveObj.SetActive(true);
+
+        GetSetActive=active;
     }
 
 

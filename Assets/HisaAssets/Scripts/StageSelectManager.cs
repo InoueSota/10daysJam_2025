@@ -17,7 +17,14 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
 
     [SerializeField] SpriteRenderer curVisualStageImage;
-    
+    [SerializeField] AmpritudePosition imageAmpritude;
+
+    bool areaSelect;
+
+
+    bool debugActive;
+
+   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +33,7 @@ public class StageSelectManager : MonoBehaviour
         curSelectStage.GetSetActive=true;
         curSelectStage.SetSelectObj(true);
         curVisualStageImage.sprite= curSelectStage.GetStageImage();
+        areaSelect = true;
     }
 
     // Update is called once per frame
@@ -35,6 +43,9 @@ public class StageSelectManager : MonoBehaviour
         InputDire();
         ChangeCell();
 
+#if UNITY_EDITOR
+        DebugUpdate();
+#endif
 
     }
 
@@ -85,6 +96,7 @@ public class StageSelectManager : MonoBehaviour
             curSelectStage = curSelectStage.GetStageCell(direction);
             cameraFollow.SetTarget(curSelectStage.transform);
             curVisualStageImage.sprite = curSelectStage.GetStageImage();
+            imageAmpritude.EaseStart();
         }
     }
 
@@ -127,6 +139,18 @@ public class StageSelectManager : MonoBehaviour
         for (int i = 0; i < selectAnime.Length; i++)
         {
             selectAnime[i].SetBool("StageSelect", true);
+        }
+    }
+
+    void DebugUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            debugActive = !debugActive;
+            for (int i = 0; i < selectAnime.Length; i++)
+            {
+                selectAnime[i].SetBool("StageSelect", debugActive);
+            }
         }
     }
 }
