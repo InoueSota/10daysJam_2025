@@ -144,6 +144,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void CellActive(GoalDirection goalDirection)
+    {
+        SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
+
+        switch (goalDirection)
+        {
+            case GoalDirection.LEFT:
+                SaveUtil.SetCleared(save, "area1", "stage1", ClearDirection.Left, true);//エリア1のステージ1を右方向にクリアした
+                break;
+            case GoalDirection.RIGHT:
+                SaveUtil.SetCleared(save, "area1", "stage1", ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
+                break;
+            case GoalDirection.UP:
+                SaveUtil.SetCleared(save, "area1", "stage1", ClearDirection.Up, true);//エリア1のステージ1を右方向にクリアした
+                break;
+            case GoalDirection.DOWN:
+                SaveUtil.SetCleared(save, "area1", "stage1", ClearDirection.Down, true);//エリア1のステージ1を右方向にクリアした
+                break;
+            default:
+                break;
+
+
+        }
+        
+        SaveSystem.Save(save, 1);//セーブ
+    }
+
     void LateUpdate()
     {
         // Undo
