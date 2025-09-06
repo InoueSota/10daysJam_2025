@@ -3,7 +3,7 @@ using UnityEngine;
 public class WarpManager : MonoBehaviour
 {
     // Setter
-    public void DoWarp(Transform _playerTransform, ref GameObject _warpObj)
+    public void SetWarpPosition(ref Vector3 _warpPosition, ref GameObject _warpObj)
     {
         GameObject nearWarp = null;
 
@@ -20,6 +20,6 @@ public class WarpManager : MonoBehaviour
         }
 
         // プレイヤーをワープさせる
-        if (nearWarp) { _playerTransform.position = nearWarp.transform.position; _warpObj = nearWarp; }
+        if (nearWarp) { _warpPosition = nearWarp.transform.position; _warpObj = nearWarp; }
     }
 }
