@@ -5,23 +5,27 @@ public class AreaManager : MonoBehaviour
 {
 
     public StageCell curSelectStage;
-    public Vector2 inputDire = Vector2.zero;
     [SerializeField] TargetFollow2DScript cameraFollow;
 
-    [SerializeField] SpriteRenderer curVisualStageImage;
+    [SerializeField] SpriteRenderer curVisualStageImage;//UIのステージ内部の画像
     [SerializeField] AmpritudePosition imageAmpritude;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        curSelectStage.GetSetActive = true;
+        curSelectStage.SetSelectObj(false);
+        //curVisualStageImage.sprite = curSelectStage.GetStageImage();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    //どのエリアを選ぶか確定した時にステージ選択を始められるようにする
+    public void AreaSelect()
     {
-        
+        curSelectStage.GetSetActive = true;
+        curSelectStage.SetSelectObj(true);
+        //curVisualStageImage.sprite = curSelectStage.GetStageImage();
     }
 
     void SelectCell(StageDirection direction)
@@ -32,8 +36,40 @@ public class AreaManager : MonoBehaviour
             curSelectStage.SetSelectObj(false);
             curSelectStage = curSelectStage.GetStageCell(direction);
             cameraFollow.SetTarget(curSelectStage.transform);
-            curVisualStageImage.sprite = curSelectStage.GetStageImage();
-            imageAmpritude.EaseStart();
+            //curVisualStageImage.sprite = curSelectStage.GetStageImage();
+            //imageAmpritude.EaseStart();
+        }
+    }
+
+
+    //選択してるセル(ステージ)の切り替え
+
+    public void ChangeCell(Vector2 inputDire)
+    {
+        //左右
+        if (inputDire.x != 0 && inputDire.y == 0)
+        {
+            //左
+            if (inputDire.x < 0)
+            {
+                SelectCell(StageDirection.left);
+            }
+            else
+            {
+                SelectCell(StageDirection.right);
+            }
+        }
+        else if (inputDire.x == 0 && inputDire.y != 0)
+        {
+            //左
+            if (inputDire.y < 0)
+            {
+                SelectCell(StageDirection.down);
+            }
+            else
+            {
+                SelectCell(StageDirection.up);
+            }
         }
     }
 }

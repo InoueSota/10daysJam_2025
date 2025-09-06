@@ -168,6 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122e96b46dbfdf0488d4530b0ab96a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curSelectStage: {fileID: 3161340301441201308}
+  cameraFollow: {fileID: 5250808940803350313}
+  curVisualStageImage: {fileID: 0}
+  imageAmpritude: {fileID: 0}
 --- !u!1 &4419852109636498477
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +720,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0fcb4ffd17af034a87d49bcfc42cc78, type: 3}
+--- !u!114 &5250808940803350313 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3625139946032683722, guid: e0fcb4ffd17af034a87d49bcfc42cc78, type: 3}
+  m_PrefabInstance: {fileID: 8831993707270768099}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce6bc0e235d258469fb62bb89a2ca79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8716657469260660747 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 172898970259260904, guid: e0fcb4ffd17af034a87d49bcfc42cc78, type: 3}

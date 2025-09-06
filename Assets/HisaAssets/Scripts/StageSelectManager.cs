@@ -6,33 +6,38 @@ using static StageCell;
 public class StageSelectManager : MonoBehaviour
 {
 
-    public StageCell curSelectStage;
+    //public StageCell curSelectStage;
     public Vector2 inputDire = Vector2.zero;
-    [SerializeField] TargetFollow2DScript cameraFollow;
+    //[SerializeField] TargetFollow2DScript cameraFollow;
+    [SerializeField] AreaManager[] areaManagers;
+    [SerializeField] Transform areaPixelCameraTransform;
 
     bool stageChangeFlag;
-    float stageChangeCT=0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
+    float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
     float curStageChangeCT;
+    public float inputCoolTime;
 
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
 
-    [SerializeField] SpriteRenderer curVisualStageImage;
-    [SerializeField] AmpritudePosition imageAmpritude;
+    // [SerializeField] SpriteRenderer curVisualStageImage;
+    //[SerializeField] AmpritudePosition imageAmpritude;
+
+    int curSelectAreaIndex;
 
     bool areaSelect;
 
 
     bool debugActive;
 
-   
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //SetColor(Color.red);
-        curSelectStage.GetSetActive=true;
-        curSelectStage.SetSelectObj(true);
-        curVisualStageImage.sprite= curSelectStage.GetStageImage();
+        ////SetColor(Color.red);
+        //curSelectStage.GetSetActive=true;
+        //curSelectStage.SetSelectObj(true);
+        //curVisualStageImage.sprite= curSelectStage.GetStageImage();
         areaSelect = true;
     }
 
@@ -41,7 +46,17 @@ public class StageSelectManager : MonoBehaviour
     {
         ChangeScene();
         InputDire();
-        ChangeCell();
+
+        if (areaSelect)
+        {
+            AreaSelect();
+        }
+        else
+        {
+            StageSelect();
+        }
+
+        //ChangeCell();
 
 #if UNITY_EDITOR
         DebugUpdate();
@@ -53,52 +68,92 @@ public class StageSelectManager : MonoBehaviour
     {
         inputDire = Vector2.zero;
 
+        if (inputCoolTime > 0)
+        {
+            inputCoolTime -= Time.deltaTime;
+            return;
+        }
+
         inputDire.x = Input.GetAxisRaw("Horizontal");
         inputDire.y = Input.GetAxisRaw("Vertical");
-
-    }
-    void ChangeCell()
-    {
-        //選択してるセル(ステージ)の切り替え
-        //左右
-        if (inputDire.x != 0 && inputDire.y == 0)
+        if (inputDire.magnitude > 0)
         {
-            //左
-            if (inputDire.x < 0)
-            {
-                SelectCell(StageDirection.left);
-            }
-            else
-            {
-                SelectCell(StageDirection.right);
-            }
-        }
-        else if (inputDire.x == 0 && inputDire.y != 0)
-        {
-            //左
-            if (inputDire.y < 0)
-            {
-                SelectCell(StageDirection.down);
-            }
-            else
-            {
-                SelectCell(StageDirection.up);
-            }
+            inputCoolTime = 0.2f;
         }
     }
 
-    void SelectCell(StageDirection direction)
+    void AreaSelect()
     {
-        if (curSelectStage.GetStageCell(direction) != null)
+        if (inputDire.x > 0)
         {
-            curSelectStage.GetStageCell(direction).SetSelectObj(true);
-            curSelectStage.SetSelectObj(false);
-            curSelectStage = curSelectStage.GetStageCell(direction);
-            cameraFollow.SetTarget(curSelectStage.transform);
-            curVisualStageImage.sprite = curSelectStage.GetStageImage();
-            imageAmpritude.EaseStart();
+            curSelectAreaIndex++;
         }
+        else if (inputDire.x < 0)
+        {
+            curSelectAreaIndex++;
+        }
+
+        if (curSelectAreaIndex >= areaManagers.Length)
+        {
+            curSelectAreaIndex = 0;
+        }
+        else if (curSelectAreaIndex < 0)
+        {
+            curSelectAreaIndex = areaManagers.Length - 1;
+        }
+
+
+        areaPixelCameraTransform.rotation = Quaternion.Euler(0f, 90f * curSelectAreaIndex, 0f);
+
     }
+
+    void StageSelect()
+    {
+
+    }
+
+    //void ChangeCell()
+    //{
+    //    //選択してるセル(ステージ)の切り替え
+    //    //左右
+    //    if (inputDire.x != 0 && inputDire.y == 0)
+    //    {
+    //        //左
+    //        if (inputDire.x < 0)
+    //        {
+    //            SelectCell(StageDirection.left);
+    //        }
+    //        else
+    //        {
+    //            SelectCell(StageDirection.right);
+    //        }
+    //    }
+    //    else if (inputDire.x == 0 && inputDire.y != 0)
+    //    {
+    //        //左
+    //        if (inputDire.y < 0)
+    //        {
+    //            SelectCell(StageDirection.down);
+    //        }
+    //        else
+    //        {
+    //            SelectCell(StageDirection.up);
+    //        }
+    //    }
+    //}
+
+    //void SelectCell(StageDirection direction)
+    //{
+    //    if (curSelectStage.GetStageCell(direction) != null)
+    //    {
+    //        curSelectStage.GetStageCell(direction).SetSelectObj(true);
+    //        curSelectStage.SetSelectObj(false);
+    //        curSelectStage = curSelectStage.GetStageCell(direction);
+    //        cameraFollow.SetTarget(curSelectStage.transform);
+    //        curVisualStageImage.sprite = curSelectStage.GetStageImage();
+    //        imageAmpritude.EaseStart();
+    //    }
+    //}
 
     void ChangeScene()
     {
@@ -115,8 +170,9 @@ public class StageSelectManager : MonoBehaviour
         {
             Debug.Log("セレクト");
 
-            SceneManager.LoadScene(curSelectStage.GetStageName());
-        }else if (Input.GetButtonDown("Back"))
+            //SceneManager.LoadScene(curSelectStage.GetStageName());
+        }
+        else if (Input.GetButtonDown("Back"))
         {
             stageChangeFlag = true;
             Debug.Log("バック");
@@ -129,7 +185,7 @@ public class StageSelectManager : MonoBehaviour
     {
         for (int i = 0; i < selectAnime.Length; i++)
         {
-            selectAnime[i].SetBool("StageSelect",false);
+            selectAnime[i].SetBool("StageSelect", false);
         }
     }
 
