@@ -23,6 +23,7 @@ public class PlayerAnimationScript : MonoBehaviour
     [Foldout("確認")][SerializeField] private bool isCutReady = false;
     private bool isDash = false, preIsDash = false;
     bool isDeath = false;
+    [Foldout("確認")][SerializeField] bool isHit = false, preIsHit = false;
 
     float size = 1f;
 
@@ -48,6 +49,8 @@ public class PlayerAnimationScript : MonoBehaviour
     Vector3 pos, prePos;
 
     ScissorsScript deathScissors;
+
+    [Foldout("ぶつかり")][SerializeField] private float hitMoveTime = 0.2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -79,6 +82,42 @@ public class PlayerAnimationScript : MonoBehaviour
 
         if (Input.GetButtonDown("Reset")) Init();
 
+        if (isHit == true)
+        {
+            if (preIsHit == false)
+            {
+                if (direction == 0 || direction == 2)
+                {
+                    float isLeftMulti = 1f;
+                    if (direction == 2) isLeftMulti = -1f;
+
+                    this.transform.DOLocalMoveY(1f, hitMoveTime * 0.5f).SetLoops(2, LoopType.Yoyo);
+                    this.transform.DOLocalRotate(Vector3.forward * 360f * isLeftMulti, hitMoveTime, RotateMode.LocalAxisAdd).OnComplete(() =>
+                    {
+                        preIsHit = false;
+                        isHit = false;
+                        this.transform.localRotation = Quaternion.identity;
+                        this.transform.localPosition = Vector3.zero;
+                    });
+                }
+                else
+                {
+                    this.transform.DOLocalMoveY(0.1f, hitMoveTime * 0.5f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+                    {
+                        preIsHit = false;
+                        isHit = false;
+                        this.transform.localPosition = Vector3.zero;
+                    });
+                }
+            }
+        
+            if (isCutReady == true || isDeath == true)
+            {
+                this.transform.DOComplete();
+            }
+            preIsHit = isHit;
+        }
+
         if (isDeath == false) {
             if (isCutReady == true)
             {
@@ -102,7 +141,7 @@ public class PlayerAnimationScript : MonoBehaviour
         else if (preIsDash == true && isDash == false)
         {
             dashRot = 0;
-            this.transform.localPosition = Vector3.zero;
+            //this.transform.localPosition = Vector3.zero;
         }
 
         isCutReady = cut.GetIsActive();
@@ -235,6 +274,12 @@ public class PlayerAnimationScript : MonoBehaviour
         if (deathScissors != null) Destroy(deathScissors.gameObject);
         animator.SetTrigger("respawn");
         isDeath = false;
+    }
+
+    public void StartHit()
+    {
+        animator.SetTrigger("dashHit");
+        isHit = true;
     }
 
     private void Init()

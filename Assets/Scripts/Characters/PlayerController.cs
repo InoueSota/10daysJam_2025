@@ -174,6 +174,9 @@ public class PlayerController : MonoBehaviour
 
                 // カメラシェイクをする
                 cameraManager.ShakeCamera();
+
+                //アニメーションフラグ
+                animationScript.StartHit();
             }
 
             // 変数の初期化
