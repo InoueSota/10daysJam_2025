@@ -30,31 +30,59 @@
         },
         {
             "areaId": "Area1",
-            "stageId": "Area1Stage1",
-            "dir": "Up",
-            "neighborAreaId": "Area1",
-            "neighborStageId": "Area1Stage2"
-        },
-        {
-            "areaId": "Area1",
-            "stageId": "Area1Stage1",
-            "dir": "Right",
-            "neighborAreaId": "Area1",
-            "neighborStageId": "Area1Stage3"
-        },
-        {
-            "areaId": "Area1",
-            "stageId": "Area1Stage2",
-            "dir": "Down",
-            "neighborAreaId": "Area1",
-            "neighborStageId": "Area1Stage1"
-        },
-        {
-            "areaId": "Area1",
-            "stageId": "Area1Stage3",
+            "stageId": "Stage1→",
             "dir": "Left",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Area1Stage1"
+            "neighborStageId": "Stage2↑↓"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage2↑↓",
+            "dir": "Up",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage3↑"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage2↑↓",
+            "dir": "Down",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage4_↓"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage2↑↓",
+            "dir": "Right",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage1→"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage3↑",
+            "dir": "Down",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage2↑↓"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage4_↓",
+            "dir": "Up",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage2↑↓"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage4_↓",
+            "dir": "Left",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage5_←"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage5_←",
+            "dir": "Right",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage4_↓"
         },
         {
             "areaId": "Area3",
