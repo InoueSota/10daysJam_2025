@@ -47,7 +47,7 @@
             "stageId": "Stage2↑↓",
             "dir": "Down",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage4_↓"
+            "neighborStageId": "Stage4_→"
         },
         {
             "areaId": "Area1",
@@ -65,14 +65,14 @@
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage4_↓",
+            "stageId": "Stage4_→",
             "dir": "Up",
             "neighborAreaId": "Area1",
             "neighborStageId": "Stage2↑↓"
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage4_↓",
+            "stageId": "Stage4_→",
             "dir": "Left",
             "neighborAreaId": "Area1",
             "neighborStageId": "Stage5_←"
@@ -82,7 +82,7 @@
             "stageId": "Stage5_←",
             "dir": "Right",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage4_↓"
+            "neighborStageId": "Stage4_→"
         },
         {
             "areaId": "Area3",
