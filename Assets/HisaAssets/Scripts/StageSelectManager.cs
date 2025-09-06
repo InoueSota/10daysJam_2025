@@ -36,13 +36,19 @@ public class StageSelectManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ////SetColor(Color.red);
-        //curSelectStage.GetSetActive=true;
-        //curSelectStage.SetSelectObj(true);
-        //curVisualStageImage.sprite= curSelectStage.GetStageImage();
         areaSelect = true;
 
-        // areaManagers[0].AreaSelectAnime("ChangeArea");//エリア1のアニメーションは再生する
+
+        if (GameBootstrap.Graph.TryGetNeighbor("Area1", "Stage1", ClearDirection.Right, out var nb))
+        {
+            Debug.Log($"次は {nb.areaId} / {nb.stageId}");
+        }
+        else
+        {
+            Debug.Log("隣接が未設定です");
+        }
+        string sceneName = nb.areaId + nb.stageId;
+        Debug.Log(sceneName);
     }
 
     // Update is called once per frame
