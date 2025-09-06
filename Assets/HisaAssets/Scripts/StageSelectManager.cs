@@ -206,4 +206,16 @@ public class StageSelectManager : MonoBehaviour
         SaveSystem.Delete(1);
 
     }
+
+    [ContextMenu("StageDateReset")]
+    public void StageDateReset()
+    {
+        var g = GameBootstrap.Graph as EditableJsonStageGraph;
+        if (g == null) { Debug.LogError("EditableJsonStageGraph ‚ª–¢‰Šú‰» or Œ^ˆá‚¢‚Å‚·"); return; }
+
+        g.BeginCapture();
+
+        g.SaveOverrideDelta();
+        g.EndCapture();
+    }
 }

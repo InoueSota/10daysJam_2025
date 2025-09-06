@@ -1,10 +1,7 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.SceneManagement;
+using System.IO;
 using UnityEngine;
 using static StageCell;
-
 public class AreaManager : MonoBehaviour
 {
     [SerializeField] string areaName;
@@ -53,8 +50,9 @@ public class AreaManager : MonoBehaviour
         {
             trophyObj.SetActive(false);
         }
-        Test();
         ActiveDateLoad();
+
+        StageGraph();
     }
 
 
@@ -204,13 +202,55 @@ public class AreaManager : MonoBehaviour
         }
     }
 
-    public void Test()
-    {
-        SaveData save = SaveSystem.Load(1) ?? new SaveData();
-        SaveUtil.SetCleared(save, areaName, cells[0].GetStageName(), ClearDirection.Right, true);
-        SaveUtil.SetCleared(save, areaName, cells[2].GetStageName(), ClearDirection.Left, true);
-        SaveSystem.Save(save, 1);
 
+
+    void StageGraph()
+    {
+        var g = GameBootstrap.Graph as EditableJsonStageGraph;
+        if (g == null) { Debug.LogError("EditableJsonStageGraph が未初期化 or 型違いです"); return; }
+
+        g.BeginCapture();
+
+
+        // 書き込み
+        for (int i = 0; i < cells.Count; i++)
+        {
+            if (cells[i].GetStageCell(StageDirection.up))
+            {
+                g.CommitUpsertAppend(areaName, cells[i].GetStageName(), ClearDirection.Up, areaName, cells[i].GetStageCell(StageDirection.up).GetStageName());
+
+            }
+            if (cells[i].GetStageCell(StageDirection.down))
+            {
+                g.CommitUpsertAppend(areaName, cells[i].GetStageName(), ClearDirection.Down, areaName, cells[i].GetStageCell(StageDirection.down).GetStageName());
+
+            }
+            if (cells[i].GetStageCell(StageDirection.left))
+            {
+                g.CommitUpsertAppend(areaName, cells[i].GetStageName(), ClearDirection.Left, areaName, cells[i].GetStageCell(StageDirection.left).GetStageName());
+
+            }
+            if (cells[i].GetStageCell(StageDirection.right))
+            {
+                g.CommitUpsertAppend(areaName, cells[i].GetStageName(), ClearDirection.Right, areaName, cells[i].GetStageCell(StageDirection.right).GetStageName());
+
+            }
+        }
+        g.SaveOverrideDeltaAppend();   // ← 今触った3件“だけ”を書き出し
+        g.EndCapture();
+
+        // 保存先の実ファイルと中身を確認
+        string path = Path.Combine(Application.persistentDataPath, "stage_graph_override.json");
+        Debug.Log($"override path: {path}");
+        if (File.Exists(path))
+        {
+            Debug.Log("override exists.\n" + File.ReadAllText(path));
+        }
+        else
+        {
+            Debug.LogWarning("override が見つかりません（前処理が呼ばれていない/差分0件の可能性）。");
+        }
     }
 
+    
 }
