@@ -30,31 +30,31 @@
         },
         {
             "areaId": "Area1",
-            "stageId": "stage1",
+            "stageId": "Stage1",
             "dir": "Up",
             "neighborAreaId": "Area1",
-            "neighborStageId": "stage2"
+            "neighborStageId": "Stage2"
         },
         {
             "areaId": "Area1",
-            "stageId": "stage1",
+            "stageId": "Stage1",
             "dir": "Right",
             "neighborAreaId": "Area1",
-            "neighborStageId": "stage3"
+            "neighborStageId": "Stage3"
         },
         {
             "areaId": "Area1",
-            "stageId": "stage2",
+            "stageId": "Stage2",
             "dir": "Down",
             "neighborAreaId": "Area1",
-            "neighborStageId": "stage1"
+            "neighborStageId": "Stage1"
         },
         {
             "areaId": "Area1",
-            "stageId": "stage3",
+            "stageId": "Stage3",
             "dir": "Left",
             "neighborAreaId": "Area1",
-            "neighborStageId": "stage1"
+            "neighborStageId": "Stage1"
         },
         {
             "areaId": "Area3",

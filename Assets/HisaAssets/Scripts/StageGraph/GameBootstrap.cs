@@ -22,6 +22,6 @@ public class GameBootstrap : MonoBehaviour
     void Awake()
     {
         if (!EnsureInitialized()) return;
-        DontDestroyOnLoad(gameObject); // 任意：シーン跨ぎで維持
+        //DontDestroyOnLoad(gameObject); // 任意：シーン跨ぎで維持
     }
 }
