@@ -283,6 +283,10 @@ public class PlayerController : MonoBehaviour
                 hitAllFieldObjectManager.gameObject.SetActive(false);
                 return false;
             }
+            else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.SPONGE)
+            {
+                return true;
+            }
             return true;
         }
         return false;
