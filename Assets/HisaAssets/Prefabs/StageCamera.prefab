@@ -268,7 +268,7 @@ Transform:
   m_Children:
   - {fileID: 2805523835976198669}
   - {fileID: 1476111672823039830}
-  - {fileID: 8574964816906718374}
+  - {fileID: 1246387951378411649}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3625139946032683722
@@ -288,7 +288,7 @@ MonoBehaviour:
   getX: 1
   getY: 1
   zPos: -4.54
---- !u!1 &6226936042758975162
+--- !u!1 &7647561840116595319
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -296,37 +296,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8574964816906718374}
-  - component: {fileID: 2553802551113960265}
+  - component: {fileID: 1246387951378411649}
+  - component: {fileID: 1205866218608844877}
   m_Layer: 0
-  m_Name: Light 2D_2
+  m_Name: Light 2D_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8574964816906718374
+--- !u!4 &1246387951378411649
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6226936042758975162}
+  m_GameObject: {fileID: 7647561840116595319}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.38, y: -1.67, z: 4.539999}
+  m_LocalRotation: {x: -0, y: -0, z: -0.34625712, w: 0.9381397}
+  m_LocalPosition: {x: -1.86, y: -2.06, z: 4.539999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 172898970259260904}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2553802551113960265
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -40.517}
+--- !u!114 &1205866218608844877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6226936042758975162}
+  m_GameObject: {fileID: 7647561840116595319}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
@@ -335,9 +335,9 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 0.06132078, g: 0.17650005, b: 1, a: 1}
-  m_Intensity: 13.79
+  m_FalloffIntensity: 0.519
+  m_Color: {r: 0.16272002, g: 0.09019607, b: 1, a: 1}
+  m_Intensity: 6.8
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000e7927a085b73e87a
@@ -358,9 +358,9 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
+  m_PointLightInnerAngle: 65.46
+  m_PointLightOuterAngle: 168.17
+  m_PointLightInnerRadius: 0.32
   m_PointLightOuterRadius: 2.1
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0

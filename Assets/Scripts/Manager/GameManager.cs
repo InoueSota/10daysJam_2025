@@ -131,11 +131,8 @@ public class GameManager : MonoBehaviour
 
     void SceneChange()
     {
-        if (!isGoal) { return; }
-        if (Input.GetButtonDown("Select"))
+        if (!isGoal&&Input.GetButtonDown("Select"))
         {
-
-
             if (connectStage != null)
             {
                 SceneManager.LoadScene(connectStage);
@@ -143,8 +140,12 @@ public class GameManager : MonoBehaviour
             else
             {
                 SceneManager.LoadScene("StageSelectScene");
-
             }
+        }
+        if (Input.GetButtonDown("Back"))
+        {
+            SceneManager.LoadScene("StageSelectScene");
+            Debug.Log("ƒoƒbƒN");
         }
     }
 
