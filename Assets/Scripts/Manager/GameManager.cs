@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     // ゴール関係
     private bool isGoal;
-    private enum GoalDirection { LEFT=0, RIGHT=2, UP=3, DOWN=1 }
+    private enum GoalDirection { LEFT = 0, RIGHT = 2, UP = 3, DOWN = 1 }
     private GoalDirection goalDirection;
 
     //ステージ情報
@@ -30,13 +30,14 @@ public class GameManager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
         playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
 
-       
+
     }
 
     void Update()
     {
         // ゴール判定
         CheckGoal();
+        SceneChange();
     }
 
     /// <summary>
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour
                         if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Left, out var lStage))
                         {
                             Debug.Log($"次は {lStage.areaId} / {lStage.stageId}");
-                            connectStage = lStage.areaId + lStage.stageId;
+                            connectStage = lStage.stageId;
                         }
                         else
                         {
@@ -81,7 +82,7 @@ public class GameManager : MonoBehaviour
                         if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Right, out var rStage))
                         {
                             Debug.Log($"次は {rStage.areaId} / {rStage.stageId}");
-                            connectStage = rStage.areaId + rStage.stageId;
+                            connectStage = rStage.stageId;
                         }
                         else
                         {
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour
                         if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Up, out var uStage))
                         {
                             Debug.Log($"次は {uStage.areaId} / {uStage.stageId}");
-                            connectStage = uStage.areaId + uStage.stageId;
+                            connectStage = uStage.stageId;
                         }
                         else
                         {
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
                         if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Down, out var dStage))
                         {
                             Debug.Log($"次は {dStage.areaId} / {dStage.stageId}");
-                            connectStage = dStage.areaId + dStage.stageId;
+                            connectStage = dStage.stageId;
                         }
                         else
                         {
@@ -121,6 +122,25 @@ public class GameManager : MonoBehaviour
         else
         {
             if (Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; }
+        }
+    }
+
+    void SceneChange()
+    {
+        if (!isGoal) { return; }
+        if (Input.GetButtonDown("Select"))
+        {
+
+
+            if (connectStage != null)
+            {
+                SceneManager.LoadScene(connectStage);
+            }
+            else
+            {
+                SceneManager.LoadScene("StageSelectScene");
+
+            }
         }
     }
 

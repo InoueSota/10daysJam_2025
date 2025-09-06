@@ -39,16 +39,9 @@ public class StageSelectManager : MonoBehaviour
         areaSelect = true;
 
 
-        if (GameBootstrap.Graph.TryGetNeighbor("Area1", "Stage1", ClearDirection.Right, out var nb))
-        {
-            Debug.Log($"次は {nb.areaId} / {nb.stageId}");
-        }
-        else
-        {
-            Debug.Log("隣接が未設定です");
-        }
-        string sceneName = nb.areaId + nb.stageId;
-        Debug.Log(sceneName);
+        SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
+        SaveUtil.SetCleared(save, "Area1", "Area1Stage1", ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
+        SaveSystem.Save(save, 1);//セーブ
     }
 
     // Update is called once per frame
@@ -89,7 +82,7 @@ public class StageSelectManager : MonoBehaviour
         inputDire.y = Input.GetAxisRaw("Vertical");
         if (inputDire.magnitude > 0)
         {
-            inputCoolTime = 0.2f;
+            inputCoolTime = 0.3f;
         }
     }
 
@@ -162,13 +155,18 @@ public class StageSelectManager : MonoBehaviour
         }
 
         //シーン遷移
-        if (Input.GetButtonDown("Select"))
+        //ステージに入る時
+        if (!areaSelect)
         {
-            Debug.Log("セレクト");
+            if (Input.GetButtonDown("Select"))
+            {
+                Debug.Log("セレクト");
 
-            //SceneManager.LoadScene(curSelectStage.GetStageName());
+                SceneManager.LoadScene(areaManagers[curSelectAreaIndex].GetCellStageName());
+                stageChangeFlag = true;
+            }
         }
-        else if (Input.GetButtonDown("Back"))
+        if (Input.GetButtonDown("Back"))
         {
             stageChangeFlag = true;
             Debug.Log("バック");

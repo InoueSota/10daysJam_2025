@@ -252,5 +252,9 @@ public class AreaManager : MonoBehaviour
         }
     }
 
+    public string GetCellStageName()
+    {
+        return curSelectStage.GetStageName();
+    } 
     
 }
