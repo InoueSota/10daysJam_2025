@@ -33,4 +33,8 @@ public class UIManager : MonoBehaviour
         // 下
         else if (player.GetComponent<PlayerController>().GetDirection() == 3) { goalDirectionT.text = "アンロック方向：上"; }
     }
+    public void Reset()
+    {
+        groupAfterGoal.SetActive(false);
+    }
 }

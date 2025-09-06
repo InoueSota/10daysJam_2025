@@ -3,13 +3,20 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    // Position
+    // 他コンポーネント
+    private PlayerManager playerManager;
+
+    // 原点
     private Vector3 originPosition;
 
     [Header("カメラ移動速度")]
     [SerializeField] private float floatRange;
     [SerializeField] private float addRotateValue;
     private float rotateValue;
+
+    [Header("カメラ覗き速度")]
+    [SerializeField] private float peekPower;
+    [SerializeField] private float peekRange;
 
     [Header("カメラシェイク")]
     [SerializeField] private float shakeTime;
@@ -18,22 +25,46 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
+        // 他コンポーネントの取得
+        playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+
         originPosition = transform.position;
     }
 
     void Update()
     {
-        FloatCamera();
+        // カメラ更新処理
+        CameraUpdate();
     }
 
-    void FloatCamera()
+    /// <summary>
+    /// カメラ更新処理
+    /// </summary>
+    void CameraUpdate()
     {
         rotateValue += addRotateValue * Time.deltaTime;
 
-        Vector3 floatPosition = originPosition;
+        Vector3 floatPosition = Vector3.zero;
+
+        if (playerManager.GetIsDeath() || (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f))
+        {
+            floatPosition = originPosition;
+        }
         floatPosition.x += Mathf.Cos(rotateValue) * floatRange;
         floatPosition.y += Mathf.Sin(rotateValue * 2f) * floatRange;
-        transform.position = floatPosition;
+
+        if (!playerManager.GetIsDeath() && (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f))
+        {
+            Vector3 peekPosition = originPosition;
+            peekPosition.x += Input.GetAxisRaw("Horizontal") * peekRange;
+            peekPosition.y += Input.GetAxisRaw("Vertical") * peekRange;
+
+            transform.position = transform.position + (peekPosition + floatPosition - transform.position) * (peekPower * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = transform.position + (floatPosition - transform.position) * (peekPower * Time.deltaTime);
+        }
     }
 
     // Setter
