@@ -988,11 +988,11 @@ PrefabInstance:
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: imageAmpritude
       value: 
-      objectReference: {fileID: 1168337503}
+      objectReference: {fileID: 395810524}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: curVisualStageImage
       value: 
-      objectReference: {fileID: 1168337504}
+      objectReference: {fileID: 395810525}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: selectAnime.Array.size
       value: 2
@@ -1659,6 +1659,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122e96b46dbfdf0488d4530b0ab96a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &395810524 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5043910269138359930, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+  m_PrefabInstance: {fileID: 657046816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a00146e57f79d458b4c45c3edae133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &395810525 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6864458181529127617, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+  m_PrefabInstance: {fileID: 657046816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &405886250 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
