@@ -140,6 +140,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &557057520 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4210770096583968122, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
+  m_PrefabInstance: {fileID: 3130435647542248753}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df88cefd36d2c847b3631d11dd181a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -46235,6 +46246,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2001972069336573037, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: paper
+      value: 
+      objectReference: {fileID: 557057520}
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: goalDirectionT
       value: 
