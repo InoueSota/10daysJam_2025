@@ -50,7 +50,6 @@ public class UndoManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         state.playerPosition = player.position;
         // ƒvƒŒƒCƒ„[‚Ì•Ï”‚ğ•Û‘¶
-        state.divisionPosition = cut.GetDivisionPosition();
         state.isDivision = cut.GetIsDivision();
         state.warpObj = controller.GetWarpObj();
 
