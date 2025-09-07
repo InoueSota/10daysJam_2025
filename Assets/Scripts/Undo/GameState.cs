@@ -22,8 +22,12 @@ public class GameState
     public List<Transform> blockParents = new List<Transform>();
     public List<bool> blockActiveStates = new List<bool>();
 
+    // 各ブロック
+    public List<int> crabThrowDirection = new List<int>();
+
     // 分断線関係
     public Vector3 divisionLinePosition;
     public Quaternion divisionLineRotation;
     public bool divisionLineActiveState;
+    public int divisionMode;
 }

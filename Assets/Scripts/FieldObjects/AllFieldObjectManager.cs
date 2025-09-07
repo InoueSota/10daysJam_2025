@@ -54,39 +54,42 @@ public class AllFieldObjectManager : MonoBehaviour
             // 分断線の取得
             GameObject divisionLine = GameObject.FindGameObjectWithTag("DivisionLine");
 
+            // 可動オブジェクトのみの処理
+            if (GetIsMoveableObject())
+            {
+                // 横方向からの頭突き
+                if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
+                {
+                    if ((prePosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= currentPosition.x) ||
+                        (currentPosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= prePosition.x))
+                    {
+                        if (objectType == ObjectType.GOAL) { GetComponent<GoalManager>().SetIsCreateLine(false); }
+
+                        gameObject.SetActive(false);
+                    }
+                }
+                // 縦方向からの頭突き
+                else if (!_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
+                {
+                    if ((prePosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= currentPosition.y) ||
+                        (currentPosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= prePosition.y))
+                    {
+                        if (objectType == ObjectType.GOAL) { GetComponent<GoalManager>().SetIsCreateLine(false); }
+
+                        gameObject.SetActive(false);
+                    }
+                }
+            }
+
+            // ObjectType別処理
             switch (objectType)
             {
-                case ObjectType.GROUND:
-                case ObjectType.GOAL:
-                case ObjectType.BLOCK:
-                case ObjectType.SPONGE:
-                case ObjectType.FRAGILE:
-                case ObjectType.WARP:
-                case ObjectType.GLASS:
                 case ObjectType.CRAB:
 
-                    // 横方向からの頭突き
-                    if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
-                    {
-                        if ((prePosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= currentPosition.x) ||
-                            (currentPosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= prePosition.x))
-                        {
-                            if (objectType == ObjectType.GOAL) { GetComponent<GoalManager>().SetIsCreateLine(false); }
-
-                            gameObject.SetActive(false);
-                        }
-                    }
-                    // 縦方向からの頭突き
-                    else if (!_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
-                    {
-                        if ((prePosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= currentPosition.y) ||
-                            (currentPosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= prePosition.y))
-                        {
-                            if (objectType == ObjectType.GOAL) { GetComponent<GoalManager>().SetIsCreateLine(false); }
-
-                            gameObject.SetActive(false);
-                        }
-                    }
+                    if (_rocketVector == Vector3.up) { GetComponent<CrabManager>().SetThrowDirection(CrabManager.ThrowDirection.UP); }
+                    else if (_rocketVector == Vector3.down) { GetComponent<CrabManager>().SetThrowDirection(CrabManager.ThrowDirection.DOWN); }
+                    else if (_rocketVector == Vector3.left) { GetComponent<CrabManager>().SetThrowDirection(CrabManager.ThrowDirection.LEFT); }
+                    else if (_rocketVector == Vector3.right) { GetComponent<CrabManager>().SetThrowDirection(CrabManager.ThrowDirection.RIGHT); }
 
                     break;
             }
@@ -95,6 +98,14 @@ public class AllFieldObjectManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(currentPosition, _rocketVector, 0.4f, groundLayer);
             if (objectType != ObjectType.NAIL && hit.collider != null && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() == ObjectType.NAIL) { gameObject.SetActive(false); }
         }
+    }
+    bool GetIsMoveableObject()
+    {
+        if (objectType == ObjectType.NAIL)
+        {
+            return false;
+        }
+        return true;
     }
 
     // Getter

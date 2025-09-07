@@ -6,7 +6,7 @@ public class CrabManager : MonoBehaviour
     private ThrowDirection throwDirection = ThrowDirection.LEFT;
 
     // Getter
-    public Vector3 GetThrowDirection()
+    public Vector3 GetThrowVector()
     {
         switch (throwDirection)
         {
@@ -21,4 +21,8 @@ public class CrabManager : MonoBehaviour
         }
         return Vector3.zero;
     }
+    public ThrowDirection GetThrowDirection() { return throwDirection; }
+
+    // Setter
+    public void SetThrowDirection(ThrowDirection _throwDirection) { throwDirection = _throwDirection; }
 }
