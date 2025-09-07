@@ -8,8 +8,11 @@ public class PaperManagerScript : MonoBehaviour
     [SerializeField] TilemapManager tilemap;
     [SerializeField] PaperScript firstPaper;
     [SerializeField] PaperScript secondPaper;
+    [SerializeField] UndoManager undoManager;
     DivisionLineManager divisionLine;
     PlayerCut playerCut;
+    [SerializeField]
+    ParticleSystem[] effect;
 
     [SerializeField] Vector2 paperSizeBase;
     [SerializeField] Vector3 gridOffset;
@@ -18,6 +21,9 @@ public class PaperManagerScript : MonoBehaviour
     [SerializeField] Vector3[] blockOffset = new Vector3[2];
 
     Vector2 pos;
+    bool isDivision, preIsDivision;
+    bool isActive, preIsActive;
+    bool isCut = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,32 +42,75 @@ public class PaperManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Reset")) FixPaper();
 
-        if (Input.GetButtonDown("Undo")) {
-         
+        isActive = playerCut.GetIsActive();
+        isDivision = playerCut.GetIsDivision();
+
+
+        if (Input.GetButtonDown("Undo"))
+        {
+            blockOffset[0] = Vector3.zero;
+            blockOffset[1] = Vector3.zero;
+
+            bool isCutHorizontal = false;
+            if (divisionLine.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL) isCutHorizontal = true;
+            Vector3 cutPos = undoManager.GetPrevDivisionPosition();
+            Debug.Log(cutPos);
+            cutPos.x -= gridOffset.x;
+            cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
+            CutPaper(cutPos, isCutHorizontal);
         }
 
-        if (playerCut.GetDivisionFlag() == true)
+
+        if (isCut == true)
         {
+            if (Input.GetButtonDown("Reset"))
+            {
+                effect[0].Play();
+                blockOffset[0] = Vector3.zero;
+                blockOffset[1] = Vector3.zero;
+                FixPaper();
+            }
+
+            if (isActive == true && preIsActive == false)
+            {
+                effect[0].Play();
+                blockOffset[0] = -pageTransform[0].localPosition;
+                blockOffset[1] = -pageTransform[1].localPosition;
+                FixPaper();
+            }
+
+            if (isDivision == false && preIsDivision == true)
+            {
+                effect[0].Play();
+                blockOffset[0] = -pageTransform[0].localPosition;
+                blockOffset[1] = -pageTransform[1].localPosition;
+                FixPaper();
+            }
+        }
+
+            if (playerCut.GetDivisionFlag() == true)
+        {
+            blockOffset[0] = -pageTransform[0].localPosition;
+            blockOffset[1] = -pageTransform[1].localPosition;
+
             bool isCutHorizontal = false;
             if(divisionLine.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL) isCutHorizontal = true;
             Vector3 cutPos = playerCut.GetDivisionPosition();
-            Debug.Log(cutPos);
             cutPos.x -= gridOffset.x ;
-            cutPos.y = paperSizeBase.y - cutPos.y - 1.5f;
-            Debug.Log(cutPos);
+            cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
             CutPaper(cutPos, isCutHorizontal);
-
-            //blockOffset[0] = -pageTransform[0].localPosition;
-            //blockOffset[1] = -pageTransform[1].localPosition;
         }
+
+        preIsDivision = isDivision;
+        preIsActive = isActive;
     }
 
-    private void FixPaper()
+    public void FixPaper()
     {
-        firstPaper.QuadSetter(gridOffset, paperSizeBase);
-        secondPaper.QuadSetter(gridOffset, Vector3.zero);
+        firstPaper.QuadSetter(gridOffset + blockOffset[0], paperSizeBase);
+        secondPaper.QuadSetter(gridOffset + blockOffset[1], Vector3.zero);
+        isCut = false; 
     }
 
     private void CutPaper(Vector3 cutPos, bool isCutHorizontal)
@@ -85,6 +134,7 @@ public class PaperManagerScript : MonoBehaviour
 
         firstPaper.QuadSetter(gridOffset + blockOffset[0], paperSize);
         secondPaper.QuadSetter(secondPaperPos + blockOffset[1], secondPaperSize);
+        isCut = true;
     }
 
     private void SummonPaper(Vector3 pos, Vector2 size)
