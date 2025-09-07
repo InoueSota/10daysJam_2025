@@ -12,7 +12,8 @@ public class AllFieldObjectManager : MonoBehaviour
         FRAGILE,
         WARP,
         GLASS,
-        NAIL
+        NAIL,
+        CRAB
     }
     [SerializeField] private ObjectType objectType;
 
@@ -62,6 +63,7 @@ public class AllFieldObjectManager : MonoBehaviour
                 case ObjectType.FRAGILE:
                 case ObjectType.WARP:
                 case ObjectType.GLASS:
+                case ObjectType.CRAB:
 
                     // ‰¡•ûŒü‚©‚ç‚Ì“ª“Ë‚«
                     if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)

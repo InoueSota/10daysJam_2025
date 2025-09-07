@@ -21,28 +21,24 @@ public class PlayerController : MonoBehaviour
     [Header("ロケットパラメータ")]
     [SerializeField] private float toMaxSpeedTime;
     [SerializeField] private float rocketMaxSpeed;
+    [SerializeField] private float mapMoveTime;
     private float rocketSpeed;
     private Vector3 rocketVector;
-    private bool isRocketMoving;
     private AllFieldObjectManager hitAllFieldObjectManager;
-
-    // ワープパラメータ
-    private Vector3 warpPosition;
-    private bool isWarping;
 
     [Header("当たり判定を行うレイヤー")]
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("ステージオブジェクトが動く速度")]
-    [SerializeField] private float mapMoveTime;
+    // ワープパラメータ
+    private Vector3 warpPosition;
+    private GameObject warpObj;
 
     // フラグ
+    private bool isRocketMoving;
     private bool isMoving;
+    private bool isWarping;
     private bool isStacking;
     private bool definitelyStack;
-
-    // ワープ
-    private GameObject warpObj;
 
     // Animation系
     private int direction = 0;
@@ -78,6 +74,11 @@ public class PlayerController : MonoBehaviour
             if (hit.collider != null && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP) { isStacking = true; }
             else { isStacking = false; }
         }
+    }
+    void FixedUpdate()
+    {
+        // ロケット移動をしている時のみRigidbody2Dに反映
+        if (isRocketMoving && !isWarping) { rbody2D.linearVelocity = rocketVector * rocketSpeed; }
     }
 
     /// <summary>
@@ -206,44 +207,6 @@ public class PlayerController : MonoBehaviour
     void FinishMapMove() { isMoving = false; definitelyStack = false; }
     float SnapToNearestHalf(float _value) { return Mathf.Round(_value - 0.5f) + 0.5f; }
 
-
-    void WarpInitialize(GameObject _hitWarpObj, ref Vector3 _warpPosition, ref GameObject _warpObj)
-    {
-        if (!isWarping)
-        {
-            // 座標を丸める
-            transform.position = _hitWarpObj.GetComponent<AllFieldObjectManager>().GetCurrentPosition();
-
-            // ワープ情報の取得
-            _hitWarpObj.GetComponent<WarpManager>().SetWarpPosition(ref _warpPosition, ref _warpObj);
-
-            // ワープ演出の開始
-            animator.SetTrigger("InWarp");
-
-            // 移動関係
-            rbody2D.linearVelocity = Vector2.zero;
-            rbody2D.gravityScale = 0f;
-
-            // フラグ
-            isWarping = true;
-        }
-    }
-    public void DoWarp()
-    {
-        transform.position = warpPosition;
-    }
-    public void FinishWarp()
-    {
-        rbody2D.gravityScale = 1f;
-        isWarping = false;
-    }
-
-    void FixedUpdate()
-    {
-        // ロケット移動をしている時のみRigidbody2Dに反映
-        if (isRocketMoving && !isWarping) { rbody2D.linearVelocity = rocketVector * rocketSpeed; }
-    }
-
     // 接地判定群
     public bool IsGrounded()
     {
@@ -359,11 +322,58 @@ public class PlayerController : MonoBehaviour
                 hitAllFieldObjectManager.gameObject.SetActive(false);
                 return false;
             }
+            else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.CRAB)
+            {
+                CrabInitialize(hitObj);
+                return false;
+            }
             return true;
         }
         return false;
     }
 
+    // ワープ群
+    void WarpInitialize(GameObject _hitWarpObj, ref Vector3 _warpPosition, ref GameObject _warpObj)
+    {
+        if (!isWarping)
+        {
+            // 座標を丸める
+            transform.position = _hitWarpObj.GetComponent<AllFieldObjectManager>().GetCurrentPosition();
+
+            // ワープ情報の取得
+            _hitWarpObj.GetComponent<WarpManager>().SetWarpPosition(ref _warpPosition, ref _warpObj);
+
+            // ワープ演出の開始
+            animator.SetTrigger("InWarp");
+
+            // 移動関係
+            rbody2D.linearVelocity = Vector2.zero;
+            rbody2D.gravityScale = 0f;
+
+            // フラグ
+            isWarping = true;
+        }
+    }
+    public void DoWarp()
+    {
+        transform.position = warpPosition;
+    }
+    public void FinishWarp()
+    {
+        rbody2D.gravityScale = 1f;
+        isWarping = false;
+    }
+
+    // 蟹群
+    void CrabInitialize(GameObject _hitObj)
+    {
+        // 移動方向の修正
+        if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.right) { rocketVector = Vector3.right; direction = 0; }
+        else if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.left) { rocketVector = Vector3.left; direction = 2; }
+        else if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.up) { rocketVector = Vector3.up; direction = 1; }
+        else if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.down) { rocketVector = Vector3.down; direction = 3; }
+    }
+    
     // Setter
     public void RocketInitialize()
     {
