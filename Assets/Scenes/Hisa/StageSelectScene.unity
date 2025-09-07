@@ -2113,6 +2113,7 @@ GameObject:
   - component: {fileID: 1189015376}
   - component: {fileID: 1189015378}
   - component: {fileID: 1189015379}
+  - component: {fileID: 1189015380}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -2196,6 +2197,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetMaterial: {fileID: 2100000, guid: c5b0ea9ac3d9e654598db6e5364d3c95, type: 2}
   scrollSpeed: {x: 1.5, y: 0}
+--- !u!114 &1189015380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189015375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1070667b08048204789db84f7a7e8130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axisDeadZone: 0.2
 --- !u!1001 &1263254595
 PrefabInstance:
   m_ObjectHideFlags: 0
