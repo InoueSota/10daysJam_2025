@@ -87,6 +87,10 @@ public class TilemapManager : MonoBehaviour
         return (selfType == otherType) ? 1 : 0;
     }
 
+    public Transform GetPage1TransForm(){ return page1Renderer.gameObject.transform;}
+    public Transform GetPage2TransForm() { return page2Renderer.gameObject.transform; }
+
+
     void Start()
     {
         if (page1Renderer) { page1Renderer.enabled = false; }

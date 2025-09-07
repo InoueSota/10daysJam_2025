@@ -81,6 +81,7 @@ public class PlayerAnimationScript : MonoBehaviour
         isDash = controller.GetIsRocketMoving();
 
         if (Input.GetButtonDown("Reset")) Init();
+        if (Input.GetButtonDown("Undo")) Init();
 
         if (isHit == true)
         {
@@ -297,6 +298,10 @@ public class PlayerAnimationScript : MonoBehaviour
         preIsCut = false;
         isCut = false;
         cutTween.Kill();
+        this.transform.localRotation = Quaternion.identity;
+        this.transform.localPosition = Vector3.zero;
+        preIsHit = false;
+        isHit = false;
     }
 
 }

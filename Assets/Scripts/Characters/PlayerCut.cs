@@ -34,6 +34,8 @@ public class PlayerCut : MonoBehaviour
 
     // アニメーション関連
     int direction = 0;
+    bool divisionFlag = false;
+    bool divisionDeleteFlag = false;
 
     void Awake()
     {
@@ -105,10 +107,15 @@ public class PlayerCut : MonoBehaviour
 
                     fieldObject.transform.parent = objectParent1;
                 }
+
+                //アニメーションフラグ
+                if (isDivision == true) divisionDeleteFlag = true;
+
                 isDivision = false;
 
                 isActive = false;
                 divisionLineObj.SetActive(false);
+
             }
             // 分断線の生成
             else if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
@@ -178,6 +185,7 @@ public class PlayerCut : MonoBehaviour
                 targetIntensity = 0f;
                 isActive = false;
                 //アニメーショントリガー
+                divisionFlag = true;
                 animationScript.StartCut();
             }
 
@@ -201,6 +209,9 @@ public class PlayerCut : MonoBehaviour
     public bool GetIsCreateLineStart() { return isCreateLineStart; }
     public bool GetIsActive() { return isActive; }
     public int GetDirection() { return direction; }
+    
+    public bool GetDivisionFlag() { if (!divisionFlag) return false; divisionFlag = false; return true; }
+    public bool GetDivisionDeleteFlag() { if (!divisionDeleteFlag) return false; divisionDeleteFlag = false; return true; }
 
     // Setter
     public void SetDivisionPosition(Vector2 _divisionPosition) { divisionPosition = _divisionPosition; }

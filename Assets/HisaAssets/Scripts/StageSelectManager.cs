@@ -30,7 +30,7 @@ public class StageSelectManager : MonoBehaviour
 
 
     bool debugActive;
-
+    [SerializeField] GradientRampScroller gradientObj;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -126,10 +126,11 @@ public class StageSelectManager : MonoBehaviour
             if (preSelectAreaIndex >= 0 && preSelectAreaIndex < areaManagers.Length) areaManagers[preSelectAreaIndex].AreaSelectAnime("BackAreaSelect");//前のアニメーションはStop状態にして
             areaManagers[curSelectAreaIndex].AreaSelectAnime("ChangeArea");//次のアニメーションは再生する
 
-            areaPixelCamera.StartRotation(90f * curSelectAreaIndex);
+            areaPixelCamera.StartRotation(72f * curSelectAreaIndex);
 
             preSelectAreaIndex = curSelectAreaIndex;
             areaManagers[curSelectAreaIndex].ClearEffect();
+            gradientObj.SwitchLoop(curSelectAreaIndex);
         }
 
         if (Input.GetButtonDown("Select"))
