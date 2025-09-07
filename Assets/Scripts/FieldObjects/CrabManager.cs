@@ -5,6 +5,8 @@ public class CrabManager : MonoBehaviour
     public enum ThrowDirection { RIGHT, UP, LEFT, DOWN }
     private ThrowDirection throwDirection = ThrowDirection.LEFT;
 
+    [SerializeField] private CrabSpriteScript crabSpriteScript;
+
     // Getter
     public Vector3 GetThrowVector()
     {
@@ -23,6 +25,8 @@ public class CrabManager : MonoBehaviour
     }
     public ThrowDirection GetThrowDirection() { return throwDirection; }
 
+    public CrabSpriteScript GetSpriteScript() { return crabSpriteScript; }
+
     // Setter
-    public void SetThrowDirection(ThrowDirection _throwDirection) { throwDirection = _throwDirection; }
+    public void SetThrowDirection(ThrowDirection _throwDirection) { throwDirection = _throwDirection; crabSpriteScript.ChangeDirection((int)_throwDirection); }
 }

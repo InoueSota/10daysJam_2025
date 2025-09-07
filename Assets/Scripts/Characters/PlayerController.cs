@@ -419,6 +419,7 @@ public class PlayerController : MonoBehaviour
 
         //アニメーショントリガー
         animationScript.StartRocket();
+        _hitObj.GetComponent<CrabManager>().GetSpriteScript().StartTheow();
     }
 
     // Setter
