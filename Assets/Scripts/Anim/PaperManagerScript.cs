@@ -46,22 +46,6 @@ public class PaperManagerScript : MonoBehaviour
         isActive = playerCut.GetIsActive();
         isDivision = playerCut.GetIsDivision();
 
-
-        if (Input.GetButtonDown("Undo"))
-        {
-            blockOffset[0] = Vector3.zero;
-            blockOffset[1] = Vector3.zero;
-
-            bool isCutHorizontal = false;
-            if (divisionLine.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL) isCutHorizontal = true;
-            Vector3 cutPos = undoManager.GetPrevDivisionPosition();
-            Debug.Log(cutPos);
-            cutPos.x -= gridOffset.x;
-            cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
-            CutPaper(cutPos, isCutHorizontal);
-        }
-
-
         if (isCut == true)
         {
             if (Input.GetButtonDown("Reset"))
@@ -88,6 +72,50 @@ public class PaperManagerScript : MonoBehaviour
                 FixPaper();
             }
         }
+
+        if (Input.GetButtonDown("Undo"))
+        {
+            if (undoManager.GetIsDivision() == true)
+            {
+                if (isCut == false)
+                {
+                    blockOffset[0] = pageTransform[0].localPosition;
+                    blockOffset[1] = pageTransform[1].localPosition;
+
+                    bool isCutHorizontal = false;
+                    if (undoManager.GetIsDivisionMode() == 0) isCutHorizontal = true;
+                    Vector3 cutPos = undoManager.GetPrevDivisionPosition();
+                    cutPos.x -= gridOffset.x;
+                    cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
+                    CutPaper(cutPos, isCutHorizontal);
+                }
+                else if(isCut == true)
+                {
+                    Vector3 cutPos = undoManager.GetPrevDivisionPosition();
+                    if (playerCut.GetDivisionPosition() != new Vector2(cutPos.x , cutPos.y)) {
+
+                        blockOffset[0] = pageTransform[0].localPosition;
+                        blockOffset[1] = pageTransform[1].localPosition;
+
+                        Debug.Log("“{‚è");
+                        bool isCutHorizontal = false;
+                        if (undoManager.GetIsDivisionMode() == 0) isCutHorizontal = true;
+                        cutPos.x -= gridOffset.x;
+                        cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
+                        CutPaper(cutPos, isCutHorizontal);
+                    }
+                }
+            }
+            else
+            {
+                //blockOffset[0] = -undoManager.GetObjectParentPosition1();
+                //blockOffset[1] = -undoManager.GetObjectParentPosition2();
+                FixPaper();
+            }
+        }
+
+
+       
 
             if (playerCut.GetDivisionFlag() == true)
         {

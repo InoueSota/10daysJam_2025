@@ -81,6 +81,7 @@ public class PlayerAnimationScript : MonoBehaviour
         isDash = controller.GetIsRocketMoving();
 
         if (Input.GetButtonDown("Reset")) Init();
+        if (Input.GetButtonDown("Undo")) Init();
 
         if (isHit == true)
         {

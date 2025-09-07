@@ -156,6 +156,42 @@ public class UndoManager : MonoBehaviour
         return prevState.divisionPosition;
     }
 
+    public bool  GetIsDivision()
+    {
+        if (history.Count == 0) return false;
+
+        GameState prevState = history.Peek();
+
+        return prevState.isDivision;
+    }
+
+    public int  GetIsDivisionMode()
+    {
+        if (history.Count == 0) return 1;
+
+        GameState prevState = history.Peek();
+
+        return prevState.divisionMode;
+    }
+
+    public Vector3 GetObjectParentPosition1()
+    {
+        if (history.Count == 0) return Vector3.zero;
+
+        GameState prevState = history.Peek();
+
+        return prevState.objectParentPosition1;
+    }
+
+    public Vector3 GetObjectParentPosition2()
+    {
+        if (history.Count == 0) return Vector3.zero;
+
+        GameState prevState = history.Peek();
+
+        return prevState.objectParentPosition2;
+    }
+
     // ƒŠƒZƒbƒg‚·‚é
     public void ResetToInitialState()
     {
