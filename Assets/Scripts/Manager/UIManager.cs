@@ -27,13 +27,13 @@ public class UIManager : MonoBehaviour
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         // 右
-        if (_goalDirection == 0) { goalDirectionT.text = "アンロック方向：左"; }
+        if (_goalDirection == 0) { goalDirectionT.text = "アンロック方向：右"; }
         // 上
-        else if (_goalDirection == 1) { goalDirectionT.text = "アンロック方向：下"; }
+        else if (_goalDirection == 1) { goalDirectionT.text = "アンロック方向：上"; }
         // 左
-        else if (_goalDirection == 2) { goalDirectionT.text = "アンロック方向：右"; }
+        else if (_goalDirection == 2) { goalDirectionT.text = "アンロック方向：左"; }
         // 下
-        else if (_goalDirection == 3) { goalDirectionT.text = "アンロック方向：上"; }
+        else if (_goalDirection == 3) { goalDirectionT.text = "アンロック方向：下"; }
     }
     public void Reset()
     {

@@ -12,10 +12,10 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] AreaManager[] areaManagers;
     [SerializeField] Transform areaPixelCameraTransform;
 
-    bool stageChangeFlag;
+    public bool stageChangeFlag;
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
-    float curStageChangeCT;
-    public float inputCoolTime;
+    public float curStageChangeCT;
+    float inputCoolTime;
     [SerializeField] SmoothDampRotate areaPixelCamera;
 
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
@@ -53,7 +53,7 @@ public class StageSelectManager : MonoBehaviour
         if (areaSelect)
         {
             AreaSelect();
-
+            curStageChangeCT = 0;
         }
         else
         {
@@ -88,6 +88,8 @@ public class StageSelectManager : MonoBehaviour
 
     void AreaSelect()
     {
+        if (stageChangeFlag) { return; }
+
         if (inputDire.x > 0)
         {
             curSelectAreaIndex++;
@@ -133,6 +135,7 @@ public class StageSelectManager : MonoBehaviour
 
     void StageSelect()
     {
+        if (stageChangeFlag) { return; }
         if (Input.GetButtonDown("Back"))
         {
             areaSelect = true;
@@ -166,7 +169,8 @@ public class StageSelectManager : MonoBehaviour
                 stageChangeFlag = true;
             }
         }
-        if (Input.GetButtonDown("Back"))
+        //ステージ選択画面→タイトルへの遷移
+        else if (Input.GetButtonDown("Back"))
         {
             stageChangeFlag = true;
             Debug.Log("バック");
@@ -208,6 +212,7 @@ public class StageSelectManager : MonoBehaviour
     void SaveDelete()
     {
         SaveSystem.Delete(1);
+        SceneManager.LoadScene("StageSelectScene");
 
     }
 
