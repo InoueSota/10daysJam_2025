@@ -14,8 +14,8 @@ public class StageSelectManager : MonoBehaviour
 
     public bool stageChangeFlag;
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
-    float curStageChangeCT;
-     float inputCoolTime;
+    public float curStageChangeCT;
+    float inputCoolTime;
     [SerializeField] SmoothDampRotate areaPixelCamera;
 
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
@@ -169,7 +169,8 @@ public class StageSelectManager : MonoBehaviour
                 stageChangeFlag = true;
             }
         }
-        if (Input.GetButtonDown("Back"))
+        //ステージ選択画面→タイトルへの遷移
+        else if (Input.GetButtonDown("Back"))
         {
             stageChangeFlag = true;
             Debug.Log("バック");
