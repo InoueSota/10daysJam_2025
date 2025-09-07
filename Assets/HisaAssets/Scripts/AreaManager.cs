@@ -88,6 +88,7 @@ public class AreaManager : MonoBehaviour
 
     public void ChangeCell(Vector2 inputDire)
     {
+       
         //¶‰E
         if (inputDire.x != 0 && inputDire.y == 0)
         {
