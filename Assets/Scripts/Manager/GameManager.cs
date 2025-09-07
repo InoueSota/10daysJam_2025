@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
                 switch (goalDirection)
                 {
                     case GoalDirection.LEFT:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Left, out var lStage))
+                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Right, out var lStage))
                         {
                             Debug.Log($"ŽŸ‚Í {lStage.areaId} / {lStage.stageId}");
                             connectStage = lStage.stageId;
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
                         break;
                     case GoalDirection.RIGHT:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Right, out var rStage))
+                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Left, out var rStage))
                         {
                             Debug.Log($"ŽŸ‚Í {rStage.areaId} / {rStage.stageId}");
                             connectStage = rStage.stageId;
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
                         }
                         break;
                     case GoalDirection.UP:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Up, out var uStage))
+                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Down, out var uStage))
                         {
                             Debug.Log($"ŽŸ‚Í {uStage.areaId} / {uStage.stageId}");
                             connectStage = uStage.stageId;
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
                         }
                         break;
                     case GoalDirection.DOWN:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Down, out var dStage))
+                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Up, out var dStage))
                         {
                             Debug.Log($"ŽŸ‚Í {dStage.areaId} / {dStage.stageId}");
                             connectStage = dStage.stageId;

@@ -1291,7 +1291,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AF\u30EA\u30A2\u30CE\u30EB\u30DE"
+  m_Text: "\u30AF\u30EA\u30A2<size=400%>\u6570</size>"
 --- !u!223 &6678713370732106761
 Canvas:
   m_ObjectHideFlags: 0
@@ -1733,6 +1733,7 @@ GameObject:
   - component: {fileID: 221319556167787502}
   - component: {fileID: 1464214301385056635}
   - component: {fileID: 3197216906673125536}
+  - component: {fileID: 6742555194105570934}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -1847,3 +1848,17 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &6742555194105570934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8188023615303353746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontString: 
+  backString: 
