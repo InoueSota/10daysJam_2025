@@ -8,12 +8,11 @@ public class UndoManager : MonoBehaviour
     private PlayerCut cut;
     private PlayerController controller;
 
-    // ブロックの親
-    private Vector3 objectParentPosition1;
-    private Vector3 objectParentPosition2;
-
     // ブロック関係
     private List<Transform> blocks = new List<Transform>();
+
+    // 各ブロック
+    private List<Transform> crabs = new List<Transform>();
 
     // 分断線関係
     private GameObject divisionLineObj;
@@ -29,11 +28,17 @@ public class UndoManager : MonoBehaviour
         controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         // 最初に一度だけブロック一覧を登録する
-        GameObject[] blockObjects = GameObject.FindGameObjectsWithTag("FieldObject");
-        foreach (GameObject blockObject in blockObjects)
+        foreach (GameObject blockObject in GameObject.FindGameObjectsWithTag("FieldObject"))
         {
             blocks.Add(blockObject.transform);
+
+            // 各ブロック
+            if (blockObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.CRAB)
+            {
+                crabs.Add(blockObject.transform);
+            }
         }
+
         divisionLineObj = GameObject.FindGameObjectWithTag("DivisionLine");
         divisionLineObj.SetActive(cut.GetIsCreateLineStart());
 
@@ -49,11 +54,11 @@ public class UndoManager : MonoBehaviour
         state.divisionPosition = divisionLine.position;
         state.divisionLineActiveState = divisionLine.gameObject.activeSelf;
         state.divisionLineRotation = divisionLine.rotation;
+        state.divisionMode = (int)divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode();
 
         // プレイヤー関係
         player = GameObject.FindGameObjectWithTag("Player").transform;
         state.playerPosition = player.position;
-        // プレイヤーの変数を保存
         state.isDivision = cut.GetIsDivision();
         state.warpObj = controller.GetWarpObj();
 
@@ -72,6 +77,12 @@ public class UndoManager : MonoBehaviour
             state.blockParents.Add(block.parent);
         }
 
+        // 各ブロック
+        foreach (var crab in crabs)
+        {
+            state.crabThrowDirection.Add((int)crab.GetComponent<CrabManager>().GetThrowDirection());
+        }
+
         return state;
     }
     private void RestoreState(GameState state)
@@ -80,6 +91,7 @@ public class UndoManager : MonoBehaviour
         divisionLine.position = state.divisionPosition;
         divisionLine.rotation = state.divisionLineRotation;
         divisionLine.gameObject.SetActive(state.divisionLineActiveState);
+        divisionLine.GetComponent<DivisionLineManager>().Initialize((DivisionLineManager.DivisionMode)state.divisionMode);
 
         // プレイヤー復元
         player.position = state.playerPosition;
@@ -101,6 +113,12 @@ public class UndoManager : MonoBehaviour
             blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(state.blockCurrentPositions[i]);
             blocks[i].gameObject.SetActive(state.blockActiveStates[i]);
             blocks[i].SetParent(state.blockParents[i]);
+        }
+
+        // 各ブロック
+        for (int i = 0; i < crabs.Count; i++)
+        {
+            crabs[i].GetComponent<CrabManager>().SetThrowDirection((CrabManager.ThrowDirection)state.crabThrowDirection[i]);
         }
     }
 

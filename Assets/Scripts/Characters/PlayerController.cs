@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 warpPosition;
     private GameObject warpObj;
 
+    // 蟹パラメータ
+    [SerializeField] private GameObject crabObj;
+
     // フラグ
     private bool isRocketMoving;
     private bool isMoving;
@@ -71,7 +74,9 @@ public class PlayerController : MonoBehaviour
         if (!definitelyStack)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
-            if (hit.collider != null && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP) { isStacking = true; }
+            if (hit.collider != null
+                && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP
+                && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.CRAB) { isStacking = true; }
             else { isStacking = false; }
         }
     }
@@ -113,8 +118,9 @@ public class PlayerController : MonoBehaviour
             // ロケットの移動速度を変える
             DOVirtual.Float(0f, rocketMaxSpeed, toMaxSpeedTime, value => { rocketSpeed = value; }).SetEase(Ease.Linear);
 
-            // ワープ対象オブジェクトの情報を初期化する
+            // 対象オブジェクトの情報を初期化する
             warpObj = null;
+            crabObj = null;
 
             // フラグの変更
             isMoving = true;
@@ -324,8 +330,23 @@ public class PlayerController : MonoBehaviour
             }
             else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.CRAB)
             {
-                CrabInitialize(hitObj);
-                return false;
+                if (hitObj != crabObj)
+                {
+                    CrabInitialize(hitObj);
+                    return false;
+                }
+
+                // 現在位置を反映
+                Vector3 currentOnePosition = transform.position + (rocketVector * 0.8f);
+                Vector3 currentTwoPosition = transform.position + (rocketVector * 0.8f);
+                AdjustRayPosition(ref currentOnePosition, true);
+                AdjustRayPosition(ref currentTwoPosition, false);
+
+                // Rayの生成
+                RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.2f, groundLayer);
+                RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.2f, groundLayer);
+
+                return HeadbuttChecker(leftHit, rightHit);
             }
             return true;
         }
@@ -374,11 +395,30 @@ public class PlayerController : MonoBehaviour
     // 蟹群
     void CrabInitialize(GameObject _hitObj)
     {
+        // 情報の保存
+        crabObj = _hitObj;
+
+        // 座標の調整
+        transform.position = _hitObj.transform.position;
+
         // 移動方向の修正
-        if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.right) { rocketVector = Vector3.right; direction = 0; }
-        else if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.left) { rocketVector = Vector3.left; direction = 2; }
-        else if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.up) { rocketVector = Vector3.up; direction = 1; }
-        else if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.down) { rocketVector = Vector3.down; direction = 3; }
+        if (_hitObj.GetComponent<CrabManager>().GetThrowVector() == Vector3.right) { rocketVector = Vector3.right; direction = 0; }
+        else if (_hitObj.GetComponent<CrabManager>().GetThrowVector() == Vector3.left) { rocketVector = Vector3.left; direction = 2; }
+        else if (_hitObj.GetComponent<CrabManager>().GetThrowVector() == Vector3.up) { rocketVector = Vector3.up; direction = 1; }
+        else if (_hitObj.GetComponent<CrabManager>().GetThrowVector() == Vector3.down) { rocketVector = Vector3.down; direction = 3; }
+
+        // 重力を無くす
+        rbody2D.gravityScale = 0f;
+
+        // 対象オブジェクトの情報を初期化する
+        warpObj = null;
+
+        // フラグの変更
+        isMoving = true;
+        isRocketMoving = true;
+
+        //アニメーショントリガー
+        animationScript.StartRocket();
     }
 
     // Setter
@@ -453,6 +493,13 @@ public class PlayerController : MonoBehaviour
                     WarpInitialize(collision.gameObject, ref warpPosition, ref warpObj);
                 }
             }
+            else if (collision.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.CRAB)
+            {
+                if (!isRocketMoving && collision.gameObject != crabObj)
+                {
+                    CrabInitialize(collision.gameObject);
+                }
+            }
         }
     }
     void OnTriggerExit2D(Collider2D collision)
@@ -464,6 +511,13 @@ public class PlayerController : MonoBehaviour
                 if (collision.gameObject == warpObj)
                 {
                     warpObj = null;
+                }
+            }
+            else if (collision.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.CRAB)
+            {
+                if (collision.gameObject == crabObj)
+                {
+                    crabObj = null;
                 }
             }
         }
