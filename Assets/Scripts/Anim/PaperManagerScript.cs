@@ -25,7 +25,6 @@ public class PaperManagerScript : MonoBehaviour
     bool isActive, preIsActive;
     bool isCut = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerCut = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerCut>();
@@ -38,18 +37,55 @@ public class PaperManagerScript : MonoBehaviour
         firstPaper.transform.parent = pageTransform[0];
         secondPaper.transform.parent = pageTransform[1];
 
-        undoManager = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<UndoManager>();
+        undoManager = GameObject.FindGameObjectWithTag("GameController")
+                        .GetComponent<UndoManager>();
+
+        // ★追加：復元完了イベントを購読
+        undoManager.OnStateRestored += HandleUndoRestored;
     }
 
-    // Update is called once per frame
+    void OnDestroy()
+    {
+        if (undoManager != null)
+            undoManager.OnStateRestored -= HandleUndoRestored;
+    }
+
+    // ★追加: Undo 復元直後に必ず呼ばれるハンドラ
+    private void HandleUndoRestored(GameState state)
+    {
+        // ★まず紙を“ページの現在位置”に合わせる
+        blockOffset[0] = -pageTransform[0].localPosition;
+        blockOffset[1] = -pageTransform[1].localPosition;
+
+        if (state.isDivision)
+        {
+            bool isCutHorizontal =
+                (DivisionLineManager.DivisionMode)state.divisionMode
+                == DivisionLineManager.DivisionMode.HORIZONTAL;
+
+            // ワールドの分断位置 → 紙座標へ（既存式を踏襲）
+            Vector3 cutPos = state.divisionPosition;
+            cutPos.x -= gridOffset.x;
+            cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
+
+            // ★ページ位置に揃えた blockOffset を使ってから切る
+            CutPaper(cutPos, isCutHorizontal);
+        }
+        else
+        {
+            // 分断なしへ復元：ページ位置に揃えてから1枚化
+            FixPaper();
+        }
+    }
+
     void Update()
     {
-
         isActive = playerCut.GetIsActive();
         isDivision = playerCut.GetIsDivision();
 
         if (isCut == true)
         {
+            // Reset で紙だけ元に戻す挙動はそのまま
             if (Input.GetButtonDown("Reset"))
             {
                 effect[0].Play();
@@ -58,15 +94,9 @@ public class PaperManagerScript : MonoBehaviour
                 FixPaper();
             }
 
-            if (isActive == true && preIsActive == false)
-            {
-                effect[0].Play();
-                blockOffset[0] = -pageTransform[0].localPosition;
-                blockOffset[1] = -pageTransform[1].localPosition;
-                FixPaper();
-            }
-
-            if (isDivision == false && preIsDivision == true)
+            // Special の押下や分断解除で “紙を今のページ位置に追従させて” 固定
+            if ((isActive == true && preIsActive == false) ||
+                (isDivision == false && preIsDivision == true))
             {
                 effect[0].Play();
                 blockOffset[0] = -pageTransform[0].localPosition;
@@ -75,61 +105,21 @@ public class PaperManagerScript : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Undo"))
-        {
-            if (undoManager.GetIsDivision() == true)
-            {
-                if (isCut == false)
-                {
-                    blockOffset[0] = Vector3.zero;
-                   blockOffset[1] = Vector3.zero;
+        // ★削除: Undo キーを直接見て紙を切る処理
+        // if (Input.GetButtonDown("Undo")) { … } を **丸ごと削除** してください。
+        // 紙の更新は HandleUndoRestored() に一本化。
 
-                    bool isCutHorizontal = false;
-                    if (undoManager.GetIsDivisionMode() == 0) isCutHorizontal = true;
-                    Vector3 cutPos = undoManager.GetPrevDivisionPosition();
-                    cutPos.x -= gridOffset.x;
-                    cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
-                    CutPaper(cutPos, isCutHorizontal);
-                }
-                else if(isCut == true)
-                {
-                    Vector3 cutPos = undoManager.GetPrevDivisionPosition();
-                    if (playerCut.GetDivisionPosition() != new Vector2(cutPos.x , cutPos.y)) {
-
-                        blockOffset[0] = Vector3.zero;
-                        blockOffset[1] = Vector3.zero;
-
-                        Debug.Log("怒り");
-                        bool isCutHorizontal = false;
-                        if (undoManager.GetIsDivisionMode() == 0) isCutHorizontal = true;
-                        cutPos.x -= gridOffset.x;
-                        cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
-                        CutPaper(cutPos, isCutHorizontal);
-                    }
-                }
-            }
-            else
-            {
-                //blockOffset[0] = -undoManager.GetObjectParentPosition1();
-                //blockOffset[1] = -undoManager.GetObjectParentPosition2();
-                blockOffset[0] = Vector3.zero;
-                blockOffset[1] = Vector3.zero;
-                FixPaper();
-            }
-        }
-
-
-       
-
-            if (playerCut.GetDivisionFlag() == true)
+        // プレイヤーが“新規に切った”瞬間はこれまで通り
+        if (playerCut.GetDivisionFlag() == true)
         {
             blockOffset[0] = -pageTransform[0].localPosition;
             blockOffset[1] = -pageTransform[1].localPosition;
 
             bool isCutHorizontal = false;
-            if(divisionLine.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL) isCutHorizontal = true;
+            if (divisionLine.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL) isCutHorizontal = true;
+
             Vector3 cutPos = playerCut.GetDivisionPosition();
-            cutPos.x -= gridOffset.x ;
+            cutPos.x -= gridOffset.x;
             cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
             CutPaper(cutPos, isCutHorizontal);
         }
@@ -142,7 +132,7 @@ public class PaperManagerScript : MonoBehaviour
     {
         firstPaper.QuadSetter(gridOffset + blockOffset[0], paperSizeBase);
         secondPaper.QuadSetter(gridOffset + blockOffset[1], Vector3.zero);
-        isCut = false; 
+        isCut = false;
     }
 
     private void CutPaper(Vector3 cutPos, bool isCutHorizontal)
@@ -151,17 +141,17 @@ public class PaperManagerScript : MonoBehaviour
         Vector2 secondPaperSize = paperSizeBase;
         Vector3 secondPaperPos = gridOffset;
 
-        if (isCutHorizontal == false)
+        if (!isCutHorizontal)
         {
             paperSize.x = cutPos.x;
             secondPaperSize.x = paperSizeBase.x - cutPos.x;
-            secondPaperPos.x =  cutPos.x + gridOffset.x;
+            secondPaperPos.x = cutPos.x + gridOffset.x;
         }
         else
         {
             paperSize.y = cutPos.y;
             secondPaperSize.y = paperSizeBase.y - cutPos.y;
-            secondPaperPos.y =  gridOffset.y - cutPos.y;
+            secondPaperPos.y = gridOffset.y - cutPos.y;
         }
 
         firstPaper.QuadSetter(gridOffset + blockOffset[0], paperSize);
@@ -169,9 +159,4 @@ public class PaperManagerScript : MonoBehaviour
         isCut = true;
     }
 
-    private void SummonPaper(Vector3 pos, Vector2 size)
-    {
-        PaperScript secondPaper = Instantiate(paperPrefab, pos, Quaternion.identity,transform);
-        secondPaper.QuadSetter(pos, size);
-    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -85,42 +86,42 @@ public class UndoManager : MonoBehaviour
 
         return state;
     }
-    private void RestoreState(GameState state)
-    {
-        // 分断線関係
-        divisionLine.position = state.divisionPosition;
-        divisionLine.rotation = state.divisionLineRotation;
-        divisionLine.gameObject.SetActive(state.divisionLineActiveState);
-        divisionLine.GetComponent<DivisionLineManager>().Initialize((DivisionLineManager.DivisionMode)state.divisionMode);
+    //private void RestoreState(GameState state)
+    //{
+    //    // 分断線関係
+    //    divisionLine.position = state.divisionPosition;
+    //    divisionLine.rotation = state.divisionLineRotation;
+    //    divisionLine.gameObject.SetActive(state.divisionLineActiveState);
+    //    divisionLine.GetComponent<DivisionLineManager>().Initialize((DivisionLineManager.DivisionMode)state.divisionMode);
 
-        // プレイヤー復元
-        player.position = state.playerPosition;
-        cut.SetDivisionPosition(state.divisionPosition);
-        cut.SetIsDivision(state.isDivision);
-        controller.RocketInitialize();
-        controller.FlagInitialize();
-        controller.SetWarpObj(state.warpObj);
+    //    // プレイヤー復元
+    //    player.position = state.playerPosition;
+    //    cut.SetDivisionPosition(state.divisionPosition);
+    //    cut.SetIsDivision(state.isDivision);
+    //    controller.RocketInitialize();
+    //    controller.FlagInitialize();
+    //    controller.SetWarpObj(state.warpObj);
 
-        // ブロックの親関係
-        cut.GetObjectTransform(1).position = state.objectParentPosition1;
-        cut.GetObjectTransform(2).position = state.objectParentPosition2;
+    //    // ブロックの親関係
+    //    cut.GetObjectTransform(1).position = state.objectParentPosition1;
+    //    cut.GetObjectTransform(2).position = state.objectParentPosition2;
 
-        // ブロック関係
-        for (int i = 0; i < blocks.Count; i++)
-        {
-            blocks[i].position = state.blockPositions[i];
-            blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(state.blockPrePositions[i]);
-            blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(state.blockCurrentPositions[i]);
-            blocks[i].gameObject.SetActive(state.blockActiveStates[i]);
-            blocks[i].SetParent(state.blockParents[i]);
-        }
+    //    // ブロック関係
+    //    for (int i = 0; i < blocks.Count; i++)
+    //    {
+    //        blocks[i].position = state.blockPositions[i];
+    //        blocks[i].GetComponent<AllFieldObjectManager>().SetPrePosition(state.blockPrePositions[i]);
+    //        blocks[i].GetComponent<AllFieldObjectManager>().SetCurrentPosition(state.blockCurrentPositions[i]);
+    //        blocks[i].gameObject.SetActive(state.blockActiveStates[i]);
+    //        blocks[i].SetParent(state.blockParents[i]);
+    //    }
 
-        // 各ブロック
-        for (int i = 0; i < crabs.Count; i++)
-        {
-            crabs[i].GetComponent<CrabManager>().SetThrowDirection((CrabManager.ThrowDirection)state.crabThrowDirection[i]);
-        }
-    }
+    //    // 各ブロック
+    //    for (int i = 0; i < crabs.Count; i++)
+    //    {
+    //        crabs[i].GetComponent<CrabManager>().SetThrowDirection((CrabManager.ThrowDirection)state.crabThrowDirection[i]);
+    //    }
+    //}
 
     // 現在の状態を保存
     public void SaveState()
@@ -129,14 +130,14 @@ public class UndoManager : MonoBehaviour
     }
 
     // ひとつ前に戻す
-    public void Undo()
-    {
-        if (history.Count == 0) return;
+    //public void Undo()
+    //{
+    //    if (history.Count == 0) return;
 
-        GameState prevState = history.Pop();
+    //    GameState prevState = history.Pop();
 
-        RestoreState(prevState);
-    }
+    //    RestoreState(prevState);
+    //}
 
     public Vector3 GetPrevPlayerPosition()
     {
@@ -192,14 +193,71 @@ public class UndoManager : MonoBehaviour
         return prevState.objectParentPosition2;
     }
 
-    // リセットする
+    //// リセットする
+    //public void ResetToInitialState()
+    //{
+    //    if (initialState == null) return;
+
+    //    RestoreState(initialState);
+
+    //    // Undo履歴もリセット
+    //    history.Clear();
+    //}
+
+    // ★追加: 復元完了を通知するイベント
+    public event Action<GameState> OnStateRestored;
+
+    private void RestoreState(GameState state)
+    {
+        // ★既存の“復元処理”はそのまま（順序も既存通りでOK）
+        divisionLine.position = state.divisionPosition;
+        divisionLine.rotation = state.divisionLineRotation;
+        divisionLine.gameObject.SetActive(state.divisionLineActiveState);
+        divisionLine.GetComponent<DivisionLineManager>()
+                    .Initialize((DivisionLineManager.DivisionMode)state.divisionMode);
+
+        player.position = state.playerPosition;
+        cut.SetDivisionPosition(state.divisionPosition);
+        cut.SetIsDivision(state.isDivision);
+        controller.RocketInitialize();
+        controller.FlagInitialize();
+        controller.SetWarpObj(state.warpObj);
+
+        cut.GetObjectTransform(1).position = state.objectParentPosition1;
+        cut.GetObjectTransform(2).position = state.objectParentPosition2;
+
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            blocks[i].position = state.blockPositions[i];
+            blocks[i].GetComponent<AllFieldObjectManager>()
+                     .SetPrePosition(state.blockPrePositions[i]);
+            blocks[i].GetComponent<AllFieldObjectManager>()
+                     .SetCurrentPosition(state.blockCurrentPositions[i]);
+            blocks[i].gameObject.SetActive(state.blockActiveStates[i]);
+            blocks[i].SetParent(state.blockParents[i]);
+        }
+
+        for (int i = 0; i < crabs.Count; i++)
+        {
+            crabs[i].GetComponent<CrabManager>()
+                    .SetThrowDirection((CrabManager.ThrowDirection)state.crabThrowDirection[i]);
+        }
+
+        // ★最後に通知（ここが「復元後の真の状態」）
+        OnStateRestored?.Invoke(state);
+    }
+
+    public void Undo()
+    {
+        if (history.Count == 0) return;
+        var prev = history.Pop();
+        RestoreState(prev);
+    }
+
     public void ResetToInitialState()
     {
         if (initialState == null) return;
-
         RestoreState(initialState);
-
-        // Undo履歴もリセット
         history.Clear();
     }
 }
