@@ -37,6 +37,8 @@ public class PaperManagerScript : MonoBehaviour
 
         firstPaper.transform.parent = pageTransform[0];
         secondPaper.transform.parent = pageTransform[1];
+
+        undoManager = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<UndoManager>();
     }
 
     // Update is called once per frame
