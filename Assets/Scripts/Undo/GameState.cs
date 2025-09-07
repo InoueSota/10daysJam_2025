@@ -11,6 +11,10 @@ public class GameState
     public bool isMoving;
     public GameObject warpObj;
 
+    // ブロックの親関係
+    public Vector3 objectParentPosition1;
+    public Vector3 objectParentPosition2;
+
     // ブロック関係
     public List<Vector3> blockPositions = new List<Vector3>();
     public List<Vector3> blockPrePositions = new List<Vector3>();

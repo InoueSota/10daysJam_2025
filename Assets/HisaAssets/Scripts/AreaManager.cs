@@ -15,6 +15,7 @@ public class AreaManager : MonoBehaviour
     [SerializeField] Transform cellParent;
     public List<StageCell> cells = new List<StageCell>();
     [SerializeField] GameObject trophyObj;
+    [SerializeField] SetTextScript claerNumText;
     public int GetClearStageNum()
     {
         int clearStage = 0;
@@ -51,8 +52,12 @@ public class AreaManager : MonoBehaviour
             trophyObj.SetActive(false);
         }
         ActiveDateLoad();
-
+#if UNITY_EDITOR
         StageGraph();
+#endif
+
+        claerNumText.SetText(GetClearStageNum() + "/" + cells.Count);
+
     }
 
 
@@ -83,6 +88,7 @@ public class AreaManager : MonoBehaviour
 
     public void ChangeCell(Vector2 inputDire)
     {
+       
         //ç∂âE
         if (inputDire.x != 0 && inputDire.y == 0)
         {

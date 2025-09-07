@@ -8,6 +8,10 @@ public class UndoManager : MonoBehaviour
     private PlayerCut cut;
     private PlayerController controller;
 
+    // ブロックの親
+    private Vector3 objectParentPosition1;
+    private Vector3 objectParentPosition2;
+
     // ブロック関係
     private List<Transform> blocks = new List<Transform>();
 
@@ -50,9 +54,12 @@ public class UndoManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         state.playerPosition = player.position;
         // プレイヤーの変数を保存
-        state.divisionPosition = cut.GetDivisionPosition();
         state.isDivision = cut.GetIsDivision();
         state.warpObj = controller.GetWarpObj();
+
+        // ブロックの親関係
+        state.objectParentPosition1 = cut.GetObjectTransform(1).position;
+        state.objectParentPosition2 = cut.GetObjectTransform(2).position;
 
         // ブロック関係
         state.blockPositions = new List<Vector3>();
@@ -81,6 +88,10 @@ public class UndoManager : MonoBehaviour
         controller.RocketInitialize();
         controller.FlagInitialize();
         controller.SetWarpObj(state.warpObj);
+
+        // ブロックの親関係
+        cut.GetObjectTransform(1).position = state.objectParentPosition1;
+        cut.GetObjectTransform(2).position = state.objectParentPosition2;
 
         // ブロック関係
         for (int i = 0; i < blocks.Count; i++)

@@ -12,7 +12,8 @@ public class AllFieldObjectManager : MonoBehaviour
         FRAGILE,
         WARP,
         GLASS,
-        NAIL
+        NAIL,
+        CRAB
     }
     [SerializeField] private ObjectType objectType;
 
@@ -42,17 +43,17 @@ public class AllFieldObjectManager : MonoBehaviour
     /// </summary>
     public void AfterHeadbutt(bool _horizontalHeadbutt, Vector3 _rocketVector, Transform _movingParent)
     {
-        // 前フレーム座標の保存
-        prePosition = transform.position;
-        // 座標の更新
-        currentPosition = transform.position + _rocketVector;
-
-        // 分断線の取得
-        GameObject divisionLine = GameObject.FindGameObjectWithTag("DivisionLine");
-
         // 移動すべきオブジェクトか判断する
         if (transform.parent == _movingParent)
         {
+            // 前フレーム座標の保存
+            prePosition = transform.position;
+            // 座標の更新
+            currentPosition = transform.position + _rocketVector;
+
+            // 分断線の取得
+            GameObject divisionLine = GameObject.FindGameObjectWithTag("DivisionLine");
+
             switch (objectType)
             {
                 case ObjectType.GROUND:
@@ -62,6 +63,7 @@ public class AllFieldObjectManager : MonoBehaviour
                 case ObjectType.FRAGILE:
                 case ObjectType.WARP:
                 case ObjectType.GLASS:
+                case ObjectType.CRAB:
 
                     // 横方向からの頭突き
                     if (_horizontalHeadbutt && divisionLine && divisionLine.GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)

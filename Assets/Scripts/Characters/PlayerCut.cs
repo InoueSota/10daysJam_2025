@@ -23,7 +23,7 @@ public class PlayerCut : MonoBehaviour
     // 分断座標
     private Vector2 divisionPosition;
     // 分断フラグ
-    private bool isDivision;
+    [SerializeField] private bool isDivision;
 
     // Global Volume
     [SerializeField] private float fadePower;
@@ -35,6 +35,12 @@ public class PlayerCut : MonoBehaviour
     // アニメーション関連
     int direction = 0;
     bool divisionFlag = false;
+
+    void Awake()
+    {
+        // 分断線の配置フラグを設定
+        isDivision = isCreateLineStart;
+    }
 
     void Start()
     {
@@ -76,9 +82,6 @@ public class PlayerCut : MonoBehaviour
                     else { fieldObject.transform.parent = objectParent2; }
                 }
             }
-
-            // 分断線の配置フラグを設定
-            isDivision = isCreateLineStart;
         }
 
         // Global Volume

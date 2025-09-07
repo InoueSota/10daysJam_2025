@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
         playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
 
+        stageName = SceneManager.GetActiveScene().name;
+
 
     }
 
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
                 switch (goalDirection)
                 {
                     case GoalDirection.LEFT:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Left, out var lStage))
+                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Right, out var lStage))
                         {
                             Debug.Log($"次は {lStage.areaId} / {lStage.stageId}");
                             connectStage = lStage.stageId;
@@ -79,7 +81,7 @@ public class GameManager : MonoBehaviour
 
                         break;
                     case GoalDirection.RIGHT:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Right, out var rStage))
+                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Left, out var rStage))
                         {
                             Debug.Log($"次は {rStage.areaId} / {rStage.stageId}");
                             connectStage = rStage.stageId;
@@ -90,7 +92,7 @@ public class GameManager : MonoBehaviour
                         }
                         break;
                     case GoalDirection.UP:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Up, out var uStage))
+                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Down, out var uStage))
                         {
                             Debug.Log($"次は {uStage.areaId} / {uStage.stageId}");
                             connectStage = uStage.stageId;
@@ -101,7 +103,7 @@ public class GameManager : MonoBehaviour
                         }
                         break;
                     case GoalDirection.DOWN:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Down, out var dStage))
+                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Up, out var dStage))
                         {
                             Debug.Log($"次は {dStage.areaId} / {dStage.stageId}");
                             connectStage = dStage.stageId;
@@ -116,22 +118,17 @@ public class GameManager : MonoBehaviour
 
 
                 }
+
+                CellActive(goalDirection);
                 Debug.Log(connectStage);
             }
-        }
-        else
-        {
-            if (Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; }
         }
     }
 
     void SceneChange()
     {
-        if (!isGoal) { return; }
-        if (Input.GetButtonDown("Select"))
+        if (isGoal && Input.GetButtonDown("Select"))
         {
-
-
             if (connectStage != null)
             {
                 SceneManager.LoadScene(connectStage);
@@ -139,17 +136,48 @@ public class GameManager : MonoBehaviour
             else
             {
                 SceneManager.LoadScene("StageSelectScene");
-
             }
         }
+        if (Input.GetButtonDown("Back"))
+        {
+            SceneManager.LoadScene("StageSelectScene");
+            Debug.Log("バック");
+        }
+    }
+
+    void CellActive(GoalDirection goalDirection)
+    {
+        SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
+
+        switch (goalDirection)
+        {
+            case GoalDirection.LEFT:
+                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Left, true);//エリア1のステージ1を右方向にクリアした
+                break;
+            case GoalDirection.RIGHT:
+                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
+                break;
+            case GoalDirection.UP:
+                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Up, true);//エリア1のステージ1を右方向にクリアした
+                break;
+            case GoalDirection.DOWN:
+                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Down, true);//エリア1のステージ1を右方向にクリアした
+                break;
+            default:
+                break;
+
+
+        }
+
+        SaveSystem.Save(save, 1);//セーブ
     }
 
     void LateUpdate()
     {
         // Undo
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo")) { undoManager.Undo(); }
+        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo")) { uiManager.Reset(); isGoal = false; undoManager.Undo(); }
 
         // Reset
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { undoManager.ResetToInitialState(); }
+        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
     }
 }
