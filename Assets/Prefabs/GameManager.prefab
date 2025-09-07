@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7361798446708528711}
   - component: {fileID: 7229779872476006553}
   - component: {fileID: 2001972069336573037}
+  - component: {fileID: 3564547265596243519}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -45,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4730203fdd324841bd8debcd53f7217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  undoManager: {fileID: 2001972069336573037}
+  areaName: 
+  stageName: 
 --- !u!114 &2001972069336573037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,3 +60,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01d54639b502674fb7cced51fb526c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3564547265596243519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802900266127030161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a824cf329f69d6c43bda13c33d82e483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseGraphJson: {fileID: 0}

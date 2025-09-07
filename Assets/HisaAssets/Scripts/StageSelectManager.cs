@@ -16,6 +16,7 @@ public class StageSelectManager : MonoBehaviour
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
     float curStageChangeCT;
     public float inputCoolTime;
+    [SerializeField] SmoothDampRotate areaPixelCamera;
 
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
 
@@ -23,7 +24,7 @@ public class StageSelectManager : MonoBehaviour
     //[SerializeField] AmpritudePosition imageAmpritude;
 
     int curSelectAreaIndex;
-    int preSelectAreaIndex;
+    int preSelectAreaIndex = -1;
 
     bool areaSelect;
 
@@ -35,13 +36,12 @@ public class StageSelectManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ////SetColor(Color.red);
-        //curSelectStage.GetSetActive=true;
-        //curSelectStage.SetSelectObj(true);
-        //curVisualStageImage.sprite= curSelectStage.GetStageImage();
         areaSelect = true;
 
-        areaManagers[0].AreaSelectAnime("ChangeArea");//エリア1のアニメーションは再生する
+
+        SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
+        SaveUtil.SetCleared(save, "Area1", "Area1Stage1", ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
+        SaveSystem.Save(save, 1);//セーブ
     }
 
     // Update is called once per frame
@@ -53,6 +53,7 @@ public class StageSelectManager : MonoBehaviour
         if (areaSelect)
         {
             AreaSelect();
+
         }
         else
         {
@@ -81,7 +82,7 @@ public class StageSelectManager : MonoBehaviour
         inputDire.y = Input.GetAxisRaw("Vertical");
         if (inputDire.magnitude > 0)
         {
-            inputCoolTime = 0.2f;
+            inputCoolTime = 0.3f;
         }
     }
 
@@ -90,7 +91,7 @@ public class StageSelectManager : MonoBehaviour
         if (inputDire.x > 0)
         {
             curSelectAreaIndex++;
-            
+
         }
         else if (inputDire.x < 0)
         {
@@ -107,15 +108,18 @@ public class StageSelectManager : MonoBehaviour
         }
 
 
-        areaPixelCameraTransform.rotation = Quaternion.Euler(0f, 90f * curSelectAreaIndex, 0f);
 
-        if (preSelectAreaIndex != curSelectAreaIndex) {
-            areaManagers[preSelectAreaIndex].AreaSelectAnime("BackAreaSelect");//前のアニメーションはStop状態にして
+
+        //エリアを切り替えた時
+        if (preSelectAreaIndex != curSelectAreaIndex)
+        {
+            if (preSelectAreaIndex >= 0 && preSelectAreaIndex < areaManagers.Length) areaManagers[preSelectAreaIndex].AreaSelectAnime("BackAreaSelect");//前のアニメーションはStop状態にして
             areaManagers[curSelectAreaIndex].AreaSelectAnime("ChangeArea");//次のアニメーションは再生する
-           
+
+            areaPixelCamera.StartRotation(90f * curSelectAreaIndex);
 
             preSelectAreaIndex = curSelectAreaIndex;
-
+            areaManagers[curSelectAreaIndex].ClearEffect();
         }
 
         if (Input.GetButtonDown("Select"))
@@ -138,48 +142,7 @@ public class StageSelectManager : MonoBehaviour
         areaManagers[curSelectAreaIndex].ChangeCell(inputDire);
     }
 
-    //void ChangeCell()
-    //{
-    //    //選択してるセル(ステージ)の切り替え
-    //    //左右
-    //    if (inputDire.x != 0 && inputDire.y == 0)
-    //    {
-    //        //左
-    //        if (inputDire.x < 0)
-    //        {
-    //            SelectCell(StageDirection.left);
-    //        }
-    //        else
-    //        {
-    //            SelectCell(StageDirection.right);
-    //        }
-    //    }
-    //    else if (inputDire.x == 0 && inputDire.y != 0)
-    //    {
-    //        //左
-    //        if (inputDire.y < 0)
-    //        {
-    //            SelectCell(StageDirection.down);
-    //        }
-    //        else
-    //        {
-    //            SelectCell(StageDirection.up);
-    //        }
-    //    }
-    //}
 
-    //void SelectCell(StageDirection direction)
-    //{
-    //    if (curSelectStage.GetStageCell(direction) != null)
-    //    {
-    //        curSelectStage.GetStageCell(direction).SetSelectObj(true);
-    //        curSelectStage.SetSelectObj(false);
-    //        curSelectStage = curSelectStage.GetStageCell(direction);
-    //        cameraFollow.SetTarget(curSelectStage.transform);
-    //        curVisualStageImage.sprite = curSelectStage.GetStageImage();
-    //        imageAmpritude.EaseStart();
-    //    }
-    //}
 
     void ChangeScene()
     {
@@ -192,13 +155,18 @@ public class StageSelectManager : MonoBehaviour
         }
 
         //シーン遷移
-        if (Input.GetButtonDown("Select"))
+        //ステージに入る時
+        if (!areaSelect)
         {
-            Debug.Log("セレクト");
+            if (Input.GetButtonDown("Select"))
+            {
+                Debug.Log("セレクト");
 
-            //SceneManager.LoadScene(curSelectStage.GetStageName());
+                SceneManager.LoadScene(areaManagers[curSelectAreaIndex].GetCellStageName());
+                stageChangeFlag = true;
+            }
         }
-        else if (Input.GetButtonDown("Back"))
+        if (Input.GetButtonDown("Back"))
         {
             stageChangeFlag = true;
             Debug.Log("バック");
@@ -234,5 +202,24 @@ public class StageSelectManager : MonoBehaviour
                 selectAnime[i].SetBool("StageSelect", debugActive);
             }
         }
+    }
+
+    [ContextMenu("セーブ削除")]
+    void SaveDelete()
+    {
+        SaveSystem.Delete(1);
+
+    }
+
+    [ContextMenu("StageDateReset")]
+    public void StageDateReset()
+    {
+        var g = GameBootstrap.Graph as EditableJsonStageGraph;
+        if (g == null) { Debug.LogError("EditableJsonStageGraph が未初期化 or 型違いです"); return; }
+
+        g.BeginCapture();
+
+        g.SaveOverrideDelta();
+        g.EndCapture();
     }
 }

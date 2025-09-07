@@ -264,11 +264,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 985842109485053550, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -0.625
       objectReference: {fileID: 0}
     - target: {fileID: 985842109485053550, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.5
+      value: 3.2000008
       objectReference: {fileID: 0}
     - target: {fileID: 985842109485053550, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -285,6 +285,10 @@ PrefabInstance:
     - target: {fileID: 2735281959320979884, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: changeLayerManager
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2915037767052081566, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.46875
       objectReference: {fileID: 0}
     - target: {fileID: 5969006428109386217, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: m_SortingOrder
@@ -306,6 +310,10 @@ PrefabInstance:
       propertyPath: postEffectVolume
       value: 
       objectReference: {fileID: 939355269}
+    - target: {fileID: 8985779831567453147, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: isCreateLineStart
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
