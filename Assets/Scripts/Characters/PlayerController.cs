@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
                 // 逆進行方向に可動オブジェクトがあるかどうか判定
                 RaycastHit2D backHit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector, 0.8f, groundLayer);
                 // 進行方向に不動オブジェクトがあり、逆進行方向に可動オブジェクトがあるとき確実にスタックする
-                if ((forwardHit.collider && (forwardHit.transform.parent != movingParent || forwardHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL)) && 
+                if ((forwardHit.collider && (forwardHit.transform.parent != movingParent || forwardHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL)) &&
                     (backHit.collider && (backHit.transform.parent == movingParent && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.NAIL && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP)))
                 {
                     // 重力をなくす
@@ -260,10 +260,18 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D rightHit = Physics2D.Raycast(currentRightPosition, Vector2.down, 0.45f, groundLayer);
 
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
-        if ((leftHit.collider != null && leftHit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP) || 
+        if ((leftHit.collider != null && leftHit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP) ||
             (rightHit.collider != null && rightHit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP))
         {
             return true;
+        }
+        else if ((leftHit.collider != null && leftHit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP) ||
+                 (rightHit.collider != null && rightHit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP))
+        {
+            if ((leftHit.collider != null && Vector3.Distance(transform.position, leftHit.transform.position) < 0.2f) || (rightHit.collider != null && Vector3.Distance(transform.position, rightHit.transform.position) < 0.2f))
+            {
+                return true;
+            }
         }
         return false;
     }
