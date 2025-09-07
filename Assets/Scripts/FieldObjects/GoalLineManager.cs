@@ -33,6 +33,9 @@ public class GoalLineManager : MonoBehaviour
         pointA = _pointA;
         pointB = _pointB;
 
+        //レイヤー指定
+        lineRenderer.sortingOrder = 40;
+
         // 透明度の設定
         SetAlpha(alpha);
     }

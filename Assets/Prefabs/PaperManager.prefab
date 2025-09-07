@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 6736999752417936166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51,6 +51,7 @@ MonoBehaviour:
   tilemap: {fileID: 0}
   firstPaper: {fileID: 1230249932416243196}
   secondPaper: {fileID: 9201587048391250439}
+  undoManager: {fileID: 0}
   effect:
   - {fileID: 7193811287190271457}
   paperSizeBase: {x: 40, y: 30}
@@ -75,11 +76,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2133995557971518953, guid: 73d2461339e870f4f993d736e566ac9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 2133995557971518953, guid: 73d2461339e870f4f993d736e566ac9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2133995557971518953, guid: 73d2461339e870f4f993d736e566ac9f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -115,11 +116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3146456084044243453, guid: 73d2461339e870f4f993d736e566ac9f, type: 3}
       propertyPath: m_Size.x
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3146456084044243453, guid: 73d2461339e870f4f993d736e566ac9f, type: 3}
       propertyPath: m_Size.y
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

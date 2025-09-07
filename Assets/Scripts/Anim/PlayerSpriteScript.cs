@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
-using static UnityEditor.PlayerSettings;
 
 public class PlayerSpriteScript : MonoBehaviour
 {

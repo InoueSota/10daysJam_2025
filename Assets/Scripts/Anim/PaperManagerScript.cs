@@ -1,6 +1,5 @@
 using System.Drawing;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class PaperManagerScript : MonoBehaviour
 {
@@ -77,44 +76,16 @@ public class PaperManagerScript : MonoBehaviour
 
         if (Input.GetButtonDown("Undo"))
         {
-            if (undoManager.GetIsDivision() == true)
+            blockOffset[0] = Vector3.zero;
+            blockOffset[1] = Vector3.zero;
+            if (undoManager.GetIsDivision() == true && isCut == false)
             {
-                if (isCut == false)
-                {
-                    blockOffset[0] = Vector3.zero;
-                   blockOffset[1] = Vector3.zero;
-
-                    bool isCutHorizontal = false;
-                    if (undoManager.GetIsDivisionMode() == 0) isCutHorizontal = true;
-                    Vector3 cutPos = undoManager.GetPrevDivisionPosition();
-                    cutPos.x -= gridOffset.x;
-                    cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
-                    CutPaper(cutPos, isCutHorizontal);
-                }
-                else if(isCut == true)
-                {
-                    Vector3 cutPos = undoManager.GetPrevDivisionPosition();
-                    if (playerCut.GetDivisionPosition() != new Vector2(cutPos.x , cutPos.y)) {
-
-                        blockOffset[0] = Vector3.zero;
-                        blockOffset[1] = Vector3.zero;
-
-                        Debug.Log("“{‚è");
-                        bool isCutHorizontal = false;
-                        if (undoManager.GetIsDivisionMode() == 0) isCutHorizontal = true;
-                        cutPos.x -= gridOffset.x;
-                        cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
-                        CutPaper(cutPos, isCutHorizontal);
-                    }
-                }
-            }
-            else
-            {
-                //blockOffset[0] = -undoManager.GetObjectParentPosition1();
-                //blockOffset[1] = -undoManager.GetObjectParentPosition2();
-                blockOffset[0] = Vector3.zero;
-                blockOffset[1] = Vector3.zero;
-                FixPaper();
+                bool isCutHorizontal = false;
+                if (undoManager.GetIsDivisionMode() == 0) isCutHorizontal = true;
+                Vector3 cutPos = undoManager.GetPrevDivisionPosition();
+                cutPos.x -= gridOffset.x;
+                cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
+                CutPaper(cutPos, isCutHorizontal);
             }
         }
 
