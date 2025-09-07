@@ -1,6 +1,4 @@
-using System.Drawing;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class PaperManagerScript : MonoBehaviour
 {
@@ -9,10 +7,10 @@ public class PaperManagerScript : MonoBehaviour
     [SerializeField] PaperScript firstPaper;
     [SerializeField] PaperScript secondPaper;
     [SerializeField] UndoManager undoManager;
+
     DivisionLineManager divisionLine;
     PlayerCut playerCut;
-    [SerializeField]
-    ParticleSystem[] effect;
+    [SerializeField] ParticleSystem[] effect;
 
     [SerializeField] Vector2 paperSizeBase;
     [SerializeField] Vector3 gridOffset;
@@ -37,43 +35,40 @@ public class PaperManagerScript : MonoBehaviour
         firstPaper.transform.parent = pageTransform[0];
         secondPaper.transform.parent = pageTransform[1];
 
-        undoManager = GameObject.FindGameObjectWithTag("GameController")
-                        .GetComponent<UndoManager>();
+        undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
 
-        // š’Ç‰ÁF•œŒ³Š®—¹ƒCƒxƒ“ƒg‚ðw“Ç
+        // å¾©å…ƒå®Œäº†ã‚¤ãƒ™ãƒ³ãƒˆã‚’è³¼èª­
         undoManager.OnStateRestored += HandleUndoRestored;
     }
 
     void OnDestroy()
     {
-        if (undoManager != null)
-            undoManager.OnStateRestored -= HandleUndoRestored;
+        if (undoManager != null) undoManager.OnStateRestored -= HandleUndoRestored;
     }
 
-    // š’Ç‰Á: Undo •œŒ³’¼Œã‚É•K‚¸ŒÄ‚Î‚ê‚éƒnƒ“ƒhƒ‰
-    private void HandleUndoRestored(GameState state)
+    // â˜…Undo å¾©å…ƒç›´å¾Œï¼šä¿å­˜ã—ã¦ãŠã„ãŸ blockOffset ã‚’ãã®ã¾ã¾å¾©å…ƒã—ã¦ã‹ã‚‰ Cut/Fix
+    private void HandleUndoRestored(UndoManager.GameState state)
     {
-        // š‚Ü‚¸Ž†‚ðgƒy[ƒW‚ÌŒ»ÝˆÊ’uh‚É‡‚í‚¹‚é
-        blockOffset[0] = -pageTransform[0].localPosition;
-        blockOffset[1] = -pageTransform[1].localPosition;
+        // 1) blockOffset ã‚’å±¥æ­´ã‹ã‚‰å¾©å…ƒ
+        blockOffset[0] = state.blockOffset0;
+        blockOffset[1] = state.blockOffset1;
 
+        // 2) çŠ¶æ…‹ã«å¿œã˜ã¦ç´™ã‚’å†æ§‹ç¯‰
         if (state.isDivision)
         {
             bool isCutHorizontal =
                 (DivisionLineManager.DivisionMode)state.divisionMode
                 == DivisionLineManager.DivisionMode.HORIZONTAL;
 
-            // ƒ[ƒ‹ƒh‚Ì•ª’fˆÊ’u ¨ Ž†À•W‚ÖiŠù‘¶Ž®‚ð“¥Pj
+            // ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ â†’ ç´™åº§æ¨™ï¼ˆæ—¢å­˜å¼ï¼‰
             Vector3 cutPos = state.divisionPosition;
             cutPos.x -= gridOffset.x;
             cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
 
-            // šƒy[ƒWˆÊ’u‚É‘µ‚¦‚½ blockOffset ‚ðŽg‚Á‚Ä‚©‚çØ‚é
             CutPaper(cutPos, isCutHorizontal);
         }
         else
         {
-            // •ª’f‚È‚µ‚Ö•œŒ³Fƒy[ƒWˆÊ’u‚É‘µ‚¦‚Ä‚©‚ç1–‡‰»
             FixPaper();
         }
     }
@@ -83,44 +78,44 @@ public class PaperManagerScript : MonoBehaviour
         isActive = playerCut.GetIsActive();
         isDivision = playerCut.GetIsDivision();
 
-        if (isCut == true)
+        if (isCut)
         {
-            // Reset ‚ÅŽ†‚¾‚¯Œ³‚É–ß‚·‹““®‚Í‚»‚Ì‚Ü‚Ü
+            // Reset ã§ç´™ã ã‘å…ƒã«æˆ»ã™
             if (Input.GetButtonDown("Reset"))
             {
-                effect[0].Play();
+                if (effect != null && effect.Length > 0 && effect[0] != null) effect[0].Play();
                 blockOffset[0] = Vector3.zero;
                 blockOffset[1] = Vector3.zero;
                 FixPaper();
             }
 
-            // Special ‚Ì‰Ÿ‰º‚â•ª’f‰ðœ‚Å gŽ†‚ð¡‚Ìƒy[ƒWˆÊ’u‚É’Ç]‚³‚¹‚Äh ŒÅ’è
-            if ((isActive == true && preIsActive == false) ||
-                (isDivision == false && preIsDivision == true))
+            // Special æŠ¼ä¸‹ã‚„åˆ†æ–­è§£é™¤ â†’ â€œç¾åœ¨ãƒšãƒ¼ã‚¸ä½ç½®â€ã«ç´™ã‚’å›ºå®šã—ã¦ 1 æžšåŒ–
+            if ((isActive && !preIsActive) || (!isDivision && preIsDivision))
             {
-                effect[0].Play();
+                if (effect != null && effect.Length > 0 && effect[0] != null) effect[0].Play();
+
                 blockOffset[0] = -pageTransform[0].localPosition;
                 blockOffset[1] = -pageTransform[1].localPosition;
                 FixPaper();
             }
         }
 
-        // šíœ: Undo ƒL[‚ð’¼ÚŒ©‚ÄŽ†‚ðØ‚éˆ—
-        // if (Input.GetButtonDown("Undo")) { c } ‚ð **ŠÛ‚²‚Æíœ** ‚µ‚Ä‚­‚¾‚³‚¢B
-        // Ž†‚ÌXV‚Í HandleUndoRestored() ‚Éˆê–{‰»B
+        // Undoã‚­ãƒ¼ã®ç›´æŽ¥å‡¦ç†ã¯ã—ãªã„ï¼ˆUndoManagerã‚¤ãƒ™ãƒ³ãƒˆã§åŒæœŸï¼‰
 
-        // ƒvƒŒƒCƒ„[‚ªgV‹K‚ÉØ‚Á‚½huŠÔ‚Í‚±‚ê‚Ü‚Å’Ê‚è
-        if (playerCut.GetDivisionFlag() == true)
+        // æ–°è¦ã‚«ãƒƒãƒˆç¢ºå®šã®çž¬é–“
+        if (playerCut.GetDivisionFlag())
         {
+            // åˆ‡ã£ãŸçž¬é–“ã®ãƒšãƒ¼ã‚¸ä½ç½®ã«è¿½å¾“
             blockOffset[0] = -pageTransform[0].localPosition;
             blockOffset[1] = -pageTransform[1].localPosition;
 
-            bool isCutHorizontal = false;
-            if (divisionLine.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL) isCutHorizontal = true;
+            bool isCutHorizontal =
+                (divisionLine.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL);
 
             Vector3 cutPos = playerCut.GetDivisionPosition();
             cutPos.x -= gridOffset.x;
             cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
+
             CutPaper(cutPos, isCutHorizontal);
         }
 
@@ -143,12 +138,14 @@ public class PaperManagerScript : MonoBehaviour
 
         if (!isCutHorizontal)
         {
+            // åž‚ç›´ã‚«ãƒƒãƒˆï¼ˆå·¦å³ï¼‰
             paperSize.x = cutPos.x;
             secondPaperSize.x = paperSizeBase.x - cutPos.x;
             secondPaperPos.x = cutPos.x + gridOffset.x;
         }
         else
         {
+            // æ°´å¹³ã‚«ãƒƒãƒˆï¼ˆä¸Šä¸‹ï¼‰
             paperSize.y = cutPos.y;
             secondPaperSize.y = paperSizeBase.y - cutPos.y;
             secondPaperPos.y = gridOffset.y - cutPos.y;
@@ -159,4 +156,7 @@ public class PaperManagerScript : MonoBehaviour
         isCut = true;
     }
 
+    // ==== è¿½åŠ ï¼šUndoManager ã‹ã‚‰èª­ã¿æ›¸ãã§ãã‚‹ã‚ˆã†ã«å…¬é–‹ ====
+    public Vector3 GetBlockOffset(int index) => blockOffset[Mathf.Clamp(index, 0, 1)];
+    public void SetBlockOffset(int index, Vector3 v) { blockOffset[Mathf.Clamp(index, 0, 1)] = v; }
 }

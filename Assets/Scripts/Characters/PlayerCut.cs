@@ -135,7 +135,7 @@ public class PlayerCut : MonoBehaviour
             if (isActive && isReleaseStick && (Input.GetAxisRaw("Horizontal") < -0.3f || Input.GetAxisRaw("Horizontal") > 0.3f || Input.GetAxisRaw("Vertical") < -0.3f || Input.GetAxisRaw("Vertical") > 0.3f))
             {
                 // 移動前に保存
-                undoManager.SaveState();
+                //undoManager.SaveState();
 
                 // まだ分断していなかったら、初分断フラグをtrueにする
                 if (!isDivision) { isDivision = true; }
@@ -187,6 +187,7 @@ public class PlayerCut : MonoBehaviour
                 //アニメーショントリガー
                 divisionFlag = true;
                 animationScript.StartCut();
+
             }
 
             // Global Volume
