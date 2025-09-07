@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
         playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
 
-        stageName=SceneManager.GetActiveScene().name;
+        stageName = SceneManager.GetActiveScene().name;
 
 
     }
@@ -123,15 +123,11 @@ public class GameManager : MonoBehaviour
                 Debug.Log(connectStage);
             }
         }
-        else
-        {
-            if (Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; }
-        }
     }
 
     void SceneChange()
     {
-        if (!isGoal&&Input.GetButtonDown("Select"))
+        if (isGoal && Input.GetButtonDown("Select"))
         {
             if (connectStage != null)
             {
@@ -172,16 +168,16 @@ public class GameManager : MonoBehaviour
 
 
         }
-        
+
         SaveSystem.Save(save, 1);//ÉZÅ[Éu
     }
 
     void LateUpdate()
     {
         // Undo
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo")) { undoManager.Undo(); }
+        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo")) { uiManager.Reset(); isGoal = false; undoManager.Undo(); }
 
         // Reset
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { undoManager.ResetToInitialState(); }
+        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
     }
 }

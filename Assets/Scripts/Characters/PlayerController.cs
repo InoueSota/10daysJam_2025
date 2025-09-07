@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isRocketMoving) { rbody2D.linearVelocity = new Vector2(0f, rbody2D.linearVelocity.y); }
 
-        if (!isRocketMoving && !isMoving && IsGrounded() && !cut.GetIsActive() && Input.GetButtonDown("Jump") &&
+        if (!isRocketMoving && !isMoving && !isWarping && IsGrounded() && !cut.GetIsActive() && Input.GetButtonDown("Jump") &&
             (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             // 座標を丸める
@@ -163,7 +163,8 @@ public class PlayerController : MonoBehaviour
                 // 逆進行方向に可動オブジェクトがあるかどうか判定
                 RaycastHit2D backHit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector, 0.8f, groundLayer);
                 // 進行方向に不動オブジェクトがあり、逆進行方向に可動オブジェクトがあるとき確実にスタックする
-                if (forwardHit.collider && backHit.collider && (forwardHit.transform.parent != movingParent || forwardHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL))
+                if ((forwardHit.collider && (forwardHit.transform.parent != movingParent || forwardHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL)) && 
+                    (backHit.collider && (backHit.transform.parent == movingParent && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.NAIL && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP)))
                 {
                     // 重力をなくす
                     rbody2D.gravityScale = 0f;
@@ -184,7 +185,7 @@ public class PlayerController : MonoBehaviour
                 // カメラシェイクをする
                 cameraManager.ShakeCamera();
 
-                //アニメーションフラグ
+                // アニメーションフラグ
                 animationScript.StartHit();
             }
 
@@ -211,7 +212,7 @@ public class PlayerController : MonoBehaviour
         if (!isWarping)
         {
             // 座標を丸める
-            transform.position = _hitWarpObj.transform.position;
+            transform.position = _hitWarpObj.GetComponent<AllFieldObjectManager>().GetCurrentPosition();
 
             // ワープ情報の取得
             _hitWarpObj.GetComponent<WarpManager>().SetWarpPosition(ref _warpPosition, ref _warpObj);
@@ -259,7 +260,8 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D rightHit = Physics2D.Raycast(currentRightPosition, Vector2.down, 0.45f, groundLayer);
 
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
-        if (leftHit.collider != null || rightHit.collider != null)
+        if ((leftHit.collider != null && leftHit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP) || 
+            (rightHit.collider != null && rightHit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP))
         {
             return true;
         }
@@ -309,7 +311,14 @@ public class PlayerController : MonoBehaviour
 
                 foreach (GameObject warp in GameObject.FindGameObjectsWithTag("FieldObject"))
                 {
-                    if (warp.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP) { warpCount++; }
+                    if (warp.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
+                    {
+                        // 該当Objectの位置をビューポート座標に変換
+                        Vector3 viewportPos = Camera.main.WorldToViewportPoint(warp.transform.position);
+
+                        // 画面内チェック（0～1の範囲）
+                        if (viewportPos.x >= 0 && viewportPos.x <= 1 && viewportPos.y >= 0 && viewportPos.y <= 1) { warpCount++; }
+                    }
                 }
 
                 if (1 < warpCount)
