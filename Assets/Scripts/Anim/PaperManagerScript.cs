@@ -81,8 +81,8 @@ public class PaperManagerScript : MonoBehaviour
             {
                 if (isCut == false)
                 {
-                    blockOffset[0] = pageTransform[0].localPosition;
-                    blockOffset[1] = pageTransform[1].localPosition;
+                    blockOffset[0] = Vector3.zero;
+                   blockOffset[1] = Vector3.zero;
 
                     bool isCutHorizontal = false;
                     if (undoManager.GetIsDivisionMode() == 0) isCutHorizontal = true;
@@ -96,8 +96,8 @@ public class PaperManagerScript : MonoBehaviour
                     Vector3 cutPos = undoManager.GetPrevDivisionPosition();
                     if (playerCut.GetDivisionPosition() != new Vector2(cutPos.x , cutPos.y)) {
 
-                        blockOffset[0] = pageTransform[0].localPosition;
-                        blockOffset[1] = pageTransform[1].localPosition;
+                        blockOffset[0] = Vector3.zero;
+                        blockOffset[1] = Vector3.zero;
 
                         Debug.Log("“{‚è");
                         bool isCutHorizontal = false;
@@ -112,6 +112,8 @@ public class PaperManagerScript : MonoBehaviour
             {
                 //blockOffset[0] = -undoManager.GetObjectParentPosition1();
                 //blockOffset[1] = -undoManager.GetObjectParentPosition2();
+                blockOffset[0] = Vector3.zero;
+                blockOffset[1] = Vector3.zero;
                 FixPaper();
             }
         }
