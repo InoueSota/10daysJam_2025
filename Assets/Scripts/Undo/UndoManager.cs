@@ -19,7 +19,7 @@ public class UndoManager : MonoBehaviour
     private GameObject divisionLineObj;
     private Transform divisionLine;
 
-    // ★追加：Paper 参照（blockOffset を保存するため）
+    // ★Paper 参照（blockOffset を保存するため）
     [SerializeField] private PaperManagerScript paper;
 
     private Stack<GameState> history = new Stack<GameState>();
@@ -54,7 +54,7 @@ public class UndoManager : MonoBehaviour
         // 各ブロック
         public List<int> crabThrowDirection = new List<int>();
 
-        // ★追加：Paper のオフセット（今回の要望）
+        // ★Paper のオフセット（今回の要望）
         public Vector3 blockOffset0;
         public Vector3 blockOffset1;
     }
@@ -98,8 +98,15 @@ public class UndoManager : MonoBehaviour
     // === ひとつ前に戻す ===
     public void Undo()
     {
-        if (history.Count == 0) return;
-        RestoreState(history.Pop());
+        if (history.Count > 0)
+        {
+            RestoreState(history.Pop());
+        }
+        else
+        {
+            // ★スタックが無ければ初期状態に戻す
+            ResetToInitialState();
+        }
     }
 
     // === リセット ===
