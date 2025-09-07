@@ -96,6 +96,12 @@ public class AllFieldObjectManager : MonoBehaviour
             if (objectType != ObjectType.NAIL && hit.collider != null && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() == ObjectType.NAIL) { gameObject.SetActive(false); }
         }
     }
+    //bool GetNormalType()
+    //{
+    //    if (objectType.)
+
+    //    return false;
+    //}
 
     // Getter
     public ObjectType GetObjectType() { return objectType; }
