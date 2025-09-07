@@ -2,73 +2,311 @@
     "edges": [
         {
             "areaId": "Area2",
-            "stageId": "stage1",
-            "dir": "Left",
+            "stageId": "2_Stage1↑",
+            "dir": "Up",
             "neighborAreaId": "Area2",
-            "neighborStageId": "stage3"
+            "neighborStageId": "2_Stage2↑"
         },
         {
             "areaId": "Area2",
-            "stageId": "stage1",
+            "stageId": "2_Stage1↑",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage11_☆チュートリアル←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage1↑",
             "dir": "Right",
             "neighborAreaId": "Area2",
-            "neighborStageId": "stage2"
+            "neighborStageId": "2_Stage6↓"
         },
         {
             "areaId": "Area2",
-            "stageId": "stage2",
-            "dir": "Left",
+            "stageId": "2_Stage2↑",
+            "dir": "Up",
             "neighborAreaId": "Area2",
-            "neighborStageId": "stage1"
+            "neighborStageId": "2_Stage3_→"
         },
         {
             "areaId": "Area2",
-            "stageId": "stage3",
+            "stageId": "2_Stage2↑",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage1↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage2↑",
             "dir": "Right",
             "neighborAreaId": "Area2",
-            "neighborStageId": "stage1"
+            "neighborStageId": "2_Stage5↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage3_→",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage2↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage3_→",
+            "dir": "Right",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage4_↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage4_↓",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage5↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage4_↓",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage3_→"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage5↓",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage4_↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage5↓",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage6↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage5↓",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage2↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage6↓",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage5↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage6↓",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage7_☆☆_→←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage6↓",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage1↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage7_☆☆_→←",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage6↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage7_☆☆_→←",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage10__☆→"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage7_☆☆_→←",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage11_☆チュートリアル←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage7_☆☆_→←",
+            "dir": "Right",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage8↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage8↓",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage9☆←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage8↓",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage7_☆☆_→←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage9☆←",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage8↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage9☆←",
+            "dir": "Right",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage10__☆→"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage10__☆→",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage7_☆☆_→←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage10__☆→",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage14qp_☆↓↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage10__☆→",
+            "dir": "Right",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage9☆←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage11_☆チュートリアル←",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage1↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage11_☆チュートリアル←",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage14qp_☆↓↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage11_☆チュートリアル←",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage12_☆☆☆↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage11_☆チュートリアル←",
+            "dir": "Right",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage7_☆☆_→←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage12_☆☆☆↓",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage13_テクニカル☆☆☆→"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage12_☆☆☆↓",
+            "dir": "Right",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage11_☆チュートリアル←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage13_テクニカル☆☆☆→",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage12_☆☆☆↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage13_テクニカル☆☆☆→",
+            "dir": "Right",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage14qp_☆↓↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage14qp_☆↓↑",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage11_☆チュートリアル←"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage14qp_☆↓↑",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage13_テクニカル☆☆☆→"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage14qp_☆↓↑",
+            "dir": "Right",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage10__☆→"
         },
         {
             "areaId": "Area1",
             "stageId": "Stage1→",
             "dir": "Right",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage2↑↓"
+            "neighborStageId": "Stage2↑"
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage2↑↓",
+            "stageId": "Stage2↑",
             "dir": "Up",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage4_→"
+            "neighborStageId": "Stage3↑↓"
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage2↑↓",
-            "dir": "Down",
-            "neighborAreaId": "Area1",
-            "neighborStageId": "Stage3↑"
-        },
-        {
-            "areaId": "Area1",
-            "stageId": "Stage2↑↓",
+            "stageId": "Stage2↑",
             "dir": "Left",
             "neighborAreaId": "Area1",
             "neighborStageId": "Stage1→"
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage3↑",
+            "stageId": "Stage3↑↓",
             "dir": "Up",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage2↑↓"
+            "neighborStageId": "Stage4_→"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage3↑↓",
+            "dir": "Down",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage2↑"
         },
         {
             "areaId": "Area1",
             "stageId": "Stage4_→",
             "dir": "Down",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage2↑↓"
+            "neighborStageId": "Stage3↑↓"
         },
         {
             "areaId": "Area1",
@@ -83,6 +321,20 @@
             "dir": "Left",
             "neighborAreaId": "Area1",
             "neighborStageId": "Stage4_→"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage5_←",
+            "dir": "Right",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "StageEX_☆☆☆_↓↑"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "StageEX_☆☆☆_↓↑",
+            "dir": "Left",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage5_←"
         },
         {
             "areaId": "Area3",

@@ -21,9 +21,9 @@ public class StageCell : MonoBehaviour
     [SerializeField, Header("このセルのステージ画像")] Sprite stageImage;
     [Header("自分を基準に接続先のステージ")]
     [SerializeField] StageCell upConnectStage;
-    [SerializeField] StageCell leftConnectStage;
     [SerializeField] StageCell downConnectStage;
     [SerializeField] StageCell rightConnectStage;
+    [SerializeField] StageCell leftConnectStage;
 
     [Header("コンポーネント")]
     [SerializeField] GameObject activeObj;
