@@ -34,6 +34,7 @@ public class PlayerCut : MonoBehaviour
 
     // アニメーション関連
     int direction = 0;
+    bool divisionFlag = false;
 
     void Start()
     {
@@ -175,6 +176,7 @@ public class PlayerCut : MonoBehaviour
                 targetIntensity = 0f;
                 isActive = false;
                 //アニメーショントリガー
+                divisionFlag = true;
                 animationScript.StartCut();
             }
 
@@ -198,6 +200,7 @@ public class PlayerCut : MonoBehaviour
     public bool GetIsCreateLineStart() { return isCreateLineStart; }
     public bool GetIsActive() { return isActive; }
     public int GetDirection() { return direction; }
+    public bool GetDivisionFlag() { if (!divisionFlag) return false; divisionFlag = false; return true; }
 
     // Setter
     public void SetDivisionPosition(Vector2 _divisionPosition) { divisionPosition = _divisionPosition; }

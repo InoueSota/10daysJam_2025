@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &3527717917470153499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,4 +100,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c355a8bbc7a59df43a0fe7ed1058e2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paperPrefab: {fileID: 3527717917470153499}
+  spriteRenderer: {fileID: 3146456084044243453}
