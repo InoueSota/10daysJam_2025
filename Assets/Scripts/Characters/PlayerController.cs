@@ -360,7 +360,14 @@ public class PlayerController : MonoBehaviour
     }
     public void FinishWarp()
     {
-        rbody2D.gravityScale = 1f;
+        if (isRocketMoving)
+        {
+            rbody2D.gravityScale = 0f;
+        }
+        else
+        {
+            rbody2D.gravityScale = 1f;
+        }
         isWarping = false;
     }
 
@@ -373,7 +380,7 @@ public class PlayerController : MonoBehaviour
         else if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.up) { rocketVector = Vector3.up; direction = 1; }
         else if (_hitObj.GetComponent<CrabManager>().GetThrowDirection() == Vector3.down) { rocketVector = Vector3.down; direction = 3; }
     }
-    
+
     // Setter
     public void RocketInitialize()
     {
