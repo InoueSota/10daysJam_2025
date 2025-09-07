@@ -113,14 +113,6 @@ public class GradientRampScroller : MonoBehaviour
             mat.SetFloat(ID_Offset, offset);
             mat.SetFloat(ID_Blend, 0f);
         }
-#if UNITY_EDITOR
-        if (Input.GetKey(KeyCode.Space))
-        {
-            SwitchLoop(index);
-        }
-#endif
-
-
     }
 
     /// <summary>指定ループにフェード切替（再生中に呼んでOK）</summary>
