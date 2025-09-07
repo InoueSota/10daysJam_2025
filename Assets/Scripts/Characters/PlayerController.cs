@@ -495,7 +495,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (collision.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.CRAB)
             {
-                if (!isRocketMoving && collision.gameObject != crabObj)
+                if (!isMoving && collision.gameObject != crabObj)
                 {
                     CrabInitialize(collision.gameObject);
                 }
