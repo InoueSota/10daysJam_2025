@@ -586,7 +586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_Tiles.Array.data[1].first.x
-      value: 6
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_Tiles.Array.data[1].first.y
@@ -594,7 +594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_Tiles.Array.data[2].first.x
-      value: 6
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 1808667917559640110, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_Tiles.Array.data[2].first.y
