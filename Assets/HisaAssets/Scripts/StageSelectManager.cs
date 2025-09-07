@@ -70,20 +70,28 @@ public class StageSelectManager : MonoBehaviour
 
     void InputDire()
     {
-        inputDire = Vector2.zero;
-
+        inputDire.x = Input.GetAxisRaw("Horizontal");
+        inputDire.y = Input.GetAxisRaw("Vertical");
         if (inputCoolTime > 0)
         {
             inputCoolTime -= Time.deltaTime;
+
+            
+            //ボタン連打で動けるようにする
+            if (inputDire.magnitude<=0)
+            {
+                inputCoolTime = 0;
+                
+            }
+            inputDire = Vector2.zero;
             return;
         }
 
-        inputDire.x = Input.GetAxisRaw("Horizontal");
-        inputDire.y = Input.GetAxisRaw("Vertical");
         if (inputDire.magnitude > 0)
         {
             inputCoolTime = 0.3f;
         }
+        
     }
 
     void AreaSelect()
@@ -142,6 +150,7 @@ public class StageSelectManager : MonoBehaviour
             areaManagers[curSelectAreaIndex].AreaSelectAnime(false);
             areaManagers[curSelectAreaIndex].SetSelectActive(false);
         }
+        //セルの移動
         areaManagers[curSelectAreaIndex].ChangeCell(inputDire);
     }
 
