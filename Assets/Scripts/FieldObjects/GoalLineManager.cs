@@ -63,6 +63,8 @@ public class GoalLineManager : MonoBehaviour
     // Getter
     public bool IsGoal()
     {
+        if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); return false; }
+
         // ÉvÉåÉCÉÑÅ[Ç™êGÇÍÇΩÇ©îªíË
         RaycastHit2D hit = Physics2D.Raycast(pointA.position, (pointB.position - pointA.position).normalized, Vector3.Distance(pointB.position, pointA.position), characterLayer);
 
