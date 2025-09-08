@@ -180,7 +180,7 @@ public class PlayerTarget : MonoBehaviour
     void LineUpdate()
     {
         targetLinePrefab.SetPosition(0, controller.transform.position);
-        Debug.Log(controller.transform.position);
+        //Debug.Log(controller.transform.position);
         if (controller.GetJustStanding() && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             targetLinePrefab.SetPosition(1, predictionBox.transform.position);

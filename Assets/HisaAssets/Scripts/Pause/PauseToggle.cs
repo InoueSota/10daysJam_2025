@@ -10,7 +10,7 @@ public class PauseToggle : MonoBehaviour
 
     void Update()
     {
-        nextPauseCT-=Time.deltaTime;
+        if (nextPauseCT > 0) nextPauseCT -=Time.deltaTime;
     }
 
 

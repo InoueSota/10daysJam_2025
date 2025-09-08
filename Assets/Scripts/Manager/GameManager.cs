@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     //エフェクト
     [SerializeField] GameObject undoCanvas;
+    [SerializeField] GameObject stackCanvas;
+    public float stackTime;
 
     void Start()
     {
@@ -189,14 +191,32 @@ public class GameManager : MonoBehaviour
     void LateUpdate()
     {
         // Undo
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo"))
+        if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Undo"))
         {
             uiManager.Reset(); isGoal = false; undoManager.Undo();
             Instantiate(undoCanvas);
         }
 
         // Reset
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
+        if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
+
+        if (playerManager.GetIsStack())
+        {
+            if (stackTime == 0)
+            {
+                Instantiate(stackCanvas);
+            }
+            stackTime += Time.deltaTime;
+
+            if (stackTime > 1.3f) {
+
+                uiManager.Reset(); isGoal = false; undoManager.Undo();
+                Instantiate(undoCanvas);
+                stackTime = 0;
+                playerManager.SetStack(false);
+            }
+        }
+
     }
     void ChangeTalkScene()
     {

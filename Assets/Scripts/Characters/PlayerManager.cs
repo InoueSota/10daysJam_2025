@@ -82,6 +82,8 @@ public class PlayerManager : MonoBehaviour
     public bool GetIsDeath() { return isDeath; }
     public float GetDeathTime() { return deathTime; }
 
+    public bool GetIsStack() { return controller.GetIsStacking(); }
+
     // Setter
     public void SetDeath(Vector3 _freezePosition, bool _isLaserKill)
     {
@@ -96,4 +98,6 @@ public class PlayerManager : MonoBehaviour
         //アニメーショントリガー
         animationScript.StartDeath();
     }
+
+    public void SetStack(bool flag) { controller.SetStacking(flag); }
 }
