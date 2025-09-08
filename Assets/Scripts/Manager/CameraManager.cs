@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
     {
         // 他コンポーネントの取得
         playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-
+        
         originPosition = transform.position;
     }
 
