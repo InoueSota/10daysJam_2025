@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private UndoManager undoManager;
     private DivisionLineManager divisionLineManager;
     [SerializeField] private PlayerAnimationScript animationScript;
+    PaperManagerScript paper;
 
     [Header("基本的なパラメータ")]
     [SerializeField] private float halfSize;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
         cameraManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
         divisionLineManager = cut.GetDivisionLineManager();
+        paper = GameObject.FindGameObjectWithTag("PaperManager").gameObject.GetComponent<PaperManagerScript>();
     }
 
     public void ManualUpdate()
@@ -210,7 +212,12 @@ public class PlayerController : MonoBehaviour
         cut.GetObjectTransform(_parentObjectNumber).transform.DOMove(cut.GetObjectTransform(_parentObjectNumber).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
         _movingParent = cut.GetObjectTransform(_parentObjectNumber);
     }
-    void FinishMapMove() { isMoving = false; definitelyStack = false; }
+    void FinishMapMove() {
+        isMoving = false; 
+        definitelyStack = false;
+        animationScript.CrashCut();
+        paper.CrashCut();
+    }
     float SnapToNearestHalf(float _value) { return Mathf.Round(_value - 0.5f) + 0.5f; }
 
     // 接地判定群
