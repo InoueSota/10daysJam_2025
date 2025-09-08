@@ -60,13 +60,21 @@ public class LaserLineManager : MonoBehaviour
         lineRenderer.SetPosition(0, pointA.position);
         lineRenderer.SetPosition(1, pointB.position);
 
-        foreach (RaycastHit2D hit in Physics2D.RaycastAll(pointA.position, (pointB.position - pointA.position).normalized, Vector3.Distance(pointB.position, pointA.position), groundLayer))
+        foreach (RaycastHit2D hit in Physics2D.LinecastAll(pointA.position, pointB.position, groundLayer))
         {
             // TagÇ™FieldObjectÇ»ÇÁ
             if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.LASER)
             {
                 hit.collider.gameObject.SetActive(false);
             }
+        }
+
+        // ÉvÉåÉCÉÑÅ[Ç™êGÇÍÇΩÇ©îªíË
+        RaycastHit2D hitP = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);
+
+        if (hitP.collider != null)
+        {
+            hitP.collider.GetComponent<PlayerManager>().SetDeath(hitP.point, true);
         }
     }
 }
