@@ -44,6 +44,14 @@ public class GameSceneInputUI : MonoBehaviour
         {
             controllerUIs[3].Release();
         }
-       
+        if (Input.GetButtonDown("Menu"))
+        {
+            controllerUIs[4].Push();
+        }
+        else if (Input.GetButtonUp("Menu"))
+        {
+            controllerUIs[4].Release();
+        }
+
     }
 }
