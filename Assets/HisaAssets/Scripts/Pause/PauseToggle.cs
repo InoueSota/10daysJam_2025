@@ -6,29 +6,28 @@ public class PauseToggle : MonoBehaviour
     [SerializeField] string pauseSceneName = "PauseScene";
 
     public bool paused;
+    public float nextPauseCT;//ポーズからセレクト画面に戻った時にすぐポーズしてしまわないようにする
 
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.F1))
-    //    {
-    //        if (!paused) Pause();
-    //        else Resume();
-    //    }
-    //}
+    void Update()
+    {
+        nextPauseCT-=Time.deltaTime;
+    }
 
-   
-    
+
+
 
     // PauseToggle.cs（差分のみ）
-    public void Pause()
+    public void Pause(string sceneName)
     {
+        if(nextPauseCT>0) {return;}
        // paused = true;
         Time.timeScale = 0f;
 
         // ★ 追加：ゲーム側の MonoBehaviour を停止（必要なければ false）
         //PauseFreezer.Freeze(pauseSceneName, strict: true);
 
-        SceneManager.LoadScene(pauseSceneName, LoadSceneMode.Additive);
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        nextPauseCT = 0.2f;
     }
 
     public void Resume()

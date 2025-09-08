@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
         //ポーズ画面を開く
         if (!isGoal && Input.GetButtonDown("Menu"))
         {
-            pauseToggle.Pause();
+            pauseToggle.Pause("PauseScene");
             Debug.Log("バック");
         }
     }
