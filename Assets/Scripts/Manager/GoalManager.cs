@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GoalManager : MonoBehaviour
 {
@@ -64,6 +65,19 @@ public class GoalManager : MonoBehaviour
             var (goalA, goalB) = kvp.Key;
             if (goalA == null || goalB == null || !goalA.activeSelf || !goalB.activeSelf)
             {
+                Destroy(kvp.Value);
+                toRemove.Add(kvp.Key);
+            }
+
+            // é≤Ç™ëµÇ¡ÇƒÇ¢Ç»Ç¢èÍçá
+            Vector2 posA = goalA.transform.position;
+            Vector2 posB = goalB.transform.position;
+
+            bool sameAxis = Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y);
+
+            if (!sameAxis)
+            {
+                Destroy(kvp.Value);
                 toRemove.Add(kvp.Key);
             }
         }
