@@ -171,6 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4691310689698016752}
   - component: {fileID: 6664759966280928561}
+  - component: {fileID: 2095302359624447837}
   m_Layer: 12
   m_Name: Back_1
   m_TagString: Untagged
@@ -248,6 +249,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2095302359624447837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564566649109608470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4737aa03b3a72c940b6bb20edd9a83d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8898498826161257047}
+  fallbackTargetTag: 
+  copyOnEnable: 1
+  followEveryFrame: 0
+  lerpSpeed: 0
+  copyAlpha: 1
+  addHue: 0
+  addSaturation: 0
+  addValue: 0
+  multiplyValue: 1
 --- !u!1 &1017085212306580985
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6990006272550191777}
   - component: {fileID: 7725240891557269224}
+  - component: {fileID: 3385931544290552857}
   m_Layer: 12
   m_Name: Back
   m_TagString: Untagged
@@ -745,6 +769,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3385931544290552857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3772117881373854213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4737aa03b3a72c940b6bb20edd9a83d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8898498826161257047}
+  fallbackTargetTag: 
+  copyOnEnable: 1
+  followEveryFrame: 0
+  lerpSpeed: 0
+  copyAlpha: 1
+  addHue: 0
+  addSaturation: 0
+  addValue: 0
+  multiplyValue: 1
 --- !u!1 &3829760374737176040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,6 +1327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8554592290606016405}
   - component: {fileID: 8960942651770351634}
+  - component: {fileID: 1488836617151148598}
   m_Layer: 12
   m_Name: Back
   m_TagString: Untagged
@@ -1358,6 +1405,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1488836617151148598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5683742524277897557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4737aa03b3a72c940b6bb20edd9a83d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8898498826161257047}
+  fallbackTargetTag: 
+  copyOnEnable: 1
+  followEveryFrame: 0
+  lerpSpeed: 0
+  copyAlpha: 1
+  addHue: 0
+  addSaturation: 0
+  addValue: 0
+  multiplyValue: 1
 --- !u!1 &6029200985787970797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,7 +1539,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.8867924, g: 0.3973834, b: 0.3973834, a: 1}
+  m_Color: {r: 0.3960784, g: 0.8862745, b: 0.5373418, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1617,6 +1686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7708718467852761960}
   - component: {fileID: 3682303115927547020}
+  - component: {fileID: 1859241711510517264}
   m_Layer: 12
   m_Name: Back
   m_TagString: Untagged
@@ -1694,6 +1764,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1859241711510517264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190477099539202203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4737aa03b3a72c940b6bb20edd9a83d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8898498826161257047}
+  fallbackTargetTag: 
+  copyOnEnable: 1
+  followEveryFrame: 0
+  lerpSpeed: 0
+  copyAlpha: 1
+  addHue: 0
+  addSaturation: 0
+  addValue: 0
+  multiplyValue: 1
 --- !u!1 &7302358257511281683
 GameObject:
   m_ObjectHideFlags: 0

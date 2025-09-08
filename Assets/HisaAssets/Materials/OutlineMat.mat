@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OutlineMat
-  m_Shader: {fileID: 4800000, guid: f5175ab65fc49ac47bf309326143a0ee, type: 3}
+  m_Shader: {fileID: 4800000, guid: 458ce6741ec79fc4b87889d6ff0cc9c1, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -51,7 +51,7 @@ Material:
     - _GradEnable: 1
     - _GradOffset: 2.11
     - _GradScale: 0.18
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.186
     - _ZOffsetFactor: 4.1
     - _ZOffsetUnits: 0
     - _ZWrite: 0
