@@ -7,19 +7,20 @@ public class PauseToggle : MonoBehaviour
 
     public bool paused;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            if (!paused) Pause();
-            else Resume();
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.F1))
+    //    {
+    //        if (!paused) Pause();
+    //        else Resume();
+    //    }
+    //}
 
+   
     
 
     // PauseToggle.csÅiç∑ï™ÇÃÇ›Åj
-    void Pause()
+    public void Pause()
     {
        // paused = true;
         Time.timeScale = 0f;

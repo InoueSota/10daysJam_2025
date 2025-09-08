@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PaperManagerScript : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class PaperManagerScript : MonoBehaviour
     bool isActive, preIsActive;
     bool isCut = false;
 
+    bool isCrash = false;
+
+    Vector3 preVector = Vector3.zero;
+
+    bool divisionFlag = false;
+
     void Start()
     {
         playerCut = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerCut>();
@@ -39,6 +46,11 @@ public class PaperManagerScript : MonoBehaviour
 
         // 復元完了イベントを購読
         undoManager.OnStateRestored += HandleUndoRestored;
+
+        if (playerCut.GetIsCreateLineStart())
+        {
+            divisionFlag = true;
+        }
     }
 
     void OnDestroy()
@@ -103,7 +115,7 @@ public class PaperManagerScript : MonoBehaviour
         // Undoキーの直接処理はしない（UndoManagerイベントで同期）
 
         // 新規カット確定の瞬間
-        if (playerCut.GetDivisionFlag())
+        if (playerCut.GetDivisionFlag() || divisionFlag == true)
         {
             // 切った瞬間のページ位置に追従
             blockOffset[0] = -pageTransform[0].localPosition;
@@ -117,6 +129,8 @@ public class PaperManagerScript : MonoBehaviour
             cutPos.y = paperSizeBase.y - cutPos.y - 8.5f;
 
             CutPaper(cutPos, isCutHorizontal);
+            divisionFlag = false;
+            preVector = Vector3.zero;
         }
 
         preIsDivision = isDivision;
@@ -156,7 +170,28 @@ public class PaperManagerScript : MonoBehaviour
         isCut = true;
     }
 
+    public void SetIsDivisionFlag()
+    {
+
+        divisionFlag = true;
+    }
+
+
     // ==== 追加：UndoManager から読み書きできるように公開 ====
     public Vector3 GetBlockOffset(int index) => blockOffset[Mathf.Clamp(index, 0, 1)];
     public void SetBlockOffset(int index, Vector3 v) { blockOffset[Mathf.Clamp(index, 0, 1)] = v; }
+
+    public void CrashCut()
+    {
+        if(isCrash == true)
+        {
+            divisionFlag = true;
+            isCrash = false;
+        }
+    }
+
+    public void SetCrash(bool crash_)
+    {
+        isCrash = true;
+    }
 }

@@ -9,6 +9,7 @@ TagManager:
   - DivisionLine
   - Canvas
   - ParticleParent
+  - PaperManager
   layers:
   - Default
   - TransparentFX

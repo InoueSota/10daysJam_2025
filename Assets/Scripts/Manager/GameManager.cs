@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     // 自コンポーネント
     private UndoManager undoManager;
+    private PauseToggle pauseToggle;
 
     // 他コンポーネント
     private UIManager uiManager;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         // 自コンポーネントの取得
         undoManager = GetComponent<UndoManager>();
+        pauseToggle = GetComponent<PauseToggle>();
 
         // 他コンポーネントの取得
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
@@ -141,9 +143,10 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("StageSelectScene");
             }
         }
-        if (Input.GetButtonDown("Back"))
+        //ポーズ画面を開く
+        if (!isGoal && Input.GetButtonDown("Menu"))
         {
-            SceneManager.LoadScene("StageSelectScene");
+            pauseToggle.Pause();
             Debug.Log("バック");
         }
     }

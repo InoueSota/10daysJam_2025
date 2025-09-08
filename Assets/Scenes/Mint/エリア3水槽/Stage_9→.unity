@@ -40356,14 +40356,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7957023092268709405, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
-      propertyPath: m_ChunkCullingBounds.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7957023092268709405, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
-      propertyPath: m_ChunkCullingBounds.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8134470437976467249, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -40392,10 +40384,6 @@ PrefabInstance:
     - target: {fileID: 802900266127030161, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
-      propertyPath: areaName
-      value: Area3
       objectReference: {fileID: 0}
     - target: {fileID: 7361798446708528711, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_LocalPosition.x

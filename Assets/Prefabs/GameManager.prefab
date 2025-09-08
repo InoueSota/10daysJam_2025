@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3564547265596243519}
   - component: {fileID: 5374692401047146532}
   - component: {fileID: 1514931745284633043}
+  - component: {fileID: 4442151986472314873}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -107,3 +108,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserLinePrefab: {fileID: 7921618599945661865, guid: 9574424cce133674aa302f52f22ef441, type: 3}
   lasers: []
+--- !u!114 &4442151986472314873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802900266127030161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4747d1c31da1d419247efea84ce6ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseSceneName: PauseScene
+  paused: 0
