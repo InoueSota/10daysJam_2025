@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Hisa/HisaTest.unity
     guid: 9732d3a526f299641af7a954d57603b5
   - enabled: 1
+    path: Assets/Scenes/Hisa/PauseScene.unity
+    guid: 6bca44ba50b0452418ead11779bb791d
+  - enabled: 1
     path: Assets/Scenes/Hisa/Area1Stage1.unity
     guid: 1d8cd504ccd082e4b92e805b69ab80e5
   - enabled: 1
