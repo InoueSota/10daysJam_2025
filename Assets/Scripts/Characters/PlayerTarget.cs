@@ -20,6 +20,8 @@ public class PlayerTarget : MonoBehaviour
     [SerializeField] private float targetPower;
     private Vector3 targetPosition;
 
+    [SerializeField] LineRenderer targetLinePrefab;
+
     // 半分の大きさ
     private float halfSize;
 
@@ -40,6 +42,8 @@ public class PlayerTarget : MonoBehaviour
         targetPosition = transform.position;
 
         halfSize = transform.localScale.x * 0.5f;
+
+        
     }
 
     /// <summary>
@@ -53,6 +57,8 @@ public class PlayerTarget : MonoBehaviour
         ShowPrediction();
         // 表示位置に移動
         PositionUpdate();
+        //線の更新
+        LineUpdate();
     }
 
     /// <summary>
@@ -169,5 +175,12 @@ public class PlayerTarget : MonoBehaviour
 
         // Transformに反映
         predictionBox.transform.position = currentPosition;
+    }
+
+    void LineUpdate()
+    {
+        targetLinePrefab.SetPosition(0, controller.transform.position);
+        Debug.Log(controller.transform.position);
+        targetLinePrefab.SetPosition(1, predictionBox.transform.position);
     }
 }
