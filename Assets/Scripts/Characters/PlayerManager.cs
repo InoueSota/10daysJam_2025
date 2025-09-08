@@ -54,18 +54,9 @@ public class PlayerManager : MonoBehaviour
             Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
 
             // 画面内チェック（0～1の範囲）
-            if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1)
+            if (viewportPos.x < 0 || viewportPos.x > 0.75f || viewportPos.y < 0 || viewportPos.y > 1)
             {
-                // 死亡箇所にエフェクトを出す
-                deathEffectSpawner.SpawnEffect(transform.position);
-                // プレイヤーを静止させる
-                controller.SetDeathFreeze(viewportPos);
-                // インターバルの設定
-                deathTimer = deathTime;
-                // フラグの切り替え
-                isDeath = true;
-                //アニメーショントリガー
-                animationScript.StartDeath();
+                SetDeath(viewportPos, false);
             }
         }
         else
@@ -89,6 +80,20 @@ public class PlayerManager : MonoBehaviour
 
     // Getter
     public bool GetIsDeath() { return isDeath; }
-
     public float GetDeathTime() { return deathTime; }
+
+    // Setter
+    public void SetDeath(Vector3 _freezePosition, bool _isLaserKill)
+    {
+        // 死亡箇所にエフェクトを出す
+        deathEffectSpawner.SpawnEffect(transform.position);
+        // プレイヤーを静止させる
+        controller.SetDeathFreeze(_freezePosition, _isLaserKill);
+        // インターバルの設定
+        deathTimer = deathTime;
+        // フラグの切り替え
+        isDeath = true;
+        //アニメーショントリガー
+        animationScript.StartDeath();
+    }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Laser
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 760e1cfffe5022149917df2c0c0c0f55, type: 3}
+  m_DefaultSprite: {fileID: -3966654026724937289, guid: 760e1cfffe5022149917df2c0c0c0f55, type: 3}
   m_DefaultGameObject: {fileID: 7921618599945661865, guid: 2379c7032805ecc4fad9d9dbaee57b54, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []

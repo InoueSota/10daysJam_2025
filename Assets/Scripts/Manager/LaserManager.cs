@@ -9,6 +9,8 @@ public class LaserManager : MonoBehaviour
 
     // ゴールペアと生成済みラインを管理
     private Dictionary<(GameObject, GameObject), GameObject> laserLines = new();
+    // ゴールのスプライト参照を保持するための辞書
+    private Dictionary<GameObject, int> laserLineRefCount = new Dictionary<GameObject, int>();
 
     void Start()
     {
@@ -52,6 +54,10 @@ public class LaserManager : MonoBehaviour
                         laserLineObj.GetComponent<LaserLineManager>().Initialize(lasers[i].transform, lasers[j].transform, 1f);
 
                         laserLines[key] = laserLineObj;
+
+                        // --- ゴールのスプライトを切り替え ---
+                        UpdateGoalSprite(lasers[i], +1);
+                        UpdateGoalSprite(lasers[j], +1);
                     }
                 }
             }
@@ -66,6 +72,10 @@ public class LaserManager : MonoBehaviour
             {
                 Destroy(kvp.Value);
                 toRemove.Add(kvp.Key);
+
+                // --- ゴールのスプライトを元に戻す ---
+                UpdateGoalSprite(laserA, -1);
+                UpdateGoalSprite(laserB, -1);
             }
 
             // 軸が揃っていない場合
@@ -78,6 +88,10 @@ public class LaserManager : MonoBehaviour
             {
                 Destroy(kvp.Value);
                 toRemove.Add(kvp.Key);
+
+                // --- ゴールのスプライトを元に戻す ---
+                UpdateGoalSprite(laserA, -1);
+                UpdateGoalSprite(laserB, -1);
             }
         }
 
@@ -93,5 +107,25 @@ public class LaserManager : MonoBehaviour
     {
         // InstanceID を使って大小を判定
         return a.GetInstanceID() < b.GetInstanceID() ? (a, b) : (b, a);
+    }
+
+    // ゴールの参照カウントを更新してスプライトを切り替える
+    private void UpdateGoalSprite(GameObject goal, int delta)
+    {
+        if (goal == null) return;
+
+        if (!laserLineRefCount.ContainsKey(goal))
+            laserLineRefCount[goal] = 0;
+
+        laserLineRefCount[goal] += delta;
+
+        var sr = goal.GetComponent<Animator>();
+        if (sr == null) return;
+
+        bool isLineActive = false;
+
+        if (laserLineRefCount[goal] > 0) { isLineActive = true; }
+
+        sr.SetBool("on", isLineActive);
     }
 }
