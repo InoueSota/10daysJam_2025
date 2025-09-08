@@ -471,6 +471,22 @@ public class PlayerController : MonoBehaviour
         boxCollider2D.enabled = false;
     }
     public void SetWarpObj(GameObject _warpObj) { warpObj = _warpObj; }
+    public void SetStop()
+    {
+        // 座標を丸める
+        transform.position = new Vector3(SnapToNearestHalf(transform.position.x), Mathf.Round(transform.position.y));
+        // 移動を無くす
+        rbody2D.linearVelocity = Vector2.zero;
+        // 重力を受けなくする
+        rbody2D.gravityScale = 0f;
+        // 当たり判定を無くす
+        boxCollider2D.enabled = false;
+        // フラグの初期化
+        isRocketMoving = false;
+        isMoving = false;
+        isStacking = false;
+        definitelyStack = false;
+    }
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
