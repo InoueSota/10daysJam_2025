@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GoalManager : MonoBehaviour
 {
     [SerializeField] private GameObject goalLinePrefab;
+    [SerializeField] private LayerMask groundLayer;
 
     public List<GameObject> goals;  // ゴール一覧を保持
 
@@ -44,15 +44,30 @@ public class GoalManager : MonoBehaviour
                 // 同じX軸またはY軸にいるか判定
                 if (Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y))
                 {
-                    var key = MakeKey(goals[i], goals[j]);
+                    bool noBlock = true;
 
-                    // 線がまだなければ生成
-                    if (!goalLines.ContainsKey(key))
+                    foreach (RaycastHit2D hit in Physics2D.RaycastAll(posA, (posB - posA).normalized, Vector3.Distance(posA, posB), groundLayer))
                     {
-                        GameObject goalLineObj = Instantiate(goalLinePrefab);
-                        goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f);
+                        // TagがFieldObjectなら
+                        if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                        {
+                            noBlock = false;
+                            break;
+                        }
+                    }
 
-                        goalLines[key] = goalLineObj;
+                    if (noBlock)
+                    {
+                        var key = MakeKey(goals[i], goals[j]);
+
+                        // 線がまだなければ生成
+                        if (!goalLines.ContainsKey(key))
+                        {
+                            GameObject goalLineObj = Instantiate(goalLinePrefab);
+                            goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f);
+
+                            goalLines[key] = goalLineObj;
+                        }
                     }
                 }
             }
@@ -79,6 +94,27 @@ public class GoalManager : MonoBehaviour
             {
                 Destroy(kvp.Value);
                 toRemove.Add(kvp.Key);
+            }
+            // 間にブロックがある場合
+            else
+            {
+                bool noBlock = true;
+
+                foreach (RaycastHit2D hit in Physics2D.RaycastAll(posA, (posB - posA).normalized, Vector3.Distance(posA, posB), groundLayer))
+                {
+                    // TagがFieldObjectなら
+                    if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                    {
+                        noBlock = false;
+                        break;
+                    }
+                }
+
+                if (!noBlock)
+                {
+                    Destroy(kvp.Value);
+                    toRemove.Add(kvp.Key);
+                }
             }
         }
 

@@ -14,7 +14,8 @@ public class AllFieldObjectManager : MonoBehaviour
         GLASS,
         NAIL,
         CRAB,
-        SWITCH
+        SWITCH,
+        LASER
     }
     [SerializeField] private ObjectType objectType;
 
