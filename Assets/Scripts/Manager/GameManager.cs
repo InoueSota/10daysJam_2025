@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("StageSelectScene");
+                SceneManager.LoadScene("HaikuScene");
             }
         }
         //ポーズ画面を開く
