@@ -46,6 +46,11 @@ public class PaperManagerScript : MonoBehaviour
 
         // 復元完了イベントを購読
         undoManager.OnStateRestored += HandleUndoRestored;
+
+        if (playerCut.GetIsCreateLineStart())
+        {
+            divisionFlag = true;
+        }
     }
 
     void OnDestroy()
