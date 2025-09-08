@@ -43,6 +43,8 @@ public class AreaManager : MonoBehaviour
             cells.Add(cellParent.GetChild(i).GetComponent<StageCell>());
         }
 
+        ActiveDateLoad();
+
         if (GetClearStageNum() == cellParent.childCount)
         {
             trophyObj.SetActive(true);
@@ -51,7 +53,6 @@ public class AreaManager : MonoBehaviour
         {
             trophyObj.SetActive(false);
         }
-        ActiveDateLoad();
 #if UNITY_EDITOR
         StageGraph();
 #endif

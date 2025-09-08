@@ -13,7 +13,9 @@ public class AllFieldObjectManager : MonoBehaviour
         WARP,
         GLASS,
         NAIL,
-        CRAB
+        CRAB,
+        SWITCH,
+        LASER
     }
     [SerializeField] private ObjectType objectType;
 
@@ -86,6 +88,13 @@ public class AllFieldObjectManager : MonoBehaviour
                     else if (_rocketVector == Vector3.down) { GetComponent<CrabManager>().SetThrowDirection(CrabManager.ThrowDirection.DOWN); }
                     else if (_rocketVector == Vector3.left) { GetComponent<CrabManager>().SetThrowDirection(CrabManager.ThrowDirection.LEFT); }
                     else if (_rocketVector == Vector3.right) { GetComponent<CrabManager>().SetThrowDirection(CrabManager.ThrowDirection.RIGHT); }
+
+                    break;
+                case ObjectType.SWITCH:
+
+                    // 可動オブジェクトのみの処理
+                    if (GetIsMoveableObject() && GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.ON) { GetComponent<SwitchManager>().SetStatus(SwitchManager.Status.OFF); }
+                    else if (GetIsMoveableObject() && GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.OFF) { GetComponent<SwitchManager>().SetStatus(SwitchManager.Status.ON); }
 
                     break;
             }

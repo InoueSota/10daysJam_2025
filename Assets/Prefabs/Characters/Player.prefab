@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 62916180736175286}
   - component: {fileID: 8072642564401454438}
   - component: {fileID: 4419386137143282054}
+  - component: {fileID: 3824894337897387572}
   m_Layer: 6
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -286,6 +287,21 @@ MonoBehaviour:
   - name: DeathDown
     texture: {fileID: 2800000, guid: 16e7b94eccaac124ab2769afa3a62b18, type: 3}
     sprites: []
+  - name: ClearDown
+    texture: {fileID: 2800000, guid: 742f7e94b1b95ec4b88968599febe011, type: 3}
+    sprites: []
+  - name: ClearS
+    texture: {fileID: 2800000, guid: 1551c4233421a0e43b43efb4c765da57, type: 3}
+    sprites: []
+  - name: ClearSDown
+    texture: {fileID: 2800000, guid: d1072cc650899cb4b86cc7ee2d1037f3, type: 3}
+    sprites: []
+  - name: ClearSUp
+    texture: {fileID: 2800000, guid: ef68b1bf96a69864c98e020b5e9690f0, type: 3}
+    sprites: []
+  - name: ClearUp
+    texture: {fileID: 2800000, guid: 8db8c30db47c7ab4191d151f8a6f38e4, type: 3}
+    sprites: []
 --- !u!114 &8072642564401454438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +332,16 @@ MonoBehaviour:
   preIsCut: 0
   screenSize: {x: 20, y: 15}
   hitMoveTime: 0.2
+  clearSpeed: 20
+  clearAngle:
+  - 0
+  - 70
+  - 720
+  - -15
+  clearChargeStats:
+  - 0.05
+  - 1.5
+  - 0
 --- !u!95 &4419386137143282054
 Animator:
   serializedVersion: 7
@@ -338,6 +364,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3824894337897387572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697493938638811651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa8f6493352cc943874157217ae4d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle:
+  - {fileID: 8931023184182260322, guid: 8916fd876e9e7e94a919235096f9513e, type: 3}
+  - {fileID: 8931023184182260322, guid: 4ba134455e988684d8092f11d4d49a03, type: 3}
 --- !u!1 &7921618599945661865
 GameObject:
   m_ObjectHideFlags: 0

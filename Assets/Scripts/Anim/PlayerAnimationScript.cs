@@ -2,7 +2,9 @@ using DG.Tweening;
 using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.ParticleSystem;
 using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerAnimationScript : MonoBehaviour
@@ -15,6 +17,7 @@ public class PlayerAnimationScript : MonoBehaviour
     private PlayerCut cut;
     private SpriteRenderer spriteRenderer;
     private UndoManager undoManager;
+    ParticleInstantiateScript particle;
     [SerializeField] SpriteRenderer playerSpriteRenderer;
 
     [SerializeField] private ScissorsScript scissorsPrefab;
@@ -52,6 +55,13 @@ public class PlayerAnimationScript : MonoBehaviour
 
     [Foldout("ぶつかり")][SerializeField] private float hitMoveTime = 0.2f;
 
+    bool isClear = false,preIsClear = false;
+    [Foldout("花火")][SerializeField] private float clearSpeed = 10f;
+    [Foldout("花火")][SerializeField] private float[] clearAngle = new float[2];
+    bool rotated = false;
+    bool isClearShot = false;
+    [Foldout("花火")] [SerializeField]  private float[] clearChargeStats;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -63,12 +73,14 @@ public class PlayerAnimationScript : MonoBehaviour
         cut = player.GetComponent<PlayerCut>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
+        particle = GetComponent<ParticleInstantiateScript>();
 
         playerSpriteRenderer.enabled = false;
         spriteRenderer.enabled = true;
 
         undoManager = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<UndoManager>();
 
+        if(cut.GetIsCreateLineStart()) spriteScript.SetScissors(false); 
     }
 
     // Update is called once per frame
@@ -83,148 +95,174 @@ public class PlayerAnimationScript : MonoBehaviour
         if (Input.GetButtonDown("Reset")) Init();
         if (Input.GetButtonDown("Undo")) Init();
 
-        if (isHit == true)
+        if (isClear == false)
         {
-            if (preIsHit == false)
+            if (isHit == true)
             {
-                if (direction == 0 || direction == 2)
+                if (preIsHit == false)
                 {
-                    float isLeftMulti = 1f;
-                    if (direction == 2) isLeftMulti = -1f;
-
-                    this.transform.DOLocalMoveY(1f, hitMoveTime * 0.5f).SetLoops(2, LoopType.Yoyo);
-                    this.transform.DOLocalRotate(Vector3.forward * 360f * isLeftMulti, hitMoveTime, RotateMode.LocalAxisAdd).OnComplete(() =>
+                    if (direction == 0 || direction == 2)
                     {
-                        preIsHit = false;
-                        isHit = false;
-                        this.transform.localRotation = Quaternion.identity;
-                        this.transform.localPosition = Vector3.zero;
-                    });
+                        float isLeftMulti = 1f;
+                        if (direction == 2) isLeftMulti = -1f;
+
+                        this.transform.DOLocalMoveY(1f, hitMoveTime * 0.5f).SetLoops(2, LoopType.Yoyo);
+                        this.transform.DOLocalRotate(Vector3.forward * 360f * isLeftMulti, hitMoveTime, RotateMode.LocalAxisAdd).OnComplete(() =>
+                        {
+                            preIsHit = false;
+                            isHit = false;
+                            this.transform.localRotation = Quaternion.identity;
+                            this.transform.localPosition = Vector3.zero;
+                        });
+                    }
+                    else
+                    {
+                        this.transform.DOLocalMoveY(0.1f, hitMoveTime * 0.5f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+                        {
+                            preIsHit = false;
+                            isHit = false;
+                            this.transform.localPosition = Vector3.zero;
+                        });
+                    }
+                }
+
+                if (isCutReady == true || isDeath == true)
+                {
+                    this.transform.DOComplete();
+                }
+                preIsHit = isHit;
+            }
+
+            if (isDeath == false)
+            {
+                if (isCutReady == true)
+                {
+                    //カットモード入った時はカットモードのdirection優先
+                    direction = cut.GetDirection();
+                    controller.SetDirection(direction);
                 }
                 else
                 {
-                    this.transform.DOLocalMoveY(0.1f, hitMoveTime * 0.5f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
-                    {
-                        preIsHit = false;
-                        isHit = false;
-                        this.transform.localPosition = Vector3.zero;
-                    });
+                    //その逆
+                    direction = controller.GetDirection();
+                    cut.SetDirection(direction);
                 }
             }
-        
-            if (isCutReady == true || isDeath == true)
+
+            if (isDash == true)
             {
-                this.transform.DOComplete();
+                dashRot += Time.deltaTime * dashFlowSpeed;
+                this.transform.localPosition = Vector3.up * Mathf.Sin(dashRot * Mathf.Deg2Rad) * dashFlowMulti + Vector3.right * Mathf.Cos(dashRot * Mathf.Deg2Rad) * dashFlowMulti;
             }
-            preIsHit = isHit;
-        }
-
-        if (isDeath == false) {
-            if (isCutReady == true)
+            else if (preIsDash == true && isDash == false)
             {
-                //カットモード入った時はカットモードのdirection優先
-                direction = cut.GetDirection();
-                controller.SetDirection(direction);
-            }
-            else
-            {
-                //その逆
-                direction = controller.GetDirection();
-                cut.SetDirection(direction);
-            }
-        }
-
-        if (isDash == true)
-        {
-            dashRot += Time.deltaTime * dashFlowSpeed;
-            this.transform.localPosition = Vector3.up * Mathf.Sin(dashRot * Mathf.Deg2Rad) * dashFlowMulti + Vector3.right * Mathf.Cos(dashRot * Mathf.Deg2Rad) * dashFlowMulti;
-        }
-        else if (preIsDash == true && isDash == false)
-        {
-            dashRot = 0;
-            //this.transform.localPosition = Vector3.zero;
-        }
-
-        isCutReady = cut.GetIsActive();
-
-        if (isCutReady == true && isCut == false)
-        {
-            if (scissors == null)
-            {
-                scissors = Instantiate(scissorsPrefab,this.transform.position,Quaternion.identity);
+                dashRot = 0;
+                //this.transform.localPosition = Vector3.zero;
             }
 
-            scissors.transform.position = Vector3.MoveTowards(
-            scissors.transform.position,          // 現在位置
-            this.transform.position + scissorsHoldOffset,
-            scissorsMoveSpeed * Time.deltaTime       // 1フレーム分の移動距離
-             );
-            size = Mathf.MoveTowards(size, scissorsMaxSize, scissorsSizePlusSpeed * Time.deltaTime);
-        }
-        else if (isCut == true)
-        {
-            if (scissors != null)
+            isCutReady = cut.GetIsActive();
+
+            if (isCutReady == true && isCut == false)
             {
-                //最初
-                if (preIsCut == false && isCut == true)
+                if (scissors == null)
                 {
-                    Vector3 pos = this.transform.position;
-
-                    if (direction == 0) { pos.x += 0.5f; pos.y = cameraPos.y + screenSize.y * 0.5f; }
-                    else if (direction == 2) { pos.x += -0.5f; pos.y = cameraPos.y + screenSize.y * 0.5f; }
-                    else if (direction == 1) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += 0.5f; }
-                    else if (direction == 3) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += -0.5f; }
-
-                    scissors.transform.position = pos;
-
-                    if (direction == 1 || direction == 3) { pos.x += screenSize.x; }
-                    else if (direction == 0 || direction == 2) { pos.y += -screenSize.y; }
-
-                    if (direction == 0 || direction == 2) angle = 0.0f;
-                    else if (direction == 1 || direction == 3) angle = 90.0f;
-
-                    cutTween = scissors.transform.DOMove(pos, scissorsCutTime).SetEase(Ease.OutCubic).OnComplete(() =>
-                    {
-                        preIsCut = false;
-                        isCut = false;
-                        angle = 0.0f;
-                    });
-                    spriteScript.SetScissors(false);
+                    scissors = Instantiate(scissorsPrefab, this.transform.position, Quaternion.identity);
                 }
 
-
-                
-
-                preIsCut = isCut;
+                scissors.transform.position = Vector3.MoveTowards(
+                scissors.transform.position,          // 現在位置
+                this.transform.position + scissorsHoldOffset,
+                scissorsMoveSpeed * Time.deltaTime       // 1フレーム分の移動距離
+                 );
                 size = Mathf.MoveTowards(size, scissorsMaxSize, scissorsSizePlusSpeed * Time.deltaTime);
             }
-        }
-        else if (isCut == false && isCutReady == false && scissors != null)
-        {
-
-            size = Mathf.MoveTowards(size, 1f, scissorsSizePlusSpeed * Time.deltaTime);
-            scissors.transform.position = Vector3.MoveTowards(
-             scissors.transform.position,          // 現在位置
-            this.transform.position,
-            scissorsMoveSpeed * Time.deltaTime       // 1フレーム分の移動距離
-            );
-
-            if (Vector3.Distance(this.transform.position, scissors.transform.position) < 0.5f)
+            else if (isCut == true)
             {
-                Destroy(scissors.gameObject);
-                scissors = null;
+                if (scissors != null)
+                {
+                    //最初
+                    if (preIsCut == false && isCut == true)
+                    {
+                        Vector3 pos = this.transform.position;
 
-                spriteScript.SetScissors(true);
+                        if (direction == 0) { pos.x += 0.5f; pos.y = cameraPos.y + screenSize.y * 0.5f; }
+                        else if (direction == 2) { pos.x += -0.5f; pos.y = cameraPos.y + screenSize.y * 0.5f; }
+                        else if (direction == 1) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += 0.5f; }
+                        else if (direction == 3) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += -0.5f; }
+
+                        scissors.transform.position = pos;
+
+                        if (direction == 1 || direction == 3) { pos.x += screenSize.x; }
+                        else if (direction == 0 || direction == 2) { pos.y += -screenSize.y; }
+
+                        if (direction == 0 || direction == 2) angle = 0.0f;
+                        else if (direction == 1 || direction == 3) angle = 90.0f;
+
+                        cutTween = scissors.transform.DOMove(pos, scissorsCutTime).SetEase(Ease.OutCubic).OnComplete(() =>
+                        {
+                            preIsCut = false;
+                            isCut = false;
+                            angle = 0.0f;
+                        });
+                        spriteScript.SetScissors(false);
+                    }
+
+
+
+
+                    preIsCut = isCut;
+                    size = Mathf.MoveTowards(size, scissorsMaxSize, scissorsSizePlusSpeed * Time.deltaTime);
+                }
+            }
+            else if (isCut == false && isCutReady == false && scissors != null)
+            {
+
+                size = Mathf.MoveTowards(size, 1f, scissorsSizePlusSpeed * Time.deltaTime);
+                scissors.transform.position = Vector3.MoveTowards(
+                 scissors.transform.position,          // 現在位置
+                this.transform.position,
+                scissorsMoveSpeed * Time.deltaTime       // 1フレーム分の移動距離
+                );
+
+                if (Vector3.Distance(this.transform.position, scissors.transform.position) < 0.5f)
+                {
+                    Destroy(scissors.gameObject);
+                    scissors = null;
+
+                    spriteScript.SetScissors(true);
+                }
+
             }
 
+            if (scissors != null)
+            {
+                scissors.transform.localScale = Vector3.one * size;
+                scissors.transform.eulerAngles = Vector3.forward * angle;
+                scissors.SetCutAnimation(isCut);
+            }
+        }
+        else if (isClear)
+        {
+            Clear();
+
+            if (scissors != null) {
+                size = Mathf.MoveTowards(size, 1f, scissorsSizePlusSpeed * Time.deltaTime);
+                scissors.transform.position = Vector3.MoveTowards(
+                 scissors.transform.position,          // 現在位置
+                this.transform.position,
+                scissorsMoveSpeed * Time.deltaTime       // 1フレーム分の移動距離
+                );
+
+                if (Vector3.Distance(this.transform.position, scissors.transform.position) < 0.5f)
+                {
+                    Destroy(scissors.gameObject);
+                    scissors = null;
+
+                    spriteScript.SetScissors(true);
+                }
+            }
         }
 
-        if (scissors != null)
-        {
-            scissors.transform.localScale = Vector3.one * size;
-            scissors.transform.eulerAngles = Vector3.forward * angle;
-            scissors.SetCutAnimation(isCut);
-        }
 
         animator.SetBool("isCutReady", isCutReady);
         animator.SetBool("isDash", isDash);
@@ -291,6 +329,9 @@ public class PlayerAnimationScript : MonoBehaviour
         {
             Destroy(scissors.gameObject);
         }
+        clearAngle[0] = 0;
+        rotated = false;
+        isClearShot = false;
         isCutReady = false;
         size = 1f;
         angle = 0;
@@ -302,6 +343,103 @@ public class PlayerAnimationScript : MonoBehaviour
         this.transform.localPosition = Vector3.zero;
         preIsHit = false;
         isHit = false;
+    }
+
+    [Button]
+    public void StartClear()
+    {
+        clearAngle[0] = 0;
+        rotated = false;
+        isClearShot = false;
+        this.transform.localRotation = Quaternion.identity;
+        this.transform.localPosition = Vector3.zero;
+        isClear = true;
+        animator.SetTrigger("clear");
+    }
+
+    public void Punch()
+    {
+        transform.DOPunchScale(Vector3.one * 0.1f, 0.1f, 2, 1f);
+    }
+    private void Clear()
+    {
+        float isLeftMulti = 1f;
+        if (direction == 2f)
+        {
+            isLeftMulti = -1f;
+
+        }
+
+        float plusAngle = 0f;
+        if (direction == 1f) plusAngle = 90f;
+        else if (direction == 3f) plusAngle = -90f;
+
+        if (isClearShot == false)
+        {
+            Vector3 rand = Vector3.zero;
+            rand.x = Random.Range( -clearChargeStats[0], clearChargeStats[0]);
+            rand.y = Random.Range(-clearChargeStats[0], clearChargeStats[0]);
+
+            if (clearChargeStats[2] > clearChargeStats[1])
+            {
+                isClearShot = true;
+                Vector3 particlePos = new Vector3(-0.56f * isLeftMulti, -0.18f,0f);
+                Vector3 scale = new Vector3(isLeftMulti,1f,1f);
+                int particleNum = 0;
+
+                if (direction == 1)
+                {
+                    particlePos = new Vector3(-0.18f, -0.54f, 0f);
+                    particleNum = 1;
+                }
+                else if (direction == 3)
+                {
+                    particlePos = new Vector3(-0.18f, 0.54f, 0f);
+                    scale = new Vector3(1f, -1f, 1f);
+                    particleNum = 1;
+                }
+                particle.RunParticleChild(particleNum, particlePos + this.transform.position,scale);
+                Punch();
+                this.transform.localRotation = Quaternion.identity;
+                this.transform.localPosition = Vector3.zero;
+            }
+            else
+            {
+                clearChargeStats[2] += Time.deltaTime;
+            }
+
+            this.transform.localPosition = rand;
+        }
+        else
+        {
+            if (clearAngle[0] < 15f && rotated == false)
+            {
+                clearAngle[0] += clearAngle[1] * Time.deltaTime;
+            }
+            else if (clearAngle[0] < 370f && rotated == false)
+            {
+                clearAngle[0] += clearAngle[2] * Time.deltaTime;
+            }
+            else
+            {
+                if (rotated == false)
+                {
+                    rotated = true;
+                    clearAngle[0] = 370f;
+                }
+                clearAngle[0] += clearAngle[3] * Time.deltaTime ;
+            }
+
+            float rad = Mathf.Deg2Rad * (clearAngle[0] + plusAngle);
+
+            Vector3 velocity = Vector3.zero;
+
+            velocity.x = Mathf.Cos(rad) * clearSpeed;
+            velocity.y = Mathf.Sin(rad) * clearSpeed* isLeftMulti;
+
+            this.transform.localPosition += velocity * Time.deltaTime * isLeftMulti;
+            this.transform.eulerAngles = Vector3.forward * clearAngle[0] * isLeftMulti;
+        }
     }
 
 }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: -2030415479911111613}
   - component: {fileID: -4114167489620392497}
   - component: {fileID: 6736328188321697422}
-  - component: {fileID: -1993164836909388836}
   - component: {fileID: 296543618358444339}
   m_Layer: 3
   m_Name: Goal
@@ -181,20 +180,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &-1993164836909388836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7921618599945661865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43efb01b893f45647bb05858278ba84e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goalLinePrefab: {fileID: 7921618599945661865, guid: 7ed4477d0b497ed4ba353f2d086bfd3a, type: 3}
-  goals: []
 --- !u!95 &296543618358444339
 Animator:
   serializedVersion: 7

@@ -14,6 +14,7 @@ public class UndoManager : MonoBehaviour
 
     // 各ブロック
     private List<Transform> crabs = new List<Transform>();
+    private List<Transform> switches = new List<Transform>();
 
     // 分断線関係
     private GameObject divisionLineObj;
@@ -53,6 +54,7 @@ public class UndoManager : MonoBehaviour
 
         // 各ブロック
         public List<int> crabThrowDirection = new List<int>();
+        public List<int> switchStatus = new List<int>();
 
         // ★Paper のオフセット（今回の要望）
         public Vector3 blockOffset0;
@@ -73,10 +75,13 @@ public class UndoManager : MonoBehaviour
         foreach (GameObject blockObject in GameObject.FindGameObjectsWithTag("FieldObject"))
         {
             blocks.Add(blockObject.transform);
-            if (blockObject.GetComponent<AllFieldObjectManager>().GetObjectType()
-                == AllFieldObjectManager.ObjectType.CRAB)
+            if (blockObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.CRAB)
             {
                 crabs.Add(blockObject.transform);
+            }
+            else if (blockObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.SWITCH)
+            {
+                switches.Add(blockObject.transform);
             }
         }
 
@@ -161,6 +166,11 @@ public class UndoManager : MonoBehaviour
         {
             state.crabThrowDirection.Add((int)crab.GetComponent<CrabManager>().GetThrowDirection());
         }
+        state.switchStatus.Clear();
+        foreach (var switchs in switches)
+        {
+            state.switchStatus.Add((int)switchs.GetComponent<SwitchManager>().GetStatus());
+        }
 
         // ★Paper の blockOffset を保存
         if (paper != null)
@@ -207,8 +217,11 @@ public class UndoManager : MonoBehaviour
         // 各ブロック
         for (int i = 0; i < crabs.Count; i++)
         {
-            crabs[i].GetComponent<CrabManager>()
-                    .SetThrowDirection((CrabManager.ThrowDirection)state.crabThrowDirection[i]);
+            crabs[i].GetComponent<CrabManager>().SetThrowDirection((CrabManager.ThrowDirection)state.crabThrowDirection[i]);
+        }
+        for (int i = 0; i < switches.Count; i++)
+        {
+            switches[i].GetComponent<SwitchManager>().SetStatus((SwitchManager.Status)state.switchStatus[i]);
         }
 
         // ★Paper 側にも blockOffset を反映（イベントで受けてもらう）

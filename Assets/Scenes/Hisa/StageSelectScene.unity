@@ -243,7 +243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597592581748594964, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Name
-      value: Cell_16
+      value: Cell_16EX
       objectReference: {fileID: 0}
     - target: {fileID: 4597592581748594964, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_IsActive
@@ -264,7 +264,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 461309941}
+      objectReference: {fileID: 882068208}
     - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: '?'
@@ -626,11 +626,11 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 675561667}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 675561667}
+      objectReference: {fileID: 0}
     - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: '?'
@@ -1398,7 +1398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: clear
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
@@ -1406,7 +1406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: activeFlag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
@@ -1954,6 +1954,10 @@ PrefabInstance:
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 1273468627}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: downConnectStage
+      value: 
+      objectReference: {fileID: 1624518986}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
@@ -2565,6 +2569,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageName
+      value: "Stage2_\u2192"
+      objectReference: {fileID: 0}
+    - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 250216044}
@@ -2629,6 +2637,10 @@ PrefabInstance:
     - target: {fileID: 2358184481618919166, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: m_Name
       value: Stage3Objs
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageName
+      value: "Stage1_\u2191"
       objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: stageImage
@@ -4122,7 +4134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: "2_Stage13_\u30C6\u30AF\u30CB\u30AB\u30EB\u2606\u2606\u2606\u2192"
+      value: "2_Stage13_\u30C6\u30AF\u30CB\u30AB\u30EB\u2606\u2606\u2606\u2192(\u2190)"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
@@ -4131,7 +4143,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1806216252}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
@@ -4386,7 +4398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: "2_Stage4_\u2193"
+      value: "2_Stage4\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
@@ -4812,7 +4824,7 @@ PrefabInstance:
       objectReference: {fileID: 1002287567}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: stageName
-      value: "2_Stage3_\u2192"
+      value: "2_Stage3\u2192"
       objectReference: {fileID: 0}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: downConnectStage
@@ -5479,7 +5491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: clear
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
@@ -5487,7 +5499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: activeFlag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
@@ -6542,7 +6554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: "2_Stage8\u2193"
+      value: "2_Stage8\u2193(\u2190)"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
@@ -6969,7 +6981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: clear
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
@@ -6977,7 +6989,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: activeFlag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
@@ -7450,7 +7462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597592581748594964, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Name
-      value: Cell_15
+      value: Cell_15EX
       objectReference: {fileID: 0}
     - target: {fileID: 4597592581748594964, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_IsActive
@@ -7490,6 +7502,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1624518984}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1624518986 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 1624518984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1680191885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7711391829335866272, guid: 8b6e42dc485efd94baf8eefa5b61cc90, type: 3}
@@ -7990,6 +8013,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1794763865}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1806216252 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 53026073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1819151956 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
@@ -8947,7 +8981,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: clear
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: stageName
@@ -8955,7 +8989,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: activeFlag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
@@ -9007,7 +9041,7 @@ PrefabInstance:
       objectReference: {fileID: 1285163041}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: clear
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: active
@@ -9019,7 +9053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: activeFlag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
@@ -9047,7 +9081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: clear
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: active
@@ -9059,7 +9093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: activeFlag
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage

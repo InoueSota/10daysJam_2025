@@ -155,16 +155,16 @@ public class GameManager : MonoBehaviour
         switch (goalDirection)
         {
             case GoalDirection.LEFT:
-                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Left, true);//エリア1のステージ1を右方向にクリアした
-                break;
-            case GoalDirection.RIGHT:
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
                 break;
+            case GoalDirection.RIGHT:
+                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Left, true);//エリア1のステージ1を右方向にクリアした
+                break;
             case GoalDirection.UP:
-                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Up, true);//エリア1のステージ1を右方向にクリアした
+                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Down, true);//エリア1のステージ1を右方向にクリアした
                 break;
             case GoalDirection.DOWN:
-                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Down, true);//エリア1のステージ1を右方向にクリアした
+                SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Up, true);//エリア1のステージ1を右方向にクリアした
                 break;
             default:
                 break;
