@@ -7,7 +7,7 @@ public class DivisionLineManager : MonoBehaviour
         HORIZONTAL,
         VERTICAL
     }
-    private DivisionMode divisionMode;
+   [SerializeField] private DivisionMode divisionMode;
 
     public void Initialize(DivisionMode _divisionMode) { divisionMode = _divisionMode; }
 

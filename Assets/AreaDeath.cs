@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class AreaDeath : MonoBehaviour
 {
-    [SerializeField] Vector3 targetPos;
+    [SerializeField] Vector3 localPos;
+    [SerializeField] Vector3 localScale;
     [SerializeField] Transform area;
     [SerializeField] Transform deadLine;
     [SerializeField] bool isleft;
@@ -10,29 +11,44 @@ public class AreaDeath : MonoBehaviour
 
     void Start()
     {
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æƒ…å ±ã‚’å–å¾—
         player = GameObject.FindGameObjectWithTag("Player").gameObject.transform;
+        //ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ä¿æŒã—ã¦ãŠã
+        localPos = area.localPosition;
+        localScale = area.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ƒfƒBƒ”ƒBƒWƒ‡ƒ“ƒ‰ƒCƒ“‚ªcƒvƒŒƒCƒ„[‚ªƒfƒBƒ”ƒBƒWƒ‡ƒ“ƒ‰ƒCƒ“¶‚¾‚Á‚½‚ç
-        if (player.position.x < deadLine.position.x&&player.FindChild("DivisionLine").GetComponent<DivisionLineManager>().GetDivisionMode()==DivisionLineManager.DivisionMode.VERTICAL)
+        //ï¿½fï¿½Bï¿½ï¿½ï¿½Bï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½fï¿½Bï¿½ï¿½ï¿½Bï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (GameObject.FindGameObjectWithTag("DivisionLine").GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
         {
-            area.
-        }
-        else
-        {
+            if (player.position.x < deadLine.position.x)
+            {
+                Debug.Log("å·¦ã«ã„ã‚‹ã‚ˆ");
+                area.localPosition = new Vector3(localPos.x, 0, 0);
+            }
+            else
+            {
+                area.localPosition = new Vector3(localPos.x - localScale.x, 0, 0);
+                Debug.Log("â†’ã«ã„ã‚‹ã‚ˆ");
 
+            }
         }
-        //ƒfƒBƒ”ƒBƒWƒ‡ƒ“ƒ‰ƒCƒ“‚ª‰¡ƒvƒŒƒCƒ„[‚ªƒfƒBƒ”ƒBƒWƒ‡ƒ“ƒ‰ƒCƒ“‰º‚¾‚Á‚½‚ç
-        if (player.position.y < deadLine.position.y && player.FindChild("DivisionLine").GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
+        if (GameObject.FindGameObjectWithTag("DivisionLine").GetComponent<DivisionLineManager>().GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
         {
+            if (player.position.y < deadLine.position.y)
+            {
+                Debug.Log("ä¸‹ã«ã„ã‚‹ã‚ˆ");
+                area.localPosition = new Vector3(localPos.x, 0, 0);
+            }
+            else
+            {
+                area.localPosition = new Vector3(localPos.x - localScale.x, 0, 0);
+                Debug.Log("â†‘ã«ã„ã‚‹ã‚ˆ");
 
-        }
-        else
-        {
-
+            }
         }
     }
 }
