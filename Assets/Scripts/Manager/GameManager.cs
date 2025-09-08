@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
                 if (!player.GetComponent<PlayerController>().GetIsRocketMoving()) { goalDirection = GoalDirection.UP; }
                 else { goalDirection = (GoalDirection)player.GetComponent<PlayerController>().GetDirection(); }
 
+                // プレイヤーの動きを止める
+                player.GetComponent<PlayerController>().SetStop();
+
                 // UIの更新
                 uiManager.Goal((int)goalDirection);
                 Debug.Log("goalDirection" + goalDirection);

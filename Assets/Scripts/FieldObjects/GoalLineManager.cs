@@ -10,10 +10,6 @@ public class GoalLineManager : MonoBehaviour
 
     public void Initialize(Transform _pointA, Transform _pointB, float alpha)
     {
-        // ƒS[ƒ‹‚ÌŒ©‚½–Ú‚ğ•ÏX‚·‚é
-        _pointA.GetComponent<GoalManager>().SetIsLineActive(true);
-        _pointB.GetComponent<GoalManager>().SetIsLineActive(true);
-
         // LineRenderer‚ğ’Ç‰Á
         lineRenderer = gameObject.AddComponent<LineRenderer>();
 

@@ -177,6 +177,7 @@ MonoBehaviour:
   cellParent: {fileID: 4561980678309152160}
   cells: []
   trophyObj: {fileID: 0}
+  claerNumText: {fileID: 0}
 --- !u!1 &4419852109636498477
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +376,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e490f959c7b1f114db0c9f25d56256d2, type: 3}
-  m_Color: {r: 0.1071111, g: 0.7830189, b: 0.7830189, a: 1}
+  m_Color: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

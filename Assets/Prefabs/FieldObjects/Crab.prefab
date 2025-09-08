@@ -92,8 +92,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -211865721
+  m_SortingLayer: 1
   m_SortingOrder: 40
   m_Sprite: {fileID: -8781757214100938709, guid: 3122cac986e14d84db1d5204b9b7e132, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -206,8 +206,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -211865721
+  m_SortingLayer: 1
   m_SortingOrder: 40
   m_Sprite: {fileID: -8781757214100938709, guid: 3122cac986e14d84db1d5204b9b7e132, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -322,4 +322,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crabSpriteScript: {fileID: 2859247268219968416}
-  sprite: {fileID: 2859247268219968416}
