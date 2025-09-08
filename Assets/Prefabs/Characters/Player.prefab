@@ -762,7 +762,7 @@ MonoBehaviour:
   objectParent2: {fileID: 0}
   divisionLineObj: {fileID: 5203099502078435929}
   animationScript: {fileID: 8072642564401454438}
-  isCreateLineStart: 1
+  isCreateLineStart: 0
   isDivision: 0
   fadePower: 8
   postEffectVolume: {fileID: 0}
