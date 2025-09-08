@@ -106,6 +106,7 @@ public class PlayerSpriteScript : MonoBehaviour
             int num = (parts.Length > 1) ? int.Parse(parts[1]) : 0; // ññîˆî‘çÜ
 
             if ((animName == "Dash" ||
+                animName == "Clear" ||
                 animName == "Idle")
                 && isScissors == true)
             {
@@ -119,7 +120,8 @@ public class PlayerSpriteScript : MonoBehaviour
                 }
             }
 
-            if ((animName == "Dash" || animName == "DashS"  || animName == "Death") && (direction == 1 || direction == 3))
+            if ((animName == "Dash" || animName == "DashS"  ||
+                animName == "Death" || animName == "ClearS"  || animName == "Clear") && (direction == 1 || direction == 3))
             {
                 if (direction == 1) animName += "Up"; 
                 else if (direction == 3) animName += "Down";

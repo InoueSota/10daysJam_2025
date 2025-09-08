@@ -486,6 +486,9 @@ public class PlayerController : MonoBehaviour
         isMoving = false;
         isStacking = false;
         definitelyStack = false;
+
+        //クリアアニメーション
+        animationScript.StartClear();
     }
 
     // Getter
