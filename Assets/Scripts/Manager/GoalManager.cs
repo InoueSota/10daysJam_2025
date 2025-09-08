@@ -11,6 +11,8 @@ public class GoalManager : MonoBehaviour
     // ゴールペアと生成済みラインを管理
     private Dictionary<(GameObject, GameObject), GameObject> goalLines = new();
 
+    private bool completeDelay;
+
     void Start()
     {
         // "FieldObject" タグを持つ全オブジェクトを取得
@@ -27,50 +29,61 @@ public class GoalManager : MonoBehaviour
                 goals.Add(obj);
             }
         }
+
+        completeDelay = true;
     }
 
     void Update()
     {
-        for (int i = 0; i < goals.Count; i++)
+        if (completeDelay)
         {
-            if (goals[i] == null || goals[i].activeSelf == false) continue;
-            Vector2 posA = goals[i].transform.position;
+            if (Input.GetButtonDown("Undo") || Input.GetButtonDown("Reset")) { completeDelay = false; }
 
-            for (int j = i + 1; j < goals.Count; j++)
+            for (int i = 0; i < goals.Count; i++)
             {
-                if (goals[j] == null || goals[j].activeSelf == false) continue;
-                Vector2 posB = goals[j].transform.position;
+                if (goals[i] == null || goals[i].activeSelf == false) continue;
+                Vector2 posA = goals[i].transform.position;
 
-                // 同じX軸またはY軸にいるか判定
-                if (Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y))
+                for (int j = i + 1; j < goals.Count; j++)
                 {
-                    bool noBlock = true;
+                    if (goals[j] == null || goals[j].activeSelf == false) continue;
+                    Vector2 posB = goals[j].transform.position;
 
-                    foreach (RaycastHit2D hit in Physics2D.RaycastAll(posA, (posB - posA).normalized, Vector3.Distance(posA, posB), groundLayer))
+                    // 同じX軸またはY軸にいるか判定
+                    if ((Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y)) && Vector3.Distance(posA, posB) > 1.1f)
                     {
-                        // TagがFieldObjectなら
-                        if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                        bool noBlock = true;
+
+                        foreach (RaycastHit2D hit in Physics2D.RaycastAll(posA, (posB - posA).normalized, Vector3.Distance(posA, posB), groundLayer))
                         {
-                            noBlock = false;
-                            break;
+                            // TagがFieldObjectなら
+                            if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                            {
+                                noBlock = false;
+                                break;
+                            }
                         }
-                    }
 
-                    if (noBlock)
-                    {
-                        var key = MakeKey(goals[i], goals[j]);
-
-                        // 線がまだなければ生成
-                        if (!goalLines.ContainsKey(key))
+                        if (noBlock)
                         {
-                            GameObject goalLineObj = Instantiate(goalLinePrefab);
-                            goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f);
+                            var key = MakeKey(goals[i], goals[j]);
 
-                            goalLines[key] = goalLineObj;
+                            // 線がまだなければ生成
+                            if (!goalLines.ContainsKey(key))
+                            {
+                                GameObject goalLineObj = Instantiate(goalLinePrefab);
+                                goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f);
+
+                                goalLines[key] = goalLineObj;
+                            }
                         }
                     }
                 }
             }
+        }
+        else
+        {
+            completeDelay = true;
         }
 
         // 無効化されたゴールのペアは線を消す

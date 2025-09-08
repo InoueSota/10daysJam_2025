@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 804930425087901697}
   - component: {fileID: 7229796195907965412}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: DeathEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 8072642564401454438}
   - component: {fileID: 4419386137143282054}
   - component: {fileID: 3824894337897387572}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,10 +702,6 @@ PrefabInstance:
     - target: {fileID: 7921618599945661865, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
       propertyPath: m_Name
       value: Division Line
-      objectReference: {fileID: 0}
-    - target: {fileID: 7921618599945661865, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
