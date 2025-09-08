@@ -69,7 +69,6 @@ public class PlayerTarget : MonoBehaviour
         // 非表示にする
         if (!controller.GetJustStanding() || (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) <= 0.5f))
         {
-            targetPosition = transform.position;
             alphaTargetValue = 0f;
         }
         // 表示にする
@@ -96,7 +95,7 @@ public class PlayerTarget : MonoBehaviour
         Vector2 start = transform.position;
         Vector2 direction = Vector2.zero;
 
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f)
+        if (controller.GetJustStanding() && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             // 左右入力の方が上下入力よりも値を上回っているとき
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > Mathf.Abs(Input.GetAxisRaw("Vertical")))
@@ -182,6 +181,13 @@ public class PlayerTarget : MonoBehaviour
     {
         targetLinePrefab.SetPosition(0, controller.transform.position);
         Debug.Log(controller.transform.position);
-        targetLinePrefab.SetPosition(1, predictionBox.transform.position);
+        if (controller.GetJustStanding() && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
+        {
+            targetLinePrefab.SetPosition(1, predictionBox.transform.position);
+        }
+        else
+        {
+            targetLinePrefab.SetPosition(1, targetPosition);
+        }
     }
 }

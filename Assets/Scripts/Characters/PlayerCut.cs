@@ -11,7 +11,6 @@ public class PlayerCut : MonoBehaviour
     [SerializeField] private Transform objectParent1;
     [SerializeField] private Transform objectParent2;
     [SerializeField] private GameObject divisionLineObj;
-    private UndoManager undoManager;
     [SerializeField] private PlayerAnimationScript animationScript;
 
     // フラグ類
@@ -29,7 +28,7 @@ public class PlayerCut : MonoBehaviour
     [SerializeField] private float fadePower;
     [SerializeField] private Volume postEffectVolume;
     private Vignette vignette;
-    private float maxIntensity = 0.5f;
+    private float maxIntensity = 0.45f;
     private float targetIntensity = 0f;
 
     // アニメーション関連
@@ -46,9 +45,6 @@ public class PlayerCut : MonoBehaviour
     void Start()
     {
         controller = GetComponent<PlayerController>();
-
-        // 他コンポーネントを取得
-        undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
 
         // 最初から分断線が配置されているなら、その情報を取得する
         if (isCreateLineStart)
