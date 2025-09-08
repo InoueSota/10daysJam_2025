@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: a0881ba1c95cb5142a097cd4d158be8b
+guid: fa9693a3e76eae44c8bab90defd7c10f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7570077184311538065
-    second: middleCropEffect_0
+      213: 8082984663549090972
+    second: undo_0
+  - first:
+      213: -6790038331730780934
+    second: undo_1
+  - first:
+      213: -4580969256839773156
+    second: undo_2
+  - first:
+      213: 9146568438569085256
+    second: undo_3
+  - first:
+      213: -2685519317511022104
+    second: undo_4
+  - first:
+      213: -4831274247699480835
+    second: undo_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: middleCropEffect_0
+      name: undo_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 9
-        width: 1194
-        height: 46
+        x: 34
+        y: 31
+        width: 14
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +143,118 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 191bd2557115e0960800000000000000
-      internalID: 7570077184311538065
+      spriteID: c9c16cbd9b78c2070800000000000000
+      internalID: 8082984663549090972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: undo_1
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 11
+        width: 53
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc96e9cc10f4c1a0800000000000000
+      internalID: -6790038331730780934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: undo_2
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 10
+        width: 52
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c14841f5bb02d60c0800000000000000
+      internalID: -4580969256839773156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: undo_3
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 11
+        width: 53
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 849a5b6c8832fee70800000000000000
+      internalID: 9146568438569085256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: undo_4
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 11
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e95e42c86e1bbad0800000000000000
+      internalID: -2685519317511022104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: undo_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 9
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfe316d3badd3fcb0800000000000000
+      internalID: -4831274247699480835
       vertices: []
       indices: 
       edges: []
@@ -148,7 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      middleCropEffect_0: 7570077184311538065
+      undo_0: 8082984663549090972
+      undo_1: -6790038331730780934
+      undo_2: -4580969256839773156
+      undo_3: 9146568438569085256
+      undo_4: -2685519317511022104
+      undo_5: -4831274247699480835
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
