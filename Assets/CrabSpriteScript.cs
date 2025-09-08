@@ -63,7 +63,9 @@ public class CrabSpriteScript : MonoBehaviour
         animator.SetTrigger("directionChange");
 
         if(direction == 2) sprite.flipX = false; 
-       else if (direction == 0) sprite.flipX = true; 
+       else if (direction == 0) sprite.flipX = true;
+        if (direction == 3) sprite.flipY = true;
+        else if (direction == 1) sprite.flipY = false;
     }
 
 }
