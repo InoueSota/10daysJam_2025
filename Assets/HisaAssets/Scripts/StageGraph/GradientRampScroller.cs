@@ -6,7 +6,7 @@ public class GradientRampScroller : MonoBehaviour
     [System.Serializable]
     public class GradientLoop
     {
-        public Gradient gradient;     // ← Particle System と同じUIで編集
+        public Gradient gradient;
         public float scrollSpeed = 0.1f;  // 下→上（+で上昇）
         public float tilingY = 1f;        // 縦に何回繰り返すか
     }
@@ -22,8 +22,8 @@ public class GradientRampScroller : MonoBehaviour
     [Min(0f)] public float transitionTime = 1.0f;
 
     [Header("その他")]
-    public int rampWidth = 256;     // ランプ解像度（横）
-    public bool scrollUp = true;    // false で上→下に反転（必要なら）
+    public int rampWidth = 256;
+    public bool scrollUp = true;
 
     // shader prop IDs
     static readonly int ID_RampA = Shader.PropertyToID("_RampA");
@@ -33,19 +33,21 @@ public class GradientRampScroller : MonoBehaviour
     static readonly int ID_Offset = Shader.PropertyToID("_Offset");
 
     Material mat;
-    Texture2D rampA, rampB; // 現行/次用
+    Texture2D rampA, rampB; // A=現在のベース, B=ターゲット
     float blendT;           // 0..1
     float offset;
-    float curSpeed, curTiling;
-    float fromSpeed, toSpeed;
-    float fromTiling, toTiling;
+    float curSpeed, curTiling;   // 現在（見た目ベース）
+    float fromSpeed, toSpeed;    // 補間用
+    float fromTiling, toTiling;  // 補間用
 
-    int current = 0;
-    int next = -1;
-    float transTimer;
-    bool transitioning;
+    public int current = 0;
+    public int next = -1;
+    public float transTimer;
+    public bool transitioning;
 
     [SerializeField] int index;
+    int preIndex;
+
     void Awake()
     {
         if (targetRenderer != null) mat = targetRenderer.material;
@@ -60,32 +62,31 @@ public class GradientRampScroller : MonoBehaviour
         mat.SetTexture(ID_RampA, rampA);
         mat.SetTexture(ID_RampB, rampB);
 
-        // ★ テクセルサイズを渡す（端パディング用）
+        // 端パディング用（使用しているシェーダが受け取る場合）
         mat.SetFloat(Shader.PropertyToID("_RampTexelSize"), 1.0f / rampWidth);
 
         // 初期ループ適用
         BakeGradientTo(rampA, loops[current].gradient);
         ApplyLoopImmediate(loops[current]);
 
-        // 例: Awake/Start のどこかで
         var sh = Shader.Find("Hisa/URP/VerticalScrollGradientRampBlend_DitherEase");
         if (sh == null)
         {
             Debug.LogError("Shader not found in Player! Add it to 'Always Included Shaders'.");
-            enabled = false; // これ以上進まない
+            enabled = false;
             return;
         }
         if (targetRenderer != null)
         {
-            var mat = targetRenderer.sharedMaterial ?? targetRenderer.material;
-            if (mat == null || mat.shader != sh)
+            var m = targetRenderer.sharedMaterial ?? targetRenderer.material;
+            if (m == null || m.shader != sh)
             {
-                mat = new Material(sh);
-                targetRenderer.sharedMaterial = mat;
+                m = new Material(sh);
+                targetRenderer.sharedMaterial = m;
             }
-            // ランプがnullのままにならないよう必ずセット
-            if (!mat.HasTexture("_RampA") || mat.GetTexture("_RampA") == null) mat.SetTexture("_RampA", rampA);
-            if (!mat.HasTexture("_RampB") || mat.GetTexture("_RampB") == null) mat.SetTexture("_RampB", rampB);
+            if (!m.HasTexture("_RampA") || m.GetTexture("_RampA") == null) m.SetTexture("_RampA", rampA);
+            if (!m.HasTexture("_RampB") || m.GetTexture("_RampB") == null) m.SetTexture("_RampB", rampB);
+            mat = m;
         }
     }
 
@@ -100,6 +101,7 @@ public class GradientRampScroller : MonoBehaviour
             transTimer += (transitionTime <= 0f) ? 1f : Time.deltaTime / transitionTime;
             blendT = Mathf.Clamp01(transTimer);
 
+            // スピード/タイル補間
             curSpeed = Mathf.Lerp(fromSpeed, toSpeed, blendT);
             curTiling = Mathf.Lerp(fromTiling, toTiling, blendT);
 
@@ -120,6 +122,12 @@ public class GradientRampScroller : MonoBehaviour
                 current = next;
                 next = -1;
                 transitioning = false;
+
+                // 以後のベース値を確定
+                fromSpeed = toSpeed;
+                fromTiling = toTiling;
+                curSpeed = fromSpeed;
+                curTiling = fromTiling;
             }
         }
         else
@@ -134,26 +142,72 @@ public class GradientRampScroller : MonoBehaviour
             mat.SetFloat(ID_Offset, offset);
             mat.SetFloat(ID_Blend, 0f);
         }
+
+        if (preIndex != index)
+        {
+            preIndex = index;
+            SwitchLoop(index);
+        }
     }
 
     /// <summary>指定ループにフェード切替（再生中に呼んでOK）</summary>
     public void SwitchLoop(int loopIndex)
     {
         if (loopIndex < 0 || loopIndex >= loops.Count) return;
-        if (loopIndex == current) return;
+        if (!transitioning && loopIndex == current) return;
 
-        // 目的ランプをBへベイクしてフェード準備
+        // 目標ランプをBへベイク
         BakeGradientTo(rampB, loops[loopIndex].gradient);
 
-        fromSpeed = curSpeed;
+        // ★ 切替中にさらに切替 => その瞬間の見た目（AとBの合成）をAへ焼き込み、そこから改めてブレンド開始
+        if (transitioning)
+        {
+            FreezeCurrentVisualIntoA();       // A = Lerp(A,B,blendT)
+            fromSpeed = curSpeed;            // いま見えている速度/タイルを“出発点”に
+            fromTiling = curTiling;
+            blendT = 0f;
+            transTimer = 0f;
+            mat.SetFloat(ID_Blend, 0f);
+        }
+        else
+        {
+            // 静止中に切替開始
+            fromSpeed = curSpeed;
+            fromTiling = curTiling;
+            blendT = 0f;
+            transTimer = 0f;
+            mat.SetFloat(ID_Blend, 0f);
+        }
+
         toSpeed = loops[loopIndex].scrollSpeed;
-        fromTiling = curTiling;
         toTiling = loops[loopIndex].tilingY;
 
         next = loopIndex;
-        transTimer = 0f;
-        blendT = 0f;
         transitioning = true;
+        // ※ current はフェード完了時に更新（途中では更新しない）
+        // Debug.Log($"Index {loopIndex} に切り替え開始");
+    }
+
+    /// <summary>
+    /// いま画面に見えている色（AとBのブレンド）をCPUで合成し、Aに焼き込む。
+    /// こうすることで“途中からでも”自然に次へフェードできる。
+    /// </summary>
+    void FreezeCurrentVisualIntoA()
+    {
+        // A, B の画素を読み、Lerp(A,B,blendT) を A に書く
+        var colsA = rampA.GetPixels();
+        var colsB = rampB.GetPixels();
+
+        int n = Mathf.Min(colsA.Length, colsB.Length);
+        for (int i = 0; i < n; i++)
+        {
+            colsA[i] = Color.Lerp(colsA[i], colsB[i], blendT);
+        }
+        rampA.SetPixels(colsA);
+        rampA.Apply(false, false);
+
+        // マテリアル側の A を更新（ID_RampA は常に A）
+        mat.SetTexture(ID_RampA, rampA);
     }
 
     /// <summary>現在ループを即時適用（フェードなし）</summary>
@@ -161,7 +215,7 @@ public class GradientRampScroller : MonoBehaviour
     {
         curSpeed = loop.scrollSpeed;
         curTiling = loop.tilingY;
-        offset = 0f; // 任意。引き継ぎたいなら消す
+        offset = 0f; // 任意。引き継ぎたい場合は消す
 
         BakeGradientTo(rampA, loop.gradient);
         mat.SetTexture(ID_RampA, rampA);
@@ -175,10 +229,10 @@ public class GradientRampScroller : MonoBehaviour
         bool isLinear = (QualitySettings.activeColorSpace == ColorSpace.Linear);
         var tex = new Texture2D(Mathf.Max(2, width), 1,
             TextureFormat.RGBAHalf,  // 量子化を抑える
-            false,                    // mip なし
-            isLinear);                // Linear プロジェクトは true
+            false,
+            isLinear);
         tex.filterMode = FilterMode.Bilinear;
-        tex.wrapMode = TextureWrapMode.Repeat;     // 端は自動で繰り返す
+        tex.wrapMode = TextureWrapMode.Repeat;
         return tex;
     }
 
@@ -188,22 +242,19 @@ public class GradientRampScroller : MonoBehaviour
         bool isLinear = (QualitySettings.activeColorSpace == ColorSpace.Linear);
         var cols = new Color[w];
 
-        for (int x = 0; x < w - 1; x++)              // 最後の1画素は後で埋める
+        for (int x = 0; x < w - 1; x++)
         {
-            float t = ((x + 0.5f) / w);              // [0,1) のテクセル中心
+            float t = ((x + 0.5f) / w);
             Color c = g.Evaluate(t);
             cols[x] = isLinear ? c.linear : c;
         }
-        cols[w - 1] = cols[0];                       // ★ 端の色を一致させる
+        cols[w - 1] = cols[0]; // 端の一致
 
         tex.SetPixels(cols);
         tex.Apply(false, false);
     }
 
-
-
 #if UNITY_EDITOR
-    // インスペクタで Gradient を触ったとき再ベイク
     void OnValidate()
     {
         if (!Application.isPlaying || mat == null || loops.Count == 0 || rampA == null) return;
@@ -213,8 +264,7 @@ public class GradientRampScroller : MonoBehaviour
 #endif
 
     [ContextMenu("色変え")]
-    public void ChangeColor()
-    {
-        SwitchLoop(index);
-    }
+    public void ChangeColor() => SwitchLoop(index);
+
+    public void SetIndex(int set) => index = set;
 }

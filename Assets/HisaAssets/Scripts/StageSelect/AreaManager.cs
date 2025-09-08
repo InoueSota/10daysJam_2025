@@ -243,7 +243,7 @@ public class AreaManager : MonoBehaviour
 
             }
         }
-        g.SaveOverrideDeltaAppend();   // ← 今触った3件“だけ”を書き出し
+        g.SaveOverrideDeltaAppend();   // 書き出し
         g.EndCapture();
 
         // 保存先の実ファイルと中身を確認

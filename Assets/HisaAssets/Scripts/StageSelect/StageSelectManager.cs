@@ -23,7 +23,7 @@ public class StageSelectManager : MonoBehaviour
     // [SerializeField] SpriteRenderer curVisualStageImage;
     //[SerializeField] AmpritudePosition imageAmpritude;
 
-    int curSelectAreaIndex;
+    public int curSelectAreaIndex;
     int preSelectAreaIndex = -1;
 
     bool areaSelect;
@@ -42,6 +42,8 @@ public class StageSelectManager : MonoBehaviour
         SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
         SaveUtil.SetCleared(save, "Area1", "Area1Stage1", ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
         SaveSystem.Save(save, 1);//セーブ
+
+        gradientObj.SetIndex(curSelectAreaIndex);//最後に選択したindexを保存できると良い
     }
 
     // Update is called once per frame
@@ -130,7 +132,7 @@ public class StageSelectManager : MonoBehaviour
 
             preSelectAreaIndex = curSelectAreaIndex;
             areaManagers[curSelectAreaIndex].ClearEffect();
-            gradientObj.SwitchLoop(curSelectAreaIndex);
+            gradientObj.SetIndex(curSelectAreaIndex);
         }
 
         if (Input.GetButtonDown("Select"))
