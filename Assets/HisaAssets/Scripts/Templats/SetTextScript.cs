@@ -85,6 +85,19 @@ public class SetTextScript : MonoBehaviour
         m_Text.color = color;
 
     }
+
+    //c‘‚«
+    public void ToVertical(string text)
+    {
+        // •¶š‚²‚Æ‚É‰üs‚ğ“ü‚ê‚é
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        foreach (char c in text)
+        {
+            sb.Append(c);
+            sb.Append('\n');
+        }
+        m_Text.text = sb.ToString();
+    }
     // Update is called once per frame
     void Update()
     {
