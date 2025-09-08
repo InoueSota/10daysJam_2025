@@ -8,6 +8,7 @@ TagManager:
   - GoalLine
   - DivisionLine
   - Canvas
+  - ParticleParent
   layers:
   - Default
   - TransparentFX
