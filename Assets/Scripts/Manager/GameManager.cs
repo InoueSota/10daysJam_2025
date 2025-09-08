@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
     bool talkEnd;
 
+    //エフェクト
+    [SerializeField] GameObject undoCanvas;
+
     void Start()
     {
         // 自コンポーネントの取得
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         stageName = SceneManager.GetActiveScene().name;
 
-        
+
     }
 
     void Update()
@@ -186,14 +189,18 @@ public class GameManager : MonoBehaviour
     void LateUpdate()
     {
         // Undo
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo")) { uiManager.Reset(); isGoal = false; undoManager.Undo(); }
+        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo"))
+        {
+            uiManager.Reset(); isGoal = false; undoManager.Undo();
+            Instantiate(undoCanvas);
+        }
 
         // Reset
         if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
     }
     void ChangeTalkScene()
     {
-        if (talkSceneName != ""&&!talkEnd)
+        if (talkSceneName != "" && !talkEnd)
         {
             if (changeTalkSceneTime > 0)
             {
@@ -202,8 +209,8 @@ public class GameManager : MonoBehaviour
                 talkEnd = true;
             }
             changeTalkSceneTime += Time.deltaTime;
-           
+
         }
-        
+
     }
 }

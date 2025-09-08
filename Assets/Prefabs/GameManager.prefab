@@ -51,6 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   areaName: 
   stageName: 
+  talkSceneName: 
+  undoCanvas: {fileID: 6280388185270357380, guid: 5919efadcd739784ea41306be991e9bf, type: 3}
 --- !u!114 &2001972069336573037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +124,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseSceneName: PauseScene
   paused: 0
+  nextPauseCT: 0
