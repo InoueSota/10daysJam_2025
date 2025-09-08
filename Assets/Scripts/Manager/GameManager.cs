@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     string connectStage;
 
+    [SerializeField, Header("会話シーンがある場合は名前を入力")] string talkSceneName;
+    float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
+    bool talkEnd;
+
     void Start()
     {
         // 自コンポーネントの取得
@@ -34,11 +38,12 @@ public class GameManager : MonoBehaviour
 
         stageName = SceneManager.GetActiveScene().name;
 
-
+        
     }
 
     void Update()
     {
+        ChangeTalkScene();//会話シーンへの遷移
         // ゴール判定
         CheckGoal();
         SceneChange();
@@ -146,7 +151,7 @@ public class GameManager : MonoBehaviour
         //ポーズ画面を開く
         if (!isGoal && Input.GetButtonDown("Menu"))
         {
-            pauseToggle.Pause();
+            pauseToggle.Pause("PauseScene");
             Debug.Log("バック");
         }
     }
@@ -185,5 +190,20 @@ public class GameManager : MonoBehaviour
 
         // Reset
         if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
+    }
+    void ChangeTalkScene()
+    {
+        if (talkSceneName != ""&&!talkEnd)
+        {
+            if (changeTalkSceneTime > 0)
+            {
+                Debug.Log("会話へ移行");
+                pauseToggle.Pause(talkSceneName);
+                talkEnd = true;
+            }
+            changeTalkSceneTime += Time.deltaTime;
+           
+        }
+        
     }
 }
