@@ -10,6 +10,8 @@ public class GoalManager : MonoBehaviour
 
     // ゴールペアと生成済みラインを管理
     private Dictionary<(GameObject, GameObject), GameObject> goalLines = new();
+    // ゴールのスプライト参照を保持するための辞書
+    private Dictionary<GameObject, int> goalLineRefCount = new Dictionary<GameObject, int>();
 
     private bool completeDelay;
 
@@ -75,6 +77,10 @@ public class GoalManager : MonoBehaviour
                                 goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f);
 
                                 goalLines[key] = goalLineObj;
+
+                                // --- ゴールのスプライトを切り替え ---
+                                UpdateGoalSprite(goals[i], +1);
+                                UpdateGoalSprite(goals[j], +1);
                             }
                         }
                     }
@@ -95,6 +101,10 @@ public class GoalManager : MonoBehaviour
             {
                 Destroy(kvp.Value);
                 toRemove.Add(kvp.Key);
+
+                // --- ゴールのスプライトを元に戻す ---
+                UpdateGoalSprite(goalA, -1);
+                UpdateGoalSprite(goalB, -1);
             }
 
             // 軸が揃っていない場合
@@ -107,6 +117,10 @@ public class GoalManager : MonoBehaviour
             {
                 Destroy(kvp.Value);
                 toRemove.Add(kvp.Key);
+
+                // --- ゴールのスプライトを元に戻す ---
+                UpdateGoalSprite(goalA, -1);
+                UpdateGoalSprite(goalB, -1);
             }
             // 間にブロックがある場合
             else
@@ -127,6 +141,10 @@ public class GoalManager : MonoBehaviour
                 {
                     Destroy(kvp.Value);
                     toRemove.Add(kvp.Key);
+
+                    // --- ゴールのスプライトを元に戻す ---
+                    UpdateGoalSprite(goalA, -1);
+                    UpdateGoalSprite(goalB, -1);
                 }
             }
         }
@@ -143,5 +161,25 @@ public class GoalManager : MonoBehaviour
     {
         // InstanceID を使って大小を判定
         return a.GetInstanceID() < b.GetInstanceID() ? (a, b) : (b, a);
+    }
+
+    // ゴールの参照カウントを更新してスプライトを切り替える
+    private void UpdateGoalSprite(GameObject goal, int delta)
+    {
+        if (goal == null) return;
+
+        if (!goalLineRefCount.ContainsKey(goal))
+            goalLineRefCount[goal] = 0;
+
+        goalLineRefCount[goal] += delta;
+
+        var sr = goal.GetComponent<Animator>();
+        if (sr == null) return;
+
+        bool isLineActive = false;
+
+        if (goalLineRefCount[goal] > 0) { isLineActive = true; }
+
+        sr.SetBool("on", isLineActive);
     }
 }
