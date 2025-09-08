@@ -15,6 +15,7 @@ public class StageSelectManager : MonoBehaviour
     public bool stageChangeFlag;
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
     public float curStageChangeCT;
+    public float sceneChangeCT;
     float inputCoolTime;
     [SerializeField] SmoothDampRotate areaPixelCamera;
 
@@ -163,9 +164,9 @@ public class StageSelectManager : MonoBehaviour
     {
         if (stageChangeFlag) { return; }
 
-        if (curStageChangeCT < 0.5f)
+        if (sceneChangeCT < 0.5f)
         {
-            curStageChangeCT += Time.deltaTime;
+            sceneChangeCT += Time.deltaTime;
             return;
         }
 
@@ -173,6 +174,11 @@ public class StageSelectManager : MonoBehaviour
         //ステージに入る時
         if (!areaSelect)
         {
+            if (curStageChangeCT < 0.5f)
+            {
+                curStageChangeCT += Time.deltaTime;
+                return;
+            }
             if (Input.GetButtonDown("Select"))
             {
                 Debug.Log("セレクト");
@@ -185,6 +191,7 @@ public class StageSelectManager : MonoBehaviour
         else if (Input.GetButtonDown("Back"))
         {
             stageChangeFlag = true;
+            SceneManager.LoadScene("TitleScene");
             Debug.Log("バック");
         }
 
