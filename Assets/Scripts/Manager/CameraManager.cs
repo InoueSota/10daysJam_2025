@@ -46,14 +46,14 @@ public class CameraManager : MonoBehaviour
 
         Vector3 floatPosition = Vector3.zero;
 
-        if (playerManager.GetIsDeath() || (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f))
+        if (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
         {
             floatPosition = originPosition;
         }
         floatPosition.x += Mathf.Cos(rotateValue) * floatRange;
         floatPosition.y += Mathf.Sin(rotateValue * 2f) * floatRange;
 
-        if (!playerManager.GetIsDeath() && (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f))
+        if (Input.GetAxisRaw("Horizontal") != 0f || Input.GetAxisRaw("Vertical") != 0f)
         {
             Vector3 peekPosition = originPosition;
             peekPosition.x += Input.GetAxisRaw("Horizontal") * peekRange;

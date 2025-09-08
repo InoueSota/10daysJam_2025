@@ -301,7 +301,7 @@ public class PlayerController : MonoBehaviour
                         Vector3 viewportPos = Camera.main.WorldToViewportPoint(warp.transform.position);
 
                         // 画面内チェック（0～1の範囲）
-                        if (viewportPos.x >= 0 && viewportPos.x <= 1 && viewportPos.y >= 0 && viewportPos.y <= 1) { warpCount++; }
+                        if (viewportPos.x >= 0 && viewportPos.x <= 0.75f && viewportPos.y >= 0 && viewportPos.y <= 1) { warpCount++; }
                     }
                 }
 
@@ -467,13 +467,13 @@ public class PlayerController : MonoBehaviour
         if (!_isLaserKill)
         {
             // 左
-            if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize, transform.position.y, 0f); }
+            if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize * 0.5f, transform.position.y, 0f); }
             // 右
-            if (_viewPortPos.x > 1) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - halfSize, transform.position.y, 0f); }
+            if (_viewPortPos.x > 0.75f) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0.75f, 0, 0)).x - halfSize * 0.5f, transform.position.y, 0f); }
             // 下
-            if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize, 0f); }
+            if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize * 0.5f, 0f); }
             // 上
-            if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize, 0f); }
+            if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize * 0.5f, 0f); }
         }
         // 重力をなくす
         rbody2D.gravityScale = 0f;

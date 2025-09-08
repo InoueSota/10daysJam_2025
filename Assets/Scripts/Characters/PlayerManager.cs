@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
             Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
 
             // 画面内チェック（0～1の範囲）
-            if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1)
+            if (viewportPos.x < 0 || viewportPos.x > 0.75f || viewportPos.y < 0 || viewportPos.y > 1)
             {
                 SetDeath(viewportPos, false);
             }
