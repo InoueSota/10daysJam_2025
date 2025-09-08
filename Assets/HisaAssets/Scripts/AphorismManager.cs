@@ -25,7 +25,7 @@ public class AphorismManager : MonoBehaviour
 
     [SerializeField] TypewriterEffect[] haikuText;
     public static int index;
-
+    bool sceneChange;
     [SerializeField] GameObject buttonUI;
 
 
@@ -42,14 +42,16 @@ public class AphorismManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (sceneChange) { return; }
         curSceneChangeCT += Time.deltaTime;
         if (curSceneChangeCT> sceneChangeCT)
         {
             buttonUI.SetActive(true);
             if (Input.GetButtonDown("Select"))
             {
+                sceneChange = true;
                 index++;
-                if (index > haikuSets.Count)
+                if (index >= haikuSets.Count)
                 {
                     index= 0;   
                 }
