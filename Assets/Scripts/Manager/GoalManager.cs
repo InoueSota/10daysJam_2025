@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GoalManager : MonoBehaviour
 {
@@ -51,36 +52,45 @@ public class GoalManager : MonoBehaviour
                     if (goals[j] == null || goals[j].activeSelf == false) continue;
                     Vector2 posB = goals[j].transform.position;
 
-                    // 同じX軸またはY軸にいるか判定
+                    // 同じX軸またはY軸にいるか判定 && １マス以上の隙間があるか判定
                     if ((Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y)) && Vector3.Distance(posA, posB) > 1.1f)
                     {
-                        bool noBlock = true;
+                        // 該当Objectの位置をビューポート座標に変換
+                        Vector3 viewportPos1 = Camera.main.WorldToViewportPoint(posA);
+                        Vector3 viewportPos2 = Camera.main.WorldToViewportPoint(posB);
 
-                        foreach (RaycastHit2D hit in Physics2D.RaycastAll(posA, (posB - posA).normalized, Vector3.Distance(posA, posB), groundLayer))
+                        // 画面内チェック（0～1の範囲）
+                        if ((viewportPos1.x >= 0 && viewportPos1.x <= 0.75f && viewportPos1.y >= 0 && viewportPos1.y <= 1) &&
+                            (viewportPos2.x >= 0 && viewportPos2.x <= 0.75f && viewportPos2.y >= 0 && viewportPos2.y <= 1))
                         {
-                            // TagがFieldObjectなら
-                            if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                            bool noBlock = true;
+
+                            foreach (RaycastHit2D hit in Physics2D.RaycastAll(posA, (posB - posA).normalized, Vector3.Distance(posA, posB), groundLayer))
                             {
-                                noBlock = false;
-                                break;
+                                // TagがFieldObjectなら
+                                if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                                {
+                                    noBlock = false;
+                                    break;
+                                }
                             }
-                        }
 
-                        if (noBlock)
-                        {
-                            var key = MakeKey(goals[i], goals[j]);
-
-                            // 線がまだなければ生成
-                            if (!goalLines.ContainsKey(key))
+                            if (noBlock)
                             {
-                                GameObject goalLineObj = Instantiate(goalLinePrefab);
-                                goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f);
+                                var key = MakeKey(goals[i], goals[j]);
 
-                                goalLines[key] = goalLineObj;
+                                // 線がまだなければ生成
+                                if (!goalLines.ContainsKey(key))
+                                {
+                                    GameObject goalLineObj = Instantiate(goalLinePrefab);
+                                    goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f);
 
-                                // --- ゴールのスプライトを切り替え ---
-                                UpdateGoalSprite(goals[i], +1);
-                                UpdateGoalSprite(goals[j], +1);
+                                    goalLines[key] = goalLineObj;
+
+                                    // --- ゴールのスプライトを切り替え ---
+                                    UpdateGoalSprite(goals[i], +1);
+                                    UpdateGoalSprite(goals[j], +1);
+                                }
                             }
                         }
                     }
@@ -122,22 +132,16 @@ public class GoalManager : MonoBehaviour
                 UpdateGoalSprite(goalA, -1);
                 UpdateGoalSprite(goalB, -1);
             }
-            // 間にブロックがある場合
             else
             {
-                bool noBlock = true;
+                // 画面外にいった場合
+                // 該当Objectの位置をビューポート座標に変換
+                Vector3 viewportPos1 = Camera.main.WorldToViewportPoint(posA);
+                Vector3 viewportPos2 = Camera.main.WorldToViewportPoint(posB);
 
-                foreach (RaycastHit2D hit in Physics2D.RaycastAll(posA, (posB - posA).normalized, Vector3.Distance(posA, posB), groundLayer))
-                {
-                    // TagがFieldObjectなら
-                    if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
-                    {
-                        noBlock = false;
-                        break;
-                    }
-                }
-
-                if (!noBlock)
+                // 画面内チェック（0～1の範囲）
+                if ((viewportPos1.x < 0 || viewportPos1.x > 0.75f || viewportPos1.y < 0 || viewportPos1.y > 1) ||
+                    (viewportPos2.x < 0 || viewportPos2.x > 0.75f || viewportPos2.y < 0 || viewportPos2.y > 1))
                 {
                     Destroy(kvp.Value);
                     toRemove.Add(kvp.Key);
@@ -145,6 +149,31 @@ public class GoalManager : MonoBehaviour
                     // --- ゴールのスプライトを元に戻す ---
                     UpdateGoalSprite(goalA, -1);
                     UpdateGoalSprite(goalB, -1);
+                }
+                // 間にブロックがある場合
+                else
+                {
+                    bool noBlock = true;
+
+                    foreach (RaycastHit2D hit in Physics2D.RaycastAll(posA, (posB - posA).normalized, Vector3.Distance(posA, posB), groundLayer))
+                    {
+                        // TagがFieldObjectなら
+                        if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.GOAL)
+                        {
+                            noBlock = false;
+                            break;
+                        }
+                    }
+
+                    if (!noBlock)
+                    {
+                        Destroy(kvp.Value);
+                        toRemove.Add(kvp.Key);
+
+                        // --- ゴールのスプライトを元に戻す ---
+                        UpdateGoalSprite(goalA, -1);
+                        UpdateGoalSprite(goalB, -1);
+                    }
                 }
             }
         }
