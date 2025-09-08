@@ -69,6 +69,7 @@ public class PlayerTarget : MonoBehaviour
         // ”ñ•\Ž¦‚É‚·‚é
         if (!controller.GetJustStanding() || (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) <= 0.5f))
         {
+            targetPosition = transform.position;
             alphaTargetValue = 0f;
         }
         // •\Ž¦‚É‚·‚é
