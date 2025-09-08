@@ -24,7 +24,7 @@ public class PauseToggle : MonoBehaviour
         Time.timeScale = 0f;
 
         // ★ 追加：ゲーム側の MonoBehaviour を停止（必要なければ false）
-        //PauseFreezer.Freeze(pauseSceneName, strict: true);
+        PauseFreezer.Freeze(pauseSceneName, strict: true);
 
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         nextPauseCT = 0.2f;
