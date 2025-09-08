@@ -20,6 +20,9 @@ public class PlayerTarget : MonoBehaviour
     [SerializeField] private float targetPower;
     private Vector3 targetPosition;
 
+    // 半分の大きさ
+    private float halfSize;
+
     /// <summary>
     /// 初期化処理
     /// </summary>
@@ -35,6 +38,8 @@ public class PlayerTarget : MonoBehaviour
         // 目標値の初期化
         alphaTargetValue = 0f;
         targetPosition = transform.position;
+
+        halfSize = transform.localScale.x * 0.5f;
     }
 
     /// <summary>
@@ -136,6 +141,18 @@ public class PlayerTarget : MonoBehaviour
 
             // 予測ボックスをそこに表示
             targetPosition = finalPos;
+        }
+        // 進行方向にブロックが1つもないなら画面端まで飛ばす
+        else if (hit.collider == null)
+        {
+            // 左
+            if (direction.x == -1f) { targetPosition = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize, transform.position.y, 0f); }
+            // 右
+            if (direction.x == 1f) { targetPosition = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0.75f, 0, 0)).x - halfSize, transform.position.y, 0f); }
+            // 上
+            if (direction.y == 1f) { targetPosition = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize, 0f); }
+            // 下
+            if (direction.y == -1f) { targetPosition = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize, 0f); }
         }
     }
 
