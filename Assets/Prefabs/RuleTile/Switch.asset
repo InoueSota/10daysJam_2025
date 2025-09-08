@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: Crab
+  m_Name: Switch
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -8781757214100938709, guid: 3122cac986e14d84db1d5204b9b7e132, type: 3}
-  m_DefaultGameObject: {fileID: 7921618599945661865, guid: 583c2874ee015ee4885ea35cb05fcc5b, type: 3}
+  m_DefaultSprite: {fileID: -5791533861771406970, guid: 41784520dd748544dac8f077873610ac, type: 3}
+  m_DefaultGameObject: {fileID: 7921618599945661865, guid: 869f82c64ebab1549a5cbed31bd0cfbf, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []
