@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     string connectStage;
 
+    [SerializeField, Header("会話シーンがある場合は名前を入力")] string talkSceneName;
+
     void Start()
     {
         // 自コンポーネントの取得
@@ -34,7 +36,11 @@ public class GameManager : MonoBehaviour
 
         stageName = SceneManager.GetActiveScene().name;
 
-
+        if (talkSceneName != "")
+        {
+            Debug.Log("会話へ移行");
+            pauseToggle.Pause(talkSceneName);
+        }
     }
 
     void Update()
