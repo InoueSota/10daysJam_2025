@@ -623,6 +623,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f2d60a923d1ce49a925a2b584498ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  predictionBoxPrefab: {fileID: 7921618599945661865, guid: 59c9510fda1221a48bf61592f0eed9dd, type: 3}
+  alphaChangePower: 12
+  targetPower: 12
 --- !u!95 &6244370603164470395
 Animator:
   serializedVersion: 7

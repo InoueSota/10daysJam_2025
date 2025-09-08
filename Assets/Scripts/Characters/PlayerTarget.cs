@@ -5,56 +5,152 @@ public class PlayerTarget : MonoBehaviour
     // 自コンポーネント
     private PlayerController controller;
 
-    // 目標座標
+    [SerializeField] private LayerMask groundLayer;
+
+    [Header("[Prefab] 予測ボックス")]
+    [SerializeField] private GameObject predictionBoxPrefab;
+    private GameObject predictionBox;
+    private SpriteRenderer predictionBoxRenderer;
+
+    [Header("色変化速度")]
+    [SerializeField] private float alphaChangePower;
+    private float alphaTargetValue;
+
+    [Header("移動速度")]
+    [SerializeField] private float targetPower;
     private Vector3 targetPosition;
 
-    [Header("速度")]
-    [SerializeField] private float targetPower;
-
-    [SerializeField] public LayerMask groundLayer; // 壁や障害物用レイヤー
-    public GameObject predictionBoxPrefab; // 予測ボックス（ゴースト）
-    private GameObject predictionBox;
-
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
     void Start()
     {
         // 自コンポーネントの取得
         controller = GetComponent<PlayerController>();
 
         // ゴースト用オブジェクトを生成して非表示
-        predictionBox = Instantiate(predictionBoxPrefab);
-        predictionBox.SetActive(false);
+        predictionBox = Instantiate(predictionBoxPrefab, transform.position, Quaternion.identity);
+        predictionBoxRenderer = predictionBox.GetComponent<SpriteRenderer>();
+
+        // 目標値の初期化
+        alphaTargetValue = 0f;
+        targetPosition = transform.position;
     }
 
-    public void ShowPrediction(Vector2 direction)
+    /// <summary>
+    /// 更新処理
+    /// </summary>
+    public void ManualUpdate()
+    {
+        // 表示 / 非表示を切り替える
+        ToggleHide();
+        // 表示位置の決定
+        ShowPrediction();
+        // 表示位置に移動
+        PositionUpdate();
+    }
+
+    /// <summary>
+    /// 表示 / 非表示の切り替え
+    /// </summary>
+    void ToggleHide()
+    {
+        // 非表示にする
+        if (!controller.GetJustStanding() || (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.3f && Mathf.Abs(Input.GetAxisRaw("Vertical")) <= 0.3f))
+        {
+            alphaTargetValue = 0f;
+        }
+        // 表示にする
+        else
+        {
+            alphaTargetValue = 1f;
+        }
+
+        // 現在の透明度の取得
+        Color currentColor = predictionBoxRenderer.color;
+
+        // 目標の透明度に変化
+        currentColor.a += (alphaTargetValue - currentColor.a) * (alphaChangePower * Time.deltaTime);
+
+        // SpriteRendererに反映
+        predictionBoxRenderer.color = currentColor;
+    }
+
+    /// <summary>
+    /// 表示位置の決定
+    /// </summary>
+    void ShowPrediction()
     {
         Vector2 start = transform.position;
+        Vector2 direction = Vector2.zero;
+
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.3f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.3f)
+        {
+            // 左右入力の方が上下入力よりも値を上回っているとき
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > Mathf.Abs(Input.GetAxisRaw("Vertical")))
+            {
+                if (Input.GetAxisRaw("Horizontal") > 0f)
+                {
+                    direction.x = 1f;
+                }
+                else
+                {
+                    direction.x = -1f;
+                }
+            }
+            // 上下入力の方が左右入力よりも値を上回っているとき
+            else
+            {
+                if (Input.GetAxisRaw("Vertical") > 0f)
+                {
+                    direction.y = 1f;
+                }
+                else
+                {
+                    direction.y = -1f;
+                }
+            }
+        }
+        else
+        {
+            targetPosition = transform.position;
+        }
 
         // プレイヤーの方向にRayを飛ばす
-        RaycastHit2D hit = Physics2D.Raycast(start, direction, 100f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(start, direction.normalized, 100f, groundLayer);
 
-        if (hit.collider != null)
+        if (hit.collider != null && !hit.collider.GetComponent<AllFieldObjectManager>().GetIsTriggerObject())
         {
-            // 壁の手前に到達する座標を求める
-            Vector2 hitPos = hit.point;
-
-            // --- グリッドにスナップする場合 ---
             // 壁までの距離 -1 マスを考慮
             Vector2 finalPos = hit.collider.transform.position;
             finalPos -= direction; // 1マス手前に調整
 
             // 予測ボックスをそこに表示
-            predictionBox.SetActive(true);
-            predictionBox.transform.position = finalPos;
+            targetPosition = finalPos;
         }
-        else
+        // １マス手前に調整する必要のないものに触れたらその座標にする
+        else if (hit.collider != null && hit.collider.GetComponent<AllFieldObjectManager>().GetIsTriggerObject())
         {
-            // 壁がない場合は非表示
-            predictionBox.SetActive(false);
+            // 壁までの距離
+            Vector2 finalPos = hit.collider.transform.position;
+
+            // 予測ボックスをそこに表示
+            targetPosition = finalPos;
         }
     }
 
-    public void ManualUpdate()
+    /// <summary>
+    /// 表示位置に移動
+    /// </summary>
+    void PositionUpdate()
     {
-        
+        // 現在位置の取得
+        Vector3 currentPosition = predictionBox.transform.position;
+
+        // 目標位置に移動
+        currentPosition += (targetPosition - currentPosition) * (targetPower * Time.deltaTime);
+
+        // Transformに反映
+        predictionBox.transform.position = currentPosition;
     }
 }

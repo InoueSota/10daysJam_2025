@@ -503,6 +503,14 @@ public class PlayerController : MonoBehaviour
     public bool GetIsStacking() { return isStacking; }
     public int GetDirection() { return direction; }
     public GameObject GetWarpObj() { return warpObj; }
+    public bool GetJustStanding()
+    {
+        if (isRocketMoving || isMoving || isStacking || definitelyStack || !IsGrounded())
+        {
+            return false;
+        }
+        return true;
+    }
 
     /// <summary>
     /// “–‚½‚è”»’èŒQ
