@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2001972069336573037}
   - component: {fileID: 3564547265596243519}
   - component: {fileID: 5374692401047146532}
+  - component: {fileID: 1514931745284633043}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -92,3 +93,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   goals: []
+--- !u!114 &1514931745284633043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802900266127030161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766752b978aaf5442a1f122586f6243b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserLinePrefab: {fileID: 7921618599945661865, guid: 9574424cce133674aa302f52f22ef441, type: 3}
+  lasers: []
