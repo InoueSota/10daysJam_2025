@@ -46,10 +46,12 @@ public class PlayerAnimationScript : MonoBehaviour
     [Foldout("ämîF")][SerializeField] bool isCut = false, preIsCut = false;
     float angle = 0f;
     [Foldout("í≤êÆ")][SerializeField] Tween cutTween;
+    bool isDivision = false;
 
     [Foldout("í≤êÆ")][SerializeField] Vector2 screenSize;
 
     Vector3 pos, prePos;
+    bool isCrash = false;
 
     ScissorsScript deathScissors;
 
@@ -190,6 +192,14 @@ public class PlayerAnimationScript : MonoBehaviour
                         else if (direction == 1) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += 0.5f; }
                         else if (direction == 3) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += -0.5f; }
 
+                        if(isDivision == true)
+                        {
+                            if (direction == 1 || direction == 3) pos.y = cut.GetDivisionPosition().y;
+                            else if (direction == 0 || direction == 2) pos.x = cut.GetDivisionPosition().x;
+
+                            isDivision = false;
+                        }
+
                         scissors.transform.position = pos;
 
                         if (direction == 1 || direction == 3) { pos.x += screenSize.x; }
@@ -206,7 +216,6 @@ public class PlayerAnimationScript : MonoBehaviour
                         });
                         spriteScript.SetScissors(false);
                     }
-
 
 
 
@@ -270,7 +279,13 @@ public class PlayerAnimationScript : MonoBehaviour
 
 
     }
-
+    public void SummonScissors()
+    {
+        if (scissors == null)
+        {
+            scissors = Instantiate(scissorsPrefab, this.transform.position, Quaternion.identity);
+        }
+    }
     public void SetCutReady(bool cutReady_) { isCutReady = cutReady_; }
     public void SetDash(bool dash) { isDash = dash; }
 
@@ -278,10 +293,19 @@ public class PlayerAnimationScript : MonoBehaviour
     public  void StartRocket() { animator.SetTrigger("dash"); }
     public void StartCut()
     {
-        animator.SetTrigger("cut");
-        preIsCut = false;
-        isCut = true;
-        cutTween.Kill();
+        if (isCut == false)
+        {
+            SummonScissors();
+            animator.SetTrigger("cut");
+            preIsCut = false;
+            isCut = true;
+            cutTween.Kill();
+        }
+    }
+
+    public void SetDivision(bool division)
+    {
+        isDivision = division;
     }
 
     public void StartDeath()
@@ -355,6 +379,21 @@ public class PlayerAnimationScript : MonoBehaviour
         this.transform.localPosition = Vector3.zero;
         isClear = true;
         animator.SetTrigger("clear");
+    }
+
+    public void CrashCut()
+    {
+        if (isCrash == true)
+        {
+            SetDivision(true);
+            StartCut();
+            isCrash = false;
+        }
+    }
+
+    public void SetCrash(bool crash_)
+    {
+        isCrash = true;
     }
 
     public void Punch()

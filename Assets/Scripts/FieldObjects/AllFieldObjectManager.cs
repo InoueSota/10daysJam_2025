@@ -26,8 +26,14 @@ public class AllFieldObjectManager : MonoBehaviour
     [Header("Hit Layer")]
     [SerializeField] private LayerMask groundLayer;
 
+    PlayerAnimationScript animator;
+    PaperManagerScript paper;
+
     void Start()
     {
+        animator = GameObject.FindGameObjectWithTag("Player").transform.Find("PlayerSprite").gameObject.GetComponent<PlayerAnimationScript>();
+        paper = GameObject.FindGameObjectWithTag("PaperManager").gameObject.GetComponent<PaperManagerScript>();
+
         currentPosition = transform.position;
 
         switch (objectType)
@@ -65,6 +71,8 @@ public class AllFieldObjectManager : MonoBehaviour
                     if ((prePosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= currentPosition.x) ||
                         (currentPosition.x < divisionLine.transform.position.x && divisionLine.transform.position.x <= prePosition.x))
                     {
+                        animator.SetCrash(true);
+                        paper.SetCrash(true);
                         gameObject.SetActive(false);
                     }
                 }
@@ -74,6 +82,8 @@ public class AllFieldObjectManager : MonoBehaviour
                     if ((prePosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= currentPosition.y) ||
                         (currentPosition.y < divisionLine.transform.position.y && divisionLine.transform.position.y <= prePosition.y))
                     {
+                        animator.SetCrash(true);
+                        paper.SetCrash(true);
                         gameObject.SetActive(false);
                     }
                 }
