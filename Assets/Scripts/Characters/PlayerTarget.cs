@@ -67,7 +67,7 @@ public class PlayerTarget : MonoBehaviour
     void ToggleHide()
     {
         // ”ñ•\Ž¦‚É‚·‚é
-        if (!controller.GetJustStanding() || (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.3f && Mathf.Abs(Input.GetAxisRaw("Vertical")) <= 0.3f))
+        if (!controller.GetJustStanding() || (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) <= 0.5f))
         {
             alphaTargetValue = 0f;
         }
@@ -95,7 +95,7 @@ public class PlayerTarget : MonoBehaviour
         Vector2 start = transform.position;
         Vector2 direction = Vector2.zero;
 
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.3f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.3f)
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f)
         {
             // ¶‰E“ü—Í‚Ì•û‚ªã‰º“ü—Í‚æ‚è‚à’l‚ðã‰ñ‚Á‚Ä‚¢‚é‚Æ‚«
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > Mathf.Abs(Input.GetAxisRaw("Vertical")))

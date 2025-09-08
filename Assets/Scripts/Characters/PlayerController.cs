@@ -108,14 +108,22 @@ public class PlayerController : MonoBehaviour
             // 重力を無くす
             rbody2D.gravityScale = 0f;
 
-            // 右方向に入力
-            if (Input.GetAxisRaw("Horizontal") > 0.5f) { rocketVector = Vector3.right; direction = 0; }
-            // 左方向に入力
-            else if (Input.GetAxisRaw("Horizontal") < -0.5f) { rocketVector = Vector3.left; direction = 2; }
-            // 上方向に入力
-            else if (Input.GetAxisRaw("Vertical") > 0.5f) { rocketVector = Vector3.up; direction = 1; }
-            // 下方向に入力
-            else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector = Vector3.down; direction = 3; }
+            // 左右入力の方が上下入力よりも値を上回っているとき
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > Mathf.Abs(Input.GetAxisRaw("Vertical")))
+            {
+                // 右方向に入力
+                if (Input.GetAxisRaw("Horizontal") > 0f) { rocketVector = Vector3.right; direction = 0; }
+                // 左方向に入力
+                else { rocketVector = Vector3.left; direction = 2; }
+            }
+            // 上下入力の方が左右入力よりも値を上回っているとき
+            else
+            {
+                // 上方向に入力
+                if (Input.GetAxisRaw("Vertical") > 0f) { rocketVector = Vector3.up; direction = 1; }
+                // 下方向に入力
+                else { rocketVector = Vector3.down; direction = 3; }
+            }
 
             // ロケットの移動速度を変える
             DOVirtual.Float(0f, rocketMaxSpeed, toMaxSpeedTime, value => { rocketSpeed = value; }).SetEase(Ease.Linear);
@@ -212,8 +220,9 @@ public class PlayerController : MonoBehaviour
         cut.GetObjectTransform(_parentObjectNumber).transform.DOMove(cut.GetObjectTransform(_parentObjectNumber).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
         _movingParent = cut.GetObjectTransform(_parentObjectNumber);
     }
-    void FinishMapMove() {
-        isMoving = false; 
+    void FinishMapMove()
+    {
+        isMoving = false;
         definitelyStack = false;
         animationScript.CrashCut();
         paper.CrashCut();
