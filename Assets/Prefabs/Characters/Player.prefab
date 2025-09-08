@@ -294,6 +294,7 @@ GameObject:
   - component: {fileID: 2735281959320979884}
   - component: {fileID: -6296218169858510744}
   - component: {fileID: 8985779831567453147}
+  - component: {fileID: 743077543219626074}
   - component: {fileID: 6244370603164470395}
   m_Layer: 6
   m_Name: Player
@@ -504,6 +505,18 @@ MonoBehaviour:
   isDivision: 0
   fadePower: 8
   postEffectVolume: {fileID: 0}
+--- !u!114 &743077543219626074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921618599945661865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f2d60a923d1ce49a925a2b584498ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &6244370603164470395
 Animator:
   serializedVersion: 7

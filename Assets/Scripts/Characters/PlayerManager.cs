@@ -5,6 +5,7 @@ public class PlayerManager : MonoBehaviour
     // 自コンポーネント
     private PlayerController controller;
     private PlayerCut cut;
+    private PlayerTarget target;
 
     // 子コンポーネント
     [SerializeField] private DeathEffectSpawner deathEffectSpawner;
@@ -24,6 +25,7 @@ public class PlayerManager : MonoBehaviour
         // 自コンポーネントを取得
         controller = GetComponent<PlayerController>();
         cut = GetComponent<PlayerCut>();
+        target = GetComponent<PlayerTarget>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
@@ -35,6 +37,7 @@ public class PlayerManager : MonoBehaviour
         // スタックしていないときに分断操作可能
         if (!controller.GetIsStacking()) { cut.ManualUpdate(); }
         controller.ManualUpdate();
+        target.ManualUpdate();
 
         // 死亡処理
         DeathChecker();
