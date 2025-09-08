@@ -3874,6 +3874,10 @@ PrefabInstance:
       propertyPath: targetRenderer
       value: 
       objectReference: {fileID: 956516022}
+    - target: {fileID: 1501613521052615598, guid: e6954ed4f34ed65439d04a433dd9f099, type: 3}
+      propertyPath: transitionTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3271131763876242496, guid: e6954ed4f34ed65439d04a433dd9f099, type: 3}
       propertyPath: m_Camera
       value: 
@@ -5689,6 +5693,7 @@ MonoBehaviour:
   selectAnime:
   - {fileID: 1285163041}
   - {fileID: 0}
+  curSelectAreaIndex: 0
   gradientObj: {fileID: 74459464}
 --- !u!4 &1189015377
 Transform:
