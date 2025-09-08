@@ -66,6 +66,27 @@ public class GradientRampScroller : MonoBehaviour
         // 初期ループ適用
         BakeGradientTo(rampA, loops[current].gradient);
         ApplyLoopImmediate(loops[current]);
+
+        // 例: Awake/Start のどこかで
+        var sh = Shader.Find("Hisa/URP/VerticalScrollGradientRampBlend_DitherEase");
+        if (sh == null)
+        {
+            Debug.LogError("Shader not found in Player! Add it to 'Always Included Shaders'.");
+            enabled = false; // これ以上進まない
+            return;
+        }
+        if (targetRenderer != null)
+        {
+            var mat = targetRenderer.sharedMaterial ?? targetRenderer.material;
+            if (mat == null || mat.shader != sh)
+            {
+                mat = new Material(sh);
+                targetRenderer.sharedMaterial = mat;
+            }
+            // ランプがnullのままにならないよう必ずセット
+            if (!mat.HasTexture("_RampA") || mat.GetTexture("_RampA") == null) mat.SetTexture("_RampA", rampA);
+            if (!mat.HasTexture("_RampB") || mat.GetTexture("_RampB") == null) mat.SetTexture("_RampB", rampB);
+        }
     }
 
     void Update()

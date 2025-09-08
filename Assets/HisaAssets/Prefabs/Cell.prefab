@@ -447,9 +447,9 @@ MonoBehaviour:
   stageName: 
   stageImage: {fileID: 0}
   upConnectStage: {fileID: 0}
-  leftConnectStage: {fileID: 0}
   downConnectStage: {fileID: 0}
   rightConnectStage: {fileID: 0}
+  leftConnectStage: {fileID: 0}
   activeObj: {fileID: 5561106965148178232}
   notActiveObj: {fileID: 3258885854269077606}
   clearObj: {fileID: 8894972776364911364}
@@ -1205,23 +1205,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8362762712014045154, guid: a97f4d683f22283488462c9c41ebe2ae, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 8362762712014045154, guid: a97f4d683f22283488462c9c41ebe2ae, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 8362762712014045154, guid: a97f4d683f22283488462c9c41ebe2ae, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 8362762712014045154, guid: a97f4d683f22283488462c9c41ebe2ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.451
+      value: -0.387
       objectReference: {fileID: 0}
     - target: {fileID: 8362762712014045154, guid: a97f4d683f22283488462c9c41ebe2ae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.71
+      value: -0.636
       objectReference: {fileID: 0}
     - target: {fileID: 8362762712014045154, guid: a97f4d683f22283488462c9c41ebe2ae, type: 3}
       propertyPath: m_LocalPosition.z
