@@ -465,7 +465,7 @@ LineRenderer:
   m_SortingOrder: 49
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 4.18, y: 0, z: 1}
+  - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -762,7 +762,7 @@ MonoBehaviour:
   objectParent2: {fileID: 0}
   divisionLineObj: {fileID: 5203099502078435929}
   animationScript: {fileID: 8072642564401454438}
-  isCreateLineStart: 1
+  isCreateLineStart: 0
   isDivision: 0
   fadePower: 8
   postEffectVolume: {fileID: 0}
