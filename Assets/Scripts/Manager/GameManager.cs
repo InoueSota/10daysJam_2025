@@ -90,6 +90,11 @@ public class GameManager : MonoBehaviour
                             goalDirection = GoalDirection.LEFT;
                             controller.SetDirection(0);
                         }
+                        else if (controller.GetRocketVector() == Vector3.up)
+                        {
+                            goalDirection = GoalDirection.DOWN;
+                            controller.SetDirection(1);
+                        }
                     }
                     else
                     {
