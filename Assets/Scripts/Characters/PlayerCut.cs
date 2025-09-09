@@ -116,7 +116,6 @@ public class PlayerCut : MonoBehaviour
                 if (isDivision == true) divisionDeleteFlag = true;
 
                 isDivision = false;
-                isDecision = false;
 
                 isActive = false;
                 divisionLineObj.SetActive(false);
@@ -130,6 +129,7 @@ public class PlayerCut : MonoBehaviour
                     isReleaseStick = false;
                 }
                 targetIntensity = maxIntensity;
+                isDecision = false;
                 isActive = true;
             }
 
@@ -137,9 +137,9 @@ public class PlayerCut : MonoBehaviour
             if (isActive && !isReleaseStick && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f) { isReleaseStick = true; }
 
             // 分断方向の決定
-            if (isActive && isReleaseStick && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.3f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.3f))
+            if (isActive && isReleaseStick && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
             {
-                if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.3f)
+                if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f)
                 {
                     decisionValue.x = Input.GetAxisRaw("Horizontal");
                     decisionValue.y = 0f;
@@ -147,7 +147,7 @@ public class PlayerCut : MonoBehaviour
                     // フラグの更新
                     isDecision = true;
                 }
-                else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.3f)
+                else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f)
                 {
                     decisionValue.x = 0f;
                     decisionValue.y = Input.GetAxisRaw("Vertical");
@@ -158,15 +158,15 @@ public class PlayerCut : MonoBehaviour
             }
 
             // ロケット移動をしておらず、地面に接地している時に分断可能
-            if (isActive && isReleaseStick && isDecision && Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.3f && Mathf.Abs(Input.GetAxisRaw("Vertical")) < 0.3f)
+            if (isActive && isReleaseStick && isDecision && Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) < 0.5f)
             {
                 // まだ分断していなかったら、初分断フラグをtrueにする
                 if (!isDivision) { isDivision = true; }
                 // 分断座標は整数丸めをしたプレイヤー座標
                 if (decisionValue.x < -0.3f) { divisionPosition = new Vector2(Mathf.FloorToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); direction = 2; }
-                if (decisionValue.x > 0.3f)  { divisionPosition = new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); direction = 0; }
+                if (decisionValue.x > 0.3f) { divisionPosition = new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); direction = 0; }
                 if (decisionValue.y < -0.3f) { divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) - 0.5f); direction = 3; }
-                if (decisionValue.y > 0.3f)  { divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) + 0.5f); direction = 1; }
+                if (decisionValue.y > 0.3f) { divisionPosition = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) + 0.5f); direction = 1; }
 
                 // 分断線の再表示
                 if (!divisionLineObj.activeSelf)
@@ -189,14 +189,14 @@ public class PlayerCut : MonoBehaviour
                     // 分断の影響を受けないもの
                     if (fieldObject.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL) { continue; }
 
-                    if (Mathf.Abs(decisionValue.x) > 0.3f)
+                    if (Mathf.Abs(decisionValue.x) > 0.5f)
                     {
                         // 左側
                         if (fieldObject.transform.position.x < divisionPosition.x) { fieldObject.transform.parent = objectParent1; }
                         // 右側
                         else { fieldObject.transform.parent = objectParent2; }
                     }
-                    else if (Mathf.Abs(decisionValue.y) > 0.3f)
+                    else if (Mathf.Abs(decisionValue.y) > 0.5f)
                     {
                         // 上側
                         if (fieldObject.transform.position.y > divisionPosition.y) { fieldObject.transform.parent = objectParent1; }
@@ -233,7 +233,7 @@ public class PlayerCut : MonoBehaviour
     public bool GetIsCreateLineStart() { return isCreateLineStart; }
     public bool GetIsActive() { return isActive; }
     public int GetDirection() { return direction; }
-    
+
     public bool GetDivisionFlag() { if (!divisionFlag) return false; divisionFlag = false; return true; }
     public bool GetDivisionDeleteFlag() { if (!divisionDeleteFlag) return false; divisionDeleteFlag = false; return true; }
 
