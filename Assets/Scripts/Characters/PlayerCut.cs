@@ -6,6 +6,7 @@ public class PlayerCut : MonoBehaviour
 {
     // 自コンポーネント
     private PlayerController controller;
+    private SoundInstantiateScript sound;
 
     // 他コンポーネント
     [SerializeField] private Transform objectParent1;
@@ -60,6 +61,7 @@ public class PlayerCut : MonoBehaviour
     void Start()
     {
         controller = GetComponent<PlayerController>();
+        sound = GetComponent<SoundInstantiateScript>();
 
         // 最初から分断線が配置されているなら、その情報を取得する
         if (isCreateLineStart)
@@ -231,6 +233,15 @@ public class PlayerCut : MonoBehaviour
                 divisionFlag = true;
                 animationScript.StartCut();
 
+                // サウンド
+                if (Random.Range(0, 99) % 8 < 7)
+                {
+                    sound.PlaySound(3, 0.3f);
+                }
+                else
+                {
+                    sound.PlaySound(4, 0.2f);
+                }
             }
 
             // Global Volume
