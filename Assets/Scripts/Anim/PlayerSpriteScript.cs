@@ -30,9 +30,6 @@ public class PlayerSpriteScript : MonoBehaviour
     }
 
     [SerializeField] private AnimationSprite[] animations;
-
-    SoundInstantiateScript sound;
-
     public AnimationSprite? GetAnimationByName(string animName)
     {
         foreach (var anim in animations)
@@ -79,9 +76,6 @@ public class PlayerSpriteScript : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        sound = GetComponent<SoundInstantiateScript>();
-
-        sound.PlaySound(0, 1, 1);
     }
 
     void LateUpdate()
