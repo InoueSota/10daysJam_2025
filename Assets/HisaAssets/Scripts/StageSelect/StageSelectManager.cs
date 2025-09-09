@@ -313,16 +313,16 @@ public class StageSelectManager : MonoBehaviour
     }
 
     [ContextMenu("セーブ削除")]
-    void SaveDelete()
+    public static void SaveDelete()
     {
-        Initalize();
+        //Initalize();
         SaveSystem.Delete(1);
         SceneManager.LoadScene("StageSelectScene");
         
     }
 
     [ContextMenu("エリア開放セーブ削除")]
-    void AreaSaveDelete()
+   public static void AreaSaveDelete()
     {
         PlayerPrefs.DeleteAll();
     }
@@ -348,5 +348,7 @@ public class StageSelectManager : MonoBehaviour
             cellSelectTmp[i] = 0;//ゲームをはじめたてはステージ1を保存する
         }
         curSelectAreaIndex = 0;
+        AreaSaveDelete();
+        SaveDelete();
     }
 }
