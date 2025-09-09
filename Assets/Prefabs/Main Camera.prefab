@@ -147,15 +147,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5466348301700637960}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
-  m_AssetsPPU: 16
-  m_RefResolutionX: 256
-  m_RefResolutionY: 240
+  m_AssetsPPU: 48
+  m_RefResolutionX: 1280
+  m_RefResolutionY: 720
   m_CropFrame: 0
   m_GridSnapping: 1
   m_FilterMode: 0
