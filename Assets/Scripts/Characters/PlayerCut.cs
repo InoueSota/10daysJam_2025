@@ -14,8 +14,8 @@ public class PlayerCut : MonoBehaviour
     [SerializeField] private PlayerAnimationScript animationScript;
 
     // フラグ類
-    private bool isActive;
-    private bool isReleaseStick;
+    [SerializeField] private bool isActive;
+    [SerializeField] private bool isReleaseStick;
     [Header("スタート時から分断線を生成させるか")]
     [SerializeField] private bool isCreateLineStart;
 
@@ -129,7 +129,7 @@ public class PlayerCut : MonoBehaviour
             }
 
             // 指を一度離させる処理
-            if (isActive && !isReleaseStick && Input.GetAxisRaw("Horizontal") == 0f) { isReleaseStick = true; }
+            if (isActive && !isReleaseStick && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f) { isReleaseStick = true; }
 
             // ロケット移動をしておらず、地面に接地している時に分断可能
             if (isActive && isReleaseStick && (Input.GetAxisRaw("Horizontal") < -0.3f || Input.GetAxisRaw("Horizontal") > 0.3f || Input.GetAxisRaw("Vertical") < -0.3f || Input.GetAxisRaw("Vertical") > 0.3f))
