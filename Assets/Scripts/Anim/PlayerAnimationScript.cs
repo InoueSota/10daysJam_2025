@@ -98,6 +98,24 @@ public class PlayerAnimationScript : MonoBehaviour
         preIsDash = !isDash;
         isDash = controller.GetIsRocketMoving();
 
+
+        if (isDeath == false)
+        {
+            if (isCutReady == true)
+            {
+                //カットモード入った時はカットモードのdirection優先
+                direction = cut.GetDirection();
+                controller.SetDirection(direction);
+            }
+            else
+            {
+                //その逆
+                direction = controller.GetDirection();
+                cut.SetDirection(direction);
+            }
+        }
+
+
         if (!gameManager.GetIsGoal() && Input.GetButtonDown("Reset")) Init();
         if (!gameManager.GetIsGoal() && Input.GetButtonDown("Undo")) Init();
 
@@ -137,22 +155,6 @@ public class PlayerAnimationScript : MonoBehaviour
                     this.transform.DOComplete();
                 }
                 preIsHit = isHit;
-            }
-
-            if (isDeath == false)
-            {
-                if (isCutReady == true)
-                {
-                    //カットモード入った時はカットモードのdirection優先
-                    direction = cut.GetDirection();
-                    controller.SetDirection(direction);
-                }
-                else
-                {
-                    //その逆
-                    direction = controller.GetDirection();
-                    cut.SetDirection(direction);
-                }
             }
 
             if (isDash == true)

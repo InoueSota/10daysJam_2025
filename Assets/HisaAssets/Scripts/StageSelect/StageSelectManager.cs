@@ -12,10 +12,8 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] AreaManager[] areaManagers;
     [SerializeField] Transform areaPixelCameraTransform;
 
-    public bool stageChangeFlag;
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
     public float curStageChangeCT;
-    public float sceneChangeCT;
     float inputCoolTime;
     [SerializeField] SmoothDampRotate areaPixelCamera;
 
@@ -33,6 +31,10 @@ public class StageSelectManager : MonoBehaviour
     bool debugActive;
     [SerializeField] GradientRampScroller gradientObj;
 
+    [SerializeField] SceneTransition sceneTransitionPrefab;
+    SceneTransition sceneTransitionObj;
+    bool isSceneChange;
+    float sceneChangeCT;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -99,7 +101,7 @@ public class StageSelectManager : MonoBehaviour
 
     void AreaSelect()
     {
-        if (stageChangeFlag) { return; }
+        if (isSceneChange) { return; }
 
         if (inputDire.x > 0)
         {
@@ -147,7 +149,7 @@ public class StageSelectManager : MonoBehaviour
 
     void StageSelect()
     {
-        if (stageChangeFlag) { return; }
+        if (isSceneChange) { return; }
         if (Input.GetButtonDown("Back"))
         {
             areaSelect = true;
@@ -162,7 +164,7 @@ public class StageSelectManager : MonoBehaviour
 
     void ChangeScene()
     {
-        if (stageChangeFlag) { return; }
+        if (isSceneChange) { return; }
 
         if (sceneChangeCT < 0.5f)
         {
@@ -174,7 +176,7 @@ public class StageSelectManager : MonoBehaviour
         //ステージに入る時
         if (!areaSelect)
         {
-            if (curStageChangeCT < 0.5f)
+            if (curStageChangeCT < 0.2f)
             {
                 curStageChangeCT += Time.deltaTime;
                 return;
@@ -182,16 +184,17 @@ public class StageSelectManager : MonoBehaviour
             if (Input.GetButtonDown("Select"))
             {
                 Debug.Log("セレクト");
-
-                SceneManager.LoadScene(areaManagers[curSelectAreaIndex].GetCellStageName());
-                stageChangeFlag = true;
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition(areaManagers[curSelectAreaIndex].GetCellStageName());
+                isSceneChange = true;
             }
         }
         //ステージ選択画面→タイトルへの遷移
         else if (Input.GetButtonDown("Back"))
         {
-            stageChangeFlag = true;
-            SceneManager.LoadScene("TitleScene");
+            isSceneChange = true;
+            sceneTransitionObj=Instantiate(sceneTransitionPrefab);
+            sceneTransitionObj.StartTransition("TitleScene");
             Debug.Log("バック");
         }
 

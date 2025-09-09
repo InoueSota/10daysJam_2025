@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -15,9 +15,17 @@ public class CrabSpriteScript : MonoBehaviour
     [SerializeField] bool isThrow = false;
     [SerializeField] int firstDirection = 2;
 
+    DivisionLineManager divisionLineManager;
+    PlayerCut cut;
+
+    bool isSleep = false, preIsSleep = false;
+
+    [SerializeField] ParticleSystem sleepParticle;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        cut = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerCut>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
@@ -26,6 +34,8 @@ public class CrabSpriteScript : MonoBehaviour
 
         animator.SetTrigger("directionChange");
         animator.SetInteger("direction", firstDirection);
+        divisionLineManager = GameObject.FindGameObjectWithTag("DivisionLine").GetComponent<DivisionLineManager>();
+        sleepParticle.Stop();
     }
 
     // Update is called once per frame
@@ -36,6 +46,7 @@ public class CrabSpriteScript : MonoBehaviour
         if (Input.GetButtonDown("Reset")) Init();
         if (Input.GetButtonDown("Undo")) Init();
 
+        SleepCheck();
     }
 
     public void StartTheow()
@@ -68,4 +79,48 @@ public class CrabSpriteScript : MonoBehaviour
         else if (direction == 1) sprite.flipY = false;
     }
 
+    private void SleepCheck()
+    {
+        preIsSleep = isSleep;
+        isSleep = false;
+        if (cut.GetIsDivision() == true)
+        {
+            if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL)
+            {
+                if (crab.transform.position.x < divisionLineManager.transform.position.x
+                    && cut.transform.position.x > divisionLineManager.transform.position.x)
+                {
+                    isSleep = true;
+                }
+                else if (crab.transform.position.x > divisionLineManager.transform.position.x
+                    && cut.transform.position.x < divisionLineManager.transform.position.x)
+                {
+                    isSleep = true;
+                }
+            }
+           else if (divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL)
+            {
+                if (crab.transform.position.y < divisionLineManager.transform.position.y &&
+                    cut.transform.position.y > divisionLineManager.transform.position.y)
+                {
+                    isSleep = true;
+                }
+                else if (crab.transform.position.y > divisionLineManager.transform.position.y &&
+                    cut.transform.position.y < divisionLineManager.transform.position.y)
+                {
+                    isSleep = true;
+                }
+            }
+        }
+        animator.SetBool("isSleep", isSleep);
+        if(isSleep == true && preIsSleep == false)
+        {
+            sleepParticle.Play();
+        }
+        else if (isSleep == false && preIsSleep == true)
+        {
+            sleepParticle.Stop();
+            animator.SetTrigger("directionChange");
+        }
+    }
 }

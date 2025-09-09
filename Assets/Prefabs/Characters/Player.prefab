@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2062054235
-  m_SortingLayer: 3
+  m_SortingLayerID: 142250727
+  m_SortingLayer: 2
   m_SortingOrder: 100
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.4392157}
@@ -385,6 +385,7 @@ MonoBehaviour:
   particle:
   - {fileID: 8931023184182260322, guid: 8916fd876e9e7e94a919235096f9513e, type: 3}
   - {fileID: 8931023184182260322, guid: 4ba134455e988684d8092f11d4d49a03, type: 3}
+  - {fileID: 2189628167955767947, guid: 49512eb20f918c1498363faf1cd29989, type: 3}
 --- !u!1 &7920010348234353842
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +763,8 @@ MonoBehaviour:
   objectParent2: {fileID: 0}
   divisionLineObj: {fileID: 5203099502078435929}
   animationScript: {fileID: 8072642564401454438}
+  isActive: 0
+  isReleaseStick: 0
   isCreateLineStart: 0
   isDivision: 0
   fadePower: 8

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     // 他コンポーネント
     private CameraManager cameraManager;
     private UndoManager undoManager;
+    private SunsetManager sunsetManager;
     private DivisionLineManager divisionLineManager;
     [SerializeField] private PlayerAnimationScript animationScript;
     PaperManagerScript paper;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
         // 他コンポーネントを取得
         cameraManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
+        sunsetManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<SunsetManager>();
         divisionLineManager = cut.GetDivisionLineManager();
         paper = GameObject.FindGameObjectWithTag("PaperManager").gameObject.GetComponent<PaperManagerScript>();
     }
@@ -178,12 +180,34 @@ public class PlayerController : MonoBehaviour
                         (transform.position.y > cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
                         MoveObjectTransform(1, ref movingParent);
+
+                        if (transform.position.x < cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL && rocketVector == Vector3.right)
+                        {
+                            animationScript.SetCrash(true);
+                            paper.SetCrash(true);
+                        }
+                        else if (transform.position.y > cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL && rocketVector == Vector3.down)
+                        {
+                            animationScript.SetCrash(true);
+                            paper.SetCrash(true);
+                        }
                     }
                     // 右側 || 下側
                     else if ((transform.position.x >= cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL) ||
                              (transform.position.y <= cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
                         MoveObjectTransform(2, ref movingParent);
+
+                        if (transform.position.x >= cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL && rocketVector == Vector3.left)
+                        {
+                            animationScript.SetCrash(true);
+                            paper.SetCrash(true);
+                        }
+                        else if (transform.position.y <= cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL && rocketVector == Vector3.up)
+                        {
+                            animationScript.SetCrash(true);
+                            paper.SetCrash(true);
+                        }
                     }
                 }
                 // 分断されていない場合
@@ -236,6 +260,12 @@ public class PlayerController : MonoBehaviour
     }
     void FinishMapMove()
     {
+        // Sunsetエリアなら破壊光線を稼働させる
+        if (sunsetManager.GetIsSunsetActive())
+        {
+            sunsetManager.StartDestroyRay(rocketVector.normalized, transform.position, cut.GetIsDivision(), cut.GetDivisionPosition(), (int)divisionLineManager.GetDivisionMode());
+        }
+
         isMoving = false;
         definitelyStack = false;
         animationScript.CrashCut();
@@ -523,9 +553,12 @@ public class PlayerController : MonoBehaviour
         //クリアアニメーション
         animationScript.StartClear();
     }
-    public void SetStacking(bool flag) { isStacking = flag;
+    public void SetStacking(bool flag)
+    {
+        isStacking = flag;
         stackDelay = 0;
     }//スタック時にundoした時に即時にフラグを下ろすため
+
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
     public bool GetIsStacking() { return isStacking; }
@@ -539,6 +572,8 @@ public class PlayerController : MonoBehaviour
         }
         return true;
     }
+    public bool GetIsMoving() { return isMoving; }
+    public Vector3 GetRocketVector() { return rocketVector; }
 
     /// <summary>
     /// 当たり判定群

@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 3413281293876635858}
   - component: {fileID: 1819643673187641633}
   - component: {fileID: 8821004435423093099}
+  - component: {fileID: 1384907802511062611}
   m_Layer: 5
   m_Name: StackCanvas
   m_TagString: Untagged
@@ -319,6 +320,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1384907802511062611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3327001535966130526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22556c01e382993489987abb09ea2085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 1.2
 --- !u!1 &4843441394790813423
 GameObject:
   m_ObjectHideFlags: 0

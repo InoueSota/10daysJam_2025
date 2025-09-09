@@ -1,18 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; // UIç³»ã‚¯ãƒ©ã‚¹å‚ç…§ã®ãŸã‚
 
-/// ƒ|[ƒY‚Å Update ‚ğ~‚ß‚½‚¢‚ÉAƒQ[ƒ€‘¤ƒV[ƒ“‚Ì MonoBehaviour ‚ğˆêŠ‡“€Œ‹/‰ğ“€‚·‚é‹É¬ƒ†[ƒeƒBƒŠƒeƒBB
+/// ãƒãƒ¼ã‚ºã§ Update ã‚’æ­¢ã‚ãŸã„æ™‚ã«ã€ã‚²ãƒ¼ãƒ å´ã‚·ãƒ¼ãƒ³ã® MonoBehaviour ã‚’ä¸€æ‹¬å‡çµ/è§£å‡ã™ã‚‹æ¥µå°ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ã€‚
 public static class PauseFreezer
 {
-    // “€Œ‹‚µ‚½‘ÎÛ‚ÆA“€Œ‹‘O‚Ì enabled ó‘Ô‚ğ‹L˜^
     static readonly List<(MonoBehaviour mb, bool wasEnabled)> _frozen = new();
 
-    /// pauseSceneName: Additive ‚Åd‚Ë‚éƒ|[ƒY—pƒV[ƒ“–¼iƒQ[ƒ€‘¤‚ğ”»•Ê‚·‚é‚½‚ß‚Ég‚¤j
-    /// strict: true ‚È‚çƒQ[ƒ€‘¤ MonoBehaviour ‚ğ enabled=false ‚É‚µ‚Ä Update ‚ğÀ¿’â~
     public static void Freeze(string pauseSceneName, bool strict = true)
     {
-        if (!strict) return; // Time.timeScale=0 ‚¾‚¯‚Å‰^—p‚·‚é‚È‚ç‰½‚à‚µ‚È‚¢
+        if (!strict) return; // Time.timeScale=0 ã ã‘ã§é‹ç”¨ã™ã‚‹ãªã‚‰ä½•ã‚‚ã—ãªã„
 
         _frozen.Clear();
         var gameScene = FindGameScene(pauseSceneName);
@@ -21,34 +19,39 @@ public static class PauseFreezer
         var roots = gameScene.GetRootGameObjects();
         foreach (var go in roots)
         {
-            // ”ñƒAƒNƒeƒBƒu‚àŠÜ‚ß‚ÄE‚¤itruej
             var monos = go.GetComponentsInChildren<MonoBehaviour>(true);
             foreach (var m in monos)
             {
                 if (!m) continue;
-                // Šù‚É–³Œø‚È‚çu–³Œø‚¾‚Á‚½v‚Æ‚¢‚¤–À‚¾‚¯‹L˜^‚µAG‚ç‚È‚¢
+
+                // æ—¢ã«ç„¡åŠ¹ãªã‚‰ã€Œç„¡åŠ¹ã ã£ãŸã€ã¨ã„ã†äº‹å®Ÿã ã‘è¨˜éŒ²
                 if (!m.enabled)
                 {
                     _frozen.Add((m, false));
                     continue;
                 }
-                // ƒ|[ƒY’†‚Å‚à“®‚©‚µ‚½‚¢‚à‚Ì‚ÍœŠO‚µ‚½‚¢ê‡Aˆó—p‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX‚É‚·‚é
+
+                // ãƒãƒ¼ã‚ºä¸­ã‚‚å‹•ã‹ã—ãŸã„å°ï¼ˆä»»æ„ï¼‰
                 if (m is IPauseIgnore) continue;
+
+                // ğŸ¯ UI ç³»ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¯é™¤å¤–
+                if (m is Canvas ||
+                    m is GraphicRaycaster ||
+                    m is CanvasScaler ||
+                    m is Image) continue;
 
                 m.enabled = false;
                 _frozen.Add((m, true));
             }
         }
-        // QlF‚±‚±‚Å‚Í SetActiveScene ‚ÍG‚ç‚È‚¢iUI‚Íƒ|[ƒY‘¤‚Å‘€ìj
         Debug.Log($"[PauseFreezer] Frozen behaviours: {_frozen.Count}");
     }
 
     public static void Thaw()
     {
-        // “€Œ‹‘O‚Ìó‘Ô‚ÉŠmÀ‚É–ß‚·
         foreach (var (mb, wasEnabled) in _frozen)
         {
-            if (mb) mb.enabled = wasEnabled; // ”jŠüÏ‚İ(null)‚ÍƒXƒLƒbƒv
+            if (mb) mb.enabled = wasEnabled;
         }
         _frozen.Clear();
         Debug.Log("[PauseFreezer] Thawed.");
@@ -59,11 +62,11 @@ public static class PauseFreezer
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             var s = SceneManager.GetSceneAt(i);
-            if (s.isLoaded && s.name != pauseSceneName) return s; // PauseScene ˆÈŠO‚ğƒQ[ƒ€‘¤‚Æ‚İ‚È‚·
+            if (s.isLoaded && s.name != pauseSceneName) return s;
         }
         return SceneManager.GetActiveScene();
     }
 }
 
-/// ƒ|[ƒY’†‚à~‚ß‚½‚­‚È‚¢ƒRƒ“ƒ|[ƒlƒ“ƒg‚É•t‚¯‚éˆói”CˆÓj
+/// ãƒãƒ¼ã‚ºä¸­ã‚‚æ­¢ã‚ãŸããªã„ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã«ä»˜ã‘ã‚‹å°ï¼ˆä»»æ„ï¼‰
 public interface IPauseIgnore { }

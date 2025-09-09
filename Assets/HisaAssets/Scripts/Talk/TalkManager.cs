@@ -5,10 +5,14 @@ public class TalkManager : MonoBehaviour
 {
     [Header("ゲーム側と区別するための名前")]
     [SerializeField] string talkSceneName = "TalkScene";
-
     [SerializeField] GameObject[] talkObjs;
     public int curIndex;
     float pushCT;
+
+    public bool talkEnd;
+    public float resumeTime;
+    [SerializeField] Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,6 +27,15 @@ public class TalkManager : MonoBehaviour
     {
         pushCT -= Time.unscaledDeltaTime;
         ChangeTalk();
+
+        if (talkEnd)
+        {
+            resumeTime += Time.unscaledDeltaTime;
+            if (resumeTime > 1) {
+                OnResume();
+            }
+
+        }
     }
 
     void ChangeTalk()
@@ -34,7 +47,9 @@ public class TalkManager : MonoBehaviour
             curIndex++;
             if (curIndex == talkObjs.Length) {
                 //会話終了
-                OnResume();
+                
+                talkEnd = true;
+                animator.SetTrigger("TalkEnd");
             }
             else
             {

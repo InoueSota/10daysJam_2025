@@ -5677,7 +5677,6 @@ MonoBehaviour:
   - {fileID: 1723766951}
   - {fileID: 334106129}
   areaPixelCameraTransform: {fileID: 714845140}
-  stageChangeFlag: 0
   curStageChangeCT: 0
   sceneChangeCT: 0
   areaPixelCamera: {fileID: 714845141}
@@ -5686,6 +5685,7 @@ MonoBehaviour:
   - {fileID: 0}
   curSelectAreaIndex: 0
   gradientObj: {fileID: 74459464}
+  sceneTransitionPrefab: {fileID: 4797439248035837154, guid: 1f39edc61cfb6ba45a62d3dea926acdc, type: 3}
 --- !u!4 &1189015377
 Transform:
   m_ObjectHideFlags: 0
