@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3122cac986e14d84db1d5204b9b7e132
+guid: 89d7e674e16c08945bf2222bfe7faa8b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8781757214100938709
-    second: crab_0
+      213: 2828077047651648745
+    second: Smoke_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,133 +100,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: crab_0
+      name: CutDown_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 4
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b202acd675ee02680800000000000000
-      internalID: -8781757214100938709
+      spriteID: 8074aa54958c6e040800000000000000
+      internalID: 4676645548817270536
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crab_1
+      name: CutDown_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 54f736091816b6f48946624581a44fa2
-      internalID: -1869065184
+      spriteID: da7dcce2a1248dce0800000000000000
+      internalID: -1380280605567297619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crab_2
+      name: CutDown_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 68
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: d4a17559da59d7e4a9c192c4979e1ff8
-      internalID: 455126255
+      spriteID: 535fed78458f14450800000000000000
+      internalID: 6071406814612616501
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crab_3
+      name: CutDown_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 100
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: d76eded5ad53da0419bf073756e6955f
-      internalID: -1936051493
+      spriteID: 0d7d5bca7c19715e0800000000000000
+      internalID: -1938920827777591344
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crab_4
+      name: CutDown_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 132
         y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 25
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: e6bb2ca035db51e4699876a4a2816ae9
-      internalID: 397129601
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: crab_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d15517bb3366dc3408edaeea4ea32627
-      internalID: -1761640386
+      spriteID: e641191c7ae4270a0800000000000000
+      internalID: -6885354397882051474
       vertices: []
       indices: 
       edges: []
@@ -245,12 +223,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      crab_0: -8781757214100938709
-      crab_1: -1869065184
-      crab_2: 455126255
-      crab_3: -1936051493
-      crab_4: 397129601
-      crab_5: -1761640386
+      CutDown_0: 4676645548817270536
+      CutDown_1: -1380280605567297619
+      CutDown_2: 6071406814612616501
+      CutDown_3: -1938920827777591344
+      CutDown_4: -6885354397882051474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
