@@ -139,6 +139,33 @@ public static class SaveUtil
             .Distinct()              // 重複したstageIdを排除
             .Count();
     }
+
+    public static int GetNeighborExistAndClearState(
+        SaveData data,
+        string areaId,
+        string stageId,
+        ClearDirection dir)
+    {
+        // セーブデータから該当ステージを取得
+        var s = data.stages.FirstOrDefault(x => x.areaId == areaId && x.stageId == stageId);
+
+        // データ自体が無ければ「存在しない」扱い
+        if (s == null)
+            return 0;
+
+        // 該当方向のフラグを見る
+        bool cleared = s.clearedByDir[(int)dir];
+
+        // 一度でも到達記録があるか？（=「存在する」扱いにする）
+        bool everTouched = true; // データがある時点で存在はあるとみなす
+
+        if (!everTouched)
+            return 0;
+        else if (cleared)
+            return 2;
+        else
+            return 1;
+    }
 }
 
 // ステージ隣接関係のインターフェース

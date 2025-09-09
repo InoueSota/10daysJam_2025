@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField,Header("俳句を出さない方向")] GoalDirection notHaikuDire=GoalDirection.NONE;
     bool notHaikuFlag;//俳句を出さない方向にクリアした時に特別な処理をする
+    int curAreaIndex;
+    bool newAreaOpen;
 
     void Start()
     {
@@ -110,9 +112,6 @@ public class GameManager : MonoBehaviour
                 // プレイヤーの動きを止める
                 controller.SetStop();
 
-                // UIの更新
-                uiManager.Goal((int)goalDirection);
-                Debug.Log("goalDirection" + goalDirection);
 
                 //俳句を出さない方向でクリアした場合
 
@@ -137,9 +136,13 @@ public class GameManager : MonoBehaviour
                     default:
                         break;
                 }
+
+                uiManager.ClearCanvasActive();
                 if (notHaikuDire == goalDire)
                 {
                     notHaikuFlag = true;
+                    Debug.Log("俳句なし");
+                    uiManager.SetActiveFalseIndex(0);
                 }
 
                 isGoal = true;
@@ -258,19 +261,23 @@ public class GameManager : MonoBehaviour
     void CellActive(GoalDirection goalDirection)
     {
         SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
-
+        int type = 0;
         switch (goalDirection)
         {
             case GoalDirection.LEFT:
+                type=SaveUtil.GetNeighborExistAndClearState(save,areaName,stageName,ClearDirection.Right);
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
                 break;
             case GoalDirection.RIGHT:
+                type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Left);
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Left, true);//エリア1のステージ1を右方向にクリアした
                 break;
             case GoalDirection.UP:
+                type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Down);
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Down, true);//エリア1のステージ1を右方向にクリアした
                 break;
             case GoalDirection.DOWN:
+                type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Up);
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Up, true);//エリア1のステージ1を右方向にクリアした
                 break;
             default:
@@ -280,6 +287,11 @@ public class GameManager : MonoBehaviour
         }
 
         SaveSystem.Save(save, 1);//セーブ
+
+        // UIの更新
+        uiManager.Goal((int)goalDirection, type);
+        Debug.Log("goalDirection" + goalDirection);
+
     }
 
     void LateUpdate()
@@ -356,7 +368,7 @@ public class GameManager : MonoBehaviour
         int areaClearNum= SaveUtil.GetClearedStageCount(saveData,areaName);
 
         string nextArea="";
-        int curAreaIndex = 0;
+        curAreaIndex = 0;
         if (areaName == "Area1")
         {
             curAreaIndex = 0;
@@ -390,4 +402,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public int GetCurAreIndex() { return curAreaIndex; }
+    public int GetStageAreIndex() { return curAreaIndex; }
 }
