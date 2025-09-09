@@ -1036,6 +1036,10 @@ PrefabInstance:
       value: Stage5Objs
       objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageName
+      value: "5_Stage1_\u2606\u2190\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: activeFlag
       value: 1
       objectReference: {fileID: 0}
@@ -1054,7 +1058,7 @@ PrefabInstance:
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1069868515}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: rightConnectStage
       value: 
@@ -1801,7 +1805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_StageLAST\u2190"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -1837,6 +1841,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 386059632}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &386059634 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 386059632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &395810524 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5043910269138359930, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
@@ -1918,7 +1933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage3_\u2606\u2190"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -1927,15 +1942,15 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1069868515}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1794763867}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1275864644}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
@@ -1954,6 +1969,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 452610499}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &452610501 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 452610499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &461309939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3543,9 +3569,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_11
       objectReference: {fileID: 0}
+    - target: {fileID: 4597592581748594964, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage_11LAST\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -3566,7 +3600,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 744695049}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: 11
@@ -3581,6 +3615,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 744166558}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &744166560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 744166558}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &744695047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3635,7 +3680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage5_\u2190\u2192"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -3644,19 +3689,19 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1275864644}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1750925078}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 744166560}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1794763867}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: 5
@@ -3671,6 +3716,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 744695047}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &744695049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 744695047}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &819224822 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
@@ -4971,7 +5027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage2_\u2606\u2606\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -4984,7 +5040,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 452610501}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
@@ -4992,7 +5048,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 180007941}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: 2
@@ -5007,6 +5063,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1069868513}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1069868515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 1069868513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1087133468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5932,7 +5999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage4_\u2606\u2606\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -5945,7 +6012,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 744695049}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
@@ -5953,7 +6020,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 452610501}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: 4
@@ -5968,6 +6035,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1275864642}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1275864644 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 1275864642}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1285163041 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1799116521622631035, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
@@ -6399,9 +6477,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_12
       objectReference: {fileID: 0}
+    - target: {fileID: 4597592581748594964, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: 5_Stage_12LAST
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -6418,7 +6500,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1794763867}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
@@ -6437,6 +6519,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1361591131}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1361591133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 1361591131}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1409628800
 GameObject:
   m_ObjectHideFlags: 0
@@ -7157,7 +7250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage_9\u2190"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -7166,7 +7259,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1750925078}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
@@ -7174,7 +7267,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 386059634}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
@@ -7193,6 +7286,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1732714056}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1732714058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 1732714056}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1740501917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7429,7 +7533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage_8\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -7438,11 +7542,11 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 744695049}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1732714058}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
@@ -7450,7 +7554,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1898730869}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: 8
@@ -7465,6 +7569,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1750925076}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1750925078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 1750925076}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1758630801
 GameObject:
   m_ObjectHideFlags: 0
@@ -7647,7 +7762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage6_\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -7656,19 +7771,19 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 452610501}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1898730869}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 744695049}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1361591133}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
       value: 6
@@ -7683,6 +7798,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1794763865}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1794763867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 1794763865}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1806216252 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
@@ -8009,7 +8135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
-      value: stage1
+      value: "5_Stage_7\u2190"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
@@ -8018,7 +8144,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1794763867}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
@@ -8026,7 +8152,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1750925078}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: rightConnectStage
       value: 
@@ -8045,6 +8171,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
   m_PrefabInstance: {fileID: 1898730867}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1898730869 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+  m_PrefabInstance: {fileID: 1898730867}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1916216833 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 410649460674985577, guid: 8b6e42dc485efd94baf8eefa5b61cc90, type: 3}
