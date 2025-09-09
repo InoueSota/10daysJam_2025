@@ -30,9 +30,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject undoCanvas;
     [SerializeField] GameObject stackCanvas;
     private float stackTime;
+    float stackInstatiateTime;
 
     [SerializeField] SceneTransition sceneTransitionPrefab;
-    [SerializeField] SceneTransition pauseTransitionPrefab;
     SceneTransition sceneTransitionObj;
     bool isSceneChange;
     float sceneChangeCT;
@@ -222,7 +222,20 @@ public class GameManager : MonoBehaviour
         // Reset
         if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
 
+
+        //スタックの処理
+        //少しの間スタックし続けてたら
         if (playerManager.GetIsStack())
+        {
+            stackInstatiateTime += Time.deltaTime;
+            Debug.Log("スタック中");
+        }
+        else
+        {
+            stackInstatiateTime = 0;
+        }
+        //スタック→undoの処理をする
+        if (stackInstatiateTime > 0.2f)
         {
             if (stackTime == 0)
             {
@@ -230,7 +243,8 @@ public class GameManager : MonoBehaviour
             }
             stackTime += Time.deltaTime;
 
-            if (stackTime > 1.3f) {
+            if (stackTime > 1.3f)
+            {
 
                 uiManager.Reset(); isGoal = false; undoManager.Undo();
                 Instantiate(undoCanvas);
