@@ -8,12 +8,12 @@ public class AllFieldObjectManager : MonoBehaviour
         GROUND,
         GOAL,
         BLOCK,
-        SPONGE,
         FRAGILE,
-        WARP,
-        GLASS,
         NAIL,
+        SPONGE,
+        GLASS,
         CRAB,
+        WARP,
         SWITCH,
         LASER
     }

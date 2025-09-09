@@ -745,7 +745,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  crabObj: {fileID: 0}
+  isSunsetStage: 0
+  sunPrefab: {fileID: 7921618599945661865, guid: ec24c7c31cb4fcc4c91e220f6fbdf4db, type: 3}
 --- !u!114 &8985779831567453147
 MonoBehaviour:
   m_ObjectHideFlags: 0
