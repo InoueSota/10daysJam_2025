@@ -9,9 +9,10 @@ public class LaserLineManager : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask characterLayer;
 
+    private GameManager gameManager;
     private float delayTimer;
 
-    public void Initialize(Transform _pointA, Transform _pointB, float alpha)
+    public void Initialize(Transform _pointA, Transform _pointB, float alpha, GameManager _gameManager)
     {
         // LineRendererを追加
         lineRenderer = gameObject.AddComponent<LineRenderer>();
@@ -38,6 +39,8 @@ public class LaserLineManager : MonoBehaviour
         // 透明度の設定
         SetAlpha(alpha);
 
+        gameManager = _gameManager;
+
         // ディレイの初期化
         delayTimer = 0.03f;
     }
@@ -59,7 +62,7 @@ public class LaserLineManager : MonoBehaviour
     void Update()
     {
         delayTimer -= Time.deltaTime;
-        if (Input.GetButtonDown("Undo") || Input.GetButtonDown("Reset")) { delayTimer = 0.03f; }
+        if (gameManager.GetUndoOrReset()) { delayTimer = 0.03f; }
 
         if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); }
 

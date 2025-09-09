@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
 
     // 他コンポーネント
     private UndoManager undoManager;
+    private GameManager gameManager;
     private Camera mainCamera;
 
     [Header("死亡関係")]
@@ -29,6 +30,7 @@ public class PlayerManager : MonoBehaviour
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
+        gameManager = undoManager.transform.GetComponent<GameManager>();
         mainCamera = Camera.main;
     }
 
@@ -87,6 +89,8 @@ public class PlayerManager : MonoBehaviour
     // Setter
     public void SetDeath(Vector3 _freezePosition, bool _isLaserKill)
     {
+        // 判定を取らないようにする
+        gameManager.SetUndoOrReset(true);
         // 死亡箇所にエフェクトを出す
         deathEffectSpawner.SpawnEffect(transform.position);
         // プレイヤーを静止させる
