@@ -201,6 +201,9 @@ public class GameManager : MonoBehaviour
 
                 CellActive(goalDirection);
                 Debug.Log(connectStage);
+
+                //エリア開放する処理
+                AreaOpen();
             }
         }
     }
@@ -342,4 +345,49 @@ public class GameManager : MonoBehaviour
     }
 
     public bool GetIsGoal() { return isGoal; }
+
+
+    //クリア時にエリアのクリア数で次のエリアを開放する
+    void AreaOpen()
+    {
+        if (areaName == "Area5") { return; }//エリア5のときは次が無いので早期リターン
+        SaveData saveData = SaveSystem.Load(1);
+
+        int areaClearNum= SaveUtil.GetClearedStageCount(saveData,areaName);
+
+        string nextArea="";
+        int curAreaIndex = 0;
+        if (areaName == "Area1")
+        {
+            curAreaIndex = 0;
+            nextArea = "Area2";
+        }
+        else if (areaName == "Area2")
+        {
+            curAreaIndex = 2;
+            nextArea = "Area3";
+        }
+        else if (areaName == "Area3")
+        {
+            curAreaIndex = 3;
+            nextArea = "Area4";
+        }
+        else if (areaName == "Area4")
+        {
+            curAreaIndex = 4;
+            nextArea = "Area5";
+        }
+        
+        //このエリアのクリア数が規定の数超えたら次のエリアを開放する
+        if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex])
+        {
+            if (PlayerPrefs.GetInt(nextArea) !=1)//まだエリアを開放してない時
+            {
+                PlayerPrefs.SetInt(nextArea,1);//1を開放状態として扱う
+                PlayerPrefs.Save(); // 明示的に保存
+                Debug.Log("エリアかいほううううううううううううううううううううううううう");
+                //エリア開放フラグをtrueにしてキャンバスの内容を変える
+            }
+        }
+    }
 }

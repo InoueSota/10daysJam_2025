@@ -40,6 +40,10 @@ public class StageSelectManager : MonoBehaviour
     public bool isSceneChange;
     float sceneChangeCT;
 
+    public static int[] areaOpenClearNum=new int[5] { 6, 5, 5, 5, 500 };//エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
+
+    public bool[]areaOpenFlag=new bool[5];
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -72,6 +76,17 @@ public class StageSelectManager : MonoBehaviour
         {
             areaManagers[i].SetSelectSell(cellSelectTmp[i]);//セレクト画面に戻ったら保存したセルに移動させる
         }
+
+        for (int i = 1;i < areaOpenFlag.Length; i++)
+        {
+            string areaName = "Area" + (i+1);
+
+            if (PlayerPrefs.GetInt(areaName) == 1)
+            {
+                areaOpenFlag[i] = true;
+            }
+        }
+        areaOpenFlag[0] = true;//エリア1は最初から開放する
     }
 
     // Update is called once per frame
@@ -275,6 +290,12 @@ public class StageSelectManager : MonoBehaviour
         SaveSystem.Delete(1);
         SceneManager.LoadScene("StageSelectScene");
 
+    }
+
+    [ContextMenu("エリア開放セーブ削除")]
+    void AreaSaveDelete()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     [ContextMenu("StageDateReset")]
