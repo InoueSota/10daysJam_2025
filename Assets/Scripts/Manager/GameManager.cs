@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     //エフェクト
     [SerializeField] GameObject undoCanvas;
     [SerializeField] GameObject stackCanvas;
-    public float stackTime;
+    private float stackTime;
 
     void Start()
     {
@@ -190,6 +190,7 @@ public class GameManager : MonoBehaviour
 
     void LateUpdate()
     {
+        if (isGoal) { return; }
         // Undo
         if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Undo"))
         {
@@ -233,4 +234,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public bool GetIsGoal() { return isGoal; }
 }
