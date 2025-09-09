@@ -451,7 +451,7 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt(nextArea, 1);//1を開放状態として扱う
                 PlayerPrefs.Save(); // 明示的に保存
                 uiManager.AreaOpen();//テキストを表示
-                Debug.Log("エリアかいほううううううううううううううううううううううううう");
+                //Debug.Log("エリアかいほううううううううううううううううううううううううう");
                 //エリア開放フラグをtrueにしてキャンバスの内容を変える
             }
         }
