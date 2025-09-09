@@ -385,6 +385,7 @@ MonoBehaviour:
   particle:
   - {fileID: 8931023184182260322, guid: 8916fd876e9e7e94a919235096f9513e, type: 3}
   - {fileID: 8931023184182260322, guid: 4ba134455e988684d8092f11d4d49a03, type: 3}
+  - {fileID: 2189628167955767947, guid: 49512eb20f918c1498363faf1cd29989, type: 3}
 --- !u!1 &7920010348234353842
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,8 +746,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  isSunsetStage: 0
-  sunPrefab: {fileID: 7921618599945661865, guid: ec24c7c31cb4fcc4c91e220f6fbdf4db, type: 3}
+  crabObj: {fileID: 0}
 --- !u!114 &8985779831567453147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,6 +763,8 @@ MonoBehaviour:
   objectParent2: {fileID: 0}
   divisionLineObj: {fileID: 5203099502078435929}
   animationScript: {fileID: 8072642564401454438}
+  isActive: 0
+  isReleaseStick: 0
   isCreateLineStart: 0
   isDivision: 0
   fadePower: 8
