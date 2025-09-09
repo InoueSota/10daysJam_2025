@@ -504,13 +504,13 @@ public class PlayerController : MonoBehaviour
         if (!_isLaserKill)
         {
             // ç∂
-            if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize * 0.5f, transform.position.y, 0f); }
+            if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize * 1.34f, transform.position.y, 0f); }
             // âE
-            if (_viewPortPos.x > 0.75f) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0.75f, 0, 0)).x - halfSize * 0.5f, transform.position.y, 0f); }
+            if (_viewPortPos.x > 0.75f) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0.75f, 0, 0)).x - halfSize * 1.34f, transform.position.y, 0f); }
             // â∫
-            if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize * 0.5f, 0f); }
+            if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize * 1.34f, 0f); }
             // è„
-            if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize * 0.5f, 0f); }
+            if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize * 1.34f, 0f); }
         }
         // èdóÕÇÇ»Ç≠Ç∑
         rbody2D.gravityScale = 0f;
