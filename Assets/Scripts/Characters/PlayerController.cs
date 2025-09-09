@@ -553,7 +553,9 @@ public class PlayerController : MonoBehaviour
         //クリアアニメーション
         animationScript.StartClear();
     }
-    public void SetStacking(bool flag) { isStacking = flag;
+    public void SetStacking(bool flag)
+    {
+        isStacking = flag;
         stackDelay = 0;
     }//スタック時にundoした時に即時にフラグを下ろすため
 
@@ -570,6 +572,8 @@ public class PlayerController : MonoBehaviour
         }
         return true;
     }
+    public bool GetIsMoving() { return isMoving; }
+    public Vector3 GetRocketVector() { return rocketVector; }
 
     /// <summary>
     /// 当たり判定群

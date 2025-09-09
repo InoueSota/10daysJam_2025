@@ -73,11 +73,34 @@ public class GameManager : MonoBehaviour
             {
                 // プレイヤーからゴール方向を取得する
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
-                if (!player.GetComponent<PlayerController>().GetIsRocketMoving()) { goalDirection = GoalDirection.UP; }
-                else { goalDirection = (GoalDirection)player.GetComponent<PlayerController>().GetDirection(); }
+                PlayerController controller = player.GetComponent<PlayerController>();
+
+                if (!controller.GetIsRocketMoving())
+                {
+                    if (controller.GetIsMoving())
+                    {
+                        // 右壁にぶつかってノックバック
+                        if (controller.GetRocketVector() == Vector3.right)
+                        {
+                            goalDirection = GoalDirection.RIGHT;
+                            controller.SetDirection(2);
+                        }
+                        else if (controller.GetRocketVector() == Vector3.left)
+                        {
+                            goalDirection = GoalDirection.LEFT;
+                            controller.SetDirection(0);
+                        }
+                    }
+                    else
+                    {
+                        goalDirection = GoalDirection.UP;
+                        controller.SetDirection(3);
+                    }
+                }
+                else { goalDirection = (GoalDirection)controller.GetDirection(); }
 
                 // プレイヤーの動きを止める
-                player.GetComponent<PlayerController>().SetStop();
+                controller.SetStop();
 
                 // UIの更新
                 uiManager.Goal((int)goalDirection);
