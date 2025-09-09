@@ -11,12 +11,11 @@ public class PlayerCut : MonoBehaviour
     [SerializeField] private Transform objectParent1;
     [SerializeField] private Transform objectParent2;
     [SerializeField] private GameObject divisionLineObj;
-    private UndoManager undoManager;
     [SerializeField] private PlayerAnimationScript animationScript;
 
     // フラグ類
-    private bool isActive;
-    private bool isReleaseStick;
+    [SerializeField] private bool isActive;
+    [SerializeField] private bool isReleaseStick;
     [Header("スタート時から分断線を生成させるか")]
     [SerializeField] private bool isCreateLineStart;
 
@@ -29,7 +28,7 @@ public class PlayerCut : MonoBehaviour
     [SerializeField] private float fadePower;
     [SerializeField] private Volume postEffectVolume;
     private Vignette vignette;
-    private float maxIntensity = 0.5f;
+    private float maxIntensity = 0.45f;
     private float targetIntensity = 0f;
 
     // アニメーション関連
@@ -41,26 +40,27 @@ public class PlayerCut : MonoBehaviour
     {
         // 分断線の配置フラグを設定
         isDivision = isCreateLineStart;
+
+        // 最初から分断線が配置されているなら、その情報を取得する
+        if (isCreateLineStart)
+        {
+            // 分断線のモードを設定
+            if (divisionLineObj.transform.rotation.z == 0f) { divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.VERTICAL); }
+            else { divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.HORIZONTAL); }
+
+            // 分断座標の設定
+            divisionPosition = divisionLineObj.transform.position;
+        }
     }
 
     void Start()
     {
         controller = GetComponent<PlayerController>();
 
-        // 他コンポーネントを取得
-        undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
-
         // 最初から分断線が配置されているなら、その情報を取得する
         if (isCreateLineStart)
         {
             divisionLineObj.transform.parent = null;
-
-            // 分断線のモードを設定
-            if (divisionLineObj.transform.rotation.z == 0f) { divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.VERTICAL); }
-            else                                            { divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.HORIZONTAL); }
-
-            // 分断座標の設定
-            divisionPosition = divisionLineObj.transform.position;
 
             // 分断処理
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
@@ -129,7 +129,7 @@ public class PlayerCut : MonoBehaviour
             }
 
             // 指を一度離させる処理
-            if (isActive && !isReleaseStick && Input.GetAxisRaw("Horizontal") == 0f) { isReleaseStick = true; }
+            if (isActive && !isReleaseStick && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f) { isReleaseStick = true; }
 
             // ロケット移動をしておらず、地面に接地している時に分断可能
             if (isActive && isReleaseStick && (Input.GetAxisRaw("Horizontal") < -0.3f || Input.GetAxisRaw("Horizontal") > 0.3f || Input.GetAxisRaw("Vertical") < -0.3f || Input.GetAxisRaw("Vertical") > 0.3f))

@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -30,6 +31,8 @@ public class PaperManagerScript : MonoBehaviour
 
     bool divisionFlag = false;
 
+    GameManager gameManager;
+
     void Start()
     {
         playerCut = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerCut>();
@@ -44,6 +47,7 @@ public class PaperManagerScript : MonoBehaviour
 
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
 
+        gameManager=FindFirstObjectByType<GameManager>();
         // 復元完了イベントを購読
         undoManager.OnStateRestored += HandleUndoRestored;
 
@@ -93,7 +97,7 @@ public class PaperManagerScript : MonoBehaviour
         if (isCut)
         {
             // Reset で紙だけ元に戻す
-            if (Input.GetButtonDown("Reset"))
+            if (!gameManager.GetIsGoal()&&Input.GetButtonDown("Reset"))
             {
                 if (effect != null && effect.Length > 0 && effect[0] != null) effect[0].Play();
                 blockOffset[0] = Vector3.zero;

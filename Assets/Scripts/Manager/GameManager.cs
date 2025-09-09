@@ -22,6 +22,21 @@ public class GameManager : MonoBehaviour
 
     string connectStage;
 
+    [SerializeField, Header("会話シーンがある場合は名前を入力")] string talkSceneName;
+    float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
+    bool talkEnd;
+
+    //エフェクト
+    [SerializeField] GameObject undoCanvas;
+    [SerializeField] GameObject stackCanvas;
+    private float stackTime;
+    float stackInstatiateTime;
+
+    [SerializeField] SceneTransition sceneTransitionPrefab;
+    SceneTransition sceneTransitionObj;
+    bool isSceneChange;
+    float sceneChangeCT;
+
     void Start()
     {
         // 自コンポーネントの取得
@@ -39,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        ChangeTalkScene();//会話シーンへの遷移
         // ゴール判定
         CheckGoal();
         SceneChange();
@@ -132,21 +148,36 @@ public class GameManager : MonoBehaviour
 
     void SceneChange()
     {
+        if (isSceneChange) { return; }
+
+        if (sceneChangeCT < 0.5f)
+        {
+            sceneChangeCT += Time.deltaTime;
+            return;
+        }
         if (isGoal && Input.GetButtonDown("Select"))
         {
             if (connectStage != null)
             {
-                SceneManager.LoadScene(connectStage);
+               
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition(connectStage);
+                isSceneChange = true;
             }
             else
             {
-                SceneManager.LoadScene("StageSelectScene");
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition("HaikuScene");
+                isSceneChange = true;
             }
         }
         //ポーズ画面を開く
         if (!isGoal && Input.GetButtonDown("Menu"))
         {
-            pauseToggle.Pause();
+            pauseToggle.Pause("PauseScene");
+            //sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+            //sceneTransitionObj.StartTransition("PauseScene");
+            //isSceneChange = true;
             Debug.Log("バック");
         }
     }
@@ -180,10 +211,64 @@ public class GameManager : MonoBehaviour
 
     void LateUpdate()
     {
+        if (isGoal) { return; }
         // Undo
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Undo")) { uiManager.Reset(); isGoal = false; undoManager.Undo(); }
+        if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Undo"))
+        {
+            uiManager.Reset(); isGoal = false; undoManager.Undo();
+            Instantiate(undoCanvas);
+        }
 
         // Reset
-        if (!playerManager.GetIsDeath() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
+        if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
+
+
+        //スタックの処理
+        //少しの間スタックし続けてたら
+        if (playerManager.GetIsStack())
+        {
+            stackInstatiateTime += Time.deltaTime;
+            Debug.Log("スタック中");
+        }
+        else
+        {
+            stackInstatiateTime = 0;
+        }
+        //スタック→undoの処理をする
+        if (stackInstatiateTime > 0.2f)
+        {
+            if (stackTime == 0)
+            {
+                Instantiate(stackCanvas);
+            }
+            stackTime += Time.deltaTime;
+
+            if (stackTime > 1.3f)
+            {
+
+                uiManager.Reset(); isGoal = false; undoManager.Undo();
+                Instantiate(undoCanvas);
+                stackTime = 0;
+                playerManager.SetStack(false);
+            }
+        }
+
     }
+    void ChangeTalkScene()
+    {
+        if (talkSceneName != "" && !talkEnd)
+        {
+            if (changeTalkSceneTime > 0)
+            {
+                Debug.Log("会話へ移行");
+                pauseToggle.Pause(talkSceneName);
+                talkEnd = true;
+            }
+            changeTalkSceneTime += Time.deltaTime;
+
+        }
+
+    }
+
+    public bool GetIsGoal() { return isGoal; }
 }

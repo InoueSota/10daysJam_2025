@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     // 他コンポーネント
     private CameraManager cameraManager;
     private UndoManager undoManager;
+    private SunsetManager sunsetManager;
     private DivisionLineManager divisionLineManager;
     [SerializeField] private PlayerAnimationScript animationScript;
     PaperManagerScript paper;
@@ -37,6 +38,9 @@ public class PlayerController : MonoBehaviour
     // 蟹パラメータ
     [SerializeField] private GameObject crabObj;
 
+    //スタック検知用パラメーター
+    float stackDelay;//Undoしてすぐにスタック検知をしないようにする
+
     // フラグ
     private bool isRocketMoving;
     private bool isMoving;
@@ -58,6 +62,7 @@ public class PlayerController : MonoBehaviour
         // 他コンポーネントを取得
         cameraManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
+        sunsetManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<SunsetManager>();
         divisionLineManager = cut.GetDivisionLineManager();
         paper = GameObject.FindGameObjectWithTag("PaperManager").gameObject.GetComponent<PaperManagerScript>();
     }
@@ -78,7 +83,18 @@ public class PlayerController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
             if (hit.collider != null
                 && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP
-                && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.CRAB) { isStacking = true; }
+                && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.CRAB)
+            {
+                //undo直後にすぐスタックを検知しないようにする
+                if (stackDelay < 0.1f)
+                {
+                    stackDelay += Time.deltaTime;
+                }
+                else
+                {
+                    isStacking = true;
+                }
+            }
             else { isStacking = false; }
         }
     }
@@ -108,14 +124,22 @@ public class PlayerController : MonoBehaviour
             // 重力を無くす
             rbody2D.gravityScale = 0f;
 
-            // 右方向に入力
-            if (Input.GetAxisRaw("Horizontal") > 0.5f) { rocketVector = Vector3.right; direction = 0; }
-            // 左方向に入力
-            else if (Input.GetAxisRaw("Horizontal") < -0.5f) { rocketVector = Vector3.left; direction = 2; }
-            // 上方向に入力
-            else if (Input.GetAxisRaw("Vertical") > 0.5f) { rocketVector = Vector3.up; direction = 1; }
-            // 下方向に入力
-            else if (Input.GetAxisRaw("Vertical") < -0.5f) { rocketVector = Vector3.down; direction = 3; }
+            // 左右入力の方が上下入力よりも値を上回っているとき
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > Mathf.Abs(Input.GetAxisRaw("Vertical")))
+            {
+                // 右方向に入力
+                if (Input.GetAxisRaw("Horizontal") > 0f) { rocketVector = Vector3.right; direction = 0; }
+                // 左方向に入力
+                else { rocketVector = Vector3.left; direction = 2; }
+            }
+            // 上下入力の方が左右入力よりも値を上回っているとき
+            else
+            {
+                // 上方向に入力
+                if (Input.GetAxisRaw("Vertical") > 0f) { rocketVector = Vector3.up; direction = 1; }
+                // 下方向に入力
+                else { rocketVector = Vector3.down; direction = 3; }
+            }
 
             // ロケットの移動速度を変える
             DOVirtual.Float(0f, rocketMaxSpeed, toMaxSpeedTime, value => { rocketSpeed = value; }).SetEase(Ease.Linear);
@@ -212,8 +236,15 @@ public class PlayerController : MonoBehaviour
         cut.GetObjectTransform(_parentObjectNumber).transform.DOMove(cut.GetObjectTransform(_parentObjectNumber).transform.position + rocketVector.normalized, mapMoveTime).SetEase(Ease.OutSine).OnComplete(FinishMapMove);
         _movingParent = cut.GetObjectTransform(_parentObjectNumber);
     }
-    void FinishMapMove() {
-        isMoving = false; 
+    void FinishMapMove()
+    {
+        // Sunsetエリアなら破壊光線を稼働させる
+        if (sunsetManager.GetIsSunsetActive())
+        {
+            sunsetManager.StartDestroyRay(rocketVector.normalized, transform.position, cut.GetIsDivision(), cut.GetDivisionPosition(), (int)divisionLineManager.GetDivisionMode());
+        }
+
+        isMoving = false;
         definitelyStack = false;
         animationScript.CrashCut();
         paper.CrashCut();
@@ -301,7 +332,7 @@ public class PlayerController : MonoBehaviour
                         Vector3 viewportPos = Camera.main.WorldToViewportPoint(warp.transform.position);
 
                         // 画面内チェック（0～1の範囲）
-                        if (viewportPos.x >= 0 && viewportPos.x <= 1 && viewportPos.y >= 0 && viewportPos.y <= 1) { warpCount++; }
+                        if (viewportPos.x >= 0 && viewportPos.x <= 0.75f && viewportPos.y >= 0 && viewportPos.y <= 1) { warpCount++; }
                     }
                 }
 
@@ -457,21 +488,24 @@ public class PlayerController : MonoBehaviour
         definitelyStack = false;
     }
     public void SetDirection(int direction_) { direction = direction_; }
-    public void SetDeathFreeze(Vector3 _viewPortPos)
+    public void SetDeathFreeze(Vector3 _viewPortPos, bool _isLaserKill)
     {
         // ロケット移動をしていない判定に
         isRocketMoving = false;
         // 移動を無くす
         rbody2D.linearVelocity = Vector2.zero;
         // 座標を調整
-        // 左
-        if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize, transform.position.y, 0f); }
-        // 右
-        if (_viewPortPos.x > 1) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - halfSize, transform.position.y, 0f); }
-        // 下
-        if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize, 0f); }
-        // 上
-        if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize, 0f); }
+        if (!_isLaserKill)
+        {
+            // 左
+            if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize * 0.5f, transform.position.y, 0f); }
+            // 右
+            if (_viewPortPos.x > 0.75f) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0.75f, 0, 0)).x - halfSize * 0.5f, transform.position.y, 0f); }
+            // 下
+            if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize * 0.5f, 0f); }
+            // 上
+            if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize * 0.5f, 0f); }
+        }
         // 重力をなくす
         rbody2D.gravityScale = 0f;
         // 当たり判定を無くす
@@ -497,12 +531,23 @@ public class PlayerController : MonoBehaviour
         //クリアアニメーション
         animationScript.StartClear();
     }
+    public void SetStacking(bool flag) { isStacking = flag;
+        stackDelay = 0;
+    }//スタック時にundoした時に即時にフラグを下ろすため
 
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
     public bool GetIsStacking() { return isStacking; }
     public int GetDirection() { return direction; }
     public GameObject GetWarpObj() { return warpObj; }
+    public bool GetJustStanding()
+    {
+        if (isRocketMoving || isMoving || isStacking || definitelyStack || !IsGrounded())
+        {
+            return false;
+        }
+        return true;
+    }
 
     /// <summary>
     /// 当たり判定群

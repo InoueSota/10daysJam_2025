@@ -8,12 +8,12 @@ public class AllFieldObjectManager : MonoBehaviour
         GROUND,
         GOAL,
         BLOCK,
-        SPONGE,
         FRAGILE,
-        WARP,
-        GLASS,
         NAIL,
+        SPONGE,
+        GLASS,
         CRAB,
+        WARP,
         SWITCH,
         LASER
     }
@@ -121,6 +121,14 @@ public class AllFieldObjectManager : MonoBehaviour
             return false;
         }
         return true;
+    }
+    public bool GetIsTriggerObject()
+    {
+        if (objectType == ObjectType.WARP || objectType == ObjectType.CRAB)
+        {
+            return true;
+        }
+        return false;
     }
 
     // Getter

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1269014400309920890}
   - component: {fileID: 3713591662222833979}
   m_Layer: 0
-  m_Name: ClearEffect
+  m_Name: StageSelectClearEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

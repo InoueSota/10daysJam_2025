@@ -5,6 +5,7 @@ public class PlayerManager : MonoBehaviour
     // 自コンポーネント
     private PlayerController controller;
     private PlayerCut cut;
+    private PlayerTarget target;
 
     // 子コンポーネント
     [SerializeField] private DeathEffectSpawner deathEffectSpawner;
@@ -24,6 +25,7 @@ public class PlayerManager : MonoBehaviour
         // 自コンポーネントを取得
         controller = GetComponent<PlayerController>();
         cut = GetComponent<PlayerCut>();
+        target = GetComponent<PlayerTarget>();
 
         // 他コンポーネントを取得
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
@@ -35,6 +37,7 @@ public class PlayerManager : MonoBehaviour
         // スタックしていないときに分断操作可能
         if (!controller.GetIsStacking()) { cut.ManualUpdate(); }
         controller.ManualUpdate();
+        target.ManualUpdate();
 
         // 死亡処理
         DeathChecker();
@@ -51,18 +54,9 @@ public class PlayerManager : MonoBehaviour
             Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
 
             // 画面内チェック（0～1の範囲）
-            if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1)
+            if (viewportPos.x < 0 || viewportPos.x > 0.75f || viewportPos.y < 0 || viewportPos.y > 1)
             {
-                // 死亡箇所にエフェクトを出す
-                deathEffectSpawner.SpawnEffect(transform.position);
-                // プレイヤーを静止させる
-                controller.SetDeathFreeze(viewportPos);
-                // インターバルの設定
-                deathTimer = deathTime;
-                // フラグの切り替え
-                isDeath = true;
-                //アニメーショントリガー
-                animationScript.StartDeath();
+                SetDeath(viewportPos, false);
             }
         }
         else
@@ -86,6 +80,24 @@ public class PlayerManager : MonoBehaviour
 
     // Getter
     public bool GetIsDeath() { return isDeath; }
-
     public float GetDeathTime() { return deathTime; }
+
+    public bool GetIsStack() { return controller.GetIsStacking(); }
+
+    // Setter
+    public void SetDeath(Vector3 _freezePosition, bool _isLaserKill)
+    {
+        // 死亡箇所にエフェクトを出す
+        deathEffectSpawner.SpawnEffect(transform.position);
+        // プレイヤーを静止させる
+        controller.SetDeathFreeze(_freezePosition, _isLaserKill);
+        // インターバルの設定
+        deathTimer = deathTime;
+        // フラグの切り替え
+        isDeath = true;
+        //アニメーショントリガー
+        animationScript.StartDeath();
+    }
+
+    public void SetStack(bool flag) { controller.SetStacking(flag); }
 }

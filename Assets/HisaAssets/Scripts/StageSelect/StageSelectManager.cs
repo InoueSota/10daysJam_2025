@@ -12,7 +12,6 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] AreaManager[] areaManagers;
     [SerializeField] Transform areaPixelCameraTransform;
 
-    public bool stageChangeFlag;
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
     public float curStageChangeCT;
     float inputCoolTime;
@@ -23,7 +22,7 @@ public class StageSelectManager : MonoBehaviour
     // [SerializeField] SpriteRenderer curVisualStageImage;
     //[SerializeField] AmpritudePosition imageAmpritude;
 
-    int curSelectAreaIndex;
+    public int curSelectAreaIndex;
     int preSelectAreaIndex = -1;
 
     bool areaSelect;
@@ -32,6 +31,10 @@ public class StageSelectManager : MonoBehaviour
     bool debugActive;
     [SerializeField] GradientRampScroller gradientObj;
 
+    [SerializeField] SceneTransition sceneTransitionPrefab;
+    SceneTransition sceneTransitionObj;
+    bool isSceneChange;
+    float sceneChangeCT;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,6 +45,8 @@ public class StageSelectManager : MonoBehaviour
         SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
         SaveUtil.SetCleared(save, "Area1", "Area1Stage1", ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
         SaveSystem.Save(save, 1);//セーブ
+
+        gradientObj.SetIndex(curSelectAreaIndex);//最後に選択したindexを保存できると良い
     }
 
     // Update is called once per frame
@@ -96,7 +101,7 @@ public class StageSelectManager : MonoBehaviour
 
     void AreaSelect()
     {
-        if (stageChangeFlag) { return; }
+        if (isSceneChange) { return; }
 
         if (inputDire.x > 0)
         {
@@ -130,7 +135,7 @@ public class StageSelectManager : MonoBehaviour
 
             preSelectAreaIndex = curSelectAreaIndex;
             areaManagers[curSelectAreaIndex].ClearEffect();
-            gradientObj.SwitchLoop(curSelectAreaIndex);
+            gradientObj.SetIndex(curSelectAreaIndex);
         }
 
         if (Input.GetButtonDown("Select"))
@@ -144,7 +149,7 @@ public class StageSelectManager : MonoBehaviour
 
     void StageSelect()
     {
-        if (stageChangeFlag) { return; }
+        if (isSceneChange) { return; }
         if (Input.GetButtonDown("Back"))
         {
             areaSelect = true;
@@ -159,11 +164,11 @@ public class StageSelectManager : MonoBehaviour
 
     void ChangeScene()
     {
-        if (stageChangeFlag) { return; }
+        if (isSceneChange) { return; }
 
-        if (curStageChangeCT < 0.5f)
+        if (sceneChangeCT < 0.5f)
         {
-            curStageChangeCT += Time.deltaTime;
+            sceneChangeCT += Time.deltaTime;
             return;
         }
 
@@ -171,18 +176,25 @@ public class StageSelectManager : MonoBehaviour
         //ステージに入る時
         if (!areaSelect)
         {
+            if (curStageChangeCT < 0.2f)
+            {
+                curStageChangeCT += Time.deltaTime;
+                return;
+            }
             if (Input.GetButtonDown("Select"))
             {
                 Debug.Log("セレクト");
-
-                SceneManager.LoadScene(areaManagers[curSelectAreaIndex].GetCellStageName());
-                stageChangeFlag = true;
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition(areaManagers[curSelectAreaIndex].GetCellStageName());
+                isSceneChange = true;
             }
         }
         //ステージ選択画面→タイトルへの遷移
         else if (Input.GetButtonDown("Back"))
         {
-            stageChangeFlag = true;
+            isSceneChange = true;
+            sceneTransitionObj=Instantiate(sceneTransitionPrefab);
+            sceneTransitionObj.StartTransition("TitleScene");
             Debug.Log("バック");
         }
 
