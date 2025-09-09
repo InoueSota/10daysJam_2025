@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
 
 public class LaserLineManager : MonoBehaviour
 {
@@ -9,6 +8,8 @@ public class LaserLineManager : MonoBehaviour
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask characterLayer;
+
+    private bool completeDelay;
 
     public void Initialize(Transform _pointA, Transform _pointB, float alpha)
     {
@@ -36,6 +37,9 @@ public class LaserLineManager : MonoBehaviour
 
         // 透明度の設定
         SetAlpha(alpha);
+
+        // フラグの初期化
+        completeDelay = true;
     }
     public void SetAlpha(float alpha)
     {
@@ -54,27 +58,33 @@ public class LaserLineManager : MonoBehaviour
 
     void Update()
     {
+        if (!completeDelay) { completeDelay = true; }
+        if (Input.GetButtonDown("Reset")) { completeDelay = false; }
+
         if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); }
 
         // 2点間を設定
         lineRenderer.SetPosition(0, pointA.position);
         lineRenderer.SetPosition(1, pointB.position);
 
-        foreach (RaycastHit2D hit in Physics2D.LinecastAll(pointA.position, pointB.position, groundLayer))
+        if (completeDelay)
         {
-            // TagがFieldObjectなら
-            if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.LASER)
+            foreach (RaycastHit2D hit in Physics2D.LinecastAll(pointA.position, pointB.position, groundLayer))
             {
-                hit.collider.gameObject.SetActive(false);
+                // TagがFieldObjectなら
+                if (hit && hit.collider.gameObject.CompareTag("FieldObject") && hit.collider.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.LASER)
+                {
+                    hit.collider.gameObject.SetActive(false);
+                }
             }
-        }
 
-        // プレイヤーが触れたか判定
-        RaycastHit2D hitP = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);
+            // プレイヤーが触れたか判定
+            RaycastHit2D hitP = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);
 
-        if (hitP.collider != null)
-        {
-            hitP.collider.GetComponent<PlayerManager>().SetDeath(hitP.point, true);
+            if (hitP.collider != null)
+            {
+                hitP.collider.GetComponent<PlayerManager>().SetDeath(hitP.point, true);
+            }
         }
     }
 }

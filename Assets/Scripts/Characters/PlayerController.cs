@@ -84,7 +84,9 @@ public class PlayerController : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
 
-            AllFieldObjectManager hitManager = hit.transform.GetComponent<AllFieldObjectManager>();
+            AllFieldObjectManager hitManager = null;
+
+            if (hit.collider != null) { hitManager = hit.transform.GetComponent<AllFieldObjectManager>(); }
 
             if (hit.collider != null
                 && hitManager.GetObjectType() != AllFieldObjectManager.ObjectType.WARP
