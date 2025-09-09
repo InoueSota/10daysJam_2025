@@ -13,29 +13,66 @@ public class PauseController : MonoBehaviour
     public Vector2 inputDire;
     float inputCoolTime;
     bool select;
+
+    float inputDelay;
+    bool isResume;
+    public float resumeTime;
+
+    [SerializeField] Animator[] animators;
+    [SerializeField] Animator canvasAnime;
+    [SerializeField] SceneTransition sceneTransitionPrefab;
+    SceneTransition sceneTransition;
+
+
     void Start()
     {
         // PauseScene が Additive でロードされた時点で呼ばれる
         Time.timeScale = 0f;
         // PauseFreezer.Freeze(pauseSceneName, strict: true);
+        animators[0].SetBool("Select", true);
+
     }
 
     private void Update()
     {
+        if (inputDelay < 0.8f)
+        {
+            inputDelay += Time.unscaledDeltaTime;
+            return; 
+        }
+
+        if (isResume) {
+
+            resumeTime += Time.unscaledDeltaTime;
+
+            if (resumeTime > 0.533f)
+            {
+                OnResume();
+            }
+            return;
+
+
+        }
+
         InputDire();
-        debugText.SetText(index);
+        //debugText.SetText(index);
 
         if (change) {return; }
         if (inputDire.y < 0)
         {
+            animators[index].SetBool("Select", false);
             index++;
 
             if (index >= 3) { index = 0; }
+            animators[index].SetBool("Select", true);
         }
         else if (inputDire.y > 0)
         {
+            animators[index].SetBool("Select", false);
+
             index--;
             if (index < 0) { index = 2; }
+            animators[index].SetBool("Select", true);
 
         }
         SelectMode();
@@ -66,7 +103,12 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 1f;
 
         var game = FindGameScene();
-        if (game.IsValid()) SceneManager.LoadScene(game.name, LoadSceneMode.Single);
+        if (game.IsValid())
+        {
+            sceneTransition = Instantiate(sceneTransitionPrefab);
+            sceneTransition.StartTransition(game.name);
+            //SceneManager.LoadScene(game.name, LoadSceneMode.Single);
+        }
     }
 
     // 「セレクト画面に戻る」
@@ -75,7 +117,9 @@ public class PauseController : MonoBehaviour
     {
         //PauseFreezer.Thaw();
         Time.timeScale = 1f;
-        SceneManager.LoadScene(selectSceneName, LoadSceneMode.Single);
+        sceneTransition = Instantiate(sceneTransitionPrefab);
+        sceneTransition.StartTransition(selectSceneName);
+        //SceneManager.LoadScene(selectSceneName, LoadSceneMode.Single);
     }
 
     // === ゲームシーンを見つけるヘルパー ===
@@ -99,8 +143,8 @@ public class PauseController : MonoBehaviour
             //ゲームに戻る
             if (index == 0)
             {
-                OnResume();
-
+                isResume = true;
+                canvasAnime.SetTrigger("PauseOut");
             }
             //ステージをリセットする
             else if (index == 1)
@@ -119,7 +163,9 @@ public class PauseController : MonoBehaviour
         {
             change = true;
             //ゲームに戻る
-            OnResume();
+            isResume = true;
+            canvasAnime.SetTrigger("PauseOut");
+            // OnResume();
         }
     }
 
