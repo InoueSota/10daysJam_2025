@@ -97,7 +97,10 @@ public class PlayerController : MonoBehaviour
                     isStacking = true;
                 }
             }
-            else { isStacking = false; }
+            else
+            {
+                isStacking = false;
+            }
         }
     }
     void FixedUpdate()
@@ -263,7 +266,7 @@ public class PlayerController : MonoBehaviour
     void FinishMapMove()
     {
         // SunsetƒGƒŠƒA‚È‚ç”j‰óŒõü‚ğ‰Ò“­‚³‚¹‚é
-        if (sunsetManager.GetIsSunsetActive())
+        if (!definitelyStack && sunsetManager.GetIsSunsetActive())
         {
             sunsetManager.StartDestroyRay(rocketVector.normalized, transform.position, cut.GetIsDivision(), cut.GetDivisionPosition(), (int)divisionLineManager.GetDivisionMode());
         }
