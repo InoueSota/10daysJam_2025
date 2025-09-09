@@ -237,7 +237,8 @@ MonoBehaviour:
   normalMessage: UNDO
   rareMessages:
   - UNCHI
-  rareChance: 0.1
+  - UNKO
+  rareChance: 0.03
 --- !u!1 &8153287854378887390
 GameObject:
   m_ObjectHideFlags: 0

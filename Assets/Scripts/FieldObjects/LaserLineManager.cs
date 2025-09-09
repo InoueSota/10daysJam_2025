@@ -9,7 +9,7 @@ public class LaserLineManager : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask characterLayer;
 
-    private bool completeDelay;
+    private float delayTimer;
 
     public void Initialize(Transform _pointA, Transform _pointB, float alpha)
     {
@@ -38,8 +38,8 @@ public class LaserLineManager : MonoBehaviour
         // 透明度の設定
         SetAlpha(alpha);
 
-        // フラグの初期化
-        completeDelay = true;
+        // ディレイの初期化
+        delayTimer = 0.03f;
     }
     public void SetAlpha(float alpha)
     {
@@ -58,8 +58,8 @@ public class LaserLineManager : MonoBehaviour
 
     void Update()
     {
-        if (!completeDelay) { completeDelay = true; }
-        if (Input.GetButtonDown("Reset")) { completeDelay = false; }
+        delayTimer -= Time.deltaTime;
+        if (Input.GetButtonDown("Undo") || Input.GetButtonDown("Reset")) { delayTimer = 0.03f; }
 
         if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); }
 
@@ -67,7 +67,7 @@ public class LaserLineManager : MonoBehaviour
         lineRenderer.SetPosition(0, pointA.position);
         lineRenderer.SetPosition(1, pointB.position);
 
-        if (completeDelay)
+        if (delayTimer <= 0f)
         {
             foreach (RaycastHit2D hit in Physics2D.LinecastAll(pointA.position, pointB.position, groundLayer))
             {

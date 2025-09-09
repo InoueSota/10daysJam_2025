@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     int curSelectIndex;//0次へ1やりなおす2セレクトへ
     int preSlectIndex;
     float inputDelay;
+    [SerializeField] Text areaOpenTexts;
 
     void Start()
     {
@@ -203,6 +204,11 @@ public class UIManager : MonoBehaviour
     }
 
     public int GetCurSelectIndex() { return curSelectIndex; }
+
+    public void SetAreaOpenText(int areOpenIndex)
+    {
+        areaOpenTexts.text = "エリア" + areOpenIndex + "が開放した!";
+    }
 
 
 }
