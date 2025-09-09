@@ -52,6 +52,13 @@ public class GameSceneInputUI : MonoBehaviour
         {
             controllerUIs[4].Release();
         }
-
+        if (Input.GetButtonDown("Cancel"))
+        {
+            controllerUIs[5].Push();
+        }
+        else if (Input.GetButtonUp("Cancel"))
+        {
+            controllerUIs[5].Release();
+        }
     }
 }

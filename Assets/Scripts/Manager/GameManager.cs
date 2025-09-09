@@ -404,6 +404,10 @@ public class GameManager : MonoBehaviour
 
     public bool GetIsGoal() { return isGoal; }
 
+    public string GetAreaName()
+    {
+        return areaName;
+    }
 
     //クリア時にエリアのクリア数で次のエリアを開放する
     void AreaOpen()

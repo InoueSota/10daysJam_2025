@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static TilemapManager;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class TilemapManager : MonoBehaviour
         Normal,
         Cardboard,
     }
+
+    GameManager gameManager;
 
     [SerializeField] BlockType blockType;
     // タイルマップを走査して int[,] に変換
@@ -103,6 +106,12 @@ public class TilemapManager : MonoBehaviour
         if (page1Renderer) { page1Renderer.enabled = false; }
         if (page2Renderer) { page2Renderer.enabled = false; }
          if (page3Renderer) { page3Renderer.enabled = false; }
+
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+
+        string areaName = gameManager.GetAreaName();
+        if (areaName == "Area1") blockType = BlockType.Normal;
+        else if (areaName == "Area2") blockType = BlockType.Cardboard;
 
         SaveTilemapToArrayAutoBounds();
 

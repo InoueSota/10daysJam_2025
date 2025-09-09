@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     float stackDelay;//Undoしてすぐにスタック検知をしないようにする
 
     // フラグ
+    private bool isReleaseA;
     private bool isRocketMoving;
     private bool isMoving;
     private bool isWarping;
@@ -72,7 +73,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!isStacking && !definitelyStack)
         {
-            Debug.Log("プレイヤーコントローラーupdate");
             // 左右移動処理
             MoveUpdate();
             // 頭突き処理
@@ -114,9 +114,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void MoveUpdate()
     {
+        if (!isReleaseA && !Input.GetButton("Jump")) { isReleaseA = true; }
+
         if (!isRocketMoving) { rbody2D.linearVelocity = new Vector2(0f, rbody2D.linearVelocity.y); }
 
-        if (!isRocketMoving && !isMoving && !isWarping && IsGrounded() && !cut.GetIsActive() && Input.GetButtonDown("Jump") &&
+        if (!isRocketMoving && isReleaseA && !isMoving && !isWarping && IsGrounded() && !cut.GetIsActive() && Input.GetButton("Jump") &&
             (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             // 座標を丸める
@@ -156,6 +158,7 @@ public class PlayerController : MonoBehaviour
             // フラグの変更
             isMoving = true;
             isRocketMoving = true;
+            isReleaseA = false;
 
             //アニメーショントリガー
             animationScript.StartRocket();
@@ -504,13 +507,13 @@ public class PlayerController : MonoBehaviour
         if (!_isLaserKill)
         {
             // 左
-            if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize * 0.5f, transform.position.y, 0f); }
+            if (_viewPortPos.x < 0) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize * 1.34f, transform.position.y, 0f); }
             // 右
-            if (_viewPortPos.x > 0.75f) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0.75f, 0, 0)).x - halfSize * 0.5f, transform.position.y, 0f); }
+            if (_viewPortPos.x > 0.75f) { transform.position = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0.75f, 0, 0)).x - halfSize * 1.34f, transform.position.y, 0f); }
             // 下
-            if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize * 0.5f, 0f); }
+            if (_viewPortPos.y < 0) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + halfSize * 1.34f, 0f); }
             // 上
-            if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize * 0.5f, 0f); }
+            if (_viewPortPos.y > 1) { transform.position = new Vector3(transform.position.x, Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - halfSize * 1.34f, 0f); }
         }
         // 重力をなくす
         rbody2D.gravityScale = 0f;
