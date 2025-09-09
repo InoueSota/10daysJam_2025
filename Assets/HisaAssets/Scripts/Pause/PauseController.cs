@@ -10,7 +10,9 @@ public class PauseController : MonoBehaviour
     [SerializeField] SetTextScript debugText;
     [SerializeField] int index;
     public bool change;
-
+    public Vector2 inputDire;
+    float inputCoolTime;
+    bool select;
     void Start()
     {
         // PauseScene が Additive でロードされた時点で呼ばれる
@@ -20,19 +22,21 @@ public class PauseController : MonoBehaviour
 
     private void Update()
     {
+        InputDire();
         debugText.SetText(index);
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (change) {return; }
+        if (inputDire.y < 0)
         {
             index++;
 
             if (index >= 3) { index = 0; }
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (inputDire.y > 0)
         {
             index--;
-
             if (index < 0) { index = 2; }
+
         }
         SelectMode();
 
@@ -111,11 +115,39 @@ public class PauseController : MonoBehaviour
             }
         }
 
-        if (!change && Input.GetButtonDown("Back"))
+        if (!change && Input.GetButtonDown("Menu"))
         {
             change = true;
             //ゲームに戻る
             OnResume();
         }
+    }
+
+    void InputDire()
+    {
+        inputDire.x = Input.GetAxisRaw("Horizontal");
+        inputDire.y = Input.GetAxisRaw("Vertical");
+
+        if (inputCoolTime > 0)
+        {
+            inputCoolTime -= Time.unscaledDeltaTime;
+
+
+            //ボタン連打で動けるようにする
+            if (inputDire.magnitude <= 0)
+            {
+                inputCoolTime = 0;
+
+            }
+            inputDire = Vector2.zero;
+            return;
+        }
+
+        if (inputDire.magnitude > 0)
+        {
+            inputCoolTime = 0.3f;
+        }
+
+
     }
 }

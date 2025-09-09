@@ -16,6 +16,9 @@ public class AreaManager : MonoBehaviour
     public List<StageCell> cells = new List<StageCell>();
     [SerializeField] GameObject trophyObj;
     [SerializeField] SetTextScript claerNumText;
+
+    
+
     public int GetClearStageNum()
     {
         int clearStage = 0;
@@ -34,8 +37,8 @@ public class AreaManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        curSelectStage.GetSetActive = true;
-        curSelectStage.SetSelectObj(false);
+        //curSelectStage.GetSetActive = true;
+        //curSelectStage.SetSelectObj(false);
         curVisualStageImage.sprite = curSelectStage.GetStageImage();
 
         for (int i = 0; i < cellParent.childCount; i++)
@@ -70,6 +73,15 @@ public class AreaManager : MonoBehaviour
         //curVisualStageImage.sprite = curSelectStage.GetStageImage();
     }
 
+    public int GetSelectSell() { return cells.IndexOf(curSelectStage); }
+    public StageCell GetSelectSell(int index) { return cells[index]; }
+    public void SetSelectSell(int index) { 
+
+        curSelectStage = cells[index];
+        cameraFollow.SetTarget(curSelectStage.transform);
+        curVisualStageImage.sprite = curSelectStage.GetStageImage();
+        imageAmpritude.EaseStart();
+    }
     //directionの方向のセルがnullじゃないかつ、起動状態ならステージ選択できるようにする
     void SelectCell(StageDirection direction)
     {
