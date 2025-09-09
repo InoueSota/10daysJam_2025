@@ -17,21 +17,27 @@ public class TilemapManager : MonoBehaviour
 
     [SerializeField] Sprite[] blocks;
     [SerializeField] Sprite[] blocks_Cardboard;
+    [SerializeField] Sprite[] blocks_Aquarium;
+    [SerializeField] Sprite[] blocks_Neon;
     int maxX = 0;
     int maxY = 0;
 
     private int[,] grid;
 
+    [SerializeField] Material[] materials;
+
     public enum TileType
     {
         empty = 0,
         ground = 1,
-        block = 2
+        block = 2,
     }
     public enum BlockType
     {
         Normal,
         Cardboard,
+        Aquarium,
+        Neon
     }
 
     GameManager gameManager;
@@ -112,6 +118,9 @@ public class TilemapManager : MonoBehaviour
         string areaName = gameManager.GetAreaName();
         if (areaName == "Area1") blockType = BlockType.Normal;
         else if (areaName == "Area2") blockType = BlockType.Cardboard;
+        else if (areaName == "Area3") blockType = BlockType.Aquarium;
+        else if (areaName == "Area5") blockType = BlockType.Neon;
+        else blockType = BlockType.Normal;
 
         SaveTilemapToArrayAutoBounds();
 
@@ -129,6 +138,12 @@ public class TilemapManager : MonoBehaviour
 
                     if (blockType == BlockType.Normal) blockSprite.sprite = blocks[blockNum];
                     else if (blockType == BlockType.Cardboard) blockSprite.sprite = blocks_Cardboard[blockNum];
+                    else if (blockType == BlockType.Aquarium) blockSprite.sprite = blocks_Aquarium[blockNum];
+                    else if (blockType == BlockType.Neon)
+                    {
+                        blockSprite.sprite = blocks_Neon[blockNum];
+                        blockSprite.material = materials[0];
+                    }
 
                 }
             }
