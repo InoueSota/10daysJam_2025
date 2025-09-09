@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     // 蟹パラメータ
     [SerializeField] private GameObject crabObj;
 
+    //スタック検知用パラメーター
+    float stackDelay;//Undoしてすぐにスタック検知をしないようにする
+
     // フラグ
     private bool isRocketMoving;
     private bool isMoving;
@@ -78,7 +81,18 @@ public class PlayerController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
             if (hit.collider != null
                 && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP
-                && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.CRAB) { isStacking = true; }
+                && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.CRAB)
+            {
+                //undo直後にすぐスタックを検知しないようにする
+                if (stackDelay < 0.1f)
+                {
+                    stackDelay += Time.deltaTime;
+                }
+                else
+                {
+                    isStacking = true;
+                }
+            }
             else { isStacking = false; }
         }
     }
@@ -509,7 +523,9 @@ public class PlayerController : MonoBehaviour
         //クリアアニメーション
         animationScript.StartClear();
     }
-
+    public void SetStacking(bool flag) { isStacking = flag;
+        stackDelay = 0;
+    }//スタック時にundoした時に即時にフラグを下ろすため
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
     public bool GetIsStacking() { return isStacking; }

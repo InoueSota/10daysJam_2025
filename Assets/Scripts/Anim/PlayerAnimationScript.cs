@@ -1,4 +1,5 @@
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -64,6 +65,7 @@ public class PlayerAnimationScript : MonoBehaviour
     bool isClearShot = false;
     [Foldout("‰Ô‰Î")] [SerializeField]  private float[] clearChargeStats;
 
+    GameManager gameManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -82,7 +84,9 @@ public class PlayerAnimationScript : MonoBehaviour
 
         undoManager = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<UndoManager>();
 
-        if(cut.GetIsCreateLineStart()) spriteScript.SetScissors(false); 
+        if(cut.GetIsCreateLineStart()) spriteScript.SetScissors(false);
+
+        gameManager=FindFirstObjectByType<GameManager>();
     }
 
     // Update is called once per frame
@@ -94,8 +98,8 @@ public class PlayerAnimationScript : MonoBehaviour
         preIsDash = !isDash;
         isDash = controller.GetIsRocketMoving();
 
-        if (Input.GetButtonDown("Reset")) Init();
-        if (Input.GetButtonDown("Undo")) Init();
+        if (!gameManager.GetIsGoal() && Input.GetButtonDown("Reset")) Init();
+        if (!gameManager.GetIsGoal() && Input.GetButtonDown("Undo")) Init();
 
         if (isClear == false)
         {
