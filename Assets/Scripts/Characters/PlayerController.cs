@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -306,35 +307,20 @@ public class PlayerController : MonoBehaviour
     }
     public bool IsHeadbutt()
     {
-        // 現在位置を反映
-        Vector3 currentOnePosition = transform.position;
-        Vector3 currentTwoPosition = transform.position;
-        AdjustRayPosition(ref currentOnePosition, true);
-        AdjustRayPosition(ref currentTwoPosition, false);
-
         // Rayの生成
-        RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.45f, groundLayer);
-        RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.45f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, rocketVector.normalized, 0.45f, groundLayer);
 
-        return HeadbuttChecker(leftHit, rightHit);
+        return HeadbuttChecker(hit);
     }
-    void AdjustRayPosition(ref Vector3 _position, bool _isOne)
-    {
-        // ずらす
-        if (Mathf.Abs(rocketVector.x) > 0f && _isOne) { _position.y -= halfSize; }
-        else if (Mathf.Abs(rocketVector.x) > 0f && !_isOne) { _position.y -= halfSize; }
-        else if (Mathf.Abs(rocketVector.y) > 0f && _isOne) { _position.x -= halfSize; }
-        else if (Mathf.Abs(rocketVector.y) > 0f && !_isOne) { _position.x += halfSize; }
-    }
-    bool HeadbuttChecker(RaycastHit2D _leftHit, RaycastHit2D _rightHit)
+    bool HeadbuttChecker(RaycastHit2D _hit)
     {
         // RayがgroundLayerに衝突していたら接地判定はtrueを返す
-        if (_leftHit.collider != null || _rightHit.collider != null)
+        if (_hit.collider != null)
         {
             GameObject hitObj = null;
 
-            if (_leftHit.collider != null) { hitAllFieldObjectManager = _leftHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = _leftHit.collider.gameObject; }
-            if (_rightHit.collider != null) { hitAllFieldObjectManager = _rightHit.collider.GetComponent<AllFieldObjectManager>(); hitObj = _rightHit.collider.gameObject; }
+            hitAllFieldObjectManager = _hit.collider.GetComponent<AllFieldObjectManager>();
+            hitObj = _hit.collider.gameObject;
 
             // 当たったブロック単体に起こす処理
             if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.FRAGILE)
@@ -366,20 +352,20 @@ public class PlayerController : MonoBehaviour
                         return false;
                     }
 
-                    // 現在位置を反映
-                    Vector3 currentOnePosition = transform.position + (rocketVector * 0.8f);
-                    Vector3 currentTwoPosition = transform.position + (rocketVector * 0.8f);
-                    AdjustRayPosition(ref currentOnePosition, true);
-                    AdjustRayPosition(ref currentTwoPosition, false);
-
                     // Rayの生成
-                    RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.2f, groundLayer);
-                    RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.2f, groundLayer);
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position + (rocketVector * 0.8f), rocketVector.normalized, 0.2f, groundLayer);
 
-                    return HeadbuttChecker(leftHit, rightHit);
+                    return HeadbuttChecker(hit);
                 }
                 else
                 {
+                    if (Vector3.Distance(transform.position, hitObj.transform.position) < 0.1f)
+                    {
+                        // Rayの生成
+                        RaycastHit2D hit = Physics2D.Raycast(hitObj.transform.position + (rocketVector * 0.8f), rocketVector.normalized, 0.2f, groundLayer);
+
+                        return HeadbuttChecker(hit);
+                    }
                     return false;
                 }
             }
@@ -396,17 +382,10 @@ public class PlayerController : MonoBehaviour
                     return false;
                 }
 
-                // 現在位置を反映
-                Vector3 currentOnePosition = transform.position + (rocketVector * 0.8f);
-                Vector3 currentTwoPosition = transform.position + (rocketVector * 0.8f);
-                AdjustRayPosition(ref currentOnePosition, true);
-                AdjustRayPosition(ref currentTwoPosition, false);
-
                 // Rayの生成
-                RaycastHit2D leftHit = Physics2D.Raycast(currentOnePosition, rocketVector.normalized, 0.2f, groundLayer);
-                RaycastHit2D rightHit = Physics2D.Raycast(currentTwoPosition, rocketVector.normalized, 0.2f, groundLayer);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position + (rocketVector * 0.8f), rocketVector.normalized, 0.2f, groundLayer);
 
-                return HeadbuttChecker(leftHit, rightHit);
+                return HeadbuttChecker(hit);
             }
             return true;
         }
@@ -588,7 +567,25 @@ public class PlayerController : MonoBehaviour
             {
                 if (!isRocketMoving && collision.gameObject != warpObj)
                 {
-                    WarpInitialize(collision.gameObject, ref warpPosition, ref warpObj);
+                    // Warpがステージに２つ以上あれば判定を行う
+                    int warpCount = 0;
+
+                    foreach (GameObject warp in GameObject.FindGameObjectsWithTag("FieldObject"))
+                    {
+                        if (warp.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
+                        {
+                            // 該当Objectの位置をビューポート座標に変換
+                            Vector3 viewportPos = Camera.main.WorldToViewportPoint(warp.transform.position);
+
+                            // 画面内チェック（0～1の範囲）
+                            if (viewportPos.x >= 0 && viewportPos.x <= 0.75f && viewportPos.y >= 0 && viewportPos.y <= 1) { warpCount++; }
+                        }
+                    }
+
+                    if (1 < warpCount)
+                    {
+                        WarpInitialize(collision.gameObject, ref warpPosition, ref warpObj);
+                    }
                 }
             }
             else if (collision.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.CRAB)
