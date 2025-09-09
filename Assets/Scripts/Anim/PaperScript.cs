@@ -15,7 +15,9 @@ public class PaperScript : MonoBehaviour
         GameManager gameManager = FindFirstObjectByType<GameManager>();
 
         string areaName = gameManager.GetAreaName();
-        if (areaName == "Area2") spriteRenderer.sprite = sprite[0];
+        if (areaName == "Area2") spriteRenderer.sprite = sprite[1];
+        else if (areaName == "Area3") spriteRenderer.sprite = sprite[2];
+        else if (areaName == "Area4") spriteRenderer.sprite = sprite[3];
     }
 
     // Update is called once per frame

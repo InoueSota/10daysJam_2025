@@ -32,6 +32,7 @@ public class PaperManagerScript : MonoBehaviour
     bool divisionFlag = false;
 
     GameManager gameManager;
+    [SerializeField] GameObject sunPrefab;
 
     void Start()
     {
@@ -54,6 +55,11 @@ public class PaperManagerScript : MonoBehaviour
         if (playerCut.GetIsCreateLineStart())
         {
             divisionFlag = true;
+        }
+
+        if(gameManager.GetAreaName() == "Area4")
+        {
+            Instantiate(sunPrefab, new Vector3(0f, -0.5f,0f), Quaternion.identity);
         }
     }
 
