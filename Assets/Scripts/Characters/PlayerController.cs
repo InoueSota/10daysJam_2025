@@ -180,12 +180,34 @@ public class PlayerController : MonoBehaviour
                         (transform.position.y > cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
                         MoveObjectTransform(1, ref movingParent);
+
+                        if (transform.position.x < cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL && rocketVector == Vector3.right)
+                        {
+                            animationScript.SetCrash(true);
+                            paper.SetCrash(true);
+                        }
+                        else if (transform.position.y > cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL && rocketVector == Vector3.down)
+                        {
+                            animationScript.SetCrash(true);
+                            paper.SetCrash(true);
+                        }
                     }
                     // ‰E‘¤ || ‰º‘¤
                     else if ((transform.position.x >= cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL) ||
                              (transform.position.y <= cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL))
                     {
                         MoveObjectTransform(2, ref movingParent);
+
+                        if (transform.position.x >= cut.GetDivisionPosition().x && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.VERTICAL && rocketVector == Vector3.left)
+                        {
+                            animationScript.SetCrash(true);
+                            paper.SetCrash(true);
+                        }
+                        else if (transform.position.y <= cut.GetDivisionPosition().y && divisionLineManager.GetDivisionMode() == DivisionLineManager.DivisionMode.HORIZONTAL && rocketVector == Vector3.up)
+                        {
+                            animationScript.SetCrash(true);
+                            paper.SetCrash(true);
+                        }
                     }
                 }
                 // •ª’f‚³‚ê‚Ä‚¢‚È‚¢ê‡
