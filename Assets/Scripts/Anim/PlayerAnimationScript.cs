@@ -66,6 +66,9 @@ public class PlayerAnimationScript : MonoBehaviour
     [Foldout("‰Ô‰Î")] [SerializeField]  private float[] clearChargeStats;
 
     GameManager gameManager;
+
+    [SerializeField] ParticleSystem dashSmokeParticle;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -95,7 +98,7 @@ public class PlayerAnimationScript : MonoBehaviour
 
         Vector3 cameraPos = Camera.main.transform.position;
 
-        preIsDash = !isDash;
+        preIsDash = isDash;
         isDash = controller.GetIsRocketMoving();
 
 
@@ -148,7 +151,14 @@ public class PlayerAnimationScript : MonoBehaviour
                             this.transform.localPosition = Vector3.zero;
                         });
                     }
+
+                    float rad = Mathf.Deg2Rad * direction * 90f;
+
+                    Vector3 particlePos = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad),0f) * 1f;
+
+                    particle.RunParticle(3, this.transform.position + particlePos);
                 }
+
 
                 if (isCutReady == true || isDeath == true)
                 {
@@ -161,10 +171,17 @@ public class PlayerAnimationScript : MonoBehaviour
             {
                 dashRot += Time.deltaTime * dashFlowSpeed;
                 this.transform.localPosition = Vector3.up * Mathf.Sin(dashRot * Mathf.Deg2Rad) * dashFlowMulti + Vector3.right * Mathf.Cos(dashRot * Mathf.Deg2Rad) * dashFlowMulti;
+                if (preIsDash == false)
+                {
+                    dashSmokeParticle.Play();
+                    particle.RunParticle(2, this.transform.position, Vector3.forward * direction * 90f);
+                    Debug.Log(direction);
+                }
             }
             else if (preIsDash == true && isDash == false)
             {
                 dashRot = 0;
+                dashSmokeParticle.Stop();
                 //this.transform.localPosition = Vector3.zero;
             }
 

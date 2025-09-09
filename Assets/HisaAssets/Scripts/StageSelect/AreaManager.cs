@@ -263,5 +263,7 @@ public class AreaManager : MonoBehaviour
     {
         return curSelectStage.GetStageName();
     } 
+
+
     
 }
