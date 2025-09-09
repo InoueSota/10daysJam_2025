@@ -94,6 +94,7 @@ public class PlayerCut : MonoBehaviour
         // 最初から分断線が配置されているときは分断線の操作は不可能にする
         if (!isCreateLineStart)
         {
+            Debug.Log("PlayerCutUpdate");
             // 分断線の削除
             if (Input.GetButtonDown("Cancel") || (isActive && Input.GetButtonDown("Special")))
             {

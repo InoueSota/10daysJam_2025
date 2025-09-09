@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
     //エフェクト
     [SerializeField] GameObject undoCanvas;
     [SerializeField] GameObject stackCanvas;
-    float stackTime;
-    bool isStacking;
+    public float stackTime;
+    public float stackInstatiateTime;
 
     [SerializeField] SceneTransition sceneTransitionPrefab;
     SceneTransition sceneTransitionObj;
@@ -255,12 +255,16 @@ public class GameManager : MonoBehaviour
         //少しの間スタックし続けてたら
         if (playerManager.GetIsStack())
         {
-            isStacking = true;
+            stackInstatiateTime += Time.deltaTime;
             Debug.Log("スタック中");
         }
-
+        else
+        {
+            Debug.Log("スタック解除");
+            stackInstatiateTime = 0;
+        }
         //スタック→undoの処理をする
-        if (isStacking)
+        if (stackInstatiateTime > 0.4f)
         {
             if (stackTime == 0)
             {
@@ -274,7 +278,6 @@ public class GameManager : MonoBehaviour
                 uiManager.Reset(); isGoal = false; undoManager.Undo();
                 Instantiate(undoCanvas);
                 stackTime = 0;
-                isStacking = false;
                 playerManager.SetStack(false);
             }
         }
