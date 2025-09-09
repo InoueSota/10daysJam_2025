@@ -236,8 +236,8 @@ MonoBehaviour:
   targetText: {fileID: 2428221730827056627}
   normalMessage: UNDO
   rareMessages:
-  - UNNTI
-  rareChance: 0.103
+  - UNCHI
+  rareChance: 0.1
 --- !u!1 &8153287854378887390
 GameObject:
   m_ObjectHideFlags: 0

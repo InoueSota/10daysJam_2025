@@ -32,6 +32,7 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] GradientRampScroller gradientObj;
 
     [SerializeField] SceneTransition sceneTransitionPrefab;
+    [SerializeField] SceneTransition gameStartTransitionPrefab;
     SceneTransition sceneTransitionObj;
     bool isSceneChange;
     float sceneChangeCT;
@@ -184,8 +185,10 @@ public class StageSelectManager : MonoBehaviour
             if (Input.GetButtonDown("Select"))
             {
                 Debug.Log("セレクト");
-                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj = Instantiate(gameStartTransitionPrefab);
                 sceneTransitionObj.StartTransition(areaManagers[curSelectAreaIndex].GetCellStageName());
+                areaManagers[curSelectAreaIndex].AreaSelectAnime("GameStart");//次のアニメーションは再生する
+
                 isSceneChange = true;
             }
         }
