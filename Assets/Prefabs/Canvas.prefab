@@ -120,9 +120,9 @@ MonoBehaviour:
   groupAfterGoal: {fileID: 5144017559996299821}
   goalDirectionT: {fileID: 4188786461521496469}
   clearSelectTexts:
-  - {fileID: 7513857612538823251}
-  - {fileID: 5657873157586499642}
-  - {fileID: 6217354143223695920}
+  - {fileID: 6246535979617988127}
+  - {fileID: 8858352981044595321}
+  - {fileID: 7271945105778589009}
   areaOpenText: {fileID: 4182070320392093679}
 --- !u!1 &5049742874314752235
 GameObject:
@@ -326,19 +326,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6421534546086806241, guid: 2ae47dbd2706be84288fd576f61635e6, type: 3}
   m_PrefabInstance: {fileID: 1314408112863061989}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5657873157586499642 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6681506341459140575, guid: 2ae47dbd2706be84288fd576f61635e6, type: 3}
+--- !u!95 &6246535979617988127 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4939763066625296890, guid: 2ae47dbd2706be84288fd576f61635e6, type: 3}
   m_PrefabInstance: {fileID: 1314408112863061989}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6217354143223695920 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4933074985427070421, guid: 2ae47dbd2706be84288fd576f61635e6, type: 3}
+--- !u!95 &7271945105778589009 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8563195282723609268, guid: 2ae47dbd2706be84288fd576f61635e6, type: 3}
   m_PrefabInstance: {fileID: 1314408112863061989}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7513857612538823251 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8825685856655631798, guid: 2ae47dbd2706be84288fd576f61635e6, type: 3}
+--- !u!95 &8858352981044595321 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7553247051731414428, guid: 2ae47dbd2706be84288fd576f61635e6, type: 3}
   m_PrefabInstance: {fileID: 1314408112863061989}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3280835747316379212

@@ -166,7 +166,29 @@ public static class SaveUtil
         else
             return 1;
     }
+
+    /// <summary>
+    /// ステージ単位のクリア状況を返す。
+    /// 0 = データがない / 1 = データはあるが一度もクリアしていない / 2 = 一度でもクリア済み
+    /// </summary>
+    public static int GetStageClearState(SaveData data, string areaId, string stageId)
+    {
+        if (data == null || data.stages == null) return 0;
+
+        var s = data.stages.FirstOrDefault(x => x.areaId == areaId && x.stageId == stageId);
+        if (s == null) return 0; // そのステージの記録自体がない
+
+        bool clearedOnce = s.clearedByDir != null && s.clearedByDir.Any(b => b);
+        return clearedOnce ? 2 : 1;
+    }
+
+    /// <summary>
+    /// 便利版: そのステージを一度でもクリアしているか？
+    /// </summary>
+    public static bool HasClearedOnce(SaveData data, string areaId, string stageId)
+        => GetStageClearState(data, areaId, stageId) == 2;
 }
+
 
 // ステージ隣接関係のインターフェース
 public interface IStageGraph

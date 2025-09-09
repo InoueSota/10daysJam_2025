@@ -287,9 +287,13 @@ public class StageSelectManager : MonoBehaviour
     [ContextMenu("セーブ削除")]
     void SaveDelete()
     {
+        for (int i = 0; i < cellSelectTmp.Length; i++)
+        {
+            cellSelectTmp[i] = 0;//ゲームをはじめたてはステージ1を保存する
+        }
         SaveSystem.Delete(1);
         SceneManager.LoadScene("StageSelectScene");
-
+        
     }
 
     [ContextMenu("エリア開放セーブ削除")]
