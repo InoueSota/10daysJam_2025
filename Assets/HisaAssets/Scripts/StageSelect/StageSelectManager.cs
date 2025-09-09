@@ -14,7 +14,7 @@ public class StageSelectManager : MonoBehaviour
 
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
     public float curStageChangeCT;
-    float inputCoolTime;
+    public float inputCoolTime;
     [SerializeField] SmoothDampRotate areaPixelCamera;
 
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
@@ -22,8 +22,11 @@ public class StageSelectManager : MonoBehaviour
     // [SerializeField] SpriteRenderer curVisualStageImage;
     //[SerializeField] AmpritudePosition imageAmpritude;
 
-    public int curSelectAreaIndex;
+    public static int curSelectAreaIndex;
     int preSelectAreaIndex = -1;
+
+    public static bool cellInit;
+    public static int[] cellSelectTmp = new int[5];//それぞれのエリアで最後に選んだセルを保存する
 
     bool areaSelect;
 
@@ -34,20 +37,41 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] SceneTransition sceneTransitionPrefab;
     [SerializeField] SceneTransition gameStartTransitionPrefab;
     SceneTransition sceneTransitionObj;
-    bool isSceneChange;
+    public bool isSceneChange;
     float sceneChangeCT;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        areaSelect = true;
-
+       
 
         SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
         SaveUtil.SetCleared(save, "Area1", "Area1Stage1", ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
         SaveSystem.Save(save, 1);//セーブ
 
         gradientObj.SetIndex(curSelectAreaIndex);//最後に選択したindexを保存できると良い
+        if (!cellInit)
+        {
+            Debug.Log("セルの設定の初期化");
+            for (int i = 0; i < cellSelectTmp.Length; i++)
+            {
+                cellSelectTmp[i] = 0;//ゲームをはじめたてはステージ1を保存する
+            }
+            cellInit = true;
+        }
+
+        string debugLogtext = "";
+
+        for (int i = 0; i < cellSelectTmp.Length; i++)
+        {
+            debugLogtext += cellSelectTmp[i] + "\n";
+        }
+        Debug.Log(debugLogtext);
+        areaSelect = true;
+        for (int i = 0; i < areaManagers.Length; i++)
+        {
+            areaManagers[i].SetSelectSell(cellSelectTmp[i]);//セレクト画面に戻ったら保存したセルに移動させる
+        }
     }
 
     // Update is called once per frame
@@ -82,12 +106,12 @@ public class StageSelectManager : MonoBehaviour
         {
             inputCoolTime -= Time.deltaTime;
 
-            
+
             //ボタン連打で動けるようにする
-            if (inputDire.magnitude<=0)
+            if (inputDire.magnitude <= 0)
             {
                 inputCoolTime = 0;
-                
+
             }
             inputDire = Vector2.zero;
             return;
@@ -97,7 +121,9 @@ public class StageSelectManager : MonoBehaviour
         {
             inputCoolTime = 0.3f;
         }
-        
+
+        //Debug.Log("InputDire" + inputDire);
+
     }
 
     void AreaSelect()
@@ -107,6 +133,7 @@ public class StageSelectManager : MonoBehaviour
         if (inputDire.x > 0)
         {
             curSelectAreaIndex++;
+            Debug.Log("UP");
 
         }
         else if (inputDire.x < 0)
@@ -156,6 +183,7 @@ public class StageSelectManager : MonoBehaviour
             areaSelect = true;
             areaManagers[curSelectAreaIndex].AreaSelectAnime(false);
             areaManagers[curSelectAreaIndex].SetSelectActive(false);
+
         }
         //セルの移動
         areaManagers[curSelectAreaIndex].ChangeCell(inputDire);
@@ -188,15 +216,23 @@ public class StageSelectManager : MonoBehaviour
                 sceneTransitionObj = Instantiate(gameStartTransitionPrefab);
                 sceneTransitionObj.StartTransition(areaManagers[curSelectAreaIndex].GetCellStageName());
                 areaManagers[curSelectAreaIndex].AreaSelectAnime("GameStart");//次のアニメーションは再生する
-
+                cellSelectTmp[curSelectAreaIndex] = areaManagers[curSelectAreaIndex].GetSelectSell();//最後に選んだステージを保存する
                 isSceneChange = true;
+
+                string debugLogtext="";
+
+                for (int i = 0; i < cellSelectTmp.Length; i++)
+                {
+                    debugLogtext += cellSelectTmp[i] + "\n";
+                }
+                Debug.Log(debugLogtext);
             }
         }
         //ステージ選択画面→タイトルへの遷移
         else if (Input.GetButtonDown("Back"))
         {
             isSceneChange = true;
-            sceneTransitionObj=Instantiate(sceneTransitionPrefab);
+            sceneTransitionObj = Instantiate(sceneTransitionPrefab);
             sceneTransitionObj.StartTransition("TitleScene");
             Debug.Log("バック");
         }
