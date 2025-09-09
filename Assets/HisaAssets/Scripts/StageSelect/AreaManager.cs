@@ -64,6 +64,7 @@ public class AreaManager : MonoBehaviour
 
     }
 
+    public List<StageCell> GetStageCells() { return cells; }
 
     //どのエリアを選ぶか確定した時にステージ選択を始められるようにする,エリア選択にもどる時にステージ選択の枠を消す
     public void SetSelectActive(bool active)
@@ -274,8 +275,11 @@ public class AreaManager : MonoBehaviour
     public string GetCellStageName()
     {
         return curSelectStage.GetStageName();
-    } 
+    }
 
+    public string GetCellStageName(int index)
+    {
+        return cells[index].GetStageName();
+    }
 
-    
 }

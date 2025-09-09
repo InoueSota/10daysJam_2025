@@ -2832,7 +2832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9110553524713112900, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8681966
+      value: -1.947
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -5689,8 +5689,6 @@ MonoBehaviour:
   - {fileID: 1723766951}
   - {fileID: 334106129}
   areaPixelCameraTransform: {fileID: 714845140}
-  curStageChangeCT: 0
-  inputCoolTime: 0
   areaPixelCamera: {fileID: 714845141}
   selectAnime:
   - {fileID: 1285163041}
@@ -5699,6 +5697,7 @@ MonoBehaviour:
   sceneTransitionPrefab: {fileID: 4797439248035837154, guid: 1f39edc61cfb6ba45a62d3dea926acdc, type: 3}
   gameStartTransitionPrefab: {fileID: 3264338480748370636, guid: 021dd611c8eef52498d4967af896e534, type: 3}
   isSceneChange: 0
+  areaOpenFlag: 0000000000
 --- !u!4 &1189015377
 Transform:
   m_ObjectHideFlags: 0
@@ -7925,7 +7924,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0, b: 0.6756029, a: 0}
+  m_BackGroundColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
