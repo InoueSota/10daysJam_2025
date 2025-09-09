@@ -70,7 +70,8 @@ public class GoalLineManager : MonoBehaviour
     // Getter
     public bool IsGoal()
     {
-        if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf || delayTimer > 0f) { Destroy(gameObject); return false; }
+        if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); return false; }
+        if (delayTimer > 0f) { return false; }
 
         // ƒvƒŒƒCƒ„[‚ªG‚ê‚½‚©”»’è
         RaycastHit2D hit = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);
