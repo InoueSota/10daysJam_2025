@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class LaserManager : MonoBehaviour
 {
+    // 自コンポーネント
+    private GameManager gameManager;
+
     [SerializeField] private GameObject laserLinePrefab;
 
     public List<GameObject> lasers;  // ゴール一覧を保持
@@ -14,6 +17,9 @@ public class LaserManager : MonoBehaviour
 
     void Start()
     {
+        // 自コンポーネントの取得
+        gameManager = GetComponent<GameManager>();
+
         // "FieldObject" タグを持つ全オブジェクトを取得
         GameObject[] fieldObjects = GameObject.FindGameObjectsWithTag("FieldObject");
 
@@ -51,7 +57,7 @@ public class LaserManager : MonoBehaviour
                     if (!laserLines.ContainsKey(key))
                     {
                         GameObject laserLineObj = Instantiate(laserLinePrefab);
-                        laserLineObj.GetComponent<LaserLineManager>().Initialize(lasers[i].transform, lasers[j].transform, 1f);
+                        laserLineObj.GetComponent<LaserLineManager>().Initialize(lasers[i].transform, lasers[j].transform, 1f, gameManager);
 
                         laserLines[key] = laserLineObj;
 

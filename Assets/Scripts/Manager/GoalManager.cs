@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GoalManager : MonoBehaviour
 {
+    // 自コンポーネント
+    private GameManager gameManager;
+
     [SerializeField] private GameObject goalLinePrefab;
     [SerializeField] private LayerMask groundLayer;
 
@@ -18,6 +20,9 @@ public class GoalManager : MonoBehaviour
 
     void Start()
     {
+        // 自コンポーネントの取得
+        gameManager = GetComponent<GameManager>();
+
         // "FieldObject" タグを持つ全オブジェクトを取得
         GameObject[] fieldObjects = GameObject.FindGameObjectsWithTag("FieldObject");
 
@@ -83,7 +88,7 @@ public class GoalManager : MonoBehaviour
                                 if (!goalLines.ContainsKey(key))
                                 {
                                     GameObject goalLineObj = Instantiate(goalLinePrefab);
-                                    goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f);
+                                    goalLineObj.GetComponent<GoalLineManager>().Initialize(goals[i].transform, goals[j].transform, 1f, gameManager);
 
                                     goalLines[key] = goalLineObj;
 
