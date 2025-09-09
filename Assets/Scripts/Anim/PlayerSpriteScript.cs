@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -29,6 +30,8 @@ public class PlayerSpriteScript : MonoBehaviour
     }
 
     [SerializeField] private AnimationSprite[] animations;
+
+    SoundInstantiateScript sound;
 
     public AnimationSprite? GetAnimationByName(string animName)
     {
@@ -76,6 +79,9 @@ public class PlayerSpriteScript : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        sound = GetComponent<SoundInstantiateScript>();
+
+        sound.PlaySound(0, 1, 1);
     }
 
     void LateUpdate()
