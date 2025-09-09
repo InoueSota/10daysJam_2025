@@ -124,7 +124,7 @@ public class AllFieldObjectManager : MonoBehaviour
     }
     public bool GetIsTriggerObject()
     {
-        if (objectType == ObjectType.WARP || objectType == ObjectType.CRAB || objectType == ObjectType.GLASS)
+        if (objectType == ObjectType.WARP || objectType == ObjectType.CRAB || objectType == ObjectType.GLASS || (objectType == ObjectType.SWITCH && GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.OFF))
         {
             return true;
         }
