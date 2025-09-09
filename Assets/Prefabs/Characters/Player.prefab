@@ -985,6 +985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Division Line
       objectReference: {fileID: 0}
+    - target: {fileID: 8102084386079561552, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
