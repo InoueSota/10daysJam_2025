@@ -424,7 +424,7 @@ public class GameManager : MonoBehaviour
         curAreaIndex = 0;
         if (areaName == "Area1")
         {
-            curAreaIndex = 0;
+            curAreaIndex = 1;
             nextArea = "Area2";
         }
         else if (areaName == "Area2")
@@ -451,6 +451,7 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt(nextArea, 1);//1を開放状態として扱う
                 PlayerPrefs.Save(); // 明示的に保存
                 uiManager.AreaOpen();//テキストを表示
+                uiManager.SetAreaOpenText(curAreaIndex + 1);
                 //Debug.Log("エリアかいほううううううううううううううううううううううううう");
                 //エリア開放フラグをtrueにしてキャンバスの内容を変える
             }
