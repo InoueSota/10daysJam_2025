@@ -4,6 +4,7 @@ public class PlayerTarget : MonoBehaviour
 {
     // 自コンポーネント
     private PlayerController controller;
+    private PlayerCut cut;
 
     [SerializeField] private LayerMask groundLayer;
 
@@ -32,6 +33,7 @@ public class PlayerTarget : MonoBehaviour
     {
         // 自コンポーネントの取得
         controller = GetComponent<PlayerController>();
+        cut = GetComponent<PlayerCut>();
 
         // ゴースト用オブジェクトを生成して非表示
         predictionBox = Instantiate(predictionBoxPrefab, transform.position, Quaternion.identity);
@@ -67,7 +69,7 @@ public class PlayerTarget : MonoBehaviour
     void ToggleHide()
     {
         // 非表示にする
-        if (!controller.GetJustStanding() || (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) <= 0.5f))
+        if (!controller.GetJustStanding() || cut.GetIsActive() || (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) <= 0.5f))
         {
             alphaTargetValue = 0f;
         }
@@ -198,15 +200,15 @@ public class PlayerTarget : MonoBehaviour
 
     void LineUpdate()
     {
-        targetLinePrefab.SetPosition(0, controller.transform.position);
-        //Debug.Log(controller.transform.position);
-        if (controller.GetJustStanding() && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
+        targetLinePrefab.SetPosition(0, transform.position);
+
+        if (controller.GetJustStanding() && !cut.GetIsActive() && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             targetLinePrefab.SetPosition(1, predictionBox.transform.position);
         }
         else
         {
-            targetLinePrefab.SetPosition(1, targetPosition);
+            targetLinePrefab.SetPosition(1, transform.position);
         }
     }
 }

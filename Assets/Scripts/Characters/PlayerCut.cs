@@ -11,6 +11,7 @@ public class PlayerCut : MonoBehaviour
     [SerializeField] private Transform objectParent1;
     [SerializeField] private Transform objectParent2;
     [SerializeField] private GameObject divisionLineObj;
+    [SerializeField] private GameObject divisionPredictionLineObj;
     [SerializeField] private PlayerAnimationScript animationScript;
 
     // フラグ類
@@ -97,7 +98,6 @@ public class PlayerCut : MonoBehaviour
         // 最初から分断線が配置されているときは分断線の操作は不可能にする
         if (!isCreateLineStart)
         {
-            Debug.Log("PlayerCutUpdate");
             // 分断線の削除
             if (Input.GetButtonDown("Cancel") || (isActive && Input.GetButtonDown("Special")))
             {
@@ -124,6 +124,7 @@ public class PlayerCut : MonoBehaviour
             // 分断線の生成
             else if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
             {
+                divisionLineObj.SetActive(false);
                 if (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Vertical") < 0f || Input.GetAxisRaw("Vertical") > 0f)
                 {
                     isReleaseStick = false;
@@ -144,6 +145,14 @@ public class PlayerCut : MonoBehaviour
                     decisionValue.x = Input.GetAxisRaw("Horizontal");
                     decisionValue.y = 0f;
 
+                    divisionPredictionLineObj.SetActive(true);
+                    // 分断座標は整数丸めをしたプレイヤー座標
+                    if (decisionValue.x < -0.3f) { divisionPredictionLineObj.transform.position = new Vector2(Mathf.FloorToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); }
+                    if (decisionValue.x > 0.3f) { divisionPredictionLineObj.transform.position = new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)); }
+
+                    // 分断線の回転を修正
+                    if (Mathf.Abs(decisionValue.x) > 0.3f) { divisionPredictionLineObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f)); }
+
                     // フラグの更新
                     isDecision = true;
                 }
@@ -151,6 +160,14 @@ public class PlayerCut : MonoBehaviour
                 {
                     decisionValue.x = 0f;
                     decisionValue.y = Input.GetAxisRaw("Vertical");
+
+                    divisionPredictionLineObj.SetActive(true);
+                    // 分断座標は整数丸めをしたプレイヤー座標
+                    if (decisionValue.y < -0.3f) { divisionPredictionLineObj.transform.position = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) - 0.5f); }
+                    if (decisionValue.y > 0.3f) { divisionPredictionLineObj.transform.position = new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) + 0.5f); }
+
+                    // 分断線の回転を修正
+                    if (Mathf.Abs(decisionValue.y) > 0.3f) { divisionPredictionLineObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f)); }
 
                     // フラグの更新
                     isDecision = true;
@@ -160,6 +177,9 @@ public class PlayerCut : MonoBehaviour
             // ロケット移動をしておらず、地面に接地している時に分断可能
             if (isActive && isReleaseStick && isDecision && Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) < 0.5f)
             {
+                // 分断予測線は非表示にする
+                divisionPredictionLineObj.SetActive(false);
+
                 // まだ分断していなかったら、初分断フラグをtrueにする
                 if (!isDivision) { isDivision = true; }
                 // 分断座標は整数丸めをしたプレイヤー座標
