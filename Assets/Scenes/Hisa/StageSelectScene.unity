@@ -5706,7 +5706,7 @@ MonoBehaviour:
   pauseToggle: {fileID: 1189015381}
   talkSceneName:
   - Select1
-  - TalkArea1Stage1
+  - Select2
 --- !u!4 &1189015377
 Transform:
   m_ObjectHideFlags: 0
