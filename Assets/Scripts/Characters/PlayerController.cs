@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
             if (hit.collider != null
                 && hitManager.GetObjectType() != AllFieldObjectManager.ObjectType.WARP
                 && hitManager.GetObjectType() != AllFieldObjectManager.ObjectType.CRAB
-                && (hitManager.GetObjectType() != AllFieldObjectManager.ObjectType.SWITCH || (hitManager.GetObjectType() == AllFieldObjectManager.ObjectType.SWITCH && hit.transform.GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.OFF)))
+                && (hitManager.GetObjectType() != AllFieldObjectManager.ObjectType.SWITCH || (hitManager.GetObjectType() == AllFieldObjectManager.ObjectType.SWITCH && hit.transform.GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.ON)))
             {
                 //undo直後にすぐスタックを検知しないようにする
                 if (stackDelay < 0.1f)
@@ -233,7 +233,7 @@ public class PlayerController : MonoBehaviour
                 RaycastHit2D backHit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector, 0.8f, groundLayer);
                 // 進行方向に不動オブジェクトがあり、逆進行方向に可動オブジェクトがあるとき確実にスタックする
                 if ((forwardHit.collider && (forwardHit.transform.parent != movingParent || forwardHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL)) &&
-                    (backHit.collider && (backHit.transform.parent == movingParent && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.NAIL && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP && (backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.SWITCH && backHit.transform.GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.OFF))))
+                    (backHit.collider && (backHit.transform.parent == movingParent && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.NAIL && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP && (backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.SWITCH || (backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.SWITCH && backHit.transform.GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.OFF)))))
                 {
                     // 重力をなくす
                     rbody2D.gravityScale = 0f;
