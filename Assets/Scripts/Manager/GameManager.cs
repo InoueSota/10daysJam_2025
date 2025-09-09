@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject stackCanvas;
     private float stackTime;
 
+    [SerializeField] SceneTransition sceneTransitionPrefab;
+    [SerializeField] SceneTransition pauseTransitionPrefab;
+    SceneTransition sceneTransitionObj;
+    bool isSceneChange;
+    float sceneChangeCT;
+
     void Start()
     {
         // 自コンポーネントの取得
@@ -142,21 +148,36 @@ public class GameManager : MonoBehaviour
 
     void SceneChange()
     {
+        if (isSceneChange) { return; }
+
+        if (sceneChangeCT < 0.5f)
+        {
+            sceneChangeCT += Time.deltaTime;
+            return;
+        }
         if (isGoal && Input.GetButtonDown("Select"))
         {
             if (connectStage != null)
             {
-                SceneManager.LoadScene(connectStage);
+               
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition(connectStage);
+                isSceneChange = true;
             }
             else
             {
-                SceneManager.LoadScene("HaikuScene");
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition("HaikuScene");
+                isSceneChange = true;
             }
         }
         //ポーズ画面を開く
         if (!isGoal && Input.GetButtonDown("Menu"))
         {
             pauseToggle.Pause("PauseScene");
+            //sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+            //sceneTransitionObj.StartTransition("PauseScene");
+            //isSceneChange = true;
             Debug.Log("バック");
         }
     }

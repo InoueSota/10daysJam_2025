@@ -52,7 +52,6 @@ public class StageSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(sceneChangeCT<0.5f) sceneChangeCT += Time.deltaTime;
         ChangeScene();
         InputDire();
 
