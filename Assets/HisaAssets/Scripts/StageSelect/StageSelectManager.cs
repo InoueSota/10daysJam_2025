@@ -13,8 +13,8 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] Transform areaPixelCameraTransform;
 
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
-    public float curStageChangeCT;
-    public float inputCoolTime;
+     float curStageChangeCT;
+     float inputCoolTime;
     [SerializeField] SmoothDampRotate areaPixelCamera;
 
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
