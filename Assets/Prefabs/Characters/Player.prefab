@@ -337,7 +337,7 @@ MonoBehaviour:
   scissorsMaxSize: 2
   isCut: 0
   preIsCut: 0
-  screenSize: {x: 20, y: 15}
+  screenSize: {x: 27, y: 15}
   hitMoveTime: 0.2
   clearSpeed: 20
   clearAngle:
@@ -350,6 +350,8 @@ MonoBehaviour:
   - 1.5
   - 0
   dashSmokeParticle: {fileID: 498621272151389176}
+  cutEffectPrefab: {fileID: 1102204550860352480, guid: 218d4652abee0144f893e379d00cd6b2, type: 3}
+  paperDebrisParticlePrefab: {fileID: 7456944955272745402, guid: ca0b0a7ca74406f46b82fa4a1656181d, type: 3}
 --- !u!95 &4419386137143282054
 Animator:
   serializedVersion: 7

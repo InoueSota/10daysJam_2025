@@ -68,6 +68,8 @@ public class PlayerAnimationScript : MonoBehaviour
     GameManager gameManager;
 
     [SerializeField] ParticleSystem dashSmokeParticle;
+    [SerializeField] GameObject cutEffectPrefab;
+    [SerializeField] PaperDebrisParticleScript paperDebrisParticlePrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -230,6 +232,12 @@ public class PlayerAnimationScript : MonoBehaviour
 
                         if (direction == 0 || direction == 2) angle = 0.0f;
                         else if (direction == 1 || direction == 3) angle = 90.0f;
+
+                        Instantiate(cutEffectPrefab, pos, Quaternion.Euler(Vector3.forward * (angle +90f)));
+                        PaperDebrisParticleScript paperDebris = Instantiate(paperDebrisParticlePrefab);
+                        bool isHorisontal = false;
+                        if (direction == 1 || direction == 3) isHorisontal = true;
+                        paperDebris.Set(pos, isHorisontal);
 
                         cutTween = scissors.transform.DOMove(pos, scissorsCutTime).SetEase(Ease.OutCubic).OnComplete(() =>
                         {
