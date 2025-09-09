@@ -63,6 +63,7 @@ public class PlayerAnimationScript : MonoBehaviour
     [Foldout("花火")][SerializeField] private float[] clearAngle = new float[2];
     bool rotated = false;
     bool isClearShot = false;
+    bool firstCut = false;
     [Foldout("花火")] [SerializeField]  private float[] clearChargeStats;
 
     GameManager gameManager;
@@ -89,7 +90,11 @@ public class PlayerAnimationScript : MonoBehaviour
 
         undoManager = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<UndoManager>();
 
-        if(cut.GetIsCreateLineStart()) spriteScript.SetScissors(false);
+        if (cut.GetIsCreateLineStart())
+        {
+            spriteScript.SetScissors(false);
+            firstCut = true;
+        }
 
         gameManager=FindFirstObjectByType<GameManager>();
     }
@@ -256,22 +261,28 @@ public class PlayerAnimationScript : MonoBehaviour
             }
             else if (isCut == false && isCutReady == false && scissors != null)
             {
+                if (firstCut == false)
+                {
+                    size = Mathf.MoveTowards(size, 1f, scissorsSizePlusSpeed * Time.deltaTime);
+                    scissors.transform.position = Vector3.MoveTowards(
+                     scissors.transform.position,          // 現在位置
+                    this.transform.position,
+                    scissorsMoveSpeed * Time.deltaTime       // 1フレーム分の移動距離
+                    );
 
-                size = Mathf.MoveTowards(size, 1f, scissorsSizePlusSpeed * Time.deltaTime);
-                scissors.transform.position = Vector3.MoveTowards(
-                 scissors.transform.position,          // 現在位置
-                this.transform.position,
-                scissorsMoveSpeed * Time.deltaTime       // 1フレーム分の移動距離
-                );
+                    if (Vector3.Distance(this.transform.position, scissors.transform.position) < 0.5f)
+                    {
+                        Destroy(scissors.gameObject);
+                        scissors = null;
 
-                if (Vector3.Distance(this.transform.position, scissors.transform.position) < 0.5f)
+                        spriteScript.SetScissors(true);
+                    }
+                }
+                else
                 {
                     Destroy(scissors.gameObject);
                     scissors = null;
-
-                    spriteScript.SetScissors(true);
                 }
-
             }
 
             if (scissors != null)
