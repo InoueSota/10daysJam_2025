@@ -15,7 +15,7 @@ GameObject:
   m_Layer: 0
   m_Name: PaperDebrisParticle
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 91089a1ff802a9843b58f6558457696b, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4874,7 +4874,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -211865721
   m_SortingLayer: 1
-  m_SortingOrder: 50
+  m_SortingOrder: 39
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0

@@ -30,13 +30,13 @@ public class SimpleStageGraph : IStageGraph
 {
     // 例: 同一エリア内で「ステージID: 1-1 → (Right) → 1-2」のように手で定義
     private readonly Dictionary<(string areaId, string stageId, ClearDirection dir), (string areaId, string stageId)> edges
-        = new()
-        {
-            { ("Area01","1-1", ClearDirection.Right), ("Area01","1-2") },
-            { ("Area01","1-2", ClearDirection.Right), ("Area01","1-3") },
-            { ("Area01","1-2", ClearDirection.Left ), ("Area01","1-1") },
-            // …必要に応じて追加
-        };
+    = new()
+    {
+{ ("Area01","1-1", ClearDirection.Right), ("Area01","1-2") },
+{ ("Area01","1-2", ClearDirection.Right), ("Area01","1-3") },
+{ ("Area01","1-2", ClearDirection.Left ), ("Area01","1-1") },
+        // …必要に応じて追加
+    };
 
     public bool TryGetNeighbor(string areaId, string stageId, ClearDirection dir, out (string areaId, string stageId) neighbor)
     {
@@ -104,11 +104,11 @@ public static class SaveUtil
     // ---- ステージ解放（「基準方向」を使って隣接ステージを開放）----
     // 基準方向 baseDir に対する隣接先を定義するグラフを渡して解放します。
     public static void UnlockByBaseline(
-        SaveData data,
-        string areaId, string stageId,
-        ClearDirection clearedDir,              // プレイヤーが実際にクリアした方向（記録用）
-        ClearDirection baseDir,                 // 解放に使う“基準方向”（例: Right固定）
-        IStageGraph graph                       // ステージの隣接関係
+    SaveData data,
+    string areaId, string stageId,
+    ClearDirection clearedDir,              // プレイヤーが実際にクリアした方向（記録用）
+    ClearDirection baseDir,                 // 解放に使う“基準方向”（例: Right固定）
+    IStageGraph graph                       // ステージの隣接関係
     )
     {
         // 1) クリア方向を記録
@@ -123,10 +123,10 @@ public static class SaveUtil
 
     // 任意: ステージを明示的に解放/確認したい場合
     public static void Unlock(SaveData data, string areaId, string stageId)
-        => data.unlocked.Add(Key(areaId, stageId));
+    => data.unlocked.Add(Key(areaId, stageId));
 
     public static bool IsUnlocked(SaveData data, string areaId, string stageId)
-        => data.unlocked.Contains(Key(areaId, stageId));
+    => data.unlocked.Contains(Key(areaId, stageId));
 
     /// <summary>
     /// areaId を引数に、現在クリア済み（いずれかの方向が true）のステージ数を返す。
@@ -134,16 +134,64 @@ public static class SaveUtil
     public static int GetClearedStageCount(SaveData data, string areaId)
     {
         return data.stages
-            .Where(s => s.areaId == areaId && s.clearedByDir.Any(b => b))
-            .Select(s => s.stageId)  // ステージ単位に絞る
-            .Distinct()              // 重複したstageIdを排除
-            .Count();
+        .Where(s => s.areaId == areaId && s.clearedByDir.Any(b => b))
+        .Select(s => s.stageId)  // ステージ単位に絞る
+        .Distinct()              // 重複したstageIdを排除
+        .Count();
     }
+
+    public static int GetNeighborExistAndClearState(
+    SaveData data,
+    string areaId,
+    string stageId,
+    ClearDirection dir)
+    {
+        // セーブデータから該当ステージを取得
+        var s = data.stages.FirstOrDefault(x => x.areaId == areaId && x.stageId == stageId);
+
+        // データ自体が無ければ「存在しない」扱い
+        if (s == null)
+            return 0;
+
+        // 該当方向のフラグを見る
+        bool cleared = s.clearedByDir[(int)dir];
+
+        // 一度でも到達記録があるか？（=「存在する」扱いにする）
+        bool everTouched = true; // データがある時点で存在はあるとみなす
+
+        if (!everTouched)
+            return 0;
+        else if (cleared)
+            return 2;
+        else
+            return 1;
+    }
+
+    /// <summary>
+    /// ステージ単位のクリア状況を返す。
+    /// 0 = データがない / 1 = データはあるが一度もクリアしていない / 2 = 一度でもクリア済み
+    /// </summary>
+    public static int GetStageClearState(SaveData data, string areaId, string stageId)
+    {
+        if (data == null || data.stages == null) return 0;
+
+        var s = data.stages.FirstOrDefault(x => x.areaId == areaId && x.stageId == stageId);
+        if (s == null) return 0; // そのステージの記録自体がない
+
+        bool clearedOnce = s.clearedByDir != null && s.clearedByDir.Any(b => b);
+        return clearedOnce ? 2 : 1;
+    }
+
+    /// <summary>
+    /// 便利版: そのステージを一度でもクリアしているか？
+    /// </summary>
+    public static bool HasClearedOnce(SaveData data, string areaId, string stageId)
+        => GetStageClearState(data, areaId, stageId) == 2;
 }
+
 
 // ステージ隣接関係のインターフェース
 public interface IStageGraph
 {
     bool TryGetNeighbor(string areaId, string stageId, ClearDirection dir, out (string areaId, string stageId) neighbor);
 }
-

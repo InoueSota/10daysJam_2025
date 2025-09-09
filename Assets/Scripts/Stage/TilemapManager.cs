@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static TilemapManager;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class TilemapManager : MonoBehaviour
     [SerializeField] private TileBase blockTile;
 
     [SerializeField] Sprite[] blocks;
+    [SerializeField] Sprite[] blocks_Cardboard;
     int maxX = 0;
     int maxY = 0;
 
@@ -26,7 +28,15 @@ public class TilemapManager : MonoBehaviour
         ground = 1,
         block = 2
     }
+    public enum BlockType
+    {
+        Normal,
+        Cardboard,
+    }
 
+    GameManager gameManager;
+
+    [SerializeField] BlockType blockType;
     // タイルマップを走査して int[,] に変換
     public void SaveTilemapToArrayAutoBounds()
     {
@@ -97,10 +107,15 @@ public class TilemapManager : MonoBehaviour
         if (page2Renderer) { page2Renderer.enabled = false; }
          if (page3Renderer) { page3Renderer.enabled = false; }
 
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+
+        string areaName = gameManager.GetAreaName();
+        if (areaName == "Area1") blockType = BlockType.Normal;
+        else if (areaName == "Area2") blockType = BlockType.Cardboard;
+
         SaveTilemapToArrayAutoBounds();
 
         // Debug.Log(grid.GetLength(0));
-        CheckBlockSprite(1, 1);
         for (int y = 0; y < grid.GetLength(1); y++)
         {
             for (int x = 0; x < grid.GetLength(0); x++)
@@ -112,7 +127,9 @@ public class TilemapManager : MonoBehaviour
 
                     int blockNum = CheckBlockSprite(x, y);
 
-                    blockSprite.sprite = blocks[blockNum];
+                    if (blockType == BlockType.Normal) blockSprite.sprite = blocks[blockNum];
+                    else if (blockType == BlockType.Cardboard) blockSprite.sprite = blocks_Cardboard[blockNum];
+
                 }
             }
         }

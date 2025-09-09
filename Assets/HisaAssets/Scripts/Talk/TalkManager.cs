@@ -45,7 +45,7 @@ public class TalkManager : MonoBehaviour
         if (Input.GetButtonDown("Select"))
         {
             curIndex++;
-            if (curIndex == talkObjs.Length) {
+            if (curIndex >= talkObjs.Length) {
                 //‰ï˜bI—¹
                 
                 talkEnd = true;

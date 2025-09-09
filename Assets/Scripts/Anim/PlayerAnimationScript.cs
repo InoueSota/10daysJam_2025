@@ -482,33 +482,37 @@ public class PlayerAnimationScript : MonoBehaviour
         }
         else
         {
-            if (clearAngle[0] < 15f && rotated == false)
-            {
-                clearAngle[0] += clearAngle[1] * Time.deltaTime;
-            }
-            else if (clearAngle[0] < 370f && rotated == false)
-            {
-                clearAngle[0] += clearAngle[2] * Time.deltaTime;
-            }
-            else
-            {
-                if (rotated == false)
+            if(clearChargeStats[3] < 2) { 
+                if (clearAngle[0] < 15f && rotated == false)
                 {
-                    rotated = true;
-                    clearAngle[0] = 370f;
+                    clearAngle[0] += clearAngle[1] * Time.deltaTime;
                 }
-                clearAngle[0] += clearAngle[3] * Time.deltaTime ;
+                else if (clearAngle[0] < 370f && rotated == false)
+                {
+                    clearAngle[0] += clearAngle[2] * Time.deltaTime;
+                }
+                else
+                {
+                    if (rotated == false)
+                    {
+                        rotated = true;
+                        clearAngle[0] = 370f;
+                    }
+                    clearAngle[0] += clearAngle[3] * Time.deltaTime;
+                    clearChargeStats[3] += Time.deltaTime;
+                }
+
+                float rad = Mathf.Deg2Rad * (clearAngle[0] + plusAngle);
+
+                Vector3 velocity = Vector3.zero;
+
+                velocity.x = Mathf.Cos(rad) * clearSpeed;
+                velocity.y = Mathf.Sin(rad) * clearSpeed * isLeftMulti;
+
+                this.transform.localPosition += velocity * Time.deltaTime * isLeftMulti;
+                this.transform.eulerAngles = Vector3.forward * clearAngle[0] * isLeftMulti;
             }
 
-            float rad = Mathf.Deg2Rad * (clearAngle[0] + plusAngle);
-
-            Vector3 velocity = Vector3.zero;
-
-            velocity.x = Mathf.Cos(rad) * clearSpeed;
-            velocity.y = Mathf.Sin(rad) * clearSpeed* isLeftMulti;
-
-            this.transform.localPosition += velocity * Time.deltaTime * isLeftMulti;
-            this.transform.eulerAngles = Vector3.forward * clearAngle[0] * isLeftMulti;
         }
     }
 

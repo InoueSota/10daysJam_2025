@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -29,7 +30,6 @@ public class PlayerSpriteScript : MonoBehaviour
     }
 
     [SerializeField] private AnimationSprite[] animations;
-
     public AnimationSprite? GetAnimationByName(string animName)
     {
         foreach (var anim in animations)

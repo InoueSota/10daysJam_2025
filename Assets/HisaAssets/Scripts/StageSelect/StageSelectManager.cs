@@ -27,7 +27,8 @@ public class StageSelectManager : MonoBehaviour
 
     public static bool cellInit;
     public static int[] cellSelectTmp = new int[5];//それぞれのエリアで最後に選んだセルを保存する
-
+    public static string lastStageName;//最後に遊んだステージ
+    public static string lastAreaName;//最後に遊んだエリア
     bool areaSelect;
 
 
@@ -52,8 +53,8 @@ public class StageSelectManager : MonoBehaviour
         SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
         SaveUtil.SetCleared(save, "Area1", "Area1Stage1", ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
         SaveSystem.Save(save, 1);//セーブ
-
         gradientObj.SetIndex(curSelectAreaIndex);//最後に選択したindexを保存できると良い
+
         if (!cellInit)
         {
             Debug.Log("セルの設定の初期化");
@@ -72,11 +73,14 @@ public class StageSelectManager : MonoBehaviour
         }
         Debug.Log(debugLogtext);
         areaSelect = true;
+
+
         for (int i = 0; i < areaManagers.Length; i++)
         {
             areaManagers[i].SetSelectSell(cellSelectTmp[i]);//セレクト画面に戻ったら保存したセルに移動させる
         }
 
+        //エリアの開放状態
         for (int i = 1;i < areaOpenFlag.Length; i++)
         {
             string areaName = "Area" + (i+1);
@@ -87,6 +91,30 @@ public class StageSelectManager : MonoBehaviour
             }
         }
         areaOpenFlag[0] = true;//エリア1は最初から開放する
+
+        //最後に遊んだステージが保存されてる時はそっちにする
+        if (lastAreaName != "")
+        {
+            for (int i = 0;i < areaManagers.Length; i++)
+            {
+                string areaName="Area"+(i+1);
+
+                if (areaName == lastAreaName)
+                {
+                    curSelectAreaIndex = i;//現在選択してるエリアの設定
+                    for (int j = 0; j < areaManagers[i].GetStageCells().Count; j++) {
+                        if (areaManagers[i].GetCellStageName(j) == lastStageName) {
+                            areaManagers[i].SetSelectSell(j);//セレクト画面に戻ったら保存したセルに移動させる
+                            break;
+                        }
+
+                    }
+                    break;
+                }
+            }
+        }
+
+
     }
 
     // Update is called once per frame
@@ -227,7 +255,7 @@ public class StageSelectManager : MonoBehaviour
             }
             if (Input.GetButtonDown("Select"))
             {
-                Debug.Log("セレクト");
+               // Debug.Log("セレクト");
                 sceneTransitionObj = Instantiate(gameStartTransitionPrefab);
                 sceneTransitionObj.StartTransition(areaManagers[curSelectAreaIndex].GetCellStageName());
                 areaManagers[curSelectAreaIndex].AreaSelectAnime("GameStart");//次のアニメーションは再生する
@@ -287,9 +315,10 @@ public class StageSelectManager : MonoBehaviour
     [ContextMenu("セーブ削除")]
     void SaveDelete()
     {
+        Initalize();
         SaveSystem.Delete(1);
         SceneManager.LoadScene("StageSelectScene");
-
+        
     }
 
     [ContextMenu("エリア開放セーブ削除")]
@@ -308,5 +337,16 @@ public class StageSelectManager : MonoBehaviour
 
         g.SaveOverrideDelta();
         g.EndCapture();
+    }
+
+    public static void Initalize()
+    {
+        lastStageName = "Stage1→";
+        lastAreaName = "Area1";
+        for (int i = 0; i < cellSelectTmp.Length; i++)
+        {
+            cellSelectTmp[i] = 0;//ゲームをはじめたてはステージ1を保存する
+        }
+        curSelectAreaIndex = 0;
     }
 }
