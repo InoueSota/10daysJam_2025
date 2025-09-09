@@ -358,13 +358,13 @@ public class GameManager : MonoBehaviour
         if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Undo"))
         {
             undoOrReset = true;
-            delayTimer = 0.03f;
+            delayTimer = 0.05f;
             uiManager.Reset(); isGoal = false; undoManager.Undo();
             Instantiate(undoCanvas);
         }
 
         // Reset
-        if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Reset")) { undoOrReset = true; delayTimer = 0.03f; uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
+        if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Reset")) { undoOrReset = true; delayTimer = 0.05f; uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
 
 
         //スタックの処理
@@ -423,7 +423,7 @@ public class GameManager : MonoBehaviour
     }
 
     public bool GetUndoOrReset() { return undoOrReset; }
-    public void SetUndoOrReset(bool _undoOrReset) { delayTimer = 0.03f; undoOrReset = _undoOrReset; }
+    public void SetUndoOrReset(bool _undoOrReset) { delayTimer = 0.05f; undoOrReset = _undoOrReset; }
 
     //クリア時にエリアのクリア数で次のエリアを開放する
     void AreaOpen()
