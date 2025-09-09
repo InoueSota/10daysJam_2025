@@ -127,29 +127,48 @@ public class PlayerTarget : MonoBehaviour
             targetPosition = transform.position;
         }
 
-        // プレイヤーの方向にRayを飛ばす
-        RaycastHit2D hit = Physics2D.Raycast(start, direction.normalized, 100f, groundLayer);
+        // プレイヤーの方向にRayを飛ばす（全ヒット取得）
+        RaycastHit2D[] hits = Physics2D.RaycastAll(start, direction.normalized, 100f, groundLayer);
 
-        if (hit.collider != null && !hit.collider.GetComponent<AllFieldObjectManager>().GetIsTriggerObject())
+        RaycastHit2D? validHit = null;
+
+        // 取得したヒットを順番に確認（距離が近い順に並んでいるとは限らないので並び替え）
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+        foreach (var h in hits)
+        {
+            var objMgr = h.collider.GetComponent<AllFieldObjectManager>();
+            if (objMgr != null && objMgr.GetIsTriggerObject())
+            {
+                // 当たり判定を無視したいオブジェクトなのでスキップ
+                continue;
+            }
+
+            // 有効な障害物に初めて当たった
+            validHit = h;
+            break;
+        }
+
+        if (validHit.HasValue)
         {
             // 壁までの距離 -1 マスを考慮
-            Vector2 finalPos = hit.collider.transform.position;
+            Vector2 finalPos = validHit.Value.collider.transform.position;
             finalPos -= direction; // 1マス手前に調整
 
             // 予測ボックスをそこに表示
             targetPosition = finalPos;
         }
         // １マス手前に調整する必要のないものに触れたらその座標にする
-        else if (hit.collider != null && hit.collider.GetComponent<AllFieldObjectManager>().GetIsTriggerObject())
+        else if (validHit.HasValue && validHit.Value.collider.GetComponent<AllFieldObjectManager>().GetIsTriggerObject())
         {
             // 壁までの距離
-            Vector2 finalPos = hit.collider.transform.position;
+            Vector2 finalPos = validHit.Value.collider.transform.position;
 
             // 予測ボックスをそこに表示
             targetPosition = finalPos;
         }
         // 進行方向にブロックが1つもないなら画面端まで飛ばす
-        else if (hit.collider == null)
+        else if (!validHit.HasValue)
         {
             // 左
             if (direction.x == -1f) { targetPosition = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + halfSize, transform.position.y, 0f); }
