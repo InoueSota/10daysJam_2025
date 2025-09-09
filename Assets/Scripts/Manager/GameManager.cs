@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     // ゴール関係
     private bool isGoal;
-    private enum GoalDirection { LEFT = 0, RIGHT = 2, UP = 3, DOWN = 1,NONE=-1 }//俳句を出さない方向を指定するためにNoneを追加した
+    private enum GoalDirection { LEFT = 0, RIGHT = 2, UP = 3, DOWN = 1, NONE = -1 }//俳句を出さない方向を指定するためにNoneを追加した
     private GoalDirection goalDirection;
 
     //ステージ情報
@@ -37,10 +37,14 @@ public class GameManager : MonoBehaviour
     bool isSceneChange;
     float sceneChangeCT;
 
-    [SerializeField,Header("俳句を出さない方向")] GoalDirection notHaikuDire=GoalDirection.NONE;
+    [SerializeField, Header("俳句を出さない方向")] GoalDirection notHaikuDire = GoalDirection.NONE;
     bool notHaikuFlag;//俳句を出さない方向にクリアした時に特別な処理をする
     int curAreaIndex;
     bool newAreaOpen;
+
+    int goalTextType;//0は接続先なし、1はステージ開放、2は開放済み、3はステージの端(俳句なし)
+
+    int SelectIndex;
 
     void Start()
     {
@@ -115,7 +119,7 @@ public class GameManager : MonoBehaviour
 
                 //俳句を出さない方向でクリアした場合
 
-                GoalDirection goalDire=GoalDirection.NONE;
+                GoalDirection goalDire = GoalDirection.NONE;
                 //ゴールの方向を見た目と一致させる
                 switch (goalDirection)
                 {
@@ -142,7 +146,7 @@ public class GameManager : MonoBehaviour
                 {
                     notHaikuFlag = true;
                     Debug.Log("俳句なし");
-                    uiManager.SetActiveFalseIndex(0);
+                    uiManager.SetActiveFalseIndex();
                 }
 
                 isGoal = true;
@@ -220,32 +224,45 @@ public class GameManager : MonoBehaviour
             sceneChangeCT += Time.deltaTime;
             return;
         }
-        if (isGoal && Input.GetButtonDown("Select"))
+        if (isGoal && Input.GetButtonDown("Select") && uiManager.GetInputDelay())
         {
-            if (connectStage != null)
+            if (uiManager.GetCurSelectIndex() == 0)//次のステージ
             {
-
-                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-                sceneTransitionObj.StartTransition(connectStage);
-                isSceneChange = true;
-            }
-            else
-            {
-                //俳句を出さない方向でクリアした時
-                if (notHaikuFlag)
+                if (connectStage != null)
                 {
+
                     sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-                    sceneTransitionObj.StartTransition("StageSelectScene");
+                    sceneTransitionObj.StartTransition(connectStage);
                     isSceneChange = true;
+
                 }
                 else
                 {
-                    sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-                    sceneTransitionObj.StartTransition("HaikuScene");
-                    isSceneChange = true;
+                    //接続先なしの時俳句へ
+                    if (!notHaikuFlag)
+                    {
+                        sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                        sceneTransitionObj.StartTransition("HaikuScene");
+                        isSceneChange = true;
+                    }
                 }
-               
+
             }
+            else if (uiManager.GetCurSelectIndex() == 1)//やりなおす
+            {
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition(currentSceneName);
+                isSceneChange = true;
+            }
+            else if (uiManager.GetCurSelectIndex() == 2)//セレクト画面
+            {
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition("StageSelectScene");
+                isSceneChange = true;
+            }
+
+
         }
         //ポーズ画面を開く
         if (!isGoal && Input.GetButtonDown("Menu"))
@@ -265,19 +282,18 @@ public class GameManager : MonoBehaviour
         switch (goalDirection)
         {
             case GoalDirection.LEFT:
-                type=SaveUtil.GetNeighborExistAndClearState(save,areaName,stageName,ClearDirection.Right);
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
                 break;
             case GoalDirection.RIGHT:
-                type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Left);
+               // type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Left);
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Left, true);//エリア1のステージ1を右方向にクリアした
                 break;
             case GoalDirection.UP:
-                type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Down);
+                //type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Down);
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Down, true);//エリア1のステージ1を右方向にクリアした
                 break;
             case GoalDirection.DOWN:
-                type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Up);
+                //type = SaveUtil.GetNeighborExistAndClearState(save, areaName, stageName, ClearDirection.Up);
                 SaveUtil.SetCleared(save, areaName, stageName, ClearDirection.Up, true);//エリア1のステージ1を右方向にクリアした
                 break;
             default:
@@ -286,23 +302,40 @@ public class GameManager : MonoBehaviour
 
         }
 
+       
         SaveSystem.Save(save, 1);//セーブ
+                                 //接続先にセーブがあるか確認
+        type = SaveUtil.GetStageClearState(save, areaName, connectStage);
 
-        //接続先がある時
-        if (connectStage!=null&&connectStage != "") {
-            if (type == 0)//移動先にデータが無いとき
-            {
-                type = 1;
-            }
-
-        }
-        //接続先が無い時
-        else
+        if (type == 0)//接続先がなし
         {
-            type = 3;
+            if (!notHaikuFlag)//俳句がある時は表示を変える
+            {
+                type = 3;
+            }
         }
-        // UIの更新
-        uiManager.Goal((int)goalDirection, type);
+        //度でもクリアしてない時かつ接続先はあるがセーブが無い時
+        if (type!=2&&connectStage != null && connectStage != "")
+        {
+            type = 1;//開放しました！にする
+        }
+
+            ////接続先がある時
+            //if (connectStage != null && connectStage != "")
+            //{
+            //    if (type == 0)//移動先にデータが無いとき
+            //    {
+            //        type = 1;//俳句へ行くためにtypeを1にする
+            //    }
+
+            //}
+            ////接続先が無い時
+            //else
+            //{
+            //    type = 3;
+            //}
+            // UIの更新
+            uiManager.Goal((int)goalDirection, type);
         Debug.Log("goalDirection" + goalDirection);
 
     }
@@ -371,6 +404,10 @@ public class GameManager : MonoBehaviour
 
     public bool GetIsGoal() { return isGoal; }
 
+    public string GetAreaName()
+    {
+        return areaName;
+    }
 
     //クリア時にエリアのクリア数で次のエリアを開放する
     void AreaOpen()
@@ -378,9 +415,9 @@ public class GameManager : MonoBehaviour
         if (areaName == "Area5") { return; }//エリア5のときは次が無いので早期リターン
         SaveData saveData = SaveSystem.Load(1);
 
-        int areaClearNum= SaveUtil.GetClearedStageCount(saveData,areaName);
+        int areaClearNum = SaveUtil.GetClearedStageCount(saveData, areaName);
 
-        string nextArea="";
+        string nextArea = "";
         curAreaIndex = 0;
         if (areaName == "Area1")
         {
@@ -402,13 +439,13 @@ public class GameManager : MonoBehaviour
             curAreaIndex = 4;
             nextArea = "Area5";
         }
-        
+
         //このエリアのクリア数が規定の数超えたら次のエリアを開放する
         if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex])
         {
-            if (PlayerPrefs.GetInt(nextArea) !=1)//まだエリアを開放してない時
+            if (PlayerPrefs.GetInt(nextArea) != 1)//まだエリアを開放してない時
             {
-                PlayerPrefs.SetInt(nextArea,1);//1を開放状態として扱う
+                PlayerPrefs.SetInt(nextArea, 1);//1を開放状態として扱う
                 PlayerPrefs.Save(); // 明示的に保存
                 uiManager.AreaOpen();//テキストを表示
                 Debug.Log("エリアかいほううううううううううううううううううううううううう");

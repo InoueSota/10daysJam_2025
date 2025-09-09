@@ -38446,7 +38446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6104896375495636719, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: blockType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8134470437976467249, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
       propertyPath: m_IsActive
@@ -38477,6 +38477,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4544434381622202761, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: particle.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544434381622202761, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'particle.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4760024364548277574, guid: e762d97f17baf3f44a27cd194f28ae43, type: 3}
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: areaName
       value: Area2
