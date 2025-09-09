@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Abutton
       objectReference: {fileID: 0}
+    - target: {fileID: 4870638899362242610, guid: a97f4d683f22283488462c9c41ebe2ae, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8362762712014045154, guid: a97f4d683f22283488462c9c41ebe2ae, type: 3}
       propertyPath: m_LocalScale.x
       value: 100

@@ -8,6 +8,8 @@ public class GoalLineManager : MonoBehaviour
 
     [SerializeField] private LayerMask characterLayer;
 
+    private float delayTimer;
+
     public void Initialize(Transform _pointA, Transform _pointB, float alpha)
     {
         // LineRendererを追加
@@ -34,6 +36,9 @@ public class GoalLineManager : MonoBehaviour
 
         // 透明度の設定
         SetAlpha(alpha);
+
+        // ディレイの初期化
+        delayTimer = 0.03f;
     }
     public void SetAlpha(float alpha)
     {
@@ -52,6 +57,9 @@ public class GoalLineManager : MonoBehaviour
 
     void Update()
     {
+        delayTimer -= Time.deltaTime;
+        if (Input.GetButtonDown("Undo") || Input.GetButtonDown("Reset")) { delayTimer = 0.03f; }
+
         if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); }
 
         // 2点間を設定
@@ -63,6 +71,7 @@ public class GoalLineManager : MonoBehaviour
     public bool IsGoal()
     {
         if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); return false; }
+        if (delayTimer > 0f) { return false; }
 
         // プレイヤーが触れたか判定
         RaycastHit2D hit = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);

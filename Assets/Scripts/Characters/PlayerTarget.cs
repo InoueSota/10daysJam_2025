@@ -140,7 +140,7 @@ public class PlayerTarget : MonoBehaviour
         foreach (var h in hits)
         {
             var objMgr = h.collider.GetComponent<AllFieldObjectManager>();
-            if (objMgr != null && objMgr.GetIsTriggerObject())
+            if (objMgr != null && objMgr.GetObjectType() == AllFieldObjectManager.ObjectType.GLASS)
             {
                 // 当たり判定を無視したいオブジェクトなのでスキップ
                 continue;
@@ -151,7 +151,7 @@ public class PlayerTarget : MonoBehaviour
             break;
         }
 
-        if (validHit.HasValue)
+        if (validHit.HasValue && !validHit.Value.collider.GetComponent<AllFieldObjectManager>().GetIsTriggerObject())
         {
             // 壁までの距離 -1 マスを考慮
             Vector2 finalPos = validHit.Value.collider.transform.position;

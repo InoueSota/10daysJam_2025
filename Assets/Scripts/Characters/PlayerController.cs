@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     float stackDelay;//Undoしてすぐにスタック検知をしないようにする
 
     // フラグ
+    private bool isReleaseA;
     private bool isRocketMoving;
     private bool isMoving;
     private bool isWarping;
@@ -72,7 +73,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!isStacking && !definitelyStack)
         {
-            Debug.Log("プレイヤーコントローラーupdate");
             // 左右移動処理
             MoveUpdate();
             // 頭突き処理
@@ -83,9 +83,15 @@ public class PlayerController : MonoBehaviour
         if (!definitelyStack)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.1f, groundLayer);
+
+            AllFieldObjectManager hitManager = null;
+
+            if (hit.collider != null) { hitManager = hit.transform.GetComponent<AllFieldObjectManager>(); }
+
             if (hit.collider != null
-                && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP
-                && hit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.CRAB)
+                && hitManager.GetObjectType() != AllFieldObjectManager.ObjectType.WARP
+                && hitManager.GetObjectType() != AllFieldObjectManager.ObjectType.CRAB
+                && (hitManager.GetObjectType() != AllFieldObjectManager.ObjectType.SWITCH || (hitManager.GetObjectType() == AllFieldObjectManager.ObjectType.SWITCH && hit.transform.GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.ON)))
             {
                 //undo直後にすぐスタックを検知しないようにする
                 if (stackDelay < 0.1f)
@@ -114,9 +120,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void MoveUpdate()
     {
+        if (!isReleaseA && !Input.GetButton("Jump")) { isReleaseA = true; }
+
         if (!isRocketMoving) { rbody2D.linearVelocity = new Vector2(0f, rbody2D.linearVelocity.y); }
 
-        if (!isRocketMoving && !isMoving && !isWarping && IsGrounded() && !cut.GetIsActive() && Input.GetButtonDown("Jump") &&
+        if (!isRocketMoving && isReleaseA && !isMoving && !isWarping && IsGrounded() && !cut.GetIsActive() && Input.GetButton("Jump") &&
             (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             // 座標を丸める
@@ -156,6 +164,7 @@ public class PlayerController : MonoBehaviour
             // フラグの変更
             isMoving = true;
             isRocketMoving = true;
+            isReleaseA = false;
 
             //アニメーショントリガー
             animationScript.StartRocket();
@@ -224,7 +233,7 @@ public class PlayerController : MonoBehaviour
                 RaycastHit2D backHit = Physics2D.Raycast(beforeHeadbuttPosition, -rocketVector, 0.8f, groundLayer);
                 // 進行方向に不動オブジェクトがあり、逆進行方向に可動オブジェクトがあるとき確実にスタックする
                 if ((forwardHit.collider && (forwardHit.transform.parent != movingParent || forwardHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.NAIL)) &&
-                    (backHit.collider && (backHit.transform.parent == movingParent && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.NAIL && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP)))
+                    (backHit.collider && (backHit.transform.parent == movingParent && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.NAIL && backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.WARP && (backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() != AllFieldObjectManager.ObjectType.SWITCH || (backHit.transform.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.SWITCH && backHit.transform.GetComponent<SwitchManager>().GetStatus() == SwitchManager.Status.OFF)))))
                 {
                     // 重力をなくす
                     rbody2D.gravityScale = 0f;
