@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     float stackDelay;//Undoしてすぐにスタック検知をしないようにする
 
     // フラグ
+    private bool isReleaseA;
     private bool isRocketMoving;
     private bool isMoving;
     private bool isWarping;
@@ -72,7 +73,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!isStacking && !definitelyStack)
         {
-            Debug.Log("プレイヤーコントローラーupdate");
             // 左右移動処理
             MoveUpdate();
             // 頭突き処理
@@ -114,9 +114,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void MoveUpdate()
     {
+        if (!isReleaseA && !Input.GetButton("Jump")) { isReleaseA = true; }
+
         if (!isRocketMoving) { rbody2D.linearVelocity = new Vector2(0f, rbody2D.linearVelocity.y); }
 
-        if (!isRocketMoving && !isMoving && !isWarping && IsGrounded() && !cut.GetIsActive() && Input.GetButtonDown("Jump") &&
+        if (!isRocketMoving && isReleaseA && !isMoving && !isWarping && IsGrounded() && !cut.GetIsActive() && Input.GetButton("Jump") &&
             (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
         {
             // 座標を丸める
@@ -156,6 +158,7 @@ public class PlayerController : MonoBehaviour
             // フラグの変更
             isMoving = true;
             isRocketMoving = true;
+            isReleaseA = false;
 
             //アニメーショントリガー
             animationScript.StartRocket();

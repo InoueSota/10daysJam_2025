@@ -77,11 +77,11 @@ Material:
     - _MoveDirection: 0
     - _MoveSpeed: 0.05
     - _Rotation: 0
-    - _Roughness: 40
+    - _Roughness: 45
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _MoveDirection: {r: -1, g: 0, b: 0, a: 0}
+    - _MoveDirection: {r: -1, g: 1, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
