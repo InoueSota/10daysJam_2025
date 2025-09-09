@@ -11,7 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text goalDirectionT;
     [SerializeField] GameObject[] clearSelectTexts;
     bool[] cleaerSelectTextsActive=new bool[3];//setActiveをfalseにしても反応ないのでゴリ押し
-
+    [SerializeField] GameObject areaOpenText;
+    bool areaOpenFlag;
     void Start()
     {
         
@@ -24,6 +25,10 @@ public class UIManager : MonoBehaviour
         {
             if (clearSelectTexts[i]) clearSelectTexts[i].SetActive(!cleaerSelectTextsActive[i]);//cleaerSelectTextsActiveがtrueなら非表示に
         }
+        if (areaOpenFlag)
+        {
+            areaOpenText.SetActive(true);
+        }
     }
 
     // Setter
@@ -34,7 +39,7 @@ public class UIManager : MonoBehaviour
 
         //GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        SaveData save = SaveSystem.Load(1);
+       // SaveData save = SaveSystem.Load(1);
 
         string newText = "";
 
@@ -55,7 +60,11 @@ public class UIManager : MonoBehaviour
         {
             newText += "を開放した!";
         }
-        else if (type == 2) 
+        else if (type == 2)
+        {
+            newText += "は開放済み";
+        }
+        else if (type == 3) 
         {
             newText = "ステージの端に到達した!";
         }
@@ -78,4 +87,9 @@ public class UIManager : MonoBehaviour
         groupAfterGoal.SetActive(true);
     }
 
+    public void AreaOpen()
+    {
+
+        areaOpenFlag = true;
+    }
 }

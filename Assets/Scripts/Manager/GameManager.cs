@@ -288,6 +288,19 @@ public class GameManager : MonoBehaviour
 
         SaveSystem.Save(save, 1);//セーブ
 
+        //接続先がある時
+        if (connectStage!=null&&connectStage != "") {
+            if (type == 0)//移動先にデータが無いとき
+            {
+                type = 1;
+            }
+
+        }
+        //接続先が無い時
+        else
+        {
+            type = 3;
+        }
         // UIの更新
         uiManager.Goal((int)goalDirection, type);
         Debug.Log("goalDirection" + goalDirection);
@@ -397,6 +410,7 @@ public class GameManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt(nextArea,1);//1を開放状態として扱う
                 PlayerPrefs.Save(); // 明示的に保存
+                uiManager.AreaOpen();//テキストを表示
                 Debug.Log("エリアかいほううううううううううううううううううううううううう");
                 //エリア開放フラグをtrueにしてキャンバスの内容を変える
             }
