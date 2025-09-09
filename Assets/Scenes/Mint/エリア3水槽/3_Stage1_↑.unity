@@ -368,6 +368,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 8236961842973521848}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 2062054235
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -40589,6 +40605,10 @@ PrefabInstance:
       propertyPath: areaName
       value: Area3
       objectReference: {fileID: 0}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: talkSceneName
+      value: TalkArea3Stage1
+      objectReference: {fileID: 0}
     - target: {fileID: 7361798446708528711, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -40695,6 +40715,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98077ea4391c32f42b7c93663a585244, type: 3}
+--- !u!20 &8236961842973521848 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1571299875879342653, guid: 98077ea4391c32f42b7c93663a585244, type: 3}
+  m_PrefabInstance: {fileID: 8236961842973521847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
