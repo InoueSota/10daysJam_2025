@@ -650,6 +650,7 @@ GameObject:
   - component: {fileID: 8985779831567453147}
   - component: {fileID: 743077543219626074}
   - component: {fileID: 6244370603164470395}
+  - component: {fileID: 5205629838054326844}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -907,6 +908,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5205629838054326844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921618599945661865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87aee444c40a305439f1061596fdf56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: d1ef72c3426dc3b49b28d1f6720f9a4c, type: 3}
+  - {fileID: 8300000, guid: a6b1fdf86d73e2045a42d06fd297328c, type: 3}
+  - {fileID: 8300000, guid: 52ee9680f0061bc40bff71e499bd7b1c, type: 3}
+  - {fileID: 8300000, guid: 26f5e33d7d2ccc24881278071458ca64, type: 3}
+  - {fileID: 8300000, guid: 3988c9a0d518ded43b8271735bc0bb40, type: 3}
+  - {fileID: 8300000, guid: 100d4d6cb378edb4e904808f05f220c7, type: 3}
+  - {fileID: 8300000, guid: 96d3c6f9484459349b753b0c42c3aebd, type: 3}
+  - {fileID: 8300000, guid: 48b7d0b2a89d0c543bbf96d60c7f18a2, type: 3}
+  - {fileID: 8300000, guid: 8ae9399af3fd99f4489c4aa7701ce2f5, type: 3}
+  - {fileID: 8300000, guid: dd4064bc36ddfe24da3611e1d2e456de, type: 3}
+  - {fileID: 8300000, guid: 248129dd1e255e64b8a47949b5beb925, type: 3}
+  - {fileID: 8300000, guid: e4e50904dfd86e042aba865125c75a2c, type: 3}
 --- !u!1001 &2727529132337844208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -958,6 +984,10 @@ PrefabInstance:
     - target: {fileID: 7921618599945661865, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
       propertyPath: m_Name
       value: Division Line
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102084386079561552, guid: d1392a8eb0f33f84fb156df86d939f57, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

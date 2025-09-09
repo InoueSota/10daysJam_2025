@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rbody2D;
     private BoxCollider2D boxCollider2D;
     private Animator animator;
+    private SoundInstantiateScript sound;
 
     // 他コンポーネント
     private CameraManager cameraManager;
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         rbody2D = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        sound = GetComponent<SoundInstantiateScript>();
 
         // 他コンポーネントを取得
         cameraManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    if (!isStacking) { sound.PlaySound(11, 0.6f); }
                     isStacking = true;
                 }
             }
@@ -168,6 +170,9 @@ public class PlayerController : MonoBehaviour
 
             //アニメーショントリガー
             animationScript.StartRocket();
+
+            // サウンド
+            sound.PlaySound(8, 0.2f);
         }
     }
 
@@ -240,6 +245,9 @@ public class PlayerController : MonoBehaviour
                     // 当たり判定を無くす
                     boxCollider2D.enabled = false;
 
+                    // サウンド
+                    sound.PlaySound(11, 0.6f);
+
                     // フラグの設定
                     isStacking = true;
                     definitelyStack = true;
@@ -256,6 +264,9 @@ public class PlayerController : MonoBehaviour
 
                 // アニメーションフラグ
                 animationScript.StartHit();
+
+                // サウンド
+                sound.PlaySound(Random.Range(0, 2), 0.6f);
             }
 
             // 変数の初期化
@@ -525,6 +536,8 @@ public class PlayerController : MonoBehaviour
         rbody2D.gravityScale = 0f;
         // 当たり判定を無くす
         boxCollider2D.enabled = false;
+        // サウンド
+        sound.PlaySound(Random.Range(5, 6), 0.3f);
     }
     public void SetWarpObj(GameObject _warpObj) { warpObj = _warpObj; }
     public void SetStop()

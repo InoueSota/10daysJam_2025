@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
 
     int SelectIndex;
 
+    private bool undoOrReset;
+    private float delayTimer;
+
     void Start()
     {
         // 自コンポーネントの取得
@@ -59,13 +62,18 @@ public class GameManager : MonoBehaviour
         stageName = SceneManager.GetActiveScene().name;
 
         //セレクト画面に戻った時に最後に遊んだステージに戻るようにする
-        StageSelectManager.lastAreaName=areaName;
-        StageSelectManager.lastStageName=stageName;
+        StageSelectManager.lastAreaName = areaName;
+        StageSelectManager.lastStageName = stageName;
 
+        undoOrReset = false;
+        delayTimer = 0f;
     }
 
     void Update()
     {
+        delayTimer -= Time.deltaTime;
+        if (delayTimer < 0f) { undoOrReset = false; }
+
         ChangeTalkScene();//会話シーンへの遷移
         // ゴール判定
         CheckGoal();
@@ -349,12 +357,14 @@ public class GameManager : MonoBehaviour
         // Undo
         if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Undo"))
         {
+            undoOrReset = true;
+            delayTimer = 0.05f;
             uiManager.Reset(); isGoal = false; undoManager.Undo();
             Instantiate(undoCanvas);
         }
 
         // Reset
-        if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
+        if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Reset")) { undoOrReset = true; delayTimer = 0.05f; uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
 
 
         //スタックの処理
@@ -411,6 +421,9 @@ public class GameManager : MonoBehaviour
     {
         return areaName;
     }
+
+    public bool GetUndoOrReset() { return undoOrReset; }
+    public void SetUndoOrReset(bool _undoOrReset) { delayTimer = 0.05f; undoOrReset = _undoOrReset; }
 
     //クリア時にエリアのクリア数で次のエリアを開放する
     void AreaOpen()
