@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     private bool isRocketMoving;
     private bool isMoving;
     private bool isWarping;
-    private bool isStacking;
+    public bool isStacking;
     private bool definitelyStack;
 
     // Animationån
