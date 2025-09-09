@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5374692401047146532}
   - component: {fileID: 1514931745284633043}
   - component: {fileID: 4442151986472314873}
+  - component: {fileID: 7021328880487853478}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -127,3 +128,19 @@ MonoBehaviour:
   pauseSceneName: PauseScene
   paused: 0
   nextPauseCT: 0
+--- !u!114 &7021328880487853478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802900266127030161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f08034e5b0f022343a5078cf91cac0c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSunsetActive: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8

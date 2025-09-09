@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     // 他コンポーネント
     private CameraManager cameraManager;
     private UndoManager undoManager;
+    private SunsetManager sunsetManager;
     private DivisionLineManager divisionLineManager;
     [SerializeField] private PlayerAnimationScript animationScript;
     PaperManagerScript paper;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
         // 他コンポーネントを取得
         cameraManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
         undoManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UndoManager>();
+        sunsetManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<SunsetManager>();
         divisionLineManager = cut.GetDivisionLineManager();
         paper = GameObject.FindGameObjectWithTag("PaperManager").gameObject.GetComponent<PaperManagerScript>();
     }
@@ -236,6 +238,12 @@ public class PlayerController : MonoBehaviour
     }
     void FinishMapMove()
     {
+        // Sunsetエリアなら破壊光線を稼働させる
+        if (sunsetManager.GetIsSunsetActive())
+        {
+            sunsetManager.StartDestroyRay(rocketVector.normalized, transform.position, cut.GetIsDivision(), cut.GetDivisionPosition(), (int)divisionLineManager.GetDivisionMode());
+        }
+
         isMoving = false;
         definitelyStack = false;
         animationScript.CrashCut();
@@ -526,6 +534,7 @@ public class PlayerController : MonoBehaviour
     public void SetStacking(bool flag) { isStacking = flag;
         stackDelay = 0;
     }//スタック時にundoした時に即時にフラグを下ろすため
+
     // Getter
     public bool GetIsRocketMoving() { return isRocketMoving; }
     public bool GetIsStacking() { return isStacking; }

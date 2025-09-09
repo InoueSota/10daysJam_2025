@@ -46237,6 +46237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7021328880487853478, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: isSunsetActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: goalDirectionT
       value: 
