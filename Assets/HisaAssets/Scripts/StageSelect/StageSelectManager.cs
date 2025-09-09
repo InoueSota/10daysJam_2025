@@ -286,7 +286,7 @@ public class StageSelectManager : MonoBehaviour
             }
         }
         //ステージ選択画面→タイトルへの遷移
-        else if (Input.GetButtonDown("Back"))
+        else if (Input.GetButtonDown("Menu"))
         {
             isSceneChange = true;
             sceneTransitionObj = Instantiate(sceneTransitionPrefab);

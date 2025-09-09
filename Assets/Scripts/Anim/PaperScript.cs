@@ -18,6 +18,7 @@ public class PaperScript : MonoBehaviour
         if (areaName == "Area2") spriteRenderer.sprite = sprite[1];
         else if (areaName == "Area3") spriteRenderer.sprite = sprite[2];
         else if (areaName == "Area4") spriteRenderer.sprite = sprite[3];
+        else if (areaName == "Area5") spriteRenderer.sprite = sprite[4];
     }
 
     // Update is called once per frame
