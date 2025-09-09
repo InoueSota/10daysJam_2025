@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class DestroyScript : MonoBehaviour
@@ -21,4 +22,9 @@ public class DestroyScript : MonoBehaviour
             Destroy( this.gameObject );
         }
     }
+
+    public void SetTime(float time_)
+    {
+        destroyTime = time_;
+    } 
 }
