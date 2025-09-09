@@ -40,6 +40,17 @@ public class PlayerCut : MonoBehaviour
     {
         // 分断線の配置フラグを設定
         isDivision = isCreateLineStart;
+
+        // 最初から分断線が配置されているなら、その情報を取得する
+        if (isCreateLineStart)
+        {
+            // 分断線のモードを設定
+            if (divisionLineObj.transform.rotation.z == 0f) { divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.VERTICAL); }
+            else { divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.HORIZONTAL); }
+
+            // 分断座標の設定
+            divisionPosition = divisionLineObj.transform.position;
+        }
     }
 
     void Start()
@@ -50,13 +61,6 @@ public class PlayerCut : MonoBehaviour
         if (isCreateLineStart)
         {
             divisionLineObj.transform.parent = null;
-
-            // 分断線のモードを設定
-            if (divisionLineObj.transform.rotation.z == 0f) { divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.VERTICAL); }
-            else                                            { divisionLineObj.GetComponent<DivisionLineManager>().Initialize(DivisionLineManager.DivisionMode.HORIZONTAL); }
-
-            // 分断座標の設定
-            divisionPosition = divisionLineObj.transform.position;
 
             // 分断処理
             foreach (GameObject fieldObject in GameObject.FindGameObjectsWithTag("FieldObject"))
