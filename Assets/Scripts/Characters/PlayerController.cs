@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;
     private bool isWarping;
     public bool isStacking;
-    private bool definitelyStack;
+    public bool definitelyStack;
 
     // Animation系
     private int direction = 0;
@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isStacking && !definitelyStack)
         {
+            Debug.Log("プレイヤーコントローラーupdate");
             // 左右移動処理
             MoveUpdate();
             // 頭突き処理
@@ -303,6 +304,7 @@ public class PlayerController : MonoBehaviour
                 return true;
             }
         }
+        Debug.Log("IsGround=false");
         return false;
     }
     public bool IsHeadbutt()
