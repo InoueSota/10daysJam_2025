@@ -147,6 +147,36 @@ EditorBuildSettings:
       \u2606\u2606\u2606\u2606.unity"
     guid: b1cf75b9d6265a24fbc69b96c21252f7
   - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage1_\u2606\u2190\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB.unity"
+    guid: 90922b9d7d915bc48b542754e81d0e9b
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage2_\u2606\u2606\u2193.unity"
+    guid: 15f32128cebdba44f8715b86653a8f68
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage3_\u2606\u2190.unity"
+    guid: 376fb8c64297b184c8e4e842d81d985b
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage4_\u2606\u2606\u2193.unity"
+    guid: 8f1f712b74bd9ea41b749d91d78c3b45
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage5_\u2190\u2192.unity"
+    guid: c5fb602391728ae4089448b13799f9d0
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage6_\u2193.unity"
+    guid: 9ab27598e46486a4a92cc92d43b05007
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage_7\u2190.unity"
+    guid: d7a8b6a6c54abee42bb65c47b2705141
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage_8\u2193.unity"
+    guid: 997e4ddab24119a44b530ada230842ce
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_Stage_9\u2190.unity"
+    guid: 029958dff73be844b870465e664e9de1
+  - enabled: 1
+    path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A25\u30CD\u30AA\u30F3/5_StageLAST\u2190.unity"
+    guid: 96e7ed0b9af36454c968c8f25bf30768
+  - enabled: 1
     path: Assets/Scenes/Hisa/TalkScene/TalkArea1Stage2.unity
     guid: 0c82708396793b84fb09dd6dc83a05d2
   - enabled: 1
