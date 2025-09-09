@@ -255,7 +255,7 @@ public class StageSelectManager : MonoBehaviour
             }
             if (Input.GetButtonDown("Select"))
             {
-                Debug.Log("セレクト");
+               // Debug.Log("セレクト");
                 sceneTransitionObj = Instantiate(gameStartTransitionPrefab);
                 sceneTransitionObj.StartTransition(areaManagers[curSelectAreaIndex].GetCellStageName());
                 areaManagers[curSelectAreaIndex].AreaSelectAnime("GameStart");//次のアニメーションは再生する
