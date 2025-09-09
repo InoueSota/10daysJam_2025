@@ -52,7 +52,7 @@ public class TitileManager : MonoBehaviour
     {
         if (delete) { return; }
        
-        if (Input.GetButton("Menu"))
+        if (Input.GetButton("Menu"))//GetButton("Menu")
         {
             deleteTime += Time.deltaTime;
             deleteGauge.SetRatio(deleteTime/3);
@@ -62,6 +62,7 @@ public class TitileManager : MonoBehaviour
                 delete = true;
                 Instantiate(saveDeleteObj);
                 StageSelectManager.Initalize();
+                deleteGauge.SetRatio(0);
             }
         }
         else

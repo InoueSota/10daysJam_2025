@@ -317,7 +317,7 @@ public class StageSelectManager : MonoBehaviour
     {
         //Initalize();
         SaveSystem.Delete(1);
-        SceneManager.LoadScene("StageSelectScene");
+        //SceneManager.LoadScene("StageSelectScene");
         
     }
 
