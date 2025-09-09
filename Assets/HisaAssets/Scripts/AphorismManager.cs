@@ -28,6 +28,10 @@ public class AphorismManager : MonoBehaviour
     bool sceneChange;
     [SerializeField] GameObject buttonUI;
 
+    [SerializeField] SceneTransition sceneTransitionPrefab;
+    SceneTransition sceneTransitionObj;
+    bool isSceneChange;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -55,7 +59,9 @@ public class AphorismManager : MonoBehaviour
                 {
                     index= 0;   
                 }
-                SceneManager.LoadScene("StageSelectScene");
+
+                sceneTransitionObj=Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition("StageSelectScene");
             }
         }
     }

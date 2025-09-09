@@ -181,6 +181,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cca8c8700f6e3438bb3728f6977145, type: 3}
+--- !u!20 &81612427 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1571299875879342653, guid: 98077ea4391c32f42b7c93663a585244, type: 3}
+  m_PrefabInstance: {fileID: 8236961842973521847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &183051609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5069327744559235923, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
@@ -277,6 +282,22 @@ PrefabInstance:
     - target: {fileID: 2743709098170660133, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 81612427}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 2062054235
       objectReference: {fileID: 0}
     - target: {fileID: 8521298242967721454, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_IsActive
@@ -36823,7 +36844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: talkSceneName
-      value: TalkScene1
+      value: TalkArea1Stage1
       objectReference: {fileID: 0}
     - target: {fileID: 7361798446708528711, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_LocalPosition.x

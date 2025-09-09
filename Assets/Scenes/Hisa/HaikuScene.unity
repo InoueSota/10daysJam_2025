@@ -767,6 +767,7 @@ MonoBehaviour:
   - {fileID: 1142946310}
   - {fileID: 1611303527}
   buttonUI: {fileID: 1610081281}
+  sceneTransitionPrefab: {fileID: 4797439248035837154, guid: 1f39edc61cfb6ba45a62d3dea926acdc, type: 3}
 --- !u!4 &1207469733
 Transform:
   m_ObjectHideFlags: 0
