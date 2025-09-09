@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 498866392314342237}
   - component: {fileID: 1926195793637707880}
   - component: {fileID: 831546518016696584}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: HanabiTalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}

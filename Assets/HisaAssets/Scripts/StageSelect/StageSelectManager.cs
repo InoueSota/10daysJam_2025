@@ -45,6 +45,13 @@ public class StageSelectManager : MonoBehaviour
 
     public bool[]areaOpenFlag=new bool[5];
 
+    [SerializeField] private PauseToggle pauseToggle;
+
+    [SerializeField, Header("会話シーンがある場合は名前を入力")] string talkSceneName;
+    float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
+    bool talkEnd;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -120,6 +127,7 @@ public class StageSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ChangeTalkScene();
         ChangeScene();
         InputDire();
 
@@ -350,5 +358,20 @@ public class StageSelectManager : MonoBehaviour
         curSelectAreaIndex = 0;
         AreaSaveDelete();
         SaveDelete();
+    }
+    void ChangeTalkScene()
+    {
+        if (talkSceneName != "" && !talkEnd)
+        {
+            if (changeTalkSceneTime > 0)
+            {
+                Debug.Log("会話へ移行");
+                pauseToggle.Pause(talkSceneName);
+                talkEnd = true;
+            }
+            changeTalkSceneTime += Time.deltaTime;
+
+        }
+
     }
 }

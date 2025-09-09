@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8302285172006079592}
   - component: {fileID: 6101718506469841744}
   - component: {fileID: 1104898847004129067}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: HasajiiTalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
