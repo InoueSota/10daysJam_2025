@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
 
         stageName = SceneManager.GetActiveScene().name;
 
+        //セレクト画面に戻った時に最後に遊んだステージに戻るようにする
+        StageSelectManager.lastAreaName=areaName;
+        StageSelectManager.lastStageName=stageName;
 
     }
 
