@@ -9,8 +9,8 @@ public class TalkManager : MonoBehaviour
     public int curIndex;
     float pushCT;
 
-    bool talkEnd;
-    float resumeTime;
+    public bool talkEnd;
+    public float resumeTime;
     [SerializeField] Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,7 +30,7 @@ public class TalkManager : MonoBehaviour
 
         if (talkEnd)
         {
-            resumeTime += Time.deltaTime;
+            resumeTime += Time.unscaledDeltaTime;
             if (resumeTime > 1) {
                 OnResume();
             }

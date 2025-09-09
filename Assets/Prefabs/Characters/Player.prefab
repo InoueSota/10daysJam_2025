@@ -789,7 +789,7 @@ MonoBehaviour:
     m_Bits: 8
   predictionBoxPrefab: {fileID: 7921618599945661865, guid: 59c9510fda1221a48bf61592f0eed9dd, type: 3}
   alphaChangePower: 12
-  targetPower: 12
+  targetPower: 20
   targetLinePrefab: {fileID: 1721387002971930281}
 --- !u!95 &6244370603164470395
 Animator:
