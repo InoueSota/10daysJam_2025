@@ -30,6 +30,7 @@ public class StageCell : MonoBehaviour
     [SerializeField] GameObject clearObj;
     [SerializeField] GameObject selectObj;
     [SerializeField] GameObject clearEffect;
+    [SerializeField] GameObject activeSprite;//ƒNƒŠƒAŽž‚É”ñ•\Ž¦‚É‚·‚é
 
     public bool activeFlag;
 
@@ -61,6 +62,7 @@ public class StageCell : MonoBehaviour
         set { clear = value;
             if (clear) {
                 clearObj.SetActive(true);
+                activeSprite.SetActive(false);
             }
         }
         get { return clear; }

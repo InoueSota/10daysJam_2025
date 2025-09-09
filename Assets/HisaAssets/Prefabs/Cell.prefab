@@ -455,6 +455,7 @@ MonoBehaviour:
   clearObj: {fileID: 8894972776364911364}
   selectObj: {fileID: 1820849316258972502}
   clearEffect: {fileID: 8746226963711068681}
+  activeSprite: {fileID: 7418795463213138513}
   activeFlag: 0
   clear: 0
 --- !u!1 &5561106965148178232
