@@ -127,6 +127,18 @@ public static class SaveUtil
 
     public static bool IsUnlocked(SaveData data, string areaId, string stageId)
         => data.unlocked.Contains(Key(areaId, stageId));
+
+    /// <summary>
+    /// areaId を引数に、現在クリア済み（いずれかの方向が true）のステージ数を返す。
+    /// </summary>
+    public static int GetClearedStageCount(SaveData data, string areaId)
+    {
+        return data.stages
+            .Where(s => s.areaId == areaId && s.clearedByDir.Any(b => b))
+            .Select(s => s.stageId)  // ステージ単位に絞る
+            .Distinct()              // 重複したstageIdを排除
+            .Count();
+    }
 }
 
 // ステージ隣接関係のインターフェース
@@ -134,3 +146,4 @@ public interface IStageGraph
 {
     bool TryGetNeighbor(string areaId, string stageId, ClearDirection dir, out (string areaId, string stageId) neighbor);
 }
+

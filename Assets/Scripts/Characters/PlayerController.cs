@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviour
                 return true;
             }
         }
-        Debug.Log("IsGround=false");
+        //Debug.Log("IsGround=false");
         return false;
     }
     public bool IsHeadbutt()
