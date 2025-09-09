@@ -347,7 +347,8 @@ MonoBehaviour:
   - -15
   clearChargeStats:
   - 0.05
-  - 1.5
+  - 0.1
+  - 0
   - 0
   dashSmokeParticle: {fileID: 498621272151389176}
   cutEffectPrefab: {fileID: 1102204550860352480, guid: 218d4652abee0144f893e379d00cd6b2, type: 3}
@@ -752,6 +753,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   crabObj: {fileID: 0}
+  isStacking: 0
+  definitelyStack: 0
 --- !u!114 &8985779831567453147
 MonoBehaviour:
   m_ObjectHideFlags: 0
