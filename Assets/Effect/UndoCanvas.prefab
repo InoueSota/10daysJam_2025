@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 239391911623742908}
   - component: {fileID: 880837305070088782}
   - component: {fileID: 2428221730827056627}
+  - component: {fileID: 6174652316245136092}
   m_Layer: 5
   m_Name: UndoText
   m_TagString: Untagged
@@ -220,6 +221,23 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: UNDO
+--- !u!114 &6174652316245136092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6661332627962478259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c364c82f6b221a84f84f04ef127e23b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetText: {fileID: 2428221730827056627}
+  normalMessage: UNDO
+  rareMessages:
+  - UNNTI
+  rareChance: 0.103
 --- !u!1 &8153287854378887390
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +250,7 @@ GameObject:
   - component: {fileID: 8520526257885560637}
   - component: {fileID: 2007370263343593256}
   - component: {fileID: 5305650436737926029}
+  - component: {fileID: 6101815458399047884}
   m_Layer: 5
   m_Name: UndoText_1
   m_TagString: Untagged
@@ -315,6 +334,21 @@ MonoBehaviour:
   m_EffectColor: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 1}
   m_EffectDistance: {x: 20, y: 20}
   m_UseGraphicAlpha: 1
+--- !u!114 &6101815458399047884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8153287854378887390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226f07ac8617e6f449b4901395539fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceText: {fileID: 2428221730827056627}
+  targetText: {fileID: 2007370263343593256}
+  updateEveryFrame: 0
 --- !u!1 &8392025490180191193
 GameObject:
   m_ObjectHideFlags: 0
