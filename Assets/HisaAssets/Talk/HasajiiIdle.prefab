@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7795563423241513410}
   - component: {fileID: 7072629143125956009}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: HasajiiIdle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
