@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     // ゴール関係
     private bool isGoal;
-    private enum GoalDirection { LEFT = 0, RIGHT = 2, UP = 3, DOWN = 1 }
+    private enum GoalDirection { LEFT = 0, RIGHT = 2, UP = 3, DOWN = 1,NONE=-1 }//俳句を出さない方向を指定するためにNoneを追加した
     private GoalDirection goalDirection;
 
     //ステージ情報
@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     SceneTransition sceneTransitionObj;
     bool isSceneChange;
     float sceneChangeCT;
+
+    [SerializeField,Header("俳句を出さない方向")] GoalDirection notHaikuDire=GoalDirection.NONE;
+    bool notHaikuFlag;//俳句を出さない方向にクリアした時に特別な処理をする
 
     void Start()
     {
@@ -111,6 +114,34 @@ public class GameManager : MonoBehaviour
                 uiManager.Goal((int)goalDirection);
                 Debug.Log("goalDirection" + goalDirection);
 
+                //俳句を出さない方向でクリアした場合
+
+                GoalDirection goalDire=GoalDirection.NONE;
+                //ゴールの方向を見た目と一致させる
+                switch (goalDirection)
+                {
+                    case GoalDirection.LEFT:
+                        goalDire = GoalDirection.RIGHT;
+                        break;
+                    case GoalDirection.RIGHT:
+                        goalDire = GoalDirection.LEFT;
+                        break;
+                    case GoalDirection.UP:
+                        goalDire = GoalDirection.DOWN;
+                        break;
+                    case GoalDirection.DOWN:
+                        goalDire = GoalDirection.UP;
+                        break;
+                    case GoalDirection.NONE:
+                        break;
+                    default:
+                        break;
+                }
+                if (notHaikuDire == goalDire)
+                {
+                    notHaikuFlag = true;
+                }
+
                 isGoal = true;
 
                 //隣接するステージの決定
@@ -170,6 +201,9 @@ public class GameManager : MonoBehaviour
 
                 CellActive(goalDirection);
                 Debug.Log(connectStage);
+
+                //エリア開放する処理
+                AreaOpen();
             }
         }
     }
@@ -194,9 +228,20 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-                sceneTransitionObj.StartTransition("HaikuScene");
-                isSceneChange = true;
+                //俳句を出さない方向でクリアした時
+                if (notHaikuFlag)
+                {
+                    sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                    sceneTransitionObj.StartTransition("StageSelectScene");
+                    isSceneChange = true;
+                }
+                else
+                {
+                    sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                    sceneTransitionObj.StartTransition("HaikuScene");
+                    isSceneChange = true;
+                }
+               
             }
         }
         //ポーズ画面を開く
@@ -300,4 +345,49 @@ public class GameManager : MonoBehaviour
     }
 
     public bool GetIsGoal() { return isGoal; }
+
+
+    //クリア時にエリアのクリア数で次のエリアを開放する
+    void AreaOpen()
+    {
+        if (areaName == "Area5") { return; }//エリア5のときは次が無いので早期リターン
+        SaveData saveData = SaveSystem.Load(1);
+
+        int areaClearNum= SaveUtil.GetClearedStageCount(saveData,areaName);
+
+        string nextArea="";
+        int curAreaIndex = 0;
+        if (areaName == "Area1")
+        {
+            curAreaIndex = 0;
+            nextArea = "Area2";
+        }
+        else if (areaName == "Area2")
+        {
+            curAreaIndex = 2;
+            nextArea = "Area3";
+        }
+        else if (areaName == "Area3")
+        {
+            curAreaIndex = 3;
+            nextArea = "Area4";
+        }
+        else if (areaName == "Area4")
+        {
+            curAreaIndex = 4;
+            nextArea = "Area5";
+        }
+        
+        //このエリアのクリア数が規定の数超えたら次のエリアを開放する
+        if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex])
+        {
+            if (PlayerPrefs.GetInt(nextArea) !=1)//まだエリアを開放してない時
+            {
+                PlayerPrefs.SetInt(nextArea,1);//1を開放状態として扱う
+                PlayerPrefs.Save(); // 明示的に保存
+                Debug.Log("エリアかいほううううううううううううううううううううううううう");
+                //エリア開放フラグをtrueにしてキャンバスの内容を変える
+            }
+        }
+    }
 }
