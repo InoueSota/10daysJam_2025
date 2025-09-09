@@ -55,6 +55,7 @@ MonoBehaviour:
   talkSceneName: 
   undoCanvas: {fileID: 6280388185270357380, guid: 5919efadcd739784ea41306be991e9bf, type: 3}
   stackCanvas: {fileID: 3327001535966130526, guid: f1231427f50818f46a2760dcc03bbf28, type: 3}
+  sceneTransitionPrefab: {fileID: 4797439248035837154, guid: 1f39edc61cfb6ba45a62d3dea926acdc, type: 3}
 --- !u!114 &2001972069336573037
 MonoBehaviour:
   m_ObjectHideFlags: 0

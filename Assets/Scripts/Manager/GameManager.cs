@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject undoCanvas;
     [SerializeField] GameObject stackCanvas;
     private float stackTime;
+    float stackInstatiateTime;
+
+    [SerializeField] SceneTransition sceneTransitionPrefab;
+    SceneTransition sceneTransitionObj;
+    bool isSceneChange;
+    float sceneChangeCT;
 
     void Start()
     {
@@ -142,21 +148,36 @@ public class GameManager : MonoBehaviour
 
     void SceneChange()
     {
+        if (isSceneChange) { return; }
+
+        if (sceneChangeCT < 0.5f)
+        {
+            sceneChangeCT += Time.deltaTime;
+            return;
+        }
         if (isGoal && Input.GetButtonDown("Select"))
         {
             if (connectStage != null)
             {
-                SceneManager.LoadScene(connectStage);
+               
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition(connectStage);
+                isSceneChange = true;
             }
             else
             {
-                SceneManager.LoadScene("HaikuScene");
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                sceneTransitionObj.StartTransition("HaikuScene");
+                isSceneChange = true;
             }
         }
         //ポーズ画面を開く
         if (!isGoal && Input.GetButtonDown("Menu"))
         {
             pauseToggle.Pause("PauseScene");
+            //sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+            //sceneTransitionObj.StartTransition("PauseScene");
+            //isSceneChange = true;
             Debug.Log("バック");
         }
     }
@@ -201,7 +222,20 @@ public class GameManager : MonoBehaviour
         // Reset
         if (!playerManager.GetIsDeath() && !playerManager.GetIsStack() && Input.GetButtonDown("Reset")) { uiManager.Reset(); isGoal = false; undoManager.ResetToInitialState(); }
 
+
+        //スタックの処理
+        //少しの間スタックし続けてたら
         if (playerManager.GetIsStack())
+        {
+            stackInstatiateTime += Time.deltaTime;
+            Debug.Log("スタック中");
+        }
+        else
+        {
+            stackInstatiateTime = 0;
+        }
+        //スタック→undoの処理をする
+        if (stackInstatiateTime > 0.2f)
         {
             if (stackTime == 0)
             {
@@ -209,7 +243,8 @@ public class GameManager : MonoBehaviour
             }
             stackTime += Time.deltaTime;
 
-            if (stackTime > 1.3f) {
+            if (stackTime > 1.3f)
+            {
 
                 uiManager.Reset(); isGoal = false; undoManager.Undo();
                 Instantiate(undoCanvas);
