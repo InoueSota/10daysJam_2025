@@ -21,12 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Hisa/PauseScene.unity
     guid: 6bca44ba50b0452418ead11779bb791d
   - enabled: 1
-    path: Assets/Scenes/Hisa/Area1Stage1.unity
-    guid: 1d8cd504ccd082e4b92e805b69ab80e5
-  - enabled: 1
-    path: Assets/Scenes/Hisa/Area1Stage2.unity
-    guid: 5efb72071b7a7ac41bf3086dee9a5c29
-  - enabled: 1
     path: "Assets/Scenes/Mint/\u30A8\u30EA\u30A21_(5\u30B9\u30C6\u30FC\u30B8)/Stage1\u2192.unity"
     guid: da2e88d235560c64f9c1427363838e4b
   - enabled: 1
@@ -101,6 +95,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hisa/HaikuScene.unity
     guid: 9aceea7e81b14dc4390bea89d2f7752a
+  - enabled: 1
+    path: Assets/Scenes/Hisa/TalkScene/TalkArea1Stage1.unity
+    guid: 51afb04afe9c975418003d751fac0772
+  - enabled: 1
+    path: Assets/Scenes/Hisa/TalkScene/TalkArea1Stage4.unity
+    guid: b0d18ca19f96df045bf61d2f84ea259b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

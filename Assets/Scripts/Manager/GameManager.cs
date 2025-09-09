@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     // ゴール関係
     private bool isGoal;
-    private enum GoalDirection { LEFT = 0, RIGHT = 2, UP = 3, DOWN = 1 }
+    private enum GoalDirection { LEFT = 0, RIGHT = 2, UP = 3, DOWN = 1,NONE=-1 }//俳句を出さない方向を指定するためにNoneを追加した
     private GoalDirection goalDirection;
 
     //ステージ情報
@@ -29,13 +29,16 @@ public class GameManager : MonoBehaviour
     //エフェクト
     [SerializeField] GameObject undoCanvas;
     [SerializeField] GameObject stackCanvas;
-    private float stackTime;
-    float stackInstatiateTime;
+    public float stackTime;
+    public float stackInstatiateTime;
 
     [SerializeField] SceneTransition sceneTransitionPrefab;
     SceneTransition sceneTransitionObj;
     bool isSceneChange;
     float sceneChangeCT;
+
+    [SerializeField,Header("俳句を出さない方向")] GoalDirection notHaikuDire=GoalDirection.NONE;
+    bool notHaikuFlag;//俳句を出さない方向にクリアした時に特別な処理をする
 
     void Start()
     {
@@ -110,6 +113,34 @@ public class GameManager : MonoBehaviour
                 // UIの更新
                 uiManager.Goal((int)goalDirection);
                 Debug.Log("goalDirection" + goalDirection);
+
+                //俳句を出さない方向でクリアした場合
+
+                GoalDirection goalDire=GoalDirection.NONE;
+                //ゴールの方向を見た目と一致させる
+                switch (goalDirection)
+                {
+                    case GoalDirection.LEFT:
+                        goalDire = GoalDirection.RIGHT;
+                        break;
+                    case GoalDirection.RIGHT:
+                        goalDire = GoalDirection.LEFT;
+                        break;
+                    case GoalDirection.UP:
+                        goalDire = GoalDirection.DOWN;
+                        break;
+                    case GoalDirection.DOWN:
+                        goalDire = GoalDirection.UP;
+                        break;
+                    case GoalDirection.NONE:
+                        break;
+                    default:
+                        break;
+                }
+                if (notHaikuDire == goalDire)
+                {
+                    notHaikuFlag = true;
+                }
 
                 isGoal = true;
 
@@ -187,16 +218,27 @@ public class GameManager : MonoBehaviour
         {
             if (connectStage != null)
             {
-               
+
                 sceneTransitionObj = Instantiate(sceneTransitionPrefab);
                 sceneTransitionObj.StartTransition(connectStage);
                 isSceneChange = true;
             }
             else
             {
-                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-                sceneTransitionObj.StartTransition("HaikuScene");
-                isSceneChange = true;
+                //俳句を出さない方向でクリアした時
+                if (notHaikuFlag)
+                {
+                    sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                    sceneTransitionObj.StartTransition("StageSelectScene");
+                    isSceneChange = true;
+                }
+                else
+                {
+                    sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                    sceneTransitionObj.StartTransition("HaikuScene");
+                    isSceneChange = true;
+                }
+               
             }
         }
         //ポーズ画面を開く
@@ -260,10 +302,11 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("スタック解除");
             stackInstatiateTime = 0;
         }
         //スタック→undoの処理をする
-        if (stackInstatiateTime > 0.2f)
+        if (stackInstatiateTime > 0.4f)
         {
             if (stackTime == 0)
             {
