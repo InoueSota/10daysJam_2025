@@ -301,6 +301,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -6296218169858510744, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: isSunsetStage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6296218169858510744, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: deathFlagSpriteRenderer
       value: 
       objectReference: {fileID: 0}
