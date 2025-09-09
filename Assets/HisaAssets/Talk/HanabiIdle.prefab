@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6175128010624159264}
   - component: {fileID: 6906858954694245988}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: HanabiIdle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

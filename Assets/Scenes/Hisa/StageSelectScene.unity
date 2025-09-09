@@ -5662,6 +5662,7 @@ GameObject:
   - component: {fileID: 1189015378}
   - component: {fileID: 1189015379}
   - component: {fileID: 1189015380}
+  - component: {fileID: 1189015381}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -5698,6 +5699,8 @@ MonoBehaviour:
   gameStartTransitionPrefab: {fileID: 3264338480748370636, guid: 021dd611c8eef52498d4967af896e534, type: 3}
   isSceneChange: 0
   areaOpenFlag: 0000000000
+  pauseToggle: {fileID: 0}
+  talkSceneName: 
 --- !u!4 &1189015377
 Transform:
   m_ObjectHideFlags: 0
@@ -5762,6 +5765,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axisDeadZone: 0.2
+--- !u!114 &1189015381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189015375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4747d1c31da1d419247efea84ce6ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseSceneName: PauseScene
+  paused: 0
+  nextPauseCT: 0
 --- !u!4 &1199109165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
