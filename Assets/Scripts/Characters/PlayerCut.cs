@@ -17,7 +17,6 @@ public class PlayerCut : MonoBehaviour
 
     // フラグ類
     [SerializeField] private bool isActive;
-    [SerializeField] private bool isReleaseStick;
     [Header("スタート時から分断線を生成させるか")]
     [SerializeField] private bool isCreateLineStart;
 
@@ -97,7 +96,7 @@ public class PlayerCut : MonoBehaviour
         if (!isCreateLineStart)
         {
             // 分断線の削除
-            if (Input.GetButtonDown("Cancel") || (isActive && Input.GetButtonDown("Special")))
+            if (isActive && !isDecision && Input.GetButtonUp("Special"))
             {
                 targetIntensity = 0f;
 
@@ -115,33 +114,24 @@ public class PlayerCut : MonoBehaviour
                 // サウンド
                 sound.PlaySound(16, 0.3f);
 
-                isDivision = false;
-
                 isActive = false;
                 divisionLineObj.SetActive(false);
 
             }
             // 分断線の生成
-            else if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
+            else if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButton("Special"))
             {
                 // サウンド
                 sound.PlaySound(Random.Range(0, 99) % 4 + 12, 0.3f);
 
                 divisionLineObj.SetActive(false);
-                if (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Vertical") < 0f || Input.GetAxisRaw("Vertical") > 0f)
-                {
-                    isReleaseStick = false;
-                }
                 targetIntensity = maxIntensity;
                 isDecision = false;
                 isActive = true;
             }
 
-            // 指を一度離させる処理
-            if (isActive && !isReleaseStick && Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f) { isReleaseStick = true; }
-
             // 分断方向の決定
-            if (isActive && isReleaseStick && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
+            if (isActive && (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f))
             {
                 if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f)
                 {
@@ -178,7 +168,7 @@ public class PlayerCut : MonoBehaviour
             }
 
             // ロケット移動をしておらず、地面に接地している時に分断可能
-            if (isActive && isReleaseStick && isDecision && Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) < 0.5f)
+            if (isActive && isDecision && Input.GetButtonUp("Special"))
             {
                 // 分断予測線は非表示にする
                 divisionPredictionLineObj.SetActive(false);
@@ -230,6 +220,8 @@ public class PlayerCut : MonoBehaviour
 
                 targetIntensity = 0f;
                 isActive = false;
+                isDecision = false;
+
                 //アニメーショントリガー
                 divisionFlag = true;
                 animationScript.StartCut();
