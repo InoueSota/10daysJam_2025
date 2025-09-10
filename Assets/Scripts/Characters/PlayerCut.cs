@@ -115,6 +115,7 @@ public class PlayerCut : MonoBehaviour
                 sound.PlaySound(16, 0.3f);
 
                 isActive = false;
+                isDivision = false;
                 divisionLineObj.SetActive(false);
 
             }
