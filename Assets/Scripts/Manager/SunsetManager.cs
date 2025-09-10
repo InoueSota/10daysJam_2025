@@ -8,9 +8,12 @@ public class SunsetManager : MonoBehaviour
 
     [SerializeField] ParticleInstantiateScript particle;
 
+    private SoundInstantiateScript sound;
+
     private void Start()
     {
         particle = GetComponent<ParticleInstantiateScript>();
+        sound = GetComponent<SoundInstantiateScript>();
     }
     public void StartDestroyRay(Vector3 _rocketVector, Vector3 _playerPosition, bool _isDivision, Vector3 _divisionLinePosition, int _divisionMode)
     {
@@ -268,6 +271,7 @@ public class SunsetManager : MonoBehaviour
                 particle.RunParticle(0,hit.collider.gameObject.transform.position);
                 hit.collider.gameObject.SetActive(false);
                 destroyEvenOne = true;
+                sound.PlaySound(7, 0.5f);
             }
         }
 
