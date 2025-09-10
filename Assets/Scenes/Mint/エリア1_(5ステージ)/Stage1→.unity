@@ -283,8 +283,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4232945930639548598, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4517602276582405243, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856824737774344475, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6197337635116880520, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
@@ -36846,6 +36854,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 156574479665341904, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: sounds.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 156574479665341904, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'sounds.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 8562d1ea732e4fc489c8eab787e65c96, type: 3}
+    - target: {fileID: 156574479665341904, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'sounds.Array.data[6]'
+      value: 
+      objectReference: {fileID: 8300000, guid: e8ded6e92d2f90345b5c43aaba054e4b, type: 3}
     - target: {fileID: 802900266127030161, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_Name
       value: GameManager
