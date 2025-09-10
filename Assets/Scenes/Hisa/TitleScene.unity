@@ -9801,7 +9801,6 @@ MonoBehaviour:
   - {fileID: 444029837}
   - {fileID: 375008965}
   - {fileID: 688992077}
-  - {fileID: 991266563}
 --- !u!212 &1039227874
 SpriteRenderer:
   m_ObjectHideFlags: 0
