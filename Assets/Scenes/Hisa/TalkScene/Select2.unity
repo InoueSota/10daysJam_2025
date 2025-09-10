@@ -1010,6 +1010,7 @@ MonoBehaviour:
   talkEnd: 0
   resumeTime: 0
   animator: {fileID: 622005602}
+  activeFalseObj: {fileID: 0}
 --- !u!224 &1623734421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4639420989172938469, guid: ffeb2c4d17f10154f966a350aeb351ca, type: 3}
@@ -1332,7 +1333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 251
+      value: 245
       objectReference: {fileID: 0}
     - target: {fileID: 5655076875967656185, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_IsActive
@@ -1352,7 +1353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8958789297306081928, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

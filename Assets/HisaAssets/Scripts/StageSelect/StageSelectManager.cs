@@ -52,7 +52,8 @@ public class StageSelectManager : MonoBehaviour
     float changeTalkSceneTime;//‰Šú‰»‚Ì—h‚ê‘Îô‚ÅAˆêu‚¾‚¯‘Ò‚Â
     bool talkEnd;
 
-
+    int maxIndex;
+    [SerializeField] GameObject[] arrowImage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -131,6 +132,27 @@ public class StageSelectManager : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+
+
+        for (int i = 0; i < areaOpenFlag.Length; i++)
+        {
+            if (!areaOpenFlag[i])
+            {
+                maxIndex = i;
+                break;
+            }
+        }
+
+        foreach (var arrow in arrowImage)
+        {
+            arrow.SetActive(false);
+        }
+
+        for (int i = 0; i < (maxIndex - 1) * 2; i++)
+        {
+            arrowImage[i].SetActive(true);
+        }
+
     }
 
     // Update is called once per frame
@@ -201,13 +223,25 @@ public class StageSelectManager : MonoBehaviour
             curSelectAreaIndex--;
         }
 
-        if (curSelectAreaIndex >= areaManagers.Length)
+
+
+
+        if (curSelectAreaIndex >= maxIndex)
         {
             curSelectAreaIndex = 0;
         }
-        else if (curSelectAreaIndex < 0)
+
+        if (curSelectAreaIndex < 0)
         {
-            curSelectAreaIndex = areaManagers.Length - 1;
+            if (areaOpenFlag[4]) //ÅŒã‚ÌƒGƒŠƒA‚ª‰ğ•ú‚³‚ê‚½‚çˆêü‚Å‚«‚é‚æ‚¤‚É‚·‚é
+            {
+                curSelectAreaIndex = areaManagers.Length - 1;
+
+            }
+            else
+            {
+                curSelectAreaIndex = 0;
+            }
         }
 
 
