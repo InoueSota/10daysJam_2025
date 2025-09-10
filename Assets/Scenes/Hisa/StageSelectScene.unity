@@ -370,6 +370,10 @@ PrefabInstance:
       value: "2_Stage_\u2606\u2606\u2190"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 3368724360615551728, guid: f7ca1f4899b57b747886cda064346842, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 65627398}
@@ -6082,6 +6086,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5516731152259144561, guid: 60a31c39c1bb2e44090e8a4338977e6e, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: cellStagename
+      value: "\u5FA9\u7FD2\u30CE\u30C3\u30AF\u30D0\u30C3\u30AF"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
       objectReference: {fileID: 1455109078}
@@ -7625,6 +7633,10 @@ PrefabInstance:
       propertyPath: stageImage
       value: 
       objectReference: {fileID: -5462039355465418914, guid: 2ad453ee386e9904f83b242b64d32b5e, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: cellStagename
+      value: "\u30CE\u30C3\u30AF\u30D0\u30C3\u30AF"
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -10035,7 +10047,7 @@ PrefabInstance:
       objectReference: {fileID: -8896576355868362568, guid: 29e09458e6ab4004c80ebf753b913108, type: 3}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: cellStagename
-      value: "\u3044"
+      value: "\u93E1\u5408\u308F\u305B"
       objectReference: {fileID: 0}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
@@ -10110,6 +10122,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6343969848909920553, guid: dd06bc57af0c0c242a8fec02e4904882, type: 3}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: cellStagename
+      value: "\u5730\u56E3\u99C4\u30C0\u30F3\u30C0\u30F3"
+      objectReference: {fileID: 0}
+    - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 1455109078}
@@ -10155,7 +10171,7 @@ PrefabInstance:
       objectReference: {fileID: -6298162888209318787, guid: 55fb7c642d907834d96b7daafc1bc75a, type: 3}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: cellStagename
-      value: "\u3042"
+      value: "\u59CB\u307E\u308A\u306E\u7D19"
       objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
