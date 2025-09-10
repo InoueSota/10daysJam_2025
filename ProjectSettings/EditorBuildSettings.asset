@@ -212,6 +212,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hisa/TalkScene/TalkArea3Stage7.unity
     guid: 8c6a563b168c9ec4db38655a8aeb3634
+  - enabled: 1
+    path: Assets/Scenes/Hisa/TalkScene/Select3.unity
+    guid: 2cc98faeab9b33943bd714b990362d0e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

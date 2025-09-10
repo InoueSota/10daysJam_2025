@@ -450,7 +450,7 @@ public class GameManager : MonoBehaviour
         }
 
         //このエリアのクリア数が規定の数超えたら次のエリアを開放する
-        if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex])
+        if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex-1])
         {
             if (PlayerPrefs.GetInt(nextArea) != 1)//まだエリアを開放してない時
             {
