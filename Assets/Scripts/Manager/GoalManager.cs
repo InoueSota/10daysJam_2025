@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class GoalManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GoalManager : MonoBehaviour
     private Dictionary<(GameObject, GameObject), GameObject> goalLines = new();
     // ゴールのスプライト参照を保持するための辞書
     private Dictionary<GameObject, int> goalLineRefCount = new Dictionary<GameObject, int>();
+    ParticleInstantiateScript particle;
 
     private bool completeDelay;
 
@@ -38,6 +40,7 @@ public class GoalManager : MonoBehaviour
             }
         }
 
+        particle = GetComponent<ParticleInstantiateScript>();
         completeDelay = true;
     }
 
@@ -215,5 +218,6 @@ public class GoalManager : MonoBehaviour
         if (goalLineRefCount[goal] > 0) { isLineActive = true; }
 
         sr.SetBool("on", isLineActive);
+        particle.RunParticle(1, goal.gameObject.transform.position);
     }
 }

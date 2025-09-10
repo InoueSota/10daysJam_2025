@@ -12,6 +12,8 @@ public class LaserLineManager : MonoBehaviour
     private GameManager gameManager;
     private float delayTimer;
 
+    [SerializeField] private Material material;
+
     public void Initialize(Transform _pointA, Transform _pointB, float alpha, GameManager _gameManager)
     {
         // LineRendererを追加
@@ -22,7 +24,7 @@ public class LaserLineManager : MonoBehaviour
         lineRenderer.endWidth = 0.1f;
 
         // マテリアル（デフォルトだと見えにくいので）
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.material = material;
         lineRenderer.startColor = new(0.32f, 0.54f, 1f, 1f);
         lineRenderer.endColor = new(0.32f, 0.54f, 1f, 1f);
 

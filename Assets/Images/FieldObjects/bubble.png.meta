@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d04d49da714223342b06f1024bf7afb0
+guid: 6c49519fb40a5304a97f324565bda450
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4084759217471455398
-    second: warp_0
+      213: -9136834448258697486
+    second: bubble_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: warp_0
+      name: bubble_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5f7c9932250057c0800000000000000
-      internalID: -4084759217471455398
+      spriteID: 2f6fcf37a71733180800000000000000
+      internalID: -9136834448258697486
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      warp_0: -4084759217471455398
+      bubble_0: -9136834448258697486
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
