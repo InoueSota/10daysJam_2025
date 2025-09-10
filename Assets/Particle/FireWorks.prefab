@@ -1367,18 +1367,18 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.49803925, g: 0.95294124, b: 0.76470596, a: 1}
-        key1: {r: 0.49803922, g: 0.9529412, b: 0.7647059, a: 1}
-        key2: {r: 1, g: 0.762378, b: 0.2117647, a: 0}
-        key3: {r: 1, g: 0.5707547, b: 0.81989217, a: 0}
+        key0: {r: 0.042452812, g: 1, b: 0.1049715, a: 1}
+        key1: {r: 1, g: 0.7475279, b: 0.18396229, a: 1}
+        key2: {r: 1, g: 0.2117647, b: 0.99926555, a: 0}
+        key3: {r: 0.3537736, g: 1, b: 0.8513736, a: 0}
         key4: {r: 1, g: 1, b: 1, a: 0}
         key5: {r: 1, g: 1, b: 1, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 386
-        ctime1: 17926
+        ctime1: 16191
         ctime2: 30262
-        ctime3: 41249
+        ctime3: 40478
         ctime4: 65535
         ctime5: 65535
         ctime6: 0
@@ -1392,7 +1392,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 5
         m_NumAlphaKeys: 3
       minGradient:
@@ -4839,8 +4839,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ee8edf8a3fc7439409921f783c843b05, type: 2}
+  - {fileID: 2100000, guid: ee8edf8a3fc7439409921f783c843b05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4903,10 +4903,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: f5e2b10b6a12f7d43ad8e8dfc040b938, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9436b4285e43e1e429fc23522c0592e4, type: 3}
+  m_Resource: {fileID: 8300000, guid: 9436b4285e43e1e429fc23522c0592e4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.259
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
