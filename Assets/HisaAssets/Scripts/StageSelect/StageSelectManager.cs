@@ -488,5 +488,9 @@ public class StageSelectManager : MonoBehaviour
         {
             ChangeTalkScene(3);
         }
+        else if (areaOpenFlag[4] && PlayerPrefs.GetInt("SelectTalk") < 4)
+        {
+            ChangeTalkScene(4);
+        }
     }
 }
