@@ -42,7 +42,7 @@ public class StageSelectManager : MonoBehaviour
     float sceneChangeCT;
 
     //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
-    public static int[] areaOpenClearNum = new int[5] { 6, 3, 3, 6, 500 };// { 6, 10, 8, 6, 500 };
+    public static int[] areaOpenClearNum = new int[5] { 6, 10, 8, 6, 500 };// { 6, 10, 8, 6, 500 };
 
     public bool[] areaOpenFlag = new bool[5];
 
