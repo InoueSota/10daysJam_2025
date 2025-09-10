@@ -52,9 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4730203fdd324841bd8debcd53f7217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaName: 
+  areaName: Area1
   stageName: 
-  talkSceneName: 
+  talkSceneName: TalkArea1Stage1
   undoCanvas: {fileID: 6280388185270357380, guid: 5919efadcd739784ea41306be991e9bf, type: 3}
   stackCanvas: {fileID: 3327001535966130526, guid: f1231427f50818f46a2760dcc03bbf28, type: 3}
   stackTime: 0
@@ -183,3 +183,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 558b524654f689f43b9b9937b895b7bb, type: 3}
   - {fileID: 8300000, guid: 7843816d3f4df4043ad8f7b41a3c70aa, type: 3}
   - {fileID: 8300000, guid: 4d1dfbde51679d747904a71a26b393c5, type: 3}
+  - {fileID: 8300000, guid: 8562d1ea732e4fc489c8eab787e65c96, type: 3}
+  - {fileID: 8300000, guid: e8ded6e92d2f90345b5c43aaba054e4b, type: 3}

@@ -283,8 +283,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4232945930639548598, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4517602276582405243, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856824737774344475, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6197337635116880520, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
@@ -36849,14 +36857,6 @@ PrefabInstance:
     - target: {fileID: 802900266127030161, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
-      propertyPath: areaName
-      value: Area1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
-      propertyPath: talkSceneName
-      value: TalkArea1Stage1
       objectReference: {fileID: 0}
     - target: {fileID: 7361798446708528711, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_LocalPosition.x

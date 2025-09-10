@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
     // 自コンポーネント
     private UndoManager undoManager;
     private PauseToggle pauseToggle;
+    private SoundInstantiateScript sound;
 
     // 他コンポーネント
     private UIManager uiManager;
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
         // 自コンポーネントの取得
         undoManager = GetComponent<UndoManager>();
         pauseToggle = GetComponent<PauseToggle>();
+        sound = GetComponent<SoundInstantiateScript>();
 
         // 他コンポーネントの取得
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
@@ -85,6 +88,10 @@ public class GameManager : MonoBehaviour
     {
         if (!isGoal)
         {
+            //サウンド
+            sound.PlaySound(6, 0.5f);
+            sound.PlaySound(5, 0.45f);
+
             // プレイヤーからゴール方向を取得する
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             PlayerController controller = player.GetComponent<PlayerController>();
