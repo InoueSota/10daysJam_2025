@@ -37,6 +37,7 @@ public class AphorismManager : MonoBehaviour
     void Awake()
     {
         buttonUI.SetActive(false);
+        index = PlayerPrefs.GetInt("haikuIndex");
 
         haikuText[0].SetText(haikuSets[index].line5a);
         haikuText[1].SetText(haikuSets[index].line7);
@@ -48,19 +49,21 @@ public class AphorismManager : MonoBehaviour
     {
         if (sceneChange) { return; }
         curSceneChangeCT += Time.deltaTime;
-        if (curSceneChangeCT> sceneChangeCT)
+        if (curSceneChangeCT > sceneChangeCT)
         {
             buttonUI.SetActive(true);
             if (Input.GetButtonDown("Select"))
             {
                 sceneChange = true;
                 index++;
+
                 if (index >= haikuSets.Count)
                 {
-                    index= 0;   
+                    index = 0;
                 }
-
-                sceneTransitionObj=Instantiate(sceneTransitionPrefab);
+                PlayerPrefs.SetInt("haikuIndex", index);
+                PlayerPrefs.Save();
+                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
                 sceneTransitionObj.StartTransition("StageSelectScene");
             }
         }
