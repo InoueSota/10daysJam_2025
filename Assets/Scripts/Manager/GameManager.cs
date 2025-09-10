@@ -459,12 +459,16 @@ public class GameManager : MonoBehaviour
         //このエリアのクリア数が規定の数超えたら次のエリアを開放する
         if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex-1])
         {
-            if (PlayerPrefs.GetInt(nextArea) != 1)//まだエリアを開放してない時
+            if (PlayerPrefs.GetInt(nextArea) < 1)//まだエリアを開放してない時
             {
                 PlayerPrefs.SetInt(nextArea, 1);//1を開放状態として扱う
                 PlayerPrefs.Save(); // 明示的に保存
                 uiManager.AreaOpen();//テキストを表示
                 uiManager.SetAreaOpenText(curAreaIndex + 1);
+
+
+
+
                 //Debug.Log("エリアかいほううううううううううううううううううううううううう");
                 //エリア開放フラグをtrueにしてキャンバスの内容を変える
             }

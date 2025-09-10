@@ -9019,6 +9019,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1758630803}
+    - target: {fileID: 3242649209738587168, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+      propertyPath: m_Text
+      value: "\u30A8\u30EA\u30A21"
+      objectReference: {fileID: 0}
     - target: {fileID: 4710188598036823578, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
       propertyPath: m_Camera
       value: 

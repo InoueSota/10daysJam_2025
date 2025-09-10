@@ -162,6 +162,26 @@ public class StageSelectManager : MonoBehaviour
             }
         }
 
+        //エリア解放された時にカメラ選択を自動でする
+        if (PlayerPrefs.GetInt("Area2") == 1) {
+            PlayerPrefs.SetInt("Area2", 2);
+            curSelectAreaIndex = 1;
+        }else if (PlayerPrefs.GetInt("Area3") == 1)
+        {
+            PlayerPrefs.SetInt("Area3", 2);
+            curSelectAreaIndex = 2;
+        }
+        else if (PlayerPrefs.GetInt("Area4") == 1)
+        {
+            PlayerPrefs.SetInt("Area4", 2);
+            curSelectAreaIndex = 3;
+        }
+        else if (PlayerPrefs.GetInt("Area5") == 1)
+        {
+            PlayerPrefs.SetInt("Area5", 2);
+            curSelectAreaIndex = 4;
+        }
+
     }
 
     // Update is called once per frame
