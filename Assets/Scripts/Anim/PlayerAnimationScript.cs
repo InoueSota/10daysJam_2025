@@ -242,7 +242,7 @@ public class PlayerAnimationScript : MonoBehaviour
                         PaperDebrisParticleScript paperDebris = Instantiate(paperDebrisParticlePrefab);
                         bool isHorisontal = false;
                         if (direction == 1 || direction == 3) isHorisontal = true;
-                        paperDebris.Set(pos, isHorisontal);
+                        paperDebris.Set(pos, isHorisontal, gameManager.GetAreaName());
 
                         cutTween = scissors.transform.DOMove(pos, scissorsCutTime).SetEase(Ease.OutCubic).OnComplete(() =>
                         {
