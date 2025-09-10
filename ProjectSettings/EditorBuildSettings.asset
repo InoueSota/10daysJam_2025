@@ -228,7 +228,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Hisa/TalkScene/TalkArea5Stage1.unity
     guid: 631d1d799ba442e41b1c1fceb5150669
   - enabled: 1
-    path: Assets/Scenes/Hisa/TalkScene/TalkArea5Stage7.unity
+    path: Assets/Scenes/Hisa/TalkScene/TalkArea5Stage11.unity
     guid: e6eddda6c942aae43b3476129dabee43
   - enabled: 1
     path: Assets/Scenes/Hisa/TalkScene/TalkArea5Stage8.unity

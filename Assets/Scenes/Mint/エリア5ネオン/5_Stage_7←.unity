@@ -374,7 +374,7 @@ PrefabInstance:
       objectReference: {fileID: 8236961842973521848}
     - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_RenderMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_PlaneDistance
@@ -40403,7 +40403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: talkSceneName
-      value: TalkArea5Stage7
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7361798446708528711, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_LocalPosition.x
