@@ -305,6 +305,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1003676993}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.2686408
@@ -353,6 +361,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "2_Stage_\u2606\u2606\u2190"
@@ -375,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: EX
+      value: EX7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -406,6 +418,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1003676993}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.2026465
@@ -454,6 +474,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "2_Stage12_\u2606\u2606\u2606\u2193"
@@ -476,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 12
+      value: EX2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1140,6 +1164,10 @@ PrefabInstance:
       propertyPath: rightConnectStage
       value: 
       objectReference: {fileID: 180007941}
+    - target: {fileID: 1525374469970627536, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 2358184481618919166, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: m_Name
       value: Stage5Objs
@@ -1175,6 +1203,18 @@ PrefabInstance:
     - target: {fileID: 3605535962816993148, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: m_Name
       value: Stage4Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667131394121910587, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: m_Text
+      value: EX1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674648345669070645, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674648345669070645, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6346073027160402926, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1870,7 +1910,19 @@ PrefabInstance:
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
     - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
@@ -1917,6 +1969,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_10
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage_10LAST\u2190"
@@ -1941,9 +2001,29 @@ PrefabInstance:
       propertyPath: rightConnectStage
       value: 
       objectReference: {fileID: 1732714058}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 10
+      value: EX10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 237
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2001,6 +2081,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.137
@@ -2045,6 +2133,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_3
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage3_\u2606\u2190"
@@ -2071,7 +2163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 3
+      value: EX3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2102,6 +2194,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1003676993}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.13663697
@@ -2150,6 +2250,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "2_Stage14qp_\u2606\u2193\u2191"
@@ -2176,7 +2280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 14
+      value: EX4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2950,6 +3054,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1128311227}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.1273713
@@ -2998,6 +3110,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: active
       value: 1
@@ -3028,7 +3144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 10
+      value: EX2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3636,6 +3752,34 @@ PrefabInstance:
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
     - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -3687,6 +3831,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3715,9 +3867,25 @@ PrefabInstance:
       propertyPath: rightConnectStage
       value: 
       objectReference: {fileID: 744695049}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: '!'
+      value: EX11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3748,6 +3916,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.204
@@ -3792,6 +3968,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_5
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage5_\u2190\u2192"
@@ -3818,7 +3998,7 @@ PrefabInstance:
       objectReference: {fileID: 1794763867}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 5
+      value: EX5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4418,6 +4598,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1003676993}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.2026465
@@ -4466,6 +4654,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "2_Stage13_\u30C6\u30AF\u30CB\u30AB\u30EB\u2606\u2606\u2606\u2192(\u2190)"
@@ -4488,7 +4680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 13
+      value: EX3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5392,6 +5584,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.137
@@ -5436,6 +5636,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_2
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage2_\u2606\u2606\u2193"
@@ -5462,7 +5666,7 @@ PrefabInstance:
       objectReference: {fileID: 180007941}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 2
+      value: EX2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5981,6 +6185,7 @@ MonoBehaviour:
   - Select1
   - Select2
   - Select3
+  maxIndex: 0
   arrowImage:
   - {fileID: 7427069}
   - {fileID: 819500421}
@@ -6311,6 +6516,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1003676993}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.13663697
@@ -6359,6 +6572,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "2_Stage11_\u2606\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u2190"
@@ -6385,7 +6602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 11
+      value: EX1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6488,6 +6705,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.204
@@ -6532,6 +6757,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_4
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage4_\u2606\u2606\u2193"
@@ -6558,7 +6787,7 @@ PrefabInstance:
       objectReference: {fileID: 452610501}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 4
+      value: EX4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6790,6 +7019,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1128311227}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.1273713
@@ -6838,6 +7075,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: active
       value: 1
@@ -6864,7 +7105,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 11
+      value: EX11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6975,6 +7220,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
     - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -7026,6 +7279,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: 5_Stage_12LAST
@@ -7050,9 +7311,17 @@ PrefabInstance:
       propertyPath: rightConnectStage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8844481099870535239, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: '!'
+      value: EX12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7452,7 +7721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 5
+      value: EX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7607,6 +7876,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1003676993}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.13663697
@@ -7655,6 +7932,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "2_Stage_\u30C6\u30AF\u30CB\u30AB\u30EB\u2606\u2606\u2606\u2191\u2192\u2190EX"
@@ -7677,7 +7958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: EX
+      value: EX6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7746,7 +8027,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
     - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
@@ -7793,6 +8082,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_9
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage_9\u2190"
@@ -7819,7 +8112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 9
+      value: EX9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7920,7 +8213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8029,7 +8322,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
     - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
@@ -8076,6 +8377,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_8
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage_8\u2193"
@@ -8102,7 +8407,7 @@ PrefabInstance:
       objectReference: {fileID: 1898730869}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 8
+      value: EX8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8261,6 +8566,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.137
@@ -8305,6 +8618,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_6
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage6_\u2193"
@@ -8331,7 +8648,7 @@ PrefabInstance:
       objectReference: {fileID: 1361591133}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 6
+      value: EX6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8463,7 +8780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: ex
+      value: EX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8494,6 +8811,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1128311227}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.0613618
@@ -8542,6 +8867,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: active
       value: 1
@@ -8576,7 +8905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 9
+      value: EX1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8744,6 +9073,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180007940}
     m_Modifications:
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025416490826941996, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.137
@@ -8788,6 +9125,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell_7
       objectReference: {fileID: 0}
+    - target: {fileID: 6615676548930675401, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageName
       value: "5_Stage_7\u2190"
@@ -8814,7 +9155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: 7
+      value: EX7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
