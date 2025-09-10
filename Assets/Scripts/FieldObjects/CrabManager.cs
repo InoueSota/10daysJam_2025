@@ -6,6 +6,12 @@ public class CrabManager : MonoBehaviour
     private ThrowDirection throwDirection = ThrowDirection.LEFT;
 
     [SerializeField] private CrabSpriteScript crabSpriteScript;
+    private SoundInstantiateScript sound;
+
+    void Start()
+    {
+        sound = GetComponent<SoundInstantiateScript>();
+    }
 
     // Getter
     public Vector3 GetThrowVector()
@@ -29,4 +35,8 @@ public class CrabManager : MonoBehaviour
 
     // Setter
     public void SetThrowDirection(ThrowDirection _throwDirection) { throwDirection = _throwDirection; crabSpriteScript.ChangeDirection((int)_throwDirection); }
+    public void StartSound()
+    {
+        sound.PlaySound(Random.Range(0, 99) % 3, 0.7f);
+    }
 }

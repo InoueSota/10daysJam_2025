@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -4114167489620392497}
   - component: {fileID: 6736328188321697422}
   - component: {fileID: -2206312036662488232}
+  - component: {fileID: -6018778474551786908}
   m_Layer: 3
   m_Name: Warp
   m_TagString: FieldObject
@@ -192,3 +193,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba28d1e9791a710468473d244bc69ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6018778474551786908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921618599945661865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87aee444c40a305439f1061596fdf56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 3b559f5aa47786f4c9016ac29f1557e0, type: 3}

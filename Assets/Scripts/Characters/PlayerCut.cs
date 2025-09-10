@@ -114,8 +114,10 @@ public class PlayerCut : MonoBehaviour
                     fieldObject.transform.parent = objectParent1;
                 }
 
-                //アニメーションフラグ
+                // アニメーションフラグ
                 if (isDivision == true) divisionDeleteFlag = true;
+                // サウンド
+                sound.PlaySound(16, 0.3f);
 
                 isDivision = false;
 
@@ -126,6 +128,9 @@ public class PlayerCut : MonoBehaviour
             // 分断線の生成
             else if (!isActive && controller.IsGrounded() && !controller.GetIsRocketMoving() && Input.GetButtonDown("Special"))
             {
+                // サウンド
+                sound.PlaySound(Random.Range(0, 99) % 4 + 12, 0.3f);
+
                 divisionLineObj.SetActive(false);
                 if (Input.GetAxisRaw("Horizontal") < 0f || Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Vertical") < 0f || Input.GetAxisRaw("Vertical") > 0f)
                 {
