@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
             uiManager.ClearCanvasActive();
             if (notHaikuDire == goalDire)
             {
-               // notHaikuFlag = true;
+                notHaikuFlag = true;
                 Debug.Log("îoãÂÇ»Çµ");
                // uiManager.SetActiveFalseIndex();
             }
@@ -249,13 +249,7 @@ public class GameManager : MonoBehaviour
             //    }
             //    else
             //    {
-            //        //ê⁄ë±êÊÇ»ÇµÇÃéûîoãÂÇ÷
-            //        if (!notHaikuFlag)
-            //        {
-            //            sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-            //            sceneTransitionObj.StartTransition("HaikuScene");
-            //            isSceneChange = true;
-            //        }
+            //       
             //    }
 
             //}
@@ -269,9 +263,30 @@ public class GameManager : MonoBehaviour
             }
             else if (uiManager.GetCurSelectIndex() == 0)//ÉZÉåÉNÉgâÊñ 
             {
-                sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-                sceneTransitionObj.StartTransition("StageSelectScene");
-                isSceneChange = true;
+                if (connectStage == null)
+                {
+                    //ê⁄ë±êÊÇ»ÇµÇÃéûîoãÂÇ÷
+                    if (!notHaikuFlag)
+                    {
+                        sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                        sceneTransitionObj.StartTransition("HaikuScene");
+                        isSceneChange = true;
+                    }
+                    else
+                    {
+                        sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                        sceneTransitionObj.StartTransition("StageSelectScene");
+                        isSceneChange = true;
+                    }
+                }
+                else
+                {
+                    sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                    sceneTransitionObj.StartTransition("StageSelectScene");
+                    isSceneChange = true;
+
+                }
+
             }
 
 
