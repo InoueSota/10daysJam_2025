@@ -146,7 +146,7 @@ public class PlayerSpriteScript : MonoBehaviour
                 }
 
             }
-            else if ((animName == "IdleS" || animName == "IdleSDown") && (direction == 3))
+            else if ((animName == "IdleS" || animName == "Idle") && (direction == 3))
             {
                 animName += "Down";
 
