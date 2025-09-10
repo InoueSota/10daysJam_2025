@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: -4114167489620392497}
   - component: {fileID: 6736328188321697422}
   - component: {fileID: -4488952286792434294}
+  - component: {fileID: -7192916704972762904}
   m_Layer: 3
   m_Name: Crab
   m_TagString: FieldObject
@@ -324,6 +325,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crabSpriteScript: {fileID: 2859247268219968416}
+--- !u!114 &-7192916704972762904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921618599945661865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87aee444c40a305439f1061596fdf56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 7b8b4295b236ce647b9f6715658bd99b, type: 3}
+  - {fileID: 8300000, guid: 610afd5a5a43bb942b41250726a458f8, type: 3}
+  - {fileID: 8300000, guid: e3c55c5bf02c0f246a59c7a7b6dd963c, type: 3}
 --- !u!1001 &6943867929703796602
 PrefabInstance:
   m_ObjectHideFlags: 0

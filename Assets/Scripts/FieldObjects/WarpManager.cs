@@ -2,38 +2,11 @@ using UnityEngine;
 
 public class WarpManager : MonoBehaviour
 {
-    private bool isActive;
+    private SoundInstantiateScript sound;
 
     void Start()
     {
-        isActive = false;
-    }
-
-    void Update()
-    {
-        // Warpがステージに２つ以上あればWarpが可能（＝isActiveがtrueになる）
-        int warpCount = 0;
-
-        foreach (GameObject warp in GameObject.FindGameObjectsWithTag("FieldObject"))
-        {
-            if (warp.GetComponent<AllFieldObjectManager>().GetObjectType() == AllFieldObjectManager.ObjectType.WARP)
-            {
-                // 該当Objectの位置をビューポート座標に変換
-                Vector3 viewportPos = Camera.main.WorldToViewportPoint(warp.transform.position);
-
-                // 画面内チェック（0～1の範囲）
-                if (viewportPos.x >= 0 && viewportPos.x <= 1 && viewportPos.y >= 0 && viewportPos.y <= 1) { warpCount++; }
-            }
-        }
-
-        if (1 < warpCount)
-        {
-            isActive = true;
-        }
-        else
-        {
-            isActive = false;
-        }
+        sound = GetComponent<SoundInstantiateScript>();
     }
 
     // Setter
@@ -55,5 +28,9 @@ public class WarpManager : MonoBehaviour
 
         // プレイヤーをワープさせる
         if (nearWarp) { _warpPosition = nearWarp.GetComponent<AllFieldObjectManager>().GetCurrentPosition(); _warpObj = nearWarp; }
+    }
+    public void StartSound()
+    {
+        sound.PlaySound(0, 0.3f);
     }
 }
