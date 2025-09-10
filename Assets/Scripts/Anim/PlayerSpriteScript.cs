@@ -146,6 +146,18 @@ public class PlayerSpriteScript : MonoBehaviour
                 }
 
             }
+            else if ((animName == "IdleS" || animName == "IdleSDown") && (direction == 3))
+            {
+                animName += "Down";
+
+                AnimationSprite? animBase = GetAnimationByName(animName);
+
+                if (animBase != null)
+                {
+                    spriteRenderer.sprite = animBase.Value.sprites[num];
+                }
+
+            }
 
 
             spriteRenderer.flipX = isLeft;

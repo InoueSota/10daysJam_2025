@@ -381,6 +381,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 62916180736175286, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: animations.Array.size
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 62916180736175286, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: animations.Array.data[15].name
+      value: IdleSDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 62916180736175286, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: animations.Array.data[16].name
+      value: IdleDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 62916180736175286, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: animations.Array.data[15].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 8bbb973f7f4f5df4a991b5b2f5ca513c, type: 3}
+    - target: {fileID: 62916180736175286, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
+      propertyPath: animations.Array.data[16].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 9c3526db300adb644b1616e87650ccb4, type: 3}
     - target: {fileID: 985842109485053550, guid: bcebd8d47425eb047a1cb47abe429c78, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.396
