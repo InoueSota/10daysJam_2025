@@ -17,6 +17,7 @@ public class AreaManager : MonoBehaviour
     [SerializeField] GameObject trophyObj;
     [SerializeField] SetTextScript claerNumText;
     [SerializeField] AudioPlay audioplay;
+    [SerializeField]SetTextScript stageNameText;
     
 
     public int GetClearStageNum()
@@ -40,6 +41,7 @@ public class AreaManager : MonoBehaviour
         //curSelectStage.GetSetActive = true;
         //curSelectStage.SetSelectObj(false);
         curVisualStageImage.sprite = curSelectStage.GetStageImage();
+        stageNameText.SetText(curSelectStage.GetCellStageName());
 
         for (int i = 0; i < cellParent.childCount; i++)
         {
@@ -81,6 +83,7 @@ public class AreaManager : MonoBehaviour
         curSelectStage = cells[index];
         cameraFollow.SetTarget(curSelectStage.transform);
         curVisualStageImage.sprite = curSelectStage.GetStageImage();
+        stageNameText.SetText(curSelectStage.GetCellStageName());
         imageAmpritude.EaseStart();
     }
     //directionの方向のセルがnullじゃないかつ、起動状態ならステージ選択できるようにする
@@ -93,6 +96,7 @@ public class AreaManager : MonoBehaviour
             curSelectStage = curSelectStage.GetStageCell(direction);
             cameraFollow.SetTarget(curSelectStage.transform);
             curVisualStageImage.sprite = curSelectStage.GetStageImage();
+            stageNameText.SetText(curSelectStage.GetCellStageName());
             imageAmpritude.EaseStart();
             audioplay.SE1();
         }

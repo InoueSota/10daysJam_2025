@@ -902,10 +902,10 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 5.15, z: 0}
-  - {x: 3, y: 5.15, z: 0}
-  - {x: 3, y: 0, z: 0}
+  - {x: 0, y: 0.53, z: 0}
+  - {x: 0, y: 4.59, z: 0}
+  - {x: 3, y: 4.59, z: 0}
+  - {x: 3, y: 0.59, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.2
@@ -1184,7 +1184,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8006022507605280112, guid: 7226d01f7488d5c42b6bf2be4a314b78, type: 3}
+  m_Sprite: {fileID: -6298162888209318787, guid: 55fb7c642d907834d96b7daafc1bc75a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2115,6 +2115,7 @@ GameObject:
   - component: {fileID: 2387993315348895696}
   - component: {fileID: 4516001448549150250}
   - component: {fileID: 4516526208155022074}
+  - component: {fileID: 4851509106659263885}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -2138,7 +2139,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -817, y: -2279}
+  m_AnchoredPosition: {x: -817, y: 3615}
   m_SizeDelta: {x: 5000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7016345719007913621
@@ -2176,7 +2177,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 300
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2229,6 +2230,20 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &4851509106659263885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8099949864512119804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontString: 
+  backString: 
 --- !u!1 &8188023615303353746
 GameObject:
   m_ObjectHideFlags: 0

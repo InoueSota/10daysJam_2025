@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class TitleLogoScript : MonoBehaviour
 {
 
@@ -57,7 +58,7 @@ public class TitleLogoScript : MonoBehaviour
         animator.SetTrigger("Start");
         for (int i = 0; i < hideObjects.Length; i++)
         {
-            hideObjects[0].SetActive(false);
+            hideObjects[i].SetActive(false);
         }
         normalLogo.transform.localPosition = Vector3.zero;
         titleCanvas.enabled = false;
