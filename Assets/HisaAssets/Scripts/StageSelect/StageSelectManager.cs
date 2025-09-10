@@ -42,7 +42,7 @@ public class StageSelectManager : MonoBehaviour
     float sceneChangeCT;
 
     //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
-    public static int[] areaOpenClearNum = new int[5] { 7, 10, 8, 6, 500 };// { 7, 10, 8, 6, 500 };
+    public static int[] areaOpenClearNum = new int[5] { 7, 10, 8, 6, 500 };// { 7, 10, 8, 6, 500 };//
 
     public bool[] areaOpenFlag = new bool[5];
 
@@ -93,7 +93,7 @@ public class StageSelectManager : MonoBehaviour
         {
             string areaName = "Area" + (i + 1);
 
-            if (PlayerPrefs.GetInt(areaName) == 1)
+            if (PlayerPrefs.GetInt(areaName) >= 1)
             {
                 areaOpenFlag[i] = true;
             }
@@ -190,6 +190,8 @@ public class StageSelectManager : MonoBehaviour
 
             areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
             areaManagers[curSelectAreaIndex].SetSelectActive(true);
+            areaManagers[curSelectAreaIndex].ClearEffect();
+            preSelectAreaIndex=curSelectAreaIndex;
         }
 
     }
@@ -311,9 +313,10 @@ public class StageSelectManager : MonoBehaviour
     void StageSelect()
     {
         if (isSceneChange) { return; }
-        if (Input.GetButtonDown("Back"))
+        if (Input.GetButtonDown("Back")|| Input.GetButtonDown("Menu"))
         {
             areaSelect = true;
+            Debug.Log("curSelectAreaIndex" + curSelectAreaIndex);
             areaManagers[curSelectAreaIndex].AreaSelectAnime(false);
             areaManagers[curSelectAreaIndex].SetSelectActive(false);
 
