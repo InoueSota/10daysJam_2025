@@ -62,7 +62,7 @@ MonoBehaviour:
   blockOffset:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  cutEffect: {fileID: 1102204550860352480, guid: 218d4652abee0144f893e379d00cd6b2, type: 3}
+  sunPrefab: {fileID: 2965180457006913504, guid: 4a6d477fbcddd3340b9779063d3f2bc7, type: 3}
 --- !u!1001 &2442711362389446375
 PrefabInstance:
   m_ObjectHideFlags: 0
