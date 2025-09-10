@@ -126,6 +126,18 @@ MonoBehaviour:
   - {fileID: 2259460938283453704}
   areaOpenText: {fileID: 4735999584239587254}
   areaOpenTexts: {fileID: 1873974369049546633}
+  backFrame: {fileID: 8227616460391877925}
+  frame: {fileID: 5930930804111874166}
+  area1BackColor: {r: 0.6117647, g: 0.4862745, b: 0.11764706, a: 1}
+  area1Color: {r: 0.74509805, g: 0.5921569, b: 0.14509805, a: 1}
+  area2BackColor: {r: 0.1751556, g: 0.5396226, b: 0.12116049, a: 1}
+  area2Color: {r: 0.23466843, g: 0.7056604, b: 0.16376641, a: 1}
+  area3BackColor: {r: 0.2016447, g: 0.22372659, b: 0.4792453, a: 1}
+  area3Color: {r: 0.28417945, g: 0.31054205, b: 0.6301887, a: 1}
+  area4BackColor: {r: 0.45490196, g: 0.18549106, b: 0.14901961, a: 1}
+  area4Color: {r: 0.6509804, g: 0.2651238, b: 0.20392156, a: 1}
+  area5BackColor: {r: 0.645283, g: 0.23254539, b: 0.58346385, a: 1}
+  area5Color: {r: 0.83396226, g: 0.3257173, b: 0.75724584, a: 1}
 --- !u!1 &5623335064905196285
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.6132076, g: 0.48629966, b: 0.118592024, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -259,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 7bd17c88f6124584a9c6966c3e9a62a9, type: 2}
-  m_Color: {r: 0.745283, g: 0.59282976, b: 0.14413491, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
