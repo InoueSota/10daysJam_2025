@@ -483,6 +483,10 @@ PrefabInstance:
       value: "2_Stage12_\u2606\u2606\u2606\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -1293712511134894803, guid: bb50a31d33190194dac49c8005f14423, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
       objectReference: {fileID: 882068208}
@@ -748,6 +752,10 @@ PrefabInstance:
       value: "2_Stage9\u2606\u2190"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -3429193164196339616, guid: 316b0295eea38b949af0c811be0c78bd, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 1311190939}
@@ -951,7 +959,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: -3544237276164560565, guid: cd7a423c26a37df4b95288ae21557e64, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -1072,6 +1080,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1758630803}
+    - target: {fileID: 3242649209738587168, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+      propertyPath: m_Text
+      value: "\u6BB5\u30DC\u30FC\u30EB\u30DE\u30A6\u30F3\u30C6\u30F3"
+      objectReference: {fileID: 0}
     - target: {fileID: 4710188598036823578, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1183,7 +1195,7 @@ PrefabInstance:
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 1109522411410800913, guid: 1cd6dc4c7f6d73d409bc82484d17d84f, type: 3}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -1435,7 +1447,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: -440034852163918350, guid: e0c1b5adf9a345a409e25a4c979eed24, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -1599,6 +1611,10 @@ PrefabInstance:
       propertyPath: activeFlag
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 4801699427812805674, guid: 247edd8ac94a4cf40924f5e22594a7e2, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
@@ -1849,7 +1865,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: -6365557306270678786, guid: ba3f22605384ba24580336418ad5edb5, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -1984,7 +2000,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 5307527928239394728, guid: dfc06bf02d216b44b958920e1774f050, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -2144,7 +2160,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 5432377368026818832, guid: 5c872adccdce3984195369fbbc9bdba5, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -2259,6 +2275,10 @@ PrefabInstance:
       value: "2_Stage14qp_\u2606\u2193\u2191"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 4665740820974560593, guid: 1f60bfda8030b4c44815f4f0be233166, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 1273468627}
@@ -2371,6 +2391,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1758630803}
+    - target: {fileID: 3242649209738587168, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+      propertyPath: m_Text
+      value: "\u30AF\u30E9\u30D6\u6C34\u65CF\u9928"
+      objectReference: {fileID: 0}
     - target: {fileID: 4710188598036823578, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2459,7 +2483,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: -794081648904147739, guid: cba919f8ca29ba04294611dd71d6390a, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -2642,6 +2666,10 @@ PrefabInstance:
       value: "3_Stage2_\u2192"
       objectReference: {fileID: 0}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 3693720925219486922, guid: b7022d1aeff0aa8478d39100f3f89221, type: 3}
+    - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 0}
@@ -2722,7 +2750,7 @@ PrefabInstance:
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -3181188892271765033, guid: 17ff20a019918e743ad71d4e357b42c7, type: 3}
+      objectReference: {fileID: -7909718030414947373, guid: 846869c5807ceca46a2bafb60c2f8179, type: 3}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -3125,7 +3153,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: -3785050679684242413, guid: 0504f53f7f8d828479584a20ff1a9294, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -3235,6 +3263,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1758630803}
+    - target: {fileID: 3242649209738587168, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+      propertyPath: m_Text
+      value: "\u30CD\u30AA\u30F3\u30BF\u30A6\u30F3"
+      objectReference: {fileID: 0}
     - target: {fileID: 4710188598036823578, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
       propertyPath: m_Camera
       value: 
@@ -3316,6 +3348,10 @@ PrefabInstance:
       propertyPath: stageName
       value: "2_Stage10__\u2606\u2192"
       objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -6458600351475668704, guid: 4c2f9346287932d4889f10a825f654cb, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -3850,7 +3886,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: -6101924507430213652, guid: 033caea45b32e0841b20269e36e91b32, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -3979,7 +4015,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 205047204421403121, guid: 095558ec90d616d49b59712a4b945388, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -4546,6 +4582,10 @@ PrefabInstance:
       value: "2_Stage6\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -6224376458073505113, guid: e38cfaba0e9da8d4383b222b9c528430, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 1087133470}
@@ -4662,6 +4702,10 @@ PrefabInstance:
       propertyPath: stageName
       value: "2_Stage13_\u30C6\u30AF\u30CB\u30AB\u30EB\u2606\u2606\u2606\u2192(\u2190)"
       objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -1189790308897513464, guid: 86636ac5ec5938e4da72f7be2ac05efe, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -4928,6 +4972,10 @@ PrefabInstance:
       value: "2_Stage4\u2193"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 1946185162418780905, guid: 2b646e18b36344d48a50617a53d48d96, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
       objectReference: {fileID: 1087133470}
@@ -5028,6 +5076,10 @@ PrefabInstance:
       propertyPath: stageName
       value: "2_Stage7_\u2606\u2606_\u2192\u2190"
       objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -5899131408509832929, guid: 5c50c54502b6b7e49b11723ea21467f3, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -5300,6 +5352,10 @@ PrefabInstance:
       value: "2_Stage2\u2191"
       objectReference: {fileID: 0}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -5183554643027966632, guid: 179bd2c52ac37ac44b89b49cd4f3a82b, type: 3}
+    - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 139950505}
@@ -5352,6 +5408,10 @@ PrefabInstance:
       value: "2_Stage3\u2192"
       objectReference: {fileID: 0}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -4538486924847494811, guid: e49546f01270bbf4494656d6bc878412, type: 3}
+    - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: downConnectStage
       value: 
       objectReference: {fileID: 156294755}
@@ -5386,7 +5446,7 @@ PrefabInstance:
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: 7669918910384290053, guid: 54555e49103c36445a959667f57ea5b2, type: 3}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -5648,7 +5708,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 5834790347970779340, guid: 0eb4723fa8c7fb842b0ad52b6aa81436, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -5750,6 +5810,10 @@ PrefabInstance:
       propertyPath: stageName
       value: "2_Stage5\u2193"
       objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 9039301110547173834, guid: 32e4987521500ec45a81777ee2fb164e, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -5969,6 +6033,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -5516731152259144561, guid: 60a31c39c1bb2e44090e8a4338977e6e, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
       objectReference: {fileID: 1455109078}
@@ -6093,7 +6161,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: 7585781543641009259, guid: ccffaa4cb68656a4eb5ccb4b9c9a6edc, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -6456,6 +6524,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1758630803}
+    - target: {fileID: 3242649209738587168, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+      propertyPath: m_Text
+      value: "\u3042\u306E\u65E5\u306E\u5915\u713C\u3051"
+      objectReference: {fileID: 0}
     - target: {fileID: 4710188598036823578, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
       propertyPath: m_Camera
       value: 
@@ -6581,6 +6653,10 @@ PrefabInstance:
       propertyPath: stageName
       value: "2_Stage11_\u2606\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u2190"
       objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 6877425930143283794, guid: 9a1e91a39e18ffe4094321a4c86e05bc, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -6769,7 +6845,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: -2495119226651187015, guid: 8504f7f91b7ccee4ba7d9213f94dc42f, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -6967,6 +7043,10 @@ PrefabInstance:
       value: "2_Stage8\u2193(\u2190)"
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -6340684546021494995, guid: 2e033df8e7ba7454cbf0dadd80f75f84, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: downConnectStage
       value: 
       objectReference: {fileID: 103721759}
@@ -7091,7 +7171,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: -4901640319297246562, guid: c75faee8bdde42544b24a3fb253a320e, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -7295,7 +7375,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 5017240207816358262, guid: ad511a30c2d2c5a4a9b5684e760d0a8e, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -7486,6 +7566,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -5462039355465418914, guid: 2ad453ee386e9904f83b242b64d32b5e, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 0}
@@ -7602,7 +7686,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: -7947416249950475895, guid: 19ed9b070d567b54e960794c67d76951, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -7703,7 +7787,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 2100945059032954496, guid: 88597f7493d6e1e4b8b12b10c4d74c72, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -7828,7 +7912,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: -8421503118672850542, guid: 5ed8b1c2c41e9814bafe89e1672ee3f7, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -7941,6 +8025,10 @@ PrefabInstance:
       propertyPath: stageName
       value: "2_Stage_\u30C6\u30AF\u30CB\u30AB\u30EB\u2606\u2606\u2606\u2191\u2192\u2190EX"
       objectReference: {fileID: 0}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -8386491487075361189, guid: 06258921239de50409c5b5a8c2ee11f2, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -8094,7 +8182,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: -5848658970496548255, guid: e8f6062f7eb2211428f123c54799e105, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -8195,7 +8283,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 3316371740214104008, guid: 2ef9547245a478b4e874e64cbf95b7a6, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -8389,7 +8477,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 8184748544866254321, guid: 92f1ea45ddd6b2549908395c63c5a481, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -8630,7 +8718,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 2938433606312660228, guid: f0a7e7f7ae59b7242b9e47e0e45c5c89, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -8768,6 +8856,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 4820149329844152481, guid: 1ccc2b0b46bd940479bd301ebd37ddd2, type: 3}
+    - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: leftConnectStage
       value: 
       objectReference: {fileID: 1954733803}
@@ -8883,7 +8975,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: -7283008978376834330, guid: 5d8978345010048498fa77da30ba1cd5, type: 3}
+      objectReference: {fileID: 6275995098032770256, guid: 4570a5ce5b7214f43a95bcbddf80d33e, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -9137,7 +9229,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 1384809864996986966, guid: 309155390e8400c44864bdd4da577f1d, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -9338,7 +9430,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: -1748706016382681779, guid: d4cc06047ea19d74e9b1a94215d0be16, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -9460,7 +9552,7 @@ PrefabInstance:
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 7015326594396873424, guid: 2c9dff5f9dbc7564c8a68a84a0c7ebac, type: 3}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -9715,7 +9807,7 @@ PrefabInstance:
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: stageImage
       value: 
-      objectReference: {fileID: 4873450051857713897, guid: 0e074891a80f0634fa880f41fd8ff0e7, type: 3}
+      objectReference: {fileID: 7066583899479673081, guid: 67802f87844ac0a4eab29548b60d0763, type: 3}
     - target: {fileID: 7294700529545829765, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -9823,7 +9915,7 @@ PrefabInstance:
       objectReference: {fileID: 1758630803}
     - target: {fileID: 3242649209738587168, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
       propertyPath: m_Text
-      value: "\u30A8\u30EA\u30A21"
+      value: "\u30DA\u30FC\u30D1\u30FC\u30E9\u30F3\u30C9"
       objectReference: {fileID: 0}
     - target: {fileID: 4710188598036823578, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
       propertyPath: m_Camera
@@ -9866,6 +9958,10 @@ PrefabInstance:
       propertyPath: activeFlag
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -8896576355868362568, guid: 29e09458e6ab4004c80ebf753b913108, type: 3}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -9931,6 +10027,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: 6343969848909920553, guid: dd06bc57af0c0c242a8fec02e4904882, type: 3}
+    - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
       objectReference: {fileID: 1455109078}
@@ -9970,6 +10070,10 @@ PrefabInstance:
       propertyPath: activeFlag
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageImage
+      value: 
+      objectReference: {fileID: -6298162888209318787, guid: 55fb7c642d907834d96b7daafc1bc75a, type: 3}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
