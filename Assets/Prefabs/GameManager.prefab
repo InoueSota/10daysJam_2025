@@ -148,6 +148,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  particle: {fileID: 0}
 --- !u!114 &4544434381622202761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,4 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa8f6493352cc943874157217ae4d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: []
+  particle:
+  - {fileID: 2969111291213029143, guid: b3718aa596f64de45803c32bd02af2be, type: 3}
+  - {fileID: 4760024364548277574, guid: e762d97f17baf3f44a27cd194f28ae43, type: 3}

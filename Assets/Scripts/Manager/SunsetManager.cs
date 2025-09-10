@@ -1,10 +1,17 @@
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class SunsetManager : MonoBehaviour
 {
     [SerializeField] private bool isSunsetActive;
     [SerializeField] private LayerMask groundLayer;
 
+    [SerializeField] ParticleInstantiateScript particle;
+
+    private void Start()
+    {
+        particle = GetComponent<ParticleInstantiateScript>();
+    }
     public void StartDestroyRay(Vector3 _rocketVector, Vector3 _playerPosition, bool _isDivision, Vector3 _divisionLinePosition, int _divisionMode)
     {
         // ‹«ŠEü‚ªˆø‚©‚ê‚Ä‚¢‚é
@@ -258,6 +265,7 @@ public class SunsetManager : MonoBehaviour
             // Tag‚ªFieldObject‚È‚ç
             if (hit && hit.collider.gameObject.CompareTag("FieldObject"))
             {
+                particle.RunParticle(0,hit.collider.gameObject.transform.position);
                 hit.collider.gameObject.SetActive(false);
                 destroyEvenOne = true;
             }

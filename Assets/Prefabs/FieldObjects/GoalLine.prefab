@@ -47,3 +47,4 @@ MonoBehaviour:
   characterLayer:
     serializedVersion: 2
     m_Bits: 64
+  neonGoalLineMaterial: {fileID: 2100000, guid: c3e42d1bc9a030849b40660ebb22b1f2, type: 2}

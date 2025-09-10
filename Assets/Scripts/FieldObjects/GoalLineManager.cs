@@ -7,6 +7,8 @@ public class GoalLineManager : MonoBehaviour
     private LineRenderer lineRenderer;
 
     [SerializeField] private LayerMask characterLayer;
+    Material goalLineMaterial;
+    [SerializeField] private Material neonGoalLineMaterial;
 
     private float delayTimer;
     private GameManager gameManager;
@@ -21,8 +23,12 @@ public class GoalLineManager : MonoBehaviour
         lineRenderer.endWidth = 0.1f;
 
         // マテリアル（デフォルトだと見えにくいので）
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = new(0.99f, 0.42f, 0.41f, 1f);
+        string areaName = _gameManager.GetAreaName();
+        if (areaName == "Area5") { goalLineMaterial = neonGoalLineMaterial; }
+        else {goalLineMaterial = new Material(Shader.Find("Sprites/Default")); }
+
+        lineRenderer.material = goalLineMaterial;
+         lineRenderer.startColor = new(0.99f, 0.42f, 0.41f, 1f);
         lineRenderer.endColor = new(0.99f, 0.42f, 0.41f, 1f);
 
         // 頂点数は2
