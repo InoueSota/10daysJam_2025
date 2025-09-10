@@ -55,6 +55,7 @@ public class StageSelectManager : MonoBehaviour
     public int maxIndex;
     [SerializeField] GameObject[] arrowImage;
     [SerializeField] AudioPlay audioPlay;
+    [SerializeField] GameObject abutton;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -200,6 +201,8 @@ public class StageSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        abutton.SetActive(areaSelect);
+        
         StartTalk();
         ChangeScene();
         InputDire();
