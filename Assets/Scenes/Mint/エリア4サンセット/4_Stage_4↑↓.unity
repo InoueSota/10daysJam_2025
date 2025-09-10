@@ -508,7 +508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8217613599751494566, guid: 55967b58990d3034ca0a9bab9bd1e4ed, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8217613599751494566, guid: 55967b58990d3034ca0a9bab9bd1e4ed, type: 3}
       propertyPath: 'm_ApplyToSortingLayers.Array.data[0]'
