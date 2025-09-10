@@ -31,7 +31,7 @@ public class GoalLineManager : MonoBehaviour
         // マテリアル（デフォルトだと見えにくいので）
         string areaName = _gameManager.GetAreaName();
         if (areaName == "Area5") { goalLineMaterial = neonGoalLineMaterial; }
-        else {goalLineMaterial = new Material(Shader.Find("Sprites/Default")); }
+        else { goalLineMaterial = new Material(Shader.Find("Sprites/Default")); }
 
         lineRenderer.material = goalLineMaterial;
         if (areaName == "Area4")
@@ -99,7 +99,17 @@ public class GoalLineManager : MonoBehaviour
             if (hit.collider != null)
             {
                 GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-                gameManager.CheckGoal();
+
+                // 縦ゴール配置
+                if (Mathf.Approximately(pointA.position.x, pointB.position.x))
+                {
+                    gameManager.CheckGoal(false);
+                }
+                // 横ゴール配置
+                else if (Mathf.Approximately(pointA.position.y, pointB.position.y))
+                {
+                    gameManager.CheckGoal(true);
+                }
             }
         }
     }
