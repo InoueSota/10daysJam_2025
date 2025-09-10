@@ -368,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_Text
-      value: "\u305D\u3046\u9A5A\u304F\u306A\u3002\n\u304A\u524D\u3092\u3053\u3053\u306B\u547C\u3093\u3060\u306E\u306F\u30EF\u30B7\u3058\u3083"
+      value: "\u305D\u3046\u304A\u3069\u308D\u304F\u306A\u3002\n\u304A\u524D\u3092\u3053\u3053\u306B\u547C\u3093\u3060\u306E\u306F\u30EF\u30B7\u3058\u3083"
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -2074,6 +2074,7 @@ MonoBehaviour:
   talkEnd: 0
   resumeTime: 0
   animator: {fileID: 622005602}
+  activeFalseObj: {fileID: 0}
 --- !u!1 &1503157226 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8958789297306081928, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
