@@ -13,12 +13,17 @@ public class TitileManager : MonoBehaviour
     SceneTransition sceneTransitionObj;
     public bool isSceneChange;
     float sceneChangeCT;
+    [SerializeField] GameObject allClear;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         deleteGauge.SetRatio(0);
 
+        if (PlayerPrefs.GetString("King") == "true")
+        {
+            allClear.SetActive(true);
+        }
 
     }
 
@@ -68,6 +73,7 @@ public class TitileManager : MonoBehaviour
                 Instantiate(saveDeleteObj);
                 StageSelectManager.Initalize();
                 deleteGauge.SetRatio(0);
+                allClear.SetActive(false);
             }
         }
         else
