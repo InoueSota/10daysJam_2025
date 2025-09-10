@@ -29,7 +29,7 @@ public class StageSelectManager : MonoBehaviour
     public static int[] cellSelectTmp = new int[5];//それぞれのエリアで最後に選んだセルを保存する
     public static string lastStageName;//最後に遊んだステージ
     public static string lastAreaName;//最後に遊んだエリア
-    bool areaSelect;
+    public static bool areaSelect;
 
 
     bool debugActive;
@@ -42,7 +42,7 @@ public class StageSelectManager : MonoBehaviour
     float sceneChangeCT;
 
     //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
-    public static int[] areaOpenClearNum = new int[5] { 2, 1, 2, 2, 500 };// { 6, 10, 8, 6, 500 };
+    public static int[] areaOpenClearNum = new int[5] { 7, 10, 8, 6, 500 };// { 7, 10, 8, 6, 500 };
 
     public bool[] areaOpenFlag = new bool[5];
 
@@ -81,7 +81,6 @@ public class StageSelectManager : MonoBehaviour
             debugLogtext += cellSelectTmp[i] + "\n";
         }
         Debug.Log(debugLogtext);
-        areaSelect = true;
 
 
         for (int i = 0; i < areaManagers.Length; i++)
@@ -182,6 +181,17 @@ public class StageSelectManager : MonoBehaviour
             curSelectAreaIndex = 4;
         }
 
+        if (!areaSelect)
+        {
+            areaPixelCamera.StartRotation(72f * curSelectAreaIndex);
+            gradientObj.SetIndex(curSelectAreaIndex);
+
+            areaManagers[curSelectAreaIndex].AreaSelectAnime("ChangeArea");//次のアニメーションは再生する
+
+            areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
+            areaManagers[curSelectAreaIndex].SetSelectActive(true);
+        }
+
     }
 
     // Update is called once per frame
@@ -190,7 +200,7 @@ public class StageSelectManager : MonoBehaviour
         StartTalk();
         ChangeScene();
         InputDire();
-
+        Debug.Log(areaSelect);
         if (areaSelect)
         {
             AreaSelect();

@@ -663,7 +663,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30BB\u30EC\u30AF\u30C8\u3078"
+  m_Text: 
 --- !u!95 &8563195282723609268
 Animator:
   serializedVersion: 7
@@ -1296,7 +1296,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u6B21\u306E\u30B9\u30C6\u30FC\u30B8"
+  m_Text: "\u30BB\u30EC\u30AF\u30C8\u3078"
 --- !u!95 &4939763066625296890
 Animator:
   serializedVersion: 7

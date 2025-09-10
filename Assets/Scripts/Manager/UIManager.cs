@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         if (!groupAfterGoal.activeSelf) { return; }
-        if (nextStageFalse) clearSelectTexts[0].gameObject.SetActive(!nextStageFalse);//cleaerSelectTextsActiveがtrueなら非表示に
+       // if (nextStageFalse) clearSelectTexts[0].gameObject.SetActive(!nextStageFalse);//cleaerSelectTextsActiveがtrueなら非表示に
 
         if (inputDelay < 1.5f)
         {
@@ -160,17 +160,17 @@ public class UIManager : MonoBehaviour
 
                 curSelectIndex++;
 
-                if (curSelectIndex > 2)
+                if (curSelectIndex > 1)
                 {
-                    curSelectIndex = 1;//次のステージは選択できないため。
+                    curSelectIndex = 0;//次のステージは選択できないため。
                 }
             }
             else if (inputDire.y > 0)
             {
                 curSelectIndex--;
-                if (curSelectIndex < 1)//次のステージは選択できないため。
+                if (curSelectIndex < 0)//次のステージは選択できないため。
                 {
-                    curSelectIndex = 2;
+                    curSelectIndex = 1;
                 }
             }
 
@@ -180,7 +180,7 @@ public class UIManager : MonoBehaviour
             if (inputDire.y < 0)
             {
                 curSelectIndex++;
-                if (curSelectIndex > 2)
+                if (curSelectIndex > 1)
                 {
                     curSelectIndex = 0;
                 }
@@ -190,7 +190,7 @@ public class UIManager : MonoBehaviour
                 curSelectIndex--;
                 if (curSelectIndex < 0)
                 {
-                    curSelectIndex = 2;
+                    curSelectIndex = 1;
                 }
             }
         }
