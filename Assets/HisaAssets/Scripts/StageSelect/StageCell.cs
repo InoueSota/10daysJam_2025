@@ -18,6 +18,7 @@ public class StageCell : MonoBehaviour
     // [SerializeField] StageCell[] connectStage = new StageCell[4];
     [SerializeField, Header("このセルで遷移するステージ")] string stageName;
     [SerializeField, Header("このセルのステージ画像")] Sprite stageImage;
+    [SerializeField, Header("このセルで表示するステージ名")] string cellStagename;
     [Header("自分を基準に接続先のステージ")]
     [SerializeField] StageCell upConnectStage;
     [SerializeField] StageCell downConnectStage;
@@ -36,6 +37,7 @@ public class StageCell : MonoBehaviour
 
     public bool clear;
 
+    public string GetCellStageName() { return cellStagename; }
     //アクティブ(選択可能)にする
     public bool GetSetActive
     {

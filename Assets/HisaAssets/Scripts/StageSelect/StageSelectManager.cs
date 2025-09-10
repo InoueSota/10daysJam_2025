@@ -29,7 +29,7 @@ public class StageSelectManager : MonoBehaviour
     public static int[] cellSelectTmp = new int[5];//それぞれのエリアで最後に選んだセルを保存する
     public static string lastStageName;//最後に遊んだステージ
     public static string lastAreaName;//最後に遊んだエリア
-    bool areaSelect;
+    public static bool areaSelect;
 
 
     bool debugActive;
@@ -42,7 +42,7 @@ public class StageSelectManager : MonoBehaviour
     float sceneChangeCT;
 
     //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
-    public static int[] areaOpenClearNum = new int[5] { 2, 1, 2, 2, 500 };// { 6, 10, 8, 6, 500 };
+    public static int[] areaOpenClearNum = new int[5] { 7, 10, 8, 5, 500 };// { 7, 10, 8, 6, 500 };//
 
     public bool[] areaOpenFlag = new bool[5];
 
@@ -52,8 +52,9 @@ public class StageSelectManager : MonoBehaviour
     float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
     bool talkEnd;
 
-    int maxIndex;
+    public int maxIndex;
     [SerializeField] GameObject[] arrowImage;
+    [SerializeField] AudioPlay audioPlay;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -81,7 +82,6 @@ public class StageSelectManager : MonoBehaviour
             debugLogtext += cellSelectTmp[i] + "\n";
         }
         Debug.Log(debugLogtext);
-        areaSelect = true;
 
 
         for (int i = 0; i < areaManagers.Length; i++)
@@ -94,7 +94,7 @@ public class StageSelectManager : MonoBehaviour
         {
             string areaName = "Area" + (i + 1);
 
-            if (PlayerPrefs.GetInt(areaName) == 1)
+            if (PlayerPrefs.GetInt(areaName) >= 1)
             {
                 areaOpenFlag[i] = true;
             }
@@ -162,6 +162,39 @@ public class StageSelectManager : MonoBehaviour
             }
         }
 
+        //エリア解放された時にカメラ選択を自動でする
+        if (PlayerPrefs.GetInt("Area2") == 1) {
+            PlayerPrefs.SetInt("Area2", 2);
+            curSelectAreaIndex = 1;
+        }else if (PlayerPrefs.GetInt("Area3") == 1)
+        {
+            PlayerPrefs.SetInt("Area3", 2);
+            curSelectAreaIndex = 2;
+        }
+        else if (PlayerPrefs.GetInt("Area4") == 1)
+        {
+            PlayerPrefs.SetInt("Area4", 2);
+            curSelectAreaIndex = 3;
+        }
+        else if (PlayerPrefs.GetInt("Area5") == 1)
+        {
+            PlayerPrefs.SetInt("Area5", 2);
+            curSelectAreaIndex = 4;
+        }
+
+        if (!areaSelect)
+        {
+            areaPixelCamera.StartRotation(72f * curSelectAreaIndex);
+            gradientObj.SetIndex(curSelectAreaIndex);
+
+            areaManagers[curSelectAreaIndex].AreaSelectAnime("ChangeArea");//次のアニメーションは再生する
+
+            areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
+            areaManagers[curSelectAreaIndex].SetSelectActive(true);
+            areaManagers[curSelectAreaIndex].ClearEffect();
+            preSelectAreaIndex=curSelectAreaIndex;
+        }
+
     }
 
     // Update is called once per frame
@@ -170,7 +203,7 @@ public class StageSelectManager : MonoBehaviour
         StartTalk();
         ChangeScene();
         InputDire();
-
+        Debug.Log(areaSelect);
         if (areaSelect)
         {
             AreaSelect();
@@ -274,6 +307,7 @@ public class StageSelectManager : MonoBehaviour
             areaSelect = false;
             areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
             areaManagers[curSelectAreaIndex].SetSelectActive(true);
+            audioPlay.SE1();
         }
 
     }
@@ -281,9 +315,10 @@ public class StageSelectManager : MonoBehaviour
     void StageSelect()
     {
         if (isSceneChange) { return; }
-        if (Input.GetButtonDown("Back"))
+        if (Input.GetButtonDown("Back")|| Input.GetButtonDown("Menu"))
         {
             areaSelect = true;
+            Debug.Log("curSelectAreaIndex" + curSelectAreaIndex);
             areaManagers[curSelectAreaIndex].AreaSelectAnime(false);
             areaManagers[curSelectAreaIndex].SetSelectActive(false);
 
@@ -329,6 +364,7 @@ public class StageSelectManager : MonoBehaviour
                     debugLogtext += cellSelectTmp[i] + "\n";
                 }
                 Debug.Log(debugLogtext);
+                audioPlay.SE1();
             }
         }
         //ステージ選択画面→タイトルへの遷移
@@ -338,6 +374,7 @@ public class StageSelectManager : MonoBehaviour
             sceneTransitionObj = Instantiate(sceneTransitionPrefab);
             sceneTransitionObj.StartTransition("TitleScene");
             Debug.Log("バック");
+            audioPlay.SE1();
         }
 
     }
@@ -441,6 +478,10 @@ public class StageSelectManager : MonoBehaviour
         else if (areaOpenFlag[2] && PlayerPrefs.GetInt("SelectTalk") < 2)
         {
             ChangeTalkScene(2);
+        }
+        else if (areaOpenFlag[3] && PlayerPrefs.GetInt("SelectTalk") < 3)
+        {
+            ChangeTalkScene(3);
         }
     }
 }
