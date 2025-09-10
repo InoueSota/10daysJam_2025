@@ -96,7 +96,7 @@ public class PlayerCut : MonoBehaviour
         if (!isCreateLineStart)
         {
             // •ª’fü‚Ìíœ
-            if (isActive && !isDecision && Input.GetButtonUp("Special"))
+            if ((isActive && !isDecision && Input.GetButtonUp("Special")) || Input.GetButtonDown("Undo") || Input.GetButtonDown("Reset"))
             {
                 targetIntensity = 0f;
 
