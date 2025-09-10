@@ -156,9 +156,9 @@ public class GameManager : MonoBehaviour
             uiManager.ClearCanvasActive();
             if (notHaikuDire == goalDire)
             {
-                notHaikuFlag = true;
+               // notHaikuFlag = true;
                 Debug.Log("俳句なし");
-                uiManager.SetActiveFalseIndex();
+               // uiManager.SetActiveFalseIndex();
             }
 
             isGoal = true;
@@ -237,36 +237,37 @@ public class GameManager : MonoBehaviour
         }
         if (isGoal && Input.GetButtonDown("Select") && uiManager.GetInputDelay())
         {
-            if (uiManager.GetCurSelectIndex() == 0)//次のステージ
-            {
-                if (connectStage != null)
-                {
+            //if (uiManager.GetCurSelectIndex() == 0)//次のステージ
+            //{
+            //    if (connectStage != null)
+            //    {
 
-                    sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-                    sceneTransitionObj.StartTransition(connectStage);
-                    isSceneChange = true;
+            //        sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+            //        sceneTransitionObj.StartTransition(connectStage);
+            //        isSceneChange = true;
 
-                }
-                else
-                {
-                    //接続先なしの時俳句へ
-                    if (!notHaikuFlag)
-                    {
-                        sceneTransitionObj = Instantiate(sceneTransitionPrefab);
-                        sceneTransitionObj.StartTransition("HaikuScene");
-                        isSceneChange = true;
-                    }
-                }
+            //    }
+            //    else
+            //    {
+            //        //接続先なしの時俳句へ
+            //        if (!notHaikuFlag)
+            //        {
+            //            sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+            //            sceneTransitionObj.StartTransition("HaikuScene");
+            //            isSceneChange = true;
+            //        }
+            //    }
 
-            }
-            else if (uiManager.GetCurSelectIndex() == 1)//やりなおす
+            //}
+            //else
+            if (uiManager.GetCurSelectIndex() == 1)//やりなおす
             {
                 string currentSceneName = SceneManager.GetActiveScene().name;
                 sceneTransitionObj = Instantiate(sceneTransitionPrefab);
                 sceneTransitionObj.StartTransition(currentSceneName);
                 isSceneChange = true;
             }
-            else if (uiManager.GetCurSelectIndex() == 2)//セレクト画面
+            else if (uiManager.GetCurSelectIndex() == 0)//セレクト画面
             {
                 sceneTransitionObj = Instantiate(sceneTransitionPrefab);
                 sceneTransitionObj.StartTransition("StageSelectScene");
@@ -329,6 +330,7 @@ public class GameManager : MonoBehaviour
         if (type != 2 && connectStage != null && connectStage != "")
         {
             type = 1;//開放しました！にする
+            StageSelectManager.lastStageName = connectStage;
         }
 
         ////接続先がある時
@@ -459,12 +461,16 @@ public class GameManager : MonoBehaviour
         //このエリアのクリア数が規定の数超えたら次のエリアを開放する
         if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex-1])
         {
-            if (PlayerPrefs.GetInt(nextArea) != 1)//まだエリアを開放してない時
+            if (PlayerPrefs.GetInt(nextArea) < 1)//まだエリアを開放してない時
             {
                 PlayerPrefs.SetInt(nextArea, 1);//1を開放状態として扱う
                 PlayerPrefs.Save(); // 明示的に保存
                 uiManager.AreaOpen();//テキストを表示
                 uiManager.SetAreaOpenText(curAreaIndex + 1);
+
+
+
+
                 //Debug.Log("エリアかいほううううううううううううううううううううううううう");
                 //エリア開放フラグをtrueにしてキャンバスの内容を変える
             }

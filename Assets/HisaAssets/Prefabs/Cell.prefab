@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 6615676548930675401}
   - component: {fileID: 6514101112558278756}
   - component: {fileID: 8844481099870535239}
+  - component: {fileID: 8305441256203150097}
   m_Layer: 10
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -140,7 +141,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 839023070113259901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -191,6 +192,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '?'
+--- !u!114 &8305441256203150097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2205209749569185223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226f07ac8617e6f449b4901395539fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceText: {fileID: 8935398570156646434}
+  targetText: {fileID: 8844481099870535239}
+  updateEveryFrame: 0
 --- !u!1 &2665421022796491470
 GameObject:
   m_ObjectHideFlags: 0

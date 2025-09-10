@@ -23,7 +23,7 @@ public class PauseController : MonoBehaviour
     [SerializeField] SceneTransition sceneTransitionPrefab;
     SceneTransition sceneTransition;
 
-
+    [SerializeField] AudioPlay audioplay;
     void Start()
     {
         // PauseScene が Additive でロードされた時点で呼ばれる
@@ -65,6 +65,7 @@ public class PauseController : MonoBehaviour
 
             if (index >= 3) { index = 0; }
             animators[index].SetBool("Select", true);
+            audioplay.SE2();
         }
         else if (inputDire.y > 0)
         {
@@ -73,7 +74,7 @@ public class PauseController : MonoBehaviour
             index--;
             if (index < 0) { index = 2; }
             animators[index].SetBool("Select", true);
-
+            audioplay.SE2();
         }
         SelectMode();
 
@@ -139,6 +140,7 @@ public class PauseController : MonoBehaviour
 
         if (Input.GetButtonDown("Select"))
         {
+            audioplay.SE1();
             change = true;
             //ゲームに戻る
             if (index == 0)
@@ -161,6 +163,7 @@ public class PauseController : MonoBehaviour
 
         if (!change && Input.GetButtonDown("Menu"))
         {
+            audioplay.SE1();
             change = true;
             //ゲームに戻る
             isResume = true;
