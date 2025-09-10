@@ -42,7 +42,7 @@ public class LaserLineManager : MonoBehaviour
         gameManager = _gameManager;
 
         // ƒfƒBƒŒƒC‚Ì‰Šú‰»
-        delayTimer = 0.03f;
+        delayTimer = 0.05f;
     }
     public void SetAlpha(float alpha)
     {
@@ -62,7 +62,7 @@ public class LaserLineManager : MonoBehaviour
     void Update()
     {
         delayTimer -= Time.deltaTime;
-        if (gameManager.GetUndoOrReset()) { delayTimer = 0.03f; }
+        if (gameManager.GetUndoOrReset()) { delayTimer = 0.05f; }
 
         if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); }
 

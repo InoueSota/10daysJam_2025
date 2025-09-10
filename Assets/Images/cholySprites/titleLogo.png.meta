@@ -69,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 480
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,8 +123,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 480
-        height: 480
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,10 +143,10 @@ TextureImporter:
       name: titleLogo_1
       rect:
         serializedVersion: 2
-        x: 480
+        x: 32
         y: 0
-        width: 480
-        height: 480
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,10 +165,10 @@ TextureImporter:
       name: titleLogo_2
       rect:
         serializedVersion: 2
-        x: 960
+        x: 64
         y: 0
-        width: 480
-        height: 480
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,10 +187,10 @@ TextureImporter:
       name: titleLogo_3
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 96
         y: 0
-        width: 480
-        height: 480
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: titleLogo_4
       rect:
         serializedVersion: 2
-        x: 1920
+        x: 128
         y: 0
-        width: 480
-        height: 480
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +231,10 @@ TextureImporter:
       name: titleLogo_5
       rect:
         serializedVersion: 2
-        x: 2400
+        x: 160
         y: 0
-        width: 480
-        height: 480
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -253,10 +253,10 @@ TextureImporter:
       name: titleLogo_6
       rect:
         serializedVersion: 2
-        x: 2880
+        x: 192
         y: 0
-        width: 480
-        height: 480
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,6 +267,72 @@ TextureImporter:
       bones: []
       spriteID: 20e697460a93267e0800000000000000
       internalID: -1773791942187323902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: titleLogo_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec4ce2f20c3bae24798a404c24bec68c
+      internalID: 1937668951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: titleLogo_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3a561f2aa6333145aa4ec560343dc81
+      internalID: -549549254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: titleLogo_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f655c963b0f70141a421e00dc75ffe3
+      internalID: 1094789891
       vertices: []
       indices: 
       edges: []
@@ -292,6 +358,9 @@ TextureImporter:
       titleLogo_4: -2418924812859465154
       titleLogo_5: -4308385340066095611
       titleLogo_6: -1773791942187323902
+      titleLogo_7: 1937668951
+      titleLogo_8: -549549254
+      titleLogo_9: 1094789891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
