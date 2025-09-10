@@ -69,6 +69,8 @@ public class PlayerManager : MonoBehaviour
             // フリーズ終了
             if (deathTimer <= 0f)
             {
+                // 判定を取らないようにする
+                gameManager.SetUndoOrReset(true);
                 // Undo
                 undoManager.Undo();
                 // フラグの切り替え
@@ -89,8 +91,6 @@ public class PlayerManager : MonoBehaviour
     // Setter
     public void SetDeath(Vector3 _freezePosition, bool _isLaserKill)
     {
-        // 判定を取らないようにする
-        gameManager.SetUndoOrReset(true);
         // 死亡箇所にエフェクトを出す
         deathEffectSpawner.SpawnEffect(transform.position);
         // プレイヤーを静止させる
