@@ -55,17 +55,7 @@ public class PlayerCut : MonoBehaviour
 
             // •ª’fÀ•W‚Ìİ’è
             divisionPosition = divisionLineObj.transform.position;
-        }
-    }
 
-    void Start()
-    {
-        controller = GetComponent<PlayerController>();
-        sound = GetComponent<SoundInstantiateScript>();
-
-        // Å‰‚©‚ç•ª’fü‚ª”z’u‚³‚ê‚Ä‚¢‚é‚È‚çA‚»‚Ìî•ñ‚ğæ“¾‚·‚é
-        if (isCreateLineStart)
-        {
             divisionLineObj.transform.parent = null;
 
             // •ª’fˆ—
@@ -90,6 +80,12 @@ public class PlayerCut : MonoBehaviour
                 }
             }
         }
+    }
+
+    void Start()
+    {
+        controller = GetComponent<PlayerController>();
+        sound = GetComponent<SoundInstantiateScript>();
 
         // Global Volume
         postEffectVolume.profile.TryGet(out vignette);
