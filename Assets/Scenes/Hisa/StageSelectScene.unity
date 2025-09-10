@@ -5563,6 +5563,7 @@ MonoBehaviour:
   talkSceneName:
   - Select1
   - Select2
+  - Select3
 --- !u!4 &1189015377
 Transform:
   m_ObjectHideFlags: 0
