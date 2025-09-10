@@ -68,21 +68,18 @@ public class GoalLineManager : MonoBehaviour
         // 2点間を設定
         lineRenderer.SetPosition(0, pointA.position);
         lineRenderer.SetPosition(1, pointB.position);
-    }
 
-    // Getter
-    public bool IsGoal()
-    {
-        if (!pointA.gameObject.activeSelf || !pointB.gameObject.activeSelf) { Destroy(gameObject); return false; }
-        if (delayTimer > 0f) { return false; }
-
-        // プレイヤーが触れたか判定
-        RaycastHit2D hit = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);
-
-        if (hit.collider != null)
+        // ゴール判定
+        if (delayTimer < 0f)
         {
-            return true;
+            // プレイヤーが触れたか判定
+            RaycastHit2D hit = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);
+
+            if (hit.collider != null)
+            {
+                GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+                gameManager.CheckGoal();
+            }
         }
-        return false;
     }
 }

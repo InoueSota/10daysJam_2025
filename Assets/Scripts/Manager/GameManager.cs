@@ -75,154 +75,147 @@ public class GameManager : MonoBehaviour
         if (delayTimer < 0f) { undoOrReset = false; }
 
         ChangeTalkScene();//会話シーンへの遷移
-        // ゴール判定
-        CheckGoal();
         SceneChange();
     }
 
     /// <summary>
     /// ゴール判定
     /// </summary>
-    void CheckGoal()
+    public void CheckGoal()
     {
         if (!isGoal)
         {
-            GameObject goalLine = GameObject.FindGameObjectWithTag("GoalLine");
+            // プレイヤーからゴール方向を取得する
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            PlayerController controller = player.GetComponent<PlayerController>();
 
-            if (goalLine != null && goalLine.GetComponent<GoalLineManager>().IsGoal())
+            if (!controller.GetIsRocketMoving())
             {
-                // プレイヤーからゴール方向を取得する
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                PlayerController controller = player.GetComponent<PlayerController>();
-
-                if (!controller.GetIsRocketMoving())
+                if (controller.GetIsMoving())
                 {
-                    if (controller.GetIsMoving())
+                    // 右壁にぶつかってノックバック
+                    if (controller.GetRocketVector() == Vector3.right)
                     {
-                        // 右壁にぶつかってノックバック
-                        if (controller.GetRocketVector() == Vector3.right)
-                        {
-                            goalDirection = GoalDirection.RIGHT;
-                            controller.SetDirection(2);
-                        }
-                        else if (controller.GetRocketVector() == Vector3.left)
-                        {
-                            goalDirection = GoalDirection.LEFT;
-                            controller.SetDirection(0);
-                        }
-                        else if (controller.GetRocketVector() == Vector3.up)
-                        {
-                            goalDirection = GoalDirection.DOWN;
-                            controller.SetDirection(1);
-                        }
+                        goalDirection = GoalDirection.RIGHT;
+                        controller.SetDirection(2);
+                    }
+                    else if (controller.GetRocketVector() == Vector3.left)
+                    {
+                        goalDirection = GoalDirection.LEFT;
+                        controller.SetDirection(0);
+                    }
+                    else if (controller.GetRocketVector() == Vector3.up)
+                    {
+                        goalDirection = GoalDirection.DOWN;
+                        controller.SetDirection(1);
+                    }
+                }
+                else
+                {
+                    goalDirection = GoalDirection.UP;
+                    controller.SetDirection(3);
+                }
+            }
+            else { goalDirection = (GoalDirection)controller.GetDirection(); }
+
+            // プレイヤーの動きを止める
+            controller.SetStop();
+
+
+            //俳句を出さない方向でクリアした場合
+
+            GoalDirection goalDire = GoalDirection.NONE;
+            //ゴールの方向を見た目と一致させる
+            switch (goalDirection)
+            {
+                case GoalDirection.LEFT:
+                    goalDire = GoalDirection.RIGHT;
+                    break;
+                case GoalDirection.RIGHT:
+                    goalDire = GoalDirection.LEFT;
+                    break;
+                case GoalDirection.UP:
+                    goalDire = GoalDirection.DOWN;
+                    break;
+                case GoalDirection.DOWN:
+                    goalDire = GoalDirection.UP;
+                    break;
+                case GoalDirection.NONE:
+                    break;
+                default:
+                    break;
+            }
+
+            uiManager.ClearCanvasActive();
+            if (notHaikuDire == goalDire)
+            {
+                notHaikuFlag = true;
+                Debug.Log("俳句なし");
+                uiManager.SetActiveFalseIndex();
+            }
+
+            isGoal = true;
+
+            //隣接するステージの決定
+
+            switch (goalDirection)
+            {
+                case GoalDirection.LEFT:
+                    if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Right, out var lStage))
+                    {
+                        Debug.Log($"次は {lStage.areaId} / {lStage.stageId}");
+                        connectStage = lStage.stageId;
                     }
                     else
                     {
-                        goalDirection = GoalDirection.UP;
-                        controller.SetDirection(3);
+                        Debug.Log("隣接が未設定です");
                     }
-                }
-                else { goalDirection = (GoalDirection)controller.GetDirection(); }
 
-                // プレイヤーの動きを止める
-                controller.SetStop();
-
-
-                //俳句を出さない方向でクリアした場合
-
-                GoalDirection goalDire = GoalDirection.NONE;
-                //ゴールの方向を見た目と一致させる
-                switch (goalDirection)
-                {
-                    case GoalDirection.LEFT:
-                        goalDire = GoalDirection.RIGHT;
-                        break;
-                    case GoalDirection.RIGHT:
-                        goalDire = GoalDirection.LEFT;
-                        break;
-                    case GoalDirection.UP:
-                        goalDire = GoalDirection.DOWN;
-                        break;
-                    case GoalDirection.DOWN:
-                        goalDire = GoalDirection.UP;
-                        break;
-                    case GoalDirection.NONE:
-                        break;
-                    default:
-                        break;
-                }
-
-                uiManager.ClearCanvasActive();
-                if (notHaikuDire == goalDire)
-                {
-                    notHaikuFlag = true;
-                    Debug.Log("俳句なし");
-                    uiManager.SetActiveFalseIndex();
-                }
-
-                isGoal = true;
-
-                //隣接するステージの決定
-
-                switch (goalDirection)
-                {
-                    case GoalDirection.LEFT:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Right, out var lStage))
-                        {
-                            Debug.Log($"次は {lStage.areaId} / {lStage.stageId}");
-                            connectStage = lStage.stageId;
-                        }
-                        else
-                        {
-                            Debug.Log("隣接が未設定です");
-                        }
-
-                        break;
-                    case GoalDirection.RIGHT:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Left, out var rStage))
-                        {
-                            Debug.Log($"次は {rStage.areaId} / {rStage.stageId}");
-                            connectStage = rStage.stageId;
-                        }
-                        else
-                        {
-                            Debug.Log("隣接が未設定です");
-                        }
-                        break;
-                    case GoalDirection.UP:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Down, out var uStage))
-                        {
-                            Debug.Log($"次は {uStage.areaId} / {uStage.stageId}");
-                            connectStage = uStage.stageId;
-                        }
-                        else
-                        {
-                            Debug.Log("隣接が未設定です");
-                        }
-                        break;
-                    case GoalDirection.DOWN:
-                        if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Up, out var dStage))
-                        {
-                            Debug.Log($"次は {dStage.areaId} / {dStage.stageId}");
-                            connectStage = dStage.stageId;
-                        }
-                        else
-                        {
-                            Debug.Log("隣接が未設定です");
-                        }
-                        break;
-                    default:
-                        break;
+                    break;
+                case GoalDirection.RIGHT:
+                    if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Left, out var rStage))
+                    {
+                        Debug.Log($"次は {rStage.areaId} / {rStage.stageId}");
+                        connectStage = rStage.stageId;
+                    }
+                    else
+                    {
+                        Debug.Log("隣接が未設定です");
+                    }
+                    break;
+                case GoalDirection.UP:
+                    if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Down, out var uStage))
+                    {
+                        Debug.Log($"次は {uStage.areaId} / {uStage.stageId}");
+                        connectStage = uStage.stageId;
+                    }
+                    else
+                    {
+                        Debug.Log("隣接が未設定です");
+                    }
+                    break;
+                case GoalDirection.DOWN:
+                    if (GameBootstrap.Graph.TryGetNeighbor(areaName, stageName, ClearDirection.Up, out var dStage))
+                    {
+                        Debug.Log($"次は {dStage.areaId} / {dStage.stageId}");
+                        connectStage = dStage.stageId;
+                    }
+                    else
+                    {
+                        Debug.Log("隣接が未設定です");
+                    }
+                    break;
+                default:
+                    break;
 
 
-                }
-
-                CellActive(goalDirection);
-                Debug.Log(connectStage);
-
-                //エリア開放する処理
-                AreaOpen();
             }
+
+            CellActive(goalDirection);
+            Debug.Log(connectStage);
+
+            //エリア開放する処理
+            AreaOpen();
         }
     }
 
