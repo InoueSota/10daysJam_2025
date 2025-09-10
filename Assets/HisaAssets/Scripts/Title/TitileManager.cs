@@ -31,6 +31,13 @@ public class TitileManager : MonoBehaviour
 
     }
 
+    public void SetStart()
+    {
+        sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+        sceneTransitionObj.StartTransition(selectSceneName);
+        isSceneChange = true;
+    }
+
     void SceneChange()
     {
         if (isSceneChange) { return; }
@@ -42,9 +49,7 @@ public class TitileManager : MonoBehaviour
 
         if (Input.GetButtonDown("Select"))
         {
-            sceneTransitionObj=Instantiate(sceneTransitionPrefab);
-            sceneTransitionObj.StartTransition(selectSceneName);
-            isSceneChange = true;
+            //SetStart();
         }
     }
 
