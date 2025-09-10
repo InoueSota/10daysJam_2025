@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
-
     [Header("Goal")]
     [SerializeField] private GameObject groupAfterGoal;
     [SerializeField] private Text goalDirectionT;
@@ -20,9 +18,49 @@ public class UIManager : MonoBehaviour
     float inputDelay;
     [SerializeField] Text areaOpenTexts;
 
+    [Header("Frame")]
+    [SerializeField] private Image backFrame;
+    [SerializeField] private Image frame;
+    [Header("Area1 Colors")]
+    [SerializeField] private Color area1BackColor;
+    [SerializeField] private Color area1Color;
+    [Header("Area2 Colors")]
+    [SerializeField] private Color area2BackColor;
+    [SerializeField] private Color area2Color;
+    [Header("Area3 Colors")]
+    [SerializeField] private Color area3BackColor;
+    [SerializeField] private Color area3Color;
+    [Header("Area4 Colors")]
+    [SerializeField] private Color area4BackColor;
+    [SerializeField] private Color area4Color;
+    [Header("Area5 Colors")]
+    [SerializeField] private Color area5BackColor;
+    [SerializeField] private Color area5Color;
+
+
     void Start()
     {
-
+        GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        if (gameManager.GetAreaName() == "Area1"){
+            backFrame.color = area1BackColor;
+            frame.color = area1Color;
+        }
+        else if (gameManager.GetAreaName() == "Area2") {
+            backFrame.color = area2BackColor;
+            frame.color = area2Color;
+        }
+        else if (gameManager.GetAreaName() == "Area3") {
+            backFrame.color = area3BackColor;
+            frame.color = area3Color;
+        }
+        else if (gameManager.GetAreaName() == "Area4") {
+            backFrame.color = area4BackColor;
+            frame.color = area4Color;
+        }
+        else if (gameManager.GetAreaName() == "Area5") {
+            backFrame.color = area5BackColor;
+            frame.color = area5Color;
+        }
     }
 
     void Update()
