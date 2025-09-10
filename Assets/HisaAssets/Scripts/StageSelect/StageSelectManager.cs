@@ -42,7 +42,7 @@ public class StageSelectManager : MonoBehaviour
     float sceneChangeCT;
 
     //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
-    public static int[] areaOpenClearNum = new int[5] { 6, 10, 8, 6, 500 };// { 6, 10, 8, 6, 500 };
+    public static int[] areaOpenClearNum = new int[5] { 2, 1, 2, 2, 500 };// { 6, 10, 8, 6, 500 };
 
     public bool[] areaOpenFlag = new bool[5];
 
@@ -136,11 +136,13 @@ public class StageSelectManager : MonoBehaviour
 
         for (int i = 0; i < areaOpenFlag.Length; i++)
         {
+
             if (!areaOpenFlag[i])
             {
-                maxIndex = i;
+
                 break;
             }
+            maxIndex = i;
         }
 
         foreach (var arrow in arrowImage)
@@ -148,9 +150,16 @@ public class StageSelectManager : MonoBehaviour
             arrow.SetActive(false);
         }
 
-        for (int i = 0; i < (maxIndex - 1) * 2; i++)
+        for (int i = 0; i < (maxIndex) * 2; i++)
         {
             arrowImage[i].SetActive(true);
+        }
+        if (areaOpenFlag[4])
+        {
+            foreach (var arrow in arrowImage)
+            {
+                arrow.SetActive(true);
+            }
         }
 
     }
@@ -226,7 +235,7 @@ public class StageSelectManager : MonoBehaviour
 
 
 
-        if (curSelectAreaIndex >= maxIndex)
+        if (curSelectAreaIndex > maxIndex)
         {
             curSelectAreaIndex = 0;
         }

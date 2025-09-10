@@ -732,7 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e566091217e773e478748d88a3382b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talkSceneName: TalkArea5Stage7
+  talkSceneName: TalkArea5Stage11
   talkObjs:
   - {fileID: 1014192582}
   - {fileID: 1770322530}
@@ -1220,7 +1220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8958789297306081928, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
