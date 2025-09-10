@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
     // 蟹パラメータ
     [SerializeField] private GameObject crabObj;
 
+    // 夕日用衝突時点座標
+    private Vector3 sunsetSavePosition;
+
     //スタック検知用パラメーター
     float stackDelay;//Undoしてすぐにスタック検知をしないようにする
 
@@ -187,6 +190,7 @@ public class PlayerController : MonoBehaviour
             if (hitAllFieldObjectManager.GetObjectType() != AllFieldObjectManager.ObjectType.SPONGE)
             {
                 Vector3 beforeHeadbuttPosition = transform.position;
+                sunsetSavePosition = beforeHeadbuttPosition;
 
                 // 動いている親オブジェクト
                 Transform movingParent = null;
@@ -288,7 +292,7 @@ public class PlayerController : MonoBehaviour
         // Sunsetエリアなら破壊光線を稼働させる
         if (!definitelyStack && sunsetManager.GetIsSunsetActive())
         {
-            sunsetManager.StartDestroyRay(rocketVector.normalized, transform.position, cut.GetIsDivision(), cut.GetDivisionPosition(), (int)divisionLineManager.GetDivisionMode());
+            sunsetManager.StartDestroyRay(rocketVector.normalized, sunsetSavePosition, cut.GetIsDivision(), cut.GetDivisionPosition(), (int)divisionLineManager.GetDivisionMode());
         }
 
         isMoving = false;
