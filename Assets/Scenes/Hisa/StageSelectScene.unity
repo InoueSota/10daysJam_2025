@@ -1105,6 +1105,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+--- !u!114 &141032571 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4851509106659263885, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+  m_PrefabInstance: {fileID: 141032570}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &156294755 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
@@ -1148,6 +1159,10 @@ PrefabInstance:
       propertyPath: claerNumText
       value: 
       objectReference: {fileID: 848119414}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageNameText
+      value: 
+      objectReference: {fileID: 657046817}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: imageAmpritude
       value: 
@@ -2416,6 +2431,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+--- !u!114 &513791457 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4851509106659263885, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+  m_PrefabInstance: {fileID: 513791456}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &514515274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2697,6 +2723,10 @@ PrefabInstance:
       propertyPath: claerNumText
       value: 
       objectReference: {fileID: 1108079642}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageNameText
+      value: 
+      objectReference: {fileID: 513791457}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: imageAmpritude
       value: 
@@ -3288,6 +3318,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+--- !u!114 &657046817 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4851509106659263885, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+  m_PrefabInstance: {fileID: 657046816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &675561665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5384,6 +5425,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1515495949}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageNameText
+      value: 
+      objectReference: {fileID: 141032571}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: imageAmpritude
       value: 
       objectReference: {fileID: 1116673309}
@@ -6549,6 +6594,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+--- !u!114 &1263254596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4851509106659263885, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+  m_PrefabInstance: {fileID: 1263254595}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1270541605
 GameObject:
   m_ObjectHideFlags: 0
@@ -9510,6 +9566,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1705744275}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageNameText
+      value: 
+      objectReference: {fileID: 1263254596}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: imageAmpritude
       value: 
       objectReference: {fileID: 1168337503}
@@ -9938,6 +9998,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+--- !u!114 &2750221813119729476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4851509106659263885, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
+  m_PrefabInstance: {fileID: 2750221813119729475}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5063511258367604218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9962,6 +10033,10 @@ PrefabInstance:
       propertyPath: stageImage
       value: 
       objectReference: {fileID: -8896576355868362568, guid: 29e09458e6ab4004c80ebf753b913108, type: 3}
+    - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: cellStagename
+      value: "\u3044"
+      objectReference: {fileID: 0}
     - target: {fileID: 701009431102646133, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
@@ -9990,6 +10065,10 @@ PrefabInstance:
       propertyPath: claerNumText
       value: 
       objectReference: {fileID: 2002788512}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: stageNameText
+      value: 
+      objectReference: {fileID: 2750221813119729476}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: imageAmpritude
       value: 
@@ -10074,6 +10153,10 @@ PrefabInstance:
       propertyPath: stageImage
       value: 
       objectReference: {fileID: -6298162888209318787, guid: 55fb7c642d907834d96b7daafc1bc75a, type: 3}
+    - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: cellStagename
+      value: "\u3042"
+      objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
