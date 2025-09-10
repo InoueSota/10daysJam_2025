@@ -112,11 +112,11 @@ public class UIManager : MonoBehaviour
         }
         else if (type == 1)
         {
-            newText += "を開放した!";
+            newText += "を解放した!";
         }
         else if (type == 2)
         {
-            newText += "は開放済み";
+            newText += "は解放済み";
         }
         else if (type == 3)
         {
@@ -245,7 +245,7 @@ public class UIManager : MonoBehaviour
 
     public void SetAreaOpenText(int areOpenIndex)
     {
-        areaOpenTexts.text = "エリア" + areOpenIndex + "が開放した!";
+        areaOpenTexts.text = "エリア" + areOpenIndex + "が解放した!";
     }
 
 
