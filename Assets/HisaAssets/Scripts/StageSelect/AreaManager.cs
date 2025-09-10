@@ -18,7 +18,7 @@ public class AreaManager : MonoBehaviour
     [SerializeField] SetTextScript claerNumText;
     [SerializeField] AudioPlay audioplay;
     [SerializeField]SetTextScript stageNameText;
-    
+    public bool activeTrophy;
 
     public int GetClearStageNum()
     {
@@ -33,7 +33,7 @@ public class AreaManager : MonoBehaviour
         }
         return clearStage;
     }
-
+    public bool GetActiveTrophy() { return activeTrophy; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,6 +53,7 @@ public class AreaManager : MonoBehaviour
         if (GetClearStageNum() == cellParent.childCount)
         {
             trophyObj.SetActive(true);
+            activeTrophy = true;
         }
         else
         {

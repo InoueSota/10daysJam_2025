@@ -31,7 +31,7 @@ public class PlayerAnimationScript : MonoBehaviour
 
     float size = 1f;
 
-    [Foldout("確認")] [SerializeField] private  int direction = 0;
+    [Foldout("確認")][SerializeField] private int direction = 0;
 
     //ダッシュ
     [Foldout("ダッシュ")][SerializeField] private float dashFlowSpeed = 0;
@@ -39,8 +39,8 @@ public class PlayerAnimationScript : MonoBehaviour
     private float dashRot = 0;
 
     //ハサミ
-    [Foldout("ハサミ")] [SerializeField]  private Vector3 scissorsHoldOffset;
-    [Foldout("ハサミ")] [SerializeField] private float scissorsMoveSpeed = 10f;
+    [Foldout("ハサミ")][SerializeField] private Vector3 scissorsHoldOffset;
+    [Foldout("ハサミ")][SerializeField] private float scissorsMoveSpeed = 10f;
     [Foldout("ハサミ")][SerializeField] private float scissorsCutTime = 0.5f;
     [Foldout("ハサミ")][SerializeField] private float scissorsSizePlusSpeed = 10f;
     [Foldout("ハサミ")][SerializeField] private float scissorsMaxSize = 2f;
@@ -58,19 +58,25 @@ public class PlayerAnimationScript : MonoBehaviour
 
     [Foldout("ぶつかり")][SerializeField] private float hitMoveTime = 0.2f;
 
-    bool isClear = false,preIsClear = false;
+    bool isClear = false, preIsClear = false;
     [Foldout("花火")][SerializeField] private float clearSpeed = 10f;
     [Foldout("花火")][SerializeField] private float[] clearAngle = new float[2];
     bool rotated = false;
     bool isClearShot = false;
     bool firstCut = false;
-    [Foldout("花火")] [SerializeField]  private float[] clearChargeStats;
+    [Foldout("花火")][SerializeField] private float[] clearChargeStats;
 
     GameManager gameManager;
 
     [SerializeField] ParticleSystem dashSmokeParticle;
     [SerializeField] GameObject cutEffectPrefab;
     [SerializeField] PaperDebrisParticleScript paperDebrisParticlePrefab;
+
+    [Foldout("打ち上げ花火")][SerializeField] private Vector2 leftUp;
+    [Foldout("打ち上げ花火")][SerializeField] private Vector2 rightDown;
+
+    [Foldout("打ち上げ花火")][SerializeField] private float[]  fireWorkShotTime;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -96,7 +102,7 @@ public class PlayerAnimationScript : MonoBehaviour
             firstCut = true;
         }
 
-        gameManager=FindFirstObjectByType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     // Update is called once per frame
@@ -161,7 +167,7 @@ public class PlayerAnimationScript : MonoBehaviour
 
                     float rad = Mathf.Deg2Rad * direction * 90f;
 
-                    Vector3 particlePos = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad),0f) * 1f;
+                    Vector3 particlePos = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0f) * 1f;
 
                     particle.RunParticle(3, this.transform.position + particlePos);
                 }
@@ -222,7 +228,7 @@ public class PlayerAnimationScript : MonoBehaviour
                         else if (direction == 1) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += 0.5f; }
                         else if (direction == 3) { pos.x = cameraPos.x + screenSize.x * -0.5f; pos.y += -0.5f; }
 
-                        if(isDivision == true)
+                        if (isDivision == true)
                         {
                             if (direction == 1 || direction == 3) pos.y = cut.GetDivisionPosition().y;
                             else if (direction == 0 || direction == 2) pos.x = cut.GetDivisionPosition().x;
@@ -238,11 +244,11 @@ public class PlayerAnimationScript : MonoBehaviour
                         if (direction == 0 || direction == 2) angle = 0.0f;
                         else if (direction == 1 || direction == 3) angle = 90.0f;
 
-                        Instantiate(cutEffectPrefab, pos, Quaternion.Euler(Vector3.forward * (angle +90f)));
+                        Instantiate(cutEffectPrefab, pos, Quaternion.Euler(Vector3.forward * (angle + 90f)));
                         PaperDebrisParticleScript paperDebris = Instantiate(paperDebrisParticlePrefab);
                         bool isHorisontal = false;
                         if (direction == 1 || direction == 3) isHorisontal = true;
-                        paperDebris.Set(pos, isHorisontal);
+                        paperDebris.Set(pos, isHorisontal, gameManager.GetAreaName());
 
                         cutTween = scissors.transform.DOMove(pos, scissorsCutTime).SetEase(Ease.OutCubic).OnComplete(() =>
                         {
@@ -294,6 +300,7 @@ public class PlayerAnimationScript : MonoBehaviour
         }
         else if (isClear)
         {
+            fireWorks();
             Clear();
 
             if (scissors != null) {
@@ -314,7 +321,6 @@ public class PlayerAnimationScript : MonoBehaviour
             }
         }
 
-
         animator.SetBool("isCutReady", isCutReady);
         animator.SetBool("isDash", isDash);
         spriteScript.SetDirection(direction);
@@ -332,7 +338,7 @@ public class PlayerAnimationScript : MonoBehaviour
     public void SetDash(bool dash) { isDash = dash; }
 
     //俺はrocketをdashと呼んでる
-    public  void StartRocket() { animator.SetTrigger("dash"); }
+    public void StartRocket() { animator.SetTrigger("dash"); }
     public void StartCut()
     {
         if (isCut == false)
@@ -365,10 +371,10 @@ public class PlayerAnimationScript : MonoBehaviour
         float deathTime = manager.GetDeathTime();
 
         deathScissors = Instantiate(scissorsPrefab, this.transform.position, Quaternion.identity);
-        deathScissors.transform.DORotate(Vector3.forward * 720f,deathTime,RotateMode.LocalAxisAdd);
+        deathScissors.transform.DORotate(Vector3.forward * 720f, deathTime, RotateMode.LocalAxisAdd);
         deathScissors.transform.DOMove(prePos, deathTime).SetEase(Ease.Linear).OnComplete(() =>
         {
-                Destroy(deathScissors.gameObject);
+            Destroy(deathScissors.gameObject);
         });
 
         isDeath = true;
@@ -389,7 +395,7 @@ public class PlayerAnimationScript : MonoBehaviour
 
     private void Init()
     {
-       // if(deathScissors != null) Destroy(deathScissors.gameObject);
+        // if(deathScissors != null) Destroy(deathScissors.gameObject);
 
         if (scissors != null)
         {
@@ -442,6 +448,29 @@ public class PlayerAnimationScript : MonoBehaviour
     {
         transform.DOPunchScale(Vector3.one * 0.1f, 0.1f, 2, 1f);
     }
+
+    private void fireWorks()
+    {
+        if(isClear == true)
+        {
+            if (fireWorkShotTime[0] > fireWorkShotTime[1])
+            {
+                Vector3 particlePos = Vector3.zero;
+
+                particlePos.x = Random.Range(leftUp.x, rightDown.x);
+                particlePos.y = Random.Range(rightDown.y, leftUp.y);
+
+                particle.RunParticle(4, particlePos);
+
+                fireWorkShotTime[0] -= fireWorkShotTime[1];
+            }
+            else
+            {
+                fireWorkShotTime[0] += Time.deltaTime;
+            }
+        }
+    }
+
     private void Clear()
     {
         float isLeftMulti = 1f;

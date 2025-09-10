@@ -446,6 +446,11 @@ MonoBehaviour:
   dashSmokeParticle: {fileID: 498621272151389176}
   cutEffectPrefab: {fileID: 1102204550860352480, guid: 218d4652abee0144f893e379d00cd6b2, type: 3}
   paperDebrisParticlePrefab: {fileID: 7456944955272745402, guid: ca0b0a7ca74406f46b82fa4a1656181d, type: 3}
+  leftUp: {x: -10, y: 13.5}
+  rightDown: {x: 9.5, y: -1.5}
+  fireWorkShotTime:
+  - 0
+  - 1
 --- !u!95 &4419386137143282054
 Animator:
   serializedVersion: 7
@@ -485,6 +490,7 @@ MonoBehaviour:
   - {fileID: 8931023184182260322, guid: 4ba134455e988684d8092f11d4d49a03, type: 3}
   - {fileID: 2189628167955767947, guid: 49512eb20f918c1498363faf1cd29989, type: 3}
   - {fileID: 3145526486126266428, guid: 27fba8e9283e31d499f29259667a9634, type: 3}
+  - {fileID: 3145526486126266428, guid: d7f26bb2b2118e14f93d8bf7f7776a1a, type: 3}
 --- !u!1 &7920010348234353842
 GameObject:
   m_ObjectHideFlags: 0

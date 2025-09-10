@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -42,7 +43,7 @@ public class StageSelectManager : MonoBehaviour
     float sceneChangeCT;
 
     //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
-    public static int[] areaOpenClearNum = new int[5] { 7, 10, 8, 5, 500 };// { 7, 10, 8, 6, 500 };//
+    public static int[] areaOpenClearNum = new int[5] { 7, 10, 8, 5, 500 };// { 7, 10, 8, 5, 500 };//
 
     public bool[] areaOpenFlag = new bool[5];
 
@@ -55,6 +56,11 @@ public class StageSelectManager : MonoBehaviour
     public int maxIndex;
     [SerializeField] GameObject[] arrowImage;
     [SerializeField] AudioPlay audioPlay;
+    [SerializeField] GameObject abutton;
+
+    [SerializeField] string allClearSceneName;
+    float allCleartalkTime;//検知するのに制限をつけて処理を軽くする
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -163,10 +169,12 @@ public class StageSelectManager : MonoBehaviour
         }
 
         //エリア解放された時にカメラ選択を自動でする
-        if (PlayerPrefs.GetInt("Area2") == 1) {
+        if (PlayerPrefs.GetInt("Area2") == 1)
+        {
             PlayerPrefs.SetInt("Area2", 2);
             curSelectAreaIndex = 1;
-        }else if (PlayerPrefs.GetInt("Area3") == 1)
+        }
+        else if (PlayerPrefs.GetInt("Area3") == 1)
         {
             PlayerPrefs.SetInt("Area3", 2);
             curSelectAreaIndex = 2;
@@ -192,15 +200,25 @@ public class StageSelectManager : MonoBehaviour
             areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
             areaManagers[curSelectAreaIndex].SetSelectActive(true);
             areaManagers[curSelectAreaIndex].ClearEffect();
-            preSelectAreaIndex=curSelectAreaIndex;
+            preSelectAreaIndex = curSelectAreaIndex;
         }
+
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartTalk();
+        abutton.SetActive(areaSelect);
+
+        if (allCleartalkTime < 0.5)
+        {
+            StartTalk();
+            King();
+            allCleartalkTime += Time.deltaTime;
+        }
+        
         ChangeScene();
         InputDire();
         Debug.Log(areaSelect);
@@ -315,7 +333,7 @@ public class StageSelectManager : MonoBehaviour
     void StageSelect()
     {
         if (isSceneChange) { return; }
-        if (Input.GetButtonDown("Back")|| Input.GetButtonDown("Menu"))
+        if (Input.GetButtonDown("Back") || Input.GetButtonDown("Menu"))
         {
             areaSelect = true;
             Debug.Log("curSelectAreaIndex" + curSelectAreaIndex);
@@ -464,6 +482,29 @@ public class StageSelectManager : MonoBehaviour
 
         }
     }
+    void King()
+    {
+        if (PlayerPrefs.HasKey("King"))
+        {
+            Debug.Log("演出済み");
+            return;
+        }
+        //全ステージクリア
+        for (int i = 0; i < areaManagers.Length; i++)
+        {
+            if (!areaManagers[i].GetActiveTrophy())
+            {
+                break;
+            }
+            if (i == areaManagers.Length - 1)
+            {
+                PlayerPrefs.SetString("King", "true");
+                PlayerPrefs.Save();
+                pauseToggle.Pause(allClearSceneName);
+               
+            }
+        }
+    }
 
     void StartTalk()
     {
@@ -482,6 +523,10 @@ public class StageSelectManager : MonoBehaviour
         else if (areaOpenFlag[3] && PlayerPrefs.GetInt("SelectTalk") < 3)
         {
             ChangeTalkScene(3);
+        }
+        else if (areaOpenFlag[4] && PlayerPrefs.GetInt("SelectTalk") < 4)
+        {
+            ChangeTalkScene(4);
         }
     }
 }
