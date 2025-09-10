@@ -54,6 +54,7 @@ public class StageSelectManager : MonoBehaviour
 
     int maxIndex;
     [SerializeField] GameObject[] arrowImage;
+    [SerializeField] AudioPlay audioPlay;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -306,6 +307,7 @@ public class StageSelectManager : MonoBehaviour
             areaSelect = false;
             areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
             areaManagers[curSelectAreaIndex].SetSelectActive(true);
+            audioPlay.SE1();
         }
 
     }
@@ -362,6 +364,7 @@ public class StageSelectManager : MonoBehaviour
                     debugLogtext += cellSelectTmp[i] + "\n";
                 }
                 Debug.Log(debugLogtext);
+                audioPlay.SE1();
             }
         }
         //ステージ選択画面→タイトルへの遷移
@@ -371,6 +374,7 @@ public class StageSelectManager : MonoBehaviour
             sceneTransitionObj = Instantiate(sceneTransitionPrefab);
             sceneTransitionObj.StartTransition("TitleScene");
             Debug.Log("バック");
+            audioPlay.SE1();
         }
 
     }

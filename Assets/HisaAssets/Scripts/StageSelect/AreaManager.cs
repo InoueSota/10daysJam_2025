@@ -16,7 +16,7 @@ public class AreaManager : MonoBehaviour
     public List<StageCell> cells = new List<StageCell>();
     [SerializeField] GameObject trophyObj;
     [SerializeField] SetTextScript claerNumText;
-
+    [SerializeField] AudioPlay audioplay;
     
 
     public int GetClearStageNum()
@@ -94,6 +94,7 @@ public class AreaManager : MonoBehaviour
             cameraFollow.SetTarget(curSelectStage.transform);
             curVisualStageImage.sprite = curSelectStage.GetStageImage();
             imageAmpritude.EaseStart();
+            audioplay.SE1();
         }
     }
 
