@@ -1269,6 +1269,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1916216833}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: activeTrophy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: claerNumText
       value: 
       objectReference: {fileID: 848119414}
@@ -2896,6 +2900,10 @@ PrefabInstance:
       propertyPath: trophyObj
       value: 
       objectReference: {fileID: 1536270956}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: activeTrophy
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: claerNumText
       value: 
@@ -5674,6 +5682,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1142572017}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: activeTrophy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: claerNumText
       value: 
       objectReference: {fileID: 1515495949}
@@ -6614,6 +6626,7 @@ MonoBehaviour:
   - {fileID: 814066664}
   audioPlay: {fileID: 1189015383}
   abutton: {fileID: 1084443856}
+  allClearSceneName: AllClear
 --- !u!4 &1189015377
 Transform:
   m_ObjectHideFlags: 0
@@ -6811,7 +6824,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 3bd1d8d6d97af304e9a8cedbf46e1a4b, type: 3}
   m_Resource: {fileID: 8300000, guid: 3bd1d8d6d97af304e9a8cedbf46e1a4b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.331
+  m_Volume: 0.188
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -10097,6 +10110,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1747692507}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: activeTrophy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: claerNumText
       value: 
       objectReference: {fileID: 1705744275}
@@ -10608,6 +10625,10 @@ PrefabInstance:
       propertyPath: trophyObj
       value: 
       objectReference: {fileID: 575078303}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: activeTrophy
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: claerNumText
       value: 

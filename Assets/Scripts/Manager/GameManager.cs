@@ -272,6 +272,12 @@ public class GameManager : MonoBehaviour
                         sceneTransitionObj.StartTransition("HaikuScene");
                         isSceneChange = true;
                     }
+                    else
+                    {
+                        sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+                        sceneTransitionObj.StartTransition("StageSelectScene");
+                        isSceneChange = true;
+                    }
                 }
                 else
                 {

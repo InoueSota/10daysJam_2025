@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -56,6 +57,10 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] GameObject[] arrowImage;
     [SerializeField] AudioPlay audioPlay;
     [SerializeField] GameObject abutton;
+
+    [SerializeField] string allClearSceneName;
+    float allCleartalkTime;//検知するのに制限をつけて処理を軽くする
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -198,6 +203,8 @@ public class StageSelectManager : MonoBehaviour
             preSelectAreaIndex = curSelectAreaIndex;
         }
 
+
+
     }
 
     // Update is called once per frame
@@ -205,7 +212,13 @@ public class StageSelectManager : MonoBehaviour
     {
         abutton.SetActive(areaSelect);
 
-        StartTalk();
+        if (allCleartalkTime < 0.5)
+        {
+            StartTalk();
+            King();
+            allCleartalkTime += Time.deltaTime;
+        }
+        
         ChangeScene();
         InputDire();
         Debug.Log(areaSelect);
@@ -467,6 +480,29 @@ public class StageSelectManager : MonoBehaviour
             }
             changeTalkSceneTime += Time.deltaTime;
 
+        }
+    }
+    void King()
+    {
+        if (PlayerPrefs.HasKey("King"))
+        {
+            Debug.Log("演出済み");
+            return;
+        }
+        //全ステージクリア
+        for (int i = 0; i < areaManagers.Length; i++)
+        {
+            if (!areaManagers[i].GetActiveTrophy())
+            {
+                break;
+            }
+            if (i == areaManagers.Length - 1)
+            {
+                PlayerPrefs.SetString("King", "true");
+                PlayerPrefs.Save();
+                pauseToggle.Pause(allClearSceneName);
+               
+            }
         }
     }
 

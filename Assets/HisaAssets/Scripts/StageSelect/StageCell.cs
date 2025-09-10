@@ -31,7 +31,7 @@ public class StageCell : MonoBehaviour
     [SerializeField] GameObject clearObj;
     [SerializeField] GameObject selectObj;
     [SerializeField] GameObject clearEffect;
-    [SerializeField] GameObject activeSprite;//クリア時に非表示にする
+    [SerializeField] GameObject[] activeSprite;//クリア時に非表示にする
 
     public bool activeFlag;
 
@@ -64,7 +64,12 @@ public class StageCell : MonoBehaviour
         set { clear = value;
             if (clear) {
                 clearObj.SetActive(true);
-                activeSprite.SetActive(false);
+
+                for (int i = 0; i < activeSprite.Length; i++)
+                {
+                    activeSprite[i].SetActive(false);
+
+                }
             }
         }
         get { return clear; }
