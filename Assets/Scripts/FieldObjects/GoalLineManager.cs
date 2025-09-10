@@ -34,8 +34,16 @@ public class GoalLineManager : MonoBehaviour
         else {goalLineMaterial = new Material(Shader.Find("Sprites/Default")); }
 
         lineRenderer.material = goalLineMaterial;
-         lineRenderer.startColor = new(0.99f, 0.42f, 0.41f, 1f);
-        lineRenderer.endColor = new(0.99f, 0.42f, 0.41f, 1f);
+        if (areaName == "Area4")
+        {
+            lineRenderer.startColor = new(0f, 0f, 0f, 1f);
+            lineRenderer.endColor = new(0f, 0f, 0f, 1f);
+        }
+        else
+        {
+            lineRenderer.startColor = new(0.99f, 0.42f, 0.41f, 1f);
+            lineRenderer.endColor = new(0.99f, 0.42f, 0.41f, 1f);
+        }
 
         // ’¸“_”‚Í2
         lineRenderer.positionCount = 2;
