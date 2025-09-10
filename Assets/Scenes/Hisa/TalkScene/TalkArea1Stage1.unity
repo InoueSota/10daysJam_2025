@@ -432,6 +432,7 @@ MonoBehaviour:
   talkEnd: 0
   resumeTime: 0
   animator: {fileID: 622005602}
+  activeFalseObj: {fileID: 0}
 --- !u!224 &1623734421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4639420989172938469, guid: ffeb2c4d17f10154f966a350aeb351ca, type: 3}
@@ -873,7 +874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_Text
-      value: "\u307E\u305A\u306F\u3046\u3054\u3044\u3066\u307F\u308B\u3058\u3083\u304D\u3093"
+      value: "\u307E\u305A\u306F\u52D5\u3044\u3066\u307F\u308B\u3058\u3083\u304D\u3093"
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_FontData.m_FontSize

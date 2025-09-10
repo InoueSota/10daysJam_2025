@@ -724,7 +724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_Text
-      value: "\u304A\u306C\u3057\u306B\u308F\u3057\u306E\u30C1\u30AB\u30E9\u304C\u4F7F\u3044\u3053\u306A\u305B\u308B\u304B\u306A\uFF1F"
+      value: "\u304A\u306C\u3057\u306B\u30EF\u30B7\u306E\u30C1\u30AB\u30E9\u304C\u4F7F\u3044\u3053\u306A\u305B\u308B\u304B\u306A\uFF1F"
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -1329,7 +1329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_Text
-      value: "\u3053\u3053\u304B\u3089\u306F\u30EF\u30B7\u3082\u624B\u3092\u304B\u3059\u3058\u3083\u304D\u3093"
+      value: "\u3053\u3053\u304B\u3089\u306F\u30EF\u30B7\u3082\u624B\u3092\u8CB8\u3059\u3058\u3083\u304D\u3093"
       objectReference: {fileID: 0}
     - target: {fileID: 4825720989496544210, guid: 2bd5b81b64835c64cb90ffe781447c42, type: 3}
       propertyPath: m_FontData.m_FontSize
