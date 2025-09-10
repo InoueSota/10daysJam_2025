@@ -12,6 +12,7 @@ public class TalkManager : MonoBehaviour
     public bool talkEnd;
     public float resumeTime;
     [SerializeField] Animator animator;
+    [SerializeField] GameObject activeFalseObj;//ライトなどチュートリアルが終わる時に消す
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -66,7 +67,7 @@ public class TalkManager : MonoBehaviour
     {
         PauseFreezer.Thaw();
         Time.timeScale = 1f;
-
+        if (activeFalseObj) { activeFalseObj.SetActive(false); }
         // PauseScene を閉じる
         var s = SceneManager.GetSceneByName(talkSceneName);
         if (s.IsValid() && s.isLoaded) SceneManager.UnloadSceneAsync(s);

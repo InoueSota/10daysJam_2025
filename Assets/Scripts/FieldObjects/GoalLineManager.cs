@@ -12,9 +12,15 @@ public class GoalLineManager : MonoBehaviour
 
     private float delayTimer;
     private GameManager gameManager;
+    private SoundInstantiateScript sound;
 
     public void Initialize(Transform _pointA, Transform _pointB, float alpha, GameManager _gameManager)
     {
+        // 自コンポーネントの取得
+        sound = GetComponent<SoundInstantiateScript>();
+        // サウンド
+        sound.PlaySound(0, 0.5f);
+
         // LineRendererを追加
         lineRenderer = gameObject.AddComponent<LineRenderer>();
 
@@ -44,6 +50,7 @@ public class GoalLineManager : MonoBehaviour
         // 透明度の設定
         SetAlpha(alpha);
 
+        // GameManagerの取得
         gameManager = _gameManager;
 
         // ディレイの初期化

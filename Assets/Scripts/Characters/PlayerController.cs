@@ -394,8 +394,10 @@ public class PlayerController : MonoBehaviour
                     return false;
                 }
             }
+            // 泡処理
             else if (hitAllFieldObjectManager && hitAllFieldObjectManager.GetObjectType() == AllFieldObjectManager.ObjectType.GLASS)
             {
+                sound.PlaySound(Random.Range(0, 99) % 5 + 17, 0.5f);
                 hitAllFieldObjectManager.gameObject.SetActive(false);
                 return false;
             }
@@ -431,6 +433,9 @@ public class PlayerController : MonoBehaviour
             // ワープ演出の開始
             animator.SetTrigger("InWarp");
 
+            // サウンド
+            _hitWarpObj.GetComponent<WarpManager>().StartSound();
+
             // 移動関係
             rbody2D.linearVelocity = Vector2.zero;
             rbody2D.gravityScale = 0f;
@@ -442,6 +447,9 @@ public class PlayerController : MonoBehaviour
     public void DoWarp()
     {
         transform.position = warpPosition;
+
+        // サウンド
+        warpObj.GetComponent<WarpManager>().StartSound();
     }
     public void FinishWarp()
     {
@@ -470,6 +478,9 @@ public class PlayerController : MonoBehaviour
         else if (_hitObj.GetComponent<CrabManager>().GetThrowVector() == Vector3.left) { rocketVector = Vector3.left; direction = 2; }
         else if (_hitObj.GetComponent<CrabManager>().GetThrowVector() == Vector3.up) { rocketVector = Vector3.up; direction = 1; }
         else if (_hitObj.GetComponent<CrabManager>().GetThrowVector() == Vector3.down) { rocketVector = Vector3.down; direction = 3; }
+
+        // サウンド
+        _hitObj.GetComponent<CrabManager>().StartSound();
 
         // 重力を無くす
         rbody2D.gravityScale = 0f;

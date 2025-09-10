@@ -13,8 +13,8 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] Transform areaPixelCameraTransform;
 
     float stageChangeCT = 0.5f;//ステージ遷移を受け付けるまでの時間。短すぎると、連打しながらシーン遷移した時にバグる可能性大
-     float curStageChangeCT;
-     float inputCoolTime;
+    float curStageChangeCT;
+    float inputCoolTime;
     [SerializeField] SmoothDampRotate areaPixelCamera;
 
     [SerializeField, Header("ステージ、エリア選択のアニメーション")] Animator[] selectAnime;
@@ -41,9 +41,10 @@ public class StageSelectManager : MonoBehaviour
     public bool isSceneChange;
     float sceneChangeCT;
 
-    public static int[] areaOpenClearNum=new int[5] { 6, 10, 8, 6, 500 };//エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
+    //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
+    public static int[] areaOpenClearNum = new int[5] { 6, 3, 3, 6, 500 };// { 6, 10, 8, 6, 500 };
 
-    public bool[]areaOpenFlag=new bool[5];
+    public bool[] areaOpenFlag = new bool[5];
 
     [SerializeField] private PauseToggle pauseToggle;
 
@@ -55,7 +56,7 @@ public class StageSelectManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+
 
         SaveData save = SaveSystem.Load(1) ?? new SaveData();//セーブを書き込む準備
         SaveUtil.SetCleared(save, "Area1", "Area1Stage1", ClearDirection.Right, true);//エリア1のステージ1を右方向にクリアした
@@ -88,9 +89,9 @@ public class StageSelectManager : MonoBehaviour
         }
 
         //エリアの開放状態
-        for (int i = 1;i < areaOpenFlag.Length; i++)
+        for (int i = 1; i < areaOpenFlag.Length; i++)
         {
-            string areaName = "Area" + (i+1);
+            string areaName = "Area" + (i + 1);
 
             if (PlayerPrefs.GetInt(areaName) == 1)
             {
@@ -102,15 +103,17 @@ public class StageSelectManager : MonoBehaviour
         //最後に遊んだステージが保存されてる時はそっちにする
         if (lastAreaName != "")
         {
-            for (int i = 0;i < areaManagers.Length; i++)
+            for (int i = 0; i < areaManagers.Length; i++)
             {
-                string areaName="Area"+(i+1);
+                string areaName = "Area" + (i + 1);
 
                 if (areaName == lastAreaName)
                 {
                     curSelectAreaIndex = i;//現在選択してるエリアの設定
-                    for (int j = 0; j < areaManagers[i].GetStageCells().Count; j++) {
-                        if (areaManagers[i].GetCellStageName(j) == lastStageName) {
+                    for (int j = 0; j < areaManagers[i].GetStageCells().Count; j++)
+                    {
+                        if (areaManagers[i].GetCellStageName(j) == lastStageName)
+                        {
                             areaManagers[i].SetSelectSell(j);//セレクト画面に戻ったら保存したセルに移動させる
                             break;
                         }
@@ -269,14 +272,14 @@ public class StageSelectManager : MonoBehaviour
             }
             if (Input.GetButtonDown("Select"))
             {
-               // Debug.Log("セレクト");
+                // Debug.Log("セレクト");
                 sceneTransitionObj = Instantiate(gameStartTransitionPrefab);
                 sceneTransitionObj.StartTransition(areaManagers[curSelectAreaIndex].GetCellStageName());
                 areaManagers[curSelectAreaIndex].AreaSelectAnime("GameStart");//次のアニメーションは再生する
                 cellSelectTmp[curSelectAreaIndex] = areaManagers[curSelectAreaIndex].GetSelectSell();//最後に選んだステージを保存する
                 isSceneChange = true;
 
-                string debugLogtext="";
+                string debugLogtext = "";
 
                 for (int i = 0; i < cellSelectTmp.Length; i++)
                 {
@@ -332,11 +335,11 @@ public class StageSelectManager : MonoBehaviour
         //Initalize();
         SaveSystem.Delete(1);
         //SceneManager.LoadScene("StageSelectScene");
-        
+
     }
 
     [ContextMenu("エリア開放セーブ削除")]
-   public static void AreaSaveDelete()
+    public static void AreaSaveDelete()
     {
         PlayerPrefs.DeleteAll();
     }
@@ -387,9 +390,14 @@ public class StageSelectManager : MonoBehaviour
         if (PlayerPrefs.GetInt("SelectTalk") < 0)
         {
             ChangeTalkScene(0);
-        }else if (areaOpenFlag[1]&& PlayerPrefs.GetInt("SelectTalk") < 1)
+        }
+        else if (areaOpenFlag[1] && PlayerPrefs.GetInt("SelectTalk") < 1)
         {
             ChangeTalkScene(1);
+        }
+        else if (areaOpenFlag[2] && PlayerPrefs.GetInt("SelectTalk") < 2)
+        {
+            ChangeTalkScene(2);
         }
     }
 }

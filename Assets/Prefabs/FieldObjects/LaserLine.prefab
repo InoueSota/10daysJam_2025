@@ -50,3 +50,4 @@ MonoBehaviour:
   characterLayer:
     serializedVersion: 2
     m_Bits: 64
+  material: {fileID: 2100000, guid: dbed362ccb71f824d85eeefd64aec37b, type: 2}
