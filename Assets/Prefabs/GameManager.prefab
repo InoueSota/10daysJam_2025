@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4442151986472314873}
   - component: {fileID: 7021328880487853478}
   - component: {fileID: 4544434381622202761}
+  - component: {fileID: 156574479665341904}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -164,3 +165,21 @@ MonoBehaviour:
   particle:
   - {fileID: 2969111291213029143, guid: b3718aa596f64de45803c32bd02af2be, type: 3}
   - {fileID: 4760024364548277574, guid: e762d97f17baf3f44a27cd194f28ae43, type: 3}
+--- !u!114 &156574479665341904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802900266127030161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87aee444c40a305439f1061596fdf56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 5dcc4e149aeff744e89107d249fba601, type: 3}
+  - {fileID: 8300000, guid: d4789672cab656b4da673cd175f080f1, type: 3}
+  - {fileID: 8300000, guid: 558b524654f689f43b9b9937b895b7bb, type: 3}
+  - {fileID: 8300000, guid: 7843816d3f4df4043ad8f7b41a3c70aa, type: 3}
+  - {fileID: 8300000, guid: 4d1dfbde51679d747904a71a26b393c5, type: 3}
