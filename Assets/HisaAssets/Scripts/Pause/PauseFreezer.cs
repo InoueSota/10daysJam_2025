@@ -38,7 +38,9 @@ public static class PauseFreezer
                 if (m is Canvas ||
                     m is GraphicRaycaster ||
                     m is CanvasScaler ||
-                    m is Image) continue;
+                    m is Image||
+                    m is UnityEngine.Rendering.Universal.Light2D||
+                    m is UnityEngine.Rendering.Volume) continue;
 
                 m.enabled = false;
                 _frozen.Add((m, true));

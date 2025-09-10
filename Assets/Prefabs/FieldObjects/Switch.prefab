@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -4114167489620392497}
   - component: {fileID: 6736328188321697422}
   - component: {fileID: 4688429861439270422}
+  - component: {fileID: 3042630896505919583}
   m_Layer: 3
   m_Name: Switch
   m_TagString: FieldObject
@@ -195,3 +196,18 @@ MonoBehaviour:
   sprites:
   - {fileID: -5791533861771406970, guid: 41784520dd748544dac8f077873610ac, type: 3}
   - {fileID: 1971089474277950741, guid: 41784520dd748544dac8f077873610ac, type: 3}
+--- !u!114 &3042630896505919583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921618599945661865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87aee444c40a305439f1061596fdf56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 41a53d5f263dbd24caa797f5b21bde21, type: 3}
+  - {fileID: 8300000, guid: d2c30987823271048985dbff01ef4e32, type: 3}

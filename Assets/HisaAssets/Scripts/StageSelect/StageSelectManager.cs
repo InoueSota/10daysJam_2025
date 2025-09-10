@@ -42,7 +42,7 @@ public class StageSelectManager : MonoBehaviour
     float sceneChangeCT;
 
     //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
-    public static int[] areaOpenClearNum = new int[5] { 6, 3, 3, 6, 500 };// { 6, 10, 8, 6, 500 };
+    public static int[] areaOpenClearNum = new int[5] { 2, 1, 2, 2, 500 };// { 6, 10, 8, 6, 500 };
 
     public bool[] areaOpenFlag = new bool[5];
 
@@ -52,7 +52,8 @@ public class StageSelectManager : MonoBehaviour
     float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
     bool talkEnd;
 
-
+    int maxIndex;
+    [SerializeField] GameObject[] arrowImage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -131,6 +132,36 @@ public class StageSelectManager : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+
+
+        for (int i = 0; i < areaOpenFlag.Length; i++)
+        {
+
+            if (!areaOpenFlag[i])
+            {
+
+                break;
+            }
+            maxIndex = i;
+        }
+
+        foreach (var arrow in arrowImage)
+        {
+            arrow.SetActive(false);
+        }
+
+        for (int i = 0; i < (maxIndex) * 2; i++)
+        {
+            arrowImage[i].SetActive(true);
+        }
+        if (areaOpenFlag[4])
+        {
+            foreach (var arrow in arrowImage)
+            {
+                arrow.SetActive(true);
+            }
+        }
+
     }
 
     // Update is called once per frame
@@ -201,13 +232,25 @@ public class StageSelectManager : MonoBehaviour
             curSelectAreaIndex--;
         }
 
-        if (curSelectAreaIndex >= areaManagers.Length)
+
+
+
+        if (curSelectAreaIndex > maxIndex)
         {
             curSelectAreaIndex = 0;
         }
-        else if (curSelectAreaIndex < 0)
+
+        if (curSelectAreaIndex < 0)
         {
-            curSelectAreaIndex = areaManagers.Length - 1;
+            if (areaOpenFlag[4]) //最後のエリアが解放されたら一周できるようにする
+            {
+                curSelectAreaIndex = areaManagers.Length - 1;
+
+            }
+            else
+            {
+                curSelectAreaIndex = 0;
+            }
         }
 
 

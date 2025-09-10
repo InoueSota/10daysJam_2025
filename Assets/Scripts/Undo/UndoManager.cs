@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UndoManager : MonoBehaviour
 {
+    // 自コンポーネント
+    private SoundInstantiateScript sound;
+
     // プレイヤー関係
     private Transform player;
     private PlayerCut cut;
@@ -66,6 +69,9 @@ public class UndoManager : MonoBehaviour
 
     void Start()
     {
+        // 自コンポーネントの取得
+        sound = GetComponent<SoundInstantiateScript>();
+
         // 参照取得
         var playerGo = GameObject.FindGameObjectWithTag("Player");
         player = playerGo.transform;
@@ -103,6 +109,9 @@ public class UndoManager : MonoBehaviour
     // === ひとつ前に戻す ===
     public void Undo()
     {
+        // サウンド
+        sound.PlaySound(UnityEngine.Random.Range(0, 99) % 3, 0.15f);
+
         if (history.Count > 0)
         {
             RestoreState(history.Pop());
@@ -118,6 +127,10 @@ public class UndoManager : MonoBehaviour
     public void ResetToInitialState()
     {
         if (initialState == null) return;
+
+        // サウンド
+        sound.PlaySound(UnityEngine.Random.Range(0, 99) % 2 + 3, 0.15f);
+
         RestoreState(initialState);
         history.Clear();
     }
