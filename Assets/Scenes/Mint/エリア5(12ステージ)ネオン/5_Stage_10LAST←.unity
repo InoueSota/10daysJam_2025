@@ -40397,6 +40397,22 @@ PrefabInstance:
       propertyPath: talkSceneName
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: hintImage.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'hintImage.Array.data[0]'
+      value: 
+      objectReference: {fileID: -3216897273977885328, guid: 8317d9899a000a24a84f3aca35068af7, type: 3}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'hintImage.Array.data[1]'
+      value: 
+      objectReference: {fileID: 482091246752990242, guid: ac4c077fe3ce2e54a9aa3703f867c883, type: 3}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'hintImage.Array.data[2]'
+      value: 
+      objectReference: {fileID: 7525038029241019402, guid: 211fb97c63b773c43bb8e9a8ffc60444, type: 3}
     - target: {fileID: 7361798446708528711, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
