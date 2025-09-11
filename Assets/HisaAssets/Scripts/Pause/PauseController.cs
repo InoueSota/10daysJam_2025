@@ -261,9 +261,17 @@ public class PauseController : MonoBehaviour
             hintImageBack[hintImageIndex].SetActive(true);
             levelText[0].SetText("レベル" + (hintImageIndex + 1));
             levelText[1].SetText("Next:" + "レベル"+ (hintImageIndex + 2));
-            if (hintImageIndex == 2)
+            if (hintImageIndex == 0)
             {
-                levelText[1].SetText("最大レベル");
+                levelText[1].SetText("一手目");
+            }
+            else if (hintImageIndex == 1)
+            {
+                levelText[1].SetText("中盤");
+            }
+            else if (hintImageIndex == 2)
+            {
+                levelText[1].SetText("ゴール直前");
             }
 
             for (int i = 0; i < ampritudePos.Length; i++)
