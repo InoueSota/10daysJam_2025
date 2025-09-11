@@ -248,6 +248,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hisa/TalkScene/AllClear.unity
     guid: 52c69bbbd0b69e547b32c969fdc9d187
+  - enabled: 1
+    path: Assets/Scenes/Hisa/TechniqueScene.unity
+    guid: b9d334ad8f9563e4882b8b5f4366e356
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

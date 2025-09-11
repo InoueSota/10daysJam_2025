@@ -22,6 +22,11 @@ public class PauseController : MonoBehaviour
     [SerializeField] Animator canvasAnime;
     [SerializeField] SceneTransition sceneTransitionPrefab;
     SceneTransition sceneTransition;
+    [SerializeField] private PauseToggle pauseToggle;
+
+
+    public bool isTechniquMenu;
+    [SerializeField] Animator TechniqueCanvas;
 
     [SerializeField] AudioPlay audioplay;
     void Start()
@@ -58,25 +63,11 @@ public class PauseController : MonoBehaviour
         //debugText.SetText(index);
 
         if (change) {return; }
-        if (inputDire.y < 0)
-        {
-            animators[index].SetBool("Select", false);
-            index++;
 
-            if (index >= 3) { index = 0; }
-            animators[index].SetBool("Select", true);
-            audioplay.SE2();
-        }
-        else if (inputDire.y > 0)
-        {
-            animators[index].SetBool("Select", false);
+        PauseMenuUpdate();
+        TechniqueMenuUpdate();
 
-            index--;
-            if (index < 0) { index = 2; }
-            animators[index].SetBool("Select", true);
-            audioplay.SE2();
-        }
-        SelectMode();
+
 
     }
 
@@ -153,8 +144,15 @@ public class PauseController : MonoBehaviour
             {
                 OnRestart();
             }
-            //セレクトへ戻る
             else if (index == 2)
+            {
+                Debug.Log("わざへ");
+                isTechniquMenu = true;
+                TechniqueCanvas.SetTrigger("Stay");
+                change = false;
+            }
+            //セレクトへ戻る
+            else if (index == 3)
             {
                 Debug.Log("セレクト画面に戻る");
                 OnGoSelect();
@@ -198,5 +196,40 @@ public class PauseController : MonoBehaviour
         }
 
 
+    }
+
+    void PauseMenuUpdate() {
+        if(isTechniquMenu) {return;}
+        if (inputDire.y < 0)
+        {
+            animators[index].SetBool("Select", false);
+            index++;
+
+            if (index >= 4) { index = 0; }
+            animators[index].SetBool("Select", true);
+            audioplay.SE2();
+        }
+        else if (inputDire.y > 0)
+        {
+            animators[index].SetBool("Select", false);
+
+            index--;
+            if (index < 0) { index = 3; }
+            animators[index].SetBool("Select", true);
+            audioplay.SE2();
+        }
+        SelectMode();
+    }
+
+    void TechniqueMenuUpdate()
+    {
+        if (!isTechniquMenu) { return; }
+
+        if (Input.GetButtonDown("Menu"))
+        {
+            isTechniquMenu = false;
+            TechniqueCanvas.SetTrigger("End");
+            inputDelay = 0.5f;
+        }
     }
 }
