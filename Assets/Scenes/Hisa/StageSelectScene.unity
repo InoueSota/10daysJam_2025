@@ -399,7 +399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: EX7
+      value: EX6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6856,7 +6856,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 137
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -6956,7 +6956,7 @@ MonoBehaviour:
   a8: {fileID: 0}
   a9: {fileID: 0}
   b1: {fileID: 8300000, guid: 47a6099e6e81de94ca1810cb35e00774, type: 3}
-  b2: {fileID: 0}
+  b2: {fileID: 8300000, guid: 6c3b8386c74c5b5499b866935119398c, type: 3}
   b3: {fileID: 0}
   b4: {fileID: 0}
   b5: {fileID: 0}
@@ -8744,7 +8744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: EX6
+      value: EX5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10945,7 +10945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: stageName
-      value: "Stage3\u2191\u2193"
+      value: "Stage3\u2191"
       objectReference: {fileID: 0}
     - target: {fileID: 982243917689215542, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: activeFlag
