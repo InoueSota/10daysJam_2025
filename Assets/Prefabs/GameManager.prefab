@@ -55,10 +55,7 @@ MonoBehaviour:
   areaName: Area1
   stageName: 
   talkSceneName: TalkArea1Stage1
-  hintImage:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  hintImage: []
   undoCanvas: {fileID: 6280388185270357380, guid: 5919efadcd739784ea41306be991e9bf, type: 3}
   stackCanvas: {fileID: 3327001535966130526, guid: f1231427f50818f46a2760dcc03bbf28, type: 3}
   stackTime: 0
