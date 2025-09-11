@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     string connectStage;
 
     [SerializeField, Header("会話シーンがある場合は名前を入力")] string talkSceneName;
+    [SerializeField, Header("ヒントの写真。3枚にすること")] Sprite[] hintImage;
+
+    public static Sprite[] hintImageStatic=new Sprite[3];
+
     float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
     bool talkEnd;
 
@@ -70,6 +74,11 @@ public class GameManager : MonoBehaviour
 
         undoOrReset = false;
         delayTimer = 0f;
+
+        for (int i = 0; i < hintImage.Length; i++)
+        {
+            hintImageStatic[i]=hintImage[i];
+        }
     }
 
     void Update()

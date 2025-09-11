@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AmpritudePosition : MonoBehaviour
 {
@@ -12,19 +13,45 @@ public class AmpritudePosition : MonoBehaviour
     public bool startEasing;
 
     [Header("方向設定")]
-    [SerializeField] bool onlyY = true;           // Y のみ揺らす
-    [SerializeField] Vector3 direction = Vector3.up; // onlyY=false のときに使う移動方向
+    [SerializeField] bool onlyY = true;                 // Y のみ揺らす
+    [SerializeField] Vector3 direction = Vector3.up;    // onlyY=false のときに使う移動方向
 
-    [Header("座標/時間の基準")]
-    [SerializeField] bool useLocalPosition = true; // ローカル座標で動かすか
-    [SerializeField] bool unscaledTime = false;    // スローモーションの影響を受けない
+    [Header("座標/時間の基準（3D/Transform 用）")]
+    [SerializeField] bool useLocalPosition = true;      // ローカル座標で動かすか
+    [SerializeField] bool unscaledTime = false;         // スローモーションの影響を受けない
 
+    [SerializeField, Header("Image/RectTransform の場合")] bool imagePos = false;
+
+    // 3D/Transform 用
     Vector3 initPos;
+
+    // UI(Image) 用
+    RectTransform rt;
+    Vector2 initAnchoredPos;
 
     void Start()
     {
         easeT = 0f;
-        initPos = useLocalPosition ? transform.localPosition : transform.position;
+
+        if (imagePos)
+        {
+            // ImageでなくてもRectTransformがあればOK（UI要素）
+            rt = GetComponent<RectTransform>();
+            if (rt == null)
+            {
+                Debug.LogWarning("imagePos が有効ですが RectTransform が見つかりません。通常の Transform 処理にフォールバックします。");
+                imagePos = false; // フォールバック
+            }
+            else
+            {
+                initAnchoredPos = rt.anchoredPosition;
+            }
+        }
+
+        if (!imagePos)
+        {
+            initPos = useLocalPosition ? transform.localPosition : transform.position;
+        }
     }
 
     void Update()
@@ -46,22 +73,44 @@ public class AmpritudePosition : MonoBehaviour
         // 振幅 × 正弦 × 減衰
         float offsetMag = ampritude * s * envelope;
 
-        // 方向決定
-        Vector3 dir = onlyY ? Vector3.up :
-                      (direction.sqrMagnitude < 1e-6f ? Vector3.up : direction.normalized);
+        if (imagePos)
+        {
+            // UI用：anchoredPosition で揺らす（X/Yのみ）
+            Vector2 dir2D = onlyY
+                ? Vector2.up
+                : new Vector2(direction.x, direction.y);
+            if (dir2D.sqrMagnitude < 1e-6f) dir2D = Vector2.up;
+            dir2D = dir2D.normalized;
 
-        // 位置更新
-        Vector3 targetPos = initPos + dir * offsetMag;
-        if (useLocalPosition) transform.localPosition = targetPos;
-        else transform.position = targetPos;
+            Vector2 target = initAnchoredPos + dir2D * offsetMag;
+            rt.anchoredPosition = target;
+        }
+        else
+        {
+            // 3D/Transform 用：position or localPosition
+            Vector3 dir = onlyY ? Vector3.up :
+                           (direction.sqrMagnitude < 1e-6f ? Vector3.up : direction.normalized);
+
+            Vector3 targetPos = initPos + dir * offsetMag;
+            if (useLocalPosition) transform.localPosition = targetPos;
+            else transform.position = targetPos;
+        }
 
         // 終了処理
         if (easeT >= easeTime)
         {
             startEasing = false;
             easeT = 0f;
-            if (useLocalPosition) transform.localPosition = initPos;
-            else transform.position = initPos;
+
+            if (imagePos)
+            {
+                rt.anchoredPosition = initAnchoredPos;
+            }
+            else
+            {
+                if (useLocalPosition) transform.localPosition = initPos;
+                else transform.position = initPos;
+            }
         }
     }
 
@@ -69,8 +118,16 @@ public class AmpritudePosition : MonoBehaviour
     {
         easeT = 0f;
         startEasing = false;
-        if (useLocalPosition) transform.localPosition = initPos;
-        else transform.position = initPos;
+
+        if (imagePos && rt != null)
+        {
+            rt.anchoredPosition = initAnchoredPos;
+        }
+        else
+        {
+            if (useLocalPosition) transform.localPosition = initPos;
+            else transform.position = initPos;
+        }
     }
 
     [ContextMenu("start")]
@@ -81,6 +138,7 @@ public class AmpritudePosition : MonoBehaviour
         startEasing = true;
 
         // 基準位置を取り直したい場合は以下を有効化
-        // initPos = useLocalPosition ? transform.localPosition : transform.position;
+        // if (imagePos) initAnchoredPos = rt.anchoredPosition;
+        // else initPos = useLocalPosition ? transform.localPosition : transform.position;
     }
 }

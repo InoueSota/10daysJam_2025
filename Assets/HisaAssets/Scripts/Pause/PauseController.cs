@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseController : MonoBehaviour
 {
@@ -28,6 +29,15 @@ public class PauseController : MonoBehaviour
     public bool isTechniquMenu;
     [SerializeField] Animator TechniqueCanvas;
 
+    [SerializeField] Image hintImage;
+    int hintImageIndex;
+    int preHintImageIndex;
+    [SerializeField]
+    GameObject[] hintImageBack;
+    [SerializeField]
+    SetTextScript[] levelText;
+    [SerializeField]
+    AmpritudePosition[] ampritudePos;
     [SerializeField] AudioPlay audioplay;
     void Start()
     {
@@ -35,7 +45,8 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 0f;
         // PauseFreezer.Freeze(pauseSceneName, strict: true);
         animators[0].SetBool("Select", true);
-
+        if(GameManager.hintImageStatic[0]!=null) hintImage.sprite = GameManager.hintImageStatic[0];
+        hintImageBack[0].SetActive(true);
     }
 
     private void Update()
@@ -230,6 +241,40 @@ public class PauseController : MonoBehaviour
             isTechniquMenu = false;
             TechniqueCanvas.SetTrigger("End");
             inputDelay = 0.5f;
+            audioplay.SE1();
+        }
+
+        if (inputDire.x > 0)
+        {
+            hintImageIndex++;
+        }else if(inputDire.x < 0)
+        {
+            hintImageIndex--;
+        }
+
+
+        hintImageIndex = (int)Mathf.Clamp(hintImageIndex, 0, 2);
+
+        if (preHintImageIndex!=hintImageIndex)
+        {
+            hintImageBack[preHintImageIndex].SetActive(false);
+            hintImageBack[hintImageIndex].SetActive(true);
+            levelText[0].SetText("ƒŒƒxƒ‹" + (hintImageIndex + 1));
+            levelText[1].SetText("Next:" + "ƒŒƒxƒ‹"+ (hintImageIndex + 2));
+            if (hintImageIndex == 2)
+            {
+                levelText[1].SetText("Å‘åƒŒƒxƒ‹");
+            }
+
+            for (int i = 0; i < ampritudePos.Length; i++)
+            {
+                ampritudePos[i].EaseStart();
+            }
+
+            preHintImageIndex = hintImageIndex;
+
+            audioplay.SE2();
+            if (GameManager.hintImageStatic[hintImageIndex] != null) hintImage.sprite = GameManager.hintImageStatic[hintImageIndex];
         }
     }
 }
