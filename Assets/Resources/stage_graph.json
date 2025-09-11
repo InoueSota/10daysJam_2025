@@ -495,7 +495,7 @@
             "stageId": "Stage2↑",
             "dir": "Up",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage3↑↓"
+            "neighborStageId": "Stage3↑"
         },
         {
             "areaId": "Area1",
@@ -506,38 +506,38 @@
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage3↑↓",
+            "stageId": "Stage3↑",
             "dir": "Up",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage4_→"
+            "neighborStageId": "Stage4↑↓"
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage3↑↓",
+            "stageId": "Stage3↑",
             "dir": "Down",
             "neighborAreaId": "Area1",
             "neighborStageId": "Stage2↑"
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage4_→",
-            "dir": "Down",
-            "neighborAreaId": "Area1",
-            "neighborStageId": "Stage3↑↓"
-        },
-        {
-            "areaId": "Area1",
-            "stageId": "Stage4_→",
-            "dir": "Right",
+            "stageId": "Stage4↑↓",
+            "dir": "Up",
             "neighborAreaId": "Area1",
             "neighborStageId": "Stage5_→"
         },
         {
             "areaId": "Area1",
-            "stageId": "Stage5_→",
-            "dir": "Left",
+            "stageId": "Stage4↑↓",
+            "dir": "Down",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage4_→"
+            "neighborStageId": "Stage3↑"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage5_→",
+            "dir": "Down",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage4↑↓"
         },
         {
             "areaId": "Area1",
@@ -556,6 +556,34 @@
         {
             "areaId": "Area1",
             "stageId": "Stage6_→",
+            "dir": "Right",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage7_→"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage7_→",
+            "dir": "Left",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage6_→"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage7_→",
+            "dir": "Right",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage8_→"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage8_→",
+            "dir": "Left",
+            "neighborAreaId": "Area1",
+            "neighborStageId": "Stage7_→"
+        },
+        {
+            "areaId": "Area1",
+            "stageId": "Stage8_→",
             "dir": "Right",
             "neighborAreaId": "Area1",
             "neighborStageId": "StageEX_☆☆☆_↓↑"
@@ -565,7 +593,7 @@
             "stageId": "StageEX_☆☆☆_↓↑",
             "dir": "Left",
             "neighborAreaId": "Area1",
-            "neighborStageId": "Stage6_→"
+            "neighborStageId": "Stage8_→"
         },
         {
             "areaId": "Area3",
