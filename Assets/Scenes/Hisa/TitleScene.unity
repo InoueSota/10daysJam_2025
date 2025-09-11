@@ -9944,6 +9944,7 @@ GameObject:
   - component: {fileID: 1039227873}
   - component: {fileID: 1039227875}
   - component: {fileID: 1039227874}
+  - component: {fileID: 1039227876}
   m_Layer: 0
   m_Name: TitleLogo
   m_TagString: Untagged
@@ -10068,6 +10069,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1039227876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039227871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87aee444c40a305439f1061596fdf56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 6c3b8386c74c5b5499b866935119398c, type: 3}
+  - {fileID: 8300000, guid: 017c6d22b12b01e4aa41207cfb6e09a6, type: 3}
+  - {fileID: 8300000, guid: 677ffe933e46b514898fd5ac20ba4c47, type: 3}
 --- !u!1 &1052460660
 GameObject:
   m_ObjectHideFlags: 0
