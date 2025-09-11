@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ゴール判定
     /// </summary>
-    public void CheckGoal()
+    public void CheckGoal(bool _horizontalGoal)
     {
         if (!isGoal)
         {
@@ -101,17 +101,17 @@ public class GameManager : MonoBehaviour
                 if (controller.GetIsMoving())
                 {
                     // 右壁にぶつかってノックバック
-                    if (controller.GetRocketVector() == Vector3.right)
+                    if (!_horizontalGoal && controller.GetRocketVector() == Vector3.right)
                     {
                         goalDirection = GoalDirection.RIGHT;
                         controller.SetDirection(2);
                     }
-                    else if (controller.GetRocketVector() == Vector3.left)
+                    else if (!_horizontalGoal && controller.GetRocketVector() == Vector3.left)
                     {
                         goalDirection = GoalDirection.LEFT;
                         controller.SetDirection(0);
                     }
-                    else if (controller.GetRocketVector() == Vector3.up)
+                    else if (_horizontalGoal && controller.GetRocketVector() == Vector3.up)
                     {
                         goalDirection = GoalDirection.DOWN;
                         controller.SetDirection(1);
