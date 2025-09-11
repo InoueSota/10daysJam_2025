@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ShigaScene.unity
-    guid: c4c9cb0bb4052a942bd1889022ebd7c3
-  - enabled: 1
     path: Assets/Scenes/Hisa/TitleScene.unity
     guid: 5a1bb520e4516f6459c028f6a33dd9ea
+  - enabled: 1
+    path: Assets/Scenes/ShigaScene.unity
+    guid: c4c9cb0bb4052a942bd1889022ebd7c3
   - enabled: 1
     path: Assets/Scenes/Hisa/StageSelectScene.unity
     guid: c92203386552c374eb966a8824e2fb7c
