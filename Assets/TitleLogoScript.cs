@@ -12,6 +12,7 @@ public class TitleLogoScript : MonoBehaviour
     [SerializeField] Canvas titleName;
     [SerializeField] Canvas titleCanvas;
     [SerializeField] GameObject[] hideObjects;
+    SoundInstantiateScript sound;
 
     Animator animator;
 
@@ -22,6 +23,7 @@ public class TitleLogoScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        sound = GetComponent<SoundInstantiateScript>();
         animator = GetComponent<Animator>();
     }
 
@@ -33,6 +35,7 @@ public class TitleLogoScript : MonoBehaviour
             NormalLogoMove();
             if (Input.GetButtonDown("Select"))
             {
+                sound.PlaySound(0,0.6f);
                 SetFlag1();
             }
         }
@@ -71,4 +74,15 @@ public class TitleLogoScript : MonoBehaviour
         titleManager.SetStart();
         logoMoveFlag = 2;
     }
+
+    private void PlaySound1()
+    {
+        sound.PlaySound(1, 0.4f);
+    }
+
+    private void PlaySound2()
+    {
+        sound.PlaySound(2, 0.4f);
+    }
+
 }

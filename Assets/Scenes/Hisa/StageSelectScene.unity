@@ -7839,7 +7839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_Text
-      value: EX11
+      value: EX3
       objectReference: {fileID: 0}
     - target: {fileID: 8935398570156646434, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
       propertyPath: m_FontData.m_HorizontalOverflow
