@@ -187,8 +187,16 @@ public class PlayerController : MonoBehaviour
         // “ª“Ë‚«ˆ—
         if (isRocketMoving && !isWarping && IsHeadbutt())
         {
+            // ƒS[ƒ‹”»’è‚ğæ‚É‚Æ‚é
+            foreach (GameObject goalLine in GameObject.FindGameObjectsWithTag("GoalLine"))
+            {
+                if (goalLine) { goalLine.GetComponent<GoalLineManager>().SelfCheckGoal(); }
+            }
+
             if (hitAllFieldObjectManager.GetObjectType() != AllFieldObjectManager.ObjectType.SPONGE)
             {
+                Debug.Log("headbutt");
+
                 Vector3 beforeHeadbuttPosition = transform.position;
                 sunsetSavePosition = beforeHeadbuttPosition;
 

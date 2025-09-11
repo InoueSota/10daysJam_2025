@@ -93,23 +93,28 @@ public class GoalLineManager : MonoBehaviour
         // ゴール判定
         if (delayTimer < 0f)
         {
-            // プレイヤーが触れたか判定
-            RaycastHit2D hit = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);
+            SelfCheckGoal();
+        }
+    }
 
-            if (hit.collider != null)
+    public void SelfCheckGoal()
+    {
+        // プレイヤーが触れたか判定
+        RaycastHit2D hit = Physics2D.Linecast(pointA.position, pointB.position, characterLayer);
+
+        if (hit.collider != null)
+        {
+            GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+
+            // 縦ゴール配置
+            if (Mathf.Approximately(pointA.position.x, pointB.position.x))
             {
-                GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-
-                // 縦ゴール配置
-                if (Mathf.Approximately(pointA.position.x, pointB.position.x))
-                {
-                    gameManager.CheckGoal(false);
-                }
-                // 横ゴール配置
-                else if (Mathf.Approximately(pointA.position.y, pointB.position.y))
-                {
-                    gameManager.CheckGoal(true);
-                }
+                gameManager.CheckGoal(false);
+            }
+            // 横ゴール配置
+            else if (Mathf.Approximately(pointA.position.y, pointB.position.y))
+            {
+                gameManager.CheckGoal(true);
             }
         }
     }
