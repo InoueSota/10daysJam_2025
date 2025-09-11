@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
     // Animation系
     private int direction = 0;
 
+    XInputRumbler rumbler;
+
     void Start()
     {
         // 自コンポーネントを取得
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
         sunsetManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<SunsetManager>();
         divisionLineManager = cut.GetDivisionLineManager();
         paper = GameObject.FindGameObjectWithTag("PaperManager").gameObject.GetComponent<PaperManagerScript>();
+        rumbler=GetComponent<XInputRumbler>();
     }
 
     public void ManualUpdate()
@@ -279,6 +282,9 @@ public class PlayerController : MonoBehaviour
 
                 // サウンド
                 sound.PlaySound(Random.Range(0, 2), 0.6f);
+
+                //振動
+                rumbler.StartRumble(0.1f);
             }
 
             // 変数の初期化
@@ -561,6 +567,8 @@ public class PlayerController : MonoBehaviour
         boxCollider2D.enabled = false;
         // サウンド
         sound.PlaySound(Random.Range(5, 6), 0.3f);
+
+        rumbler.StartRumble(0.5f, 1f, 0.2f);
     }
     public void SetWarpObj(GameObject _warpObj) { warpObj = _warpObj; }
     public void SetStop()

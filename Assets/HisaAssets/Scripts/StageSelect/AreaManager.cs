@@ -17,8 +17,10 @@ public class AreaManager : MonoBehaviour
     [SerializeField] GameObject trophyObj;
     [SerializeField] SetTextScript claerNumText;
     [SerializeField] AudioPlay audioplay;
-    [SerializeField]SetTextScript stageNameText;
+    [SerializeField] SetTextScript stageNameText;
     public bool activeTrophy;
+
+    [SerializeField] XInputRumbler rumbler;
 
     public int GetClearStageNum()
     {
@@ -79,7 +81,8 @@ public class AreaManager : MonoBehaviour
 
     public int GetSelectSell() { return cells.IndexOf(curSelectStage); }
     public StageCell GetSelectSell(int index) { return cells[index]; }
-    public void SetSelectSell(int index) { 
+    public void SetSelectSell(int index)
+    {
 
         curSelectStage = cells[index];
         cameraFollow.SetTarget(curSelectStage.transform);
@@ -100,6 +103,7 @@ public class AreaManager : MonoBehaviour
             stageNameText.SetText(curSelectStage.GetCellStageName());
             imageAmpritude.EaseStart();
             audioplay.SE1();
+            rumbler.StartRumble(0.1f, 0.2f, 0.1f);
         }
     }
 
@@ -108,7 +112,7 @@ public class AreaManager : MonoBehaviour
 
     public void ChangeCell(Vector2 inputDire)
     {
-       
+
         //ç∂âE
         if (inputDire.x != 0 && inputDire.y == 0)
         {

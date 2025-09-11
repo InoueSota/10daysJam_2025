@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
     private bool undoOrReset;
     private float delayTimer;
 
+    [SerializeField] XInputRumbler rumbler;
+
     void Start()
     {
         // 自コンポーネントの取得
@@ -176,7 +178,7 @@ public class GameManager : MonoBehaviour
             }
 
             isGoal = true;
-
+            rumbler.StartRumble(0.3f, 0.7f, 0.4f);
             //隣接するステージの決定
 
             switch (goalDirection)

@@ -1261,6 +1261,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: rumbler
+      value: 
+      objectReference: {fileID: 1189015385}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: areaName
       value: Area5
       objectReference: {fileID: 0}
@@ -2904,6 +2908,10 @@ PrefabInstance:
       propertyPath: rightConnectStage
       value: 
       objectReference: {fileID: 1540162256}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: rumbler
+      value: 
+      objectReference: {fileID: 1189015385}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: areaName
       value: Area3
@@ -5698,6 +5706,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1087133470}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: rumbler
+      value: 
+      objectReference: {fileID: 1189015385}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: areaName
       value: Area2
       objectReference: {fileID: 0}
@@ -6722,6 +6734,7 @@ GameObject:
   - component: {fileID: 1189015383}
   - component: {fileID: 1189015382}
   - component: {fileID: 1189015384}
+  - component: {fileID: 1189015385}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -6780,6 +6793,7 @@ MonoBehaviour:
   audioPlay: {fileID: 1189015383}
   abutton: {fileID: 1084443856}
   allClearSceneName: AllClear
+  rumbler: {fileID: 1189015385}
 --- !u!4 &1189015377
 Transform:
   m_ObjectHideFlags: 0
@@ -7061,6 +7075,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1189015385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189015375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8576db90a44a5e14db6f40302c9fb92e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userIndex: 0
+  defaultLow: 0.17
+  defaultHigh: 0.273
 --- !u!4 &1199109165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3498062242868161629, guid: 7f609b4f23a8e8942a8d6454aaf53315, type: 3}
@@ -10368,6 +10397,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: rumbler
+      value: 
+      objectReference: {fileID: 1189015385}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: areaName
       value: Area4
       objectReference: {fileID: 0}
@@ -10895,6 +10928,10 @@ PrefabInstance:
       propertyPath: rightConnectStage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
+      propertyPath: rumbler
+      value: 
+      objectReference: {fileID: 1189015385}
     - target: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: areaName
       value: Area1

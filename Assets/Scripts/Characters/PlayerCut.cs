@@ -40,6 +40,8 @@ public class PlayerCut : MonoBehaviour
     bool divisionFlag = false;
     bool divisionDeleteFlag = false;
 
+    XInputRumbler rumbler;
+
     void Awake()
     {
         // 分断線の配置フラグを設定
@@ -79,12 +81,15 @@ public class PlayerCut : MonoBehaviour
                 }
             }
         }
+
+
     }
 
     void Start()
     {
         controller = GetComponent<PlayerController>();
         sound = GetComponent<SoundInstantiateScript>();
+        rumbler=GetComponent<XInputRumbler>();
 
         // Global Volume
         postEffectVolume.profile.TryGet(out vignette);
@@ -124,6 +129,7 @@ public class PlayerCut : MonoBehaviour
             {
                 // サウンド
                 sound.PlaySound(Random.Range(0, 99) % 4 + 12, 0.3f);
+                Debug.Log("じゃき");
 
                 divisionLineObj.SetActive(false);
                 targetIntensity = maxIntensity;
@@ -236,6 +242,10 @@ public class PlayerCut : MonoBehaviour
                 {
                     sound.PlaySound(4, 0.2f);
                 }
+
+                //振動
+                rumbler.PlayJaki(1, 1);
+
             }
 
             // Global Volume

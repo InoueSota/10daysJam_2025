@@ -61,6 +61,8 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] string allClearSceneName;
     float allCleartalkTime;//検知するのに制限をつけて処理を軽くする
 
+    [SerializeField] XInputRumbler rumbler;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -204,19 +206,24 @@ public class StageSelectManager : MonoBehaviour
         }
 
 
-
+        abutton.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        abutton.SetActive(areaSelect);
+        if (allCleartalkTime >= 0.5f)
+        {
+            abutton.SetActive(areaSelect);
+        }
+        
 
         if (allCleartalkTime < 0.5)
         {
             StartTalk();
             King();
             allCleartalkTime += Time.deltaTime;
+           
         }
         
         ChangeScene();
@@ -319,6 +326,7 @@ public class StageSelectManager : MonoBehaviour
             areaManagers[curSelectAreaIndex].ClearEffect();
             gradientObj.SetIndex(curSelectAreaIndex);
             audioPlay.SE2();
+           if(allCleartalkTime>=0.5f) rumbler.StartRumble(0.1f, 0.2f, 0.1f);
         }
 
         if (Input.GetButtonDown("Select"))
@@ -327,6 +335,7 @@ public class StageSelectManager : MonoBehaviour
             areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
             areaManagers[curSelectAreaIndex].SetSelectActive(true);
             audioPlay.SE1();
+            rumbler.StartRumble(0.1f);
         }
 
     }
@@ -384,6 +393,7 @@ public class StageSelectManager : MonoBehaviour
                 }
                 Debug.Log(debugLogtext);
                 audioPlay.SE1();
+                rumbler.StartRumble(0.1f);
             }
         }
         //ステージ選択画面→タイトルへの遷移
