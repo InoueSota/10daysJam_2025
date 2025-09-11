@@ -125,6 +125,11 @@ public class GameManager : MonoBehaviour
                         goalDirection = GoalDirection.DOWN;
                         controller.SetDirection(1);
                     }
+                    else
+                    {
+                        goalDirection = GoalDirection.UP;
+                        controller.SetDirection(3);
+                    }
                 }
                 else
                 {
