@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Color area5BackColor;
     [SerializeField] private Color area5Color;
 
+    [SerializeField] SetTextScript stageNameText;
 
     void Start()
     {
@@ -61,6 +62,8 @@ public class UIManager : MonoBehaviour
             backFrame.color = area5BackColor;
             frame.color = area5Color;
         }
+
+        stageNameText.SetText(StageCell.lastSelectSellName);
     }
 
     void Update()

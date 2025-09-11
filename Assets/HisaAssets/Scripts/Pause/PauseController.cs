@@ -39,6 +39,8 @@ public class PauseController : MonoBehaviour
     [SerializeField]
     AmpritudePosition[] ampritudePos;
     [SerializeField] AudioPlay audioplay;
+
+    [SerializeField] SetTextScript sceNameText;
     void Start()
     {
         // PauseScene Ç™ Additive Ç≈ÉçÅ[ÉhÇ≥ÇÍÇΩéûì_Ç≈åƒÇŒÇÍÇÈ
@@ -47,6 +49,7 @@ public class PauseController : MonoBehaviour
         animators[0].SetBool("Select", true);
         if(GameManager.hintImageStatic[0]!=null) hintImage.sprite = GameManager.hintImageStatic[0];
         hintImageBack[0].SetActive(true);
+        sceNameText.SetText(StageCell.lastSelectSellName);
     }
 
     private void Update()

@@ -36,7 +36,7 @@ public class StageCell : MonoBehaviour
     public bool activeFlag;
 
     public bool clear;
-
+    public static string lastSelectSellName;
     public string GetCellStageName() { return cellStagename; }
     //アクティブ(選択可能)にする
     public bool GetSetActive
@@ -75,7 +75,9 @@ public class StageCell : MonoBehaviour
         get { return clear; }
     }
 
-    public void SetSelectObj(bool active) { selectObj.SetActive(active); }
+    public void SetSelectObj(bool active) {
+        lastSelectSellName = cellStagename;
+        selectObj.SetActive(active); }
 
     public Sprite GetStageImage() { return stageImage; }
 
