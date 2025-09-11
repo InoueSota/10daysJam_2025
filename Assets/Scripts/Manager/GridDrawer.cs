@@ -20,15 +20,15 @@ public class GridDrawer : MonoBehaviour
         // cü
         for (int x = 0; x <= gridWidth; x++)
         {
-            CreateLine(new Vector3(x * cellSize - diffValue.x, -diffValue.y, 0),
-                       new Vector3(x * cellSize - diffValue.x, gridHeight * cellSize - diffValue.y, 0));
+            CreateLine(new Vector3(x * cellSize - diffValue.x, -diffValue.y, 0.2f),
+                       new Vector3(x * cellSize - diffValue.x, gridHeight * cellSize - diffValue.y, 0.2f));
         }
 
         // ‰¡ü
         for (int y = 0; y <= gridHeight; y++)
         {
-            CreateLine(new Vector3(-diffValue.x, y * cellSize - diffValue.y, 0),
-                       new Vector3(gridWidth * cellSize - diffValue.x, y * cellSize - diffValue.y, 0));
+            CreateLine(new Vector3(-diffValue.x, y * cellSize - diffValue.y, 0.2f),
+                       new Vector3(gridWidth * cellSize - diffValue.x, y * cellSize - diffValue.y, 0.2f));
         }
     }
 

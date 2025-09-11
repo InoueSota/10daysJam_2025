@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 4631173559083993102}
   - component: {fileID: 695517456974814494}
   - component: {fileID: 241865238700057326}
+  - component: {fileID: 8636491693305529497}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Canvas
@@ -200,6 +201,18 @@ MonoBehaviour:
   area5BackColor: {r: 0.645283, g: 0.23254539, b: 0.58346385, a: 1}
   area5Color: {r: 0.83396226, g: 0.3257173, b: 0.75724584, a: 1}
   stageNameText: {fileID: 3591076031140297514}
+--- !u!114 &8636491693305529497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2743709098170660133}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ec2ae1b263b2246935eaed89321dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3872254035342823988
 GameObject:
   m_ObjectHideFlags: 0

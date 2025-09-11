@@ -173,7 +173,7 @@ public class PauseController : MonoBehaviour
             }
         }
 
-        if (!change && Input.GetButtonDown("Menu"))
+        if (!change && Input.GetButtonDown("Menu")|| !change && Input.GetButtonDown("Back") )
         {
             audioplay.SE1();
             change = true;
@@ -239,7 +239,7 @@ public class PauseController : MonoBehaviour
     {
         if (!isTechniquMenu) { return; }
 
-        if (Input.GetButtonDown("Menu"))
+        if (Input.GetButtonDown("Menu")|| Input.GetButtonDown("Back"))
         {
             isTechniquMenu = false;
             TechniqueCanvas.SetTrigger("End");
