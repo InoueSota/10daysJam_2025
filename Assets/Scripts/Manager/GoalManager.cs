@@ -61,7 +61,7 @@ public class GoalManager : MonoBehaviour
                     Vector2 posB = goals[j].transform.position;
 
                     // 同じX軸またはY軸にいるか判定 && １マス以上の隙間があるか判定
-                    if ((Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y)) && Vector3.Distance(posA, posB) > 1.1f)
+                    if ((IsSameAxis(posA.x, posB.x) || IsSameAxis(posA.y, posB.y)) && Vector3.Distance(posA, posB) > 1.1f)
                     {
                         // 該当Objectの位置をビューポート座標に変換
                         Vector3 viewportPos1 = Camera.main.WorldToViewportPoint(posA);
@@ -129,7 +129,7 @@ public class GoalManager : MonoBehaviour
             Vector2 posA = goalA.transform.position;
             Vector2 posB = goalB.transform.position;
 
-            bool sameAxis = Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y);
+            bool sameAxis = IsSameAxis(posA.x, posB.x) || IsSameAxis(posA.y, posB.y);
 
             if (!sameAxis)
             {
@@ -219,5 +219,10 @@ public class GoalManager : MonoBehaviour
 
         sr.SetBool("on", isLineActive);
         particle.RunParticle(1, goal.gameObject.transform.position);
+    }
+
+    bool IsSameAxis(float a, float b, float tolerance = 1e-4f)
+    {
+        return Mathf.Abs(a - b) <= tolerance;
     }
 }

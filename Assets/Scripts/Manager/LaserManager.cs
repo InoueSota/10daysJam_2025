@@ -49,7 +49,7 @@ public class LaserManager : MonoBehaviour
                 Vector2 posB = lasers[j].transform.position;
 
                 // “¯‚¶XŽ²‚Ü‚½‚ÍYŽ²‚É‚¢‚é‚©”»’è
-                if (Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y))
+                if (IsSameAxis(posA.x, posB.x) || IsSameAxis(posA.y, posB.y))
                 {
                     var key = MakeKey(lasers[i], lasers[j]);
 
@@ -88,7 +88,7 @@ public class LaserManager : MonoBehaviour
             Vector2 posA = laserA.transform.position;
             Vector2 posB = laserB.transform.position;
 
-            bool sameAxis = Mathf.Approximately(posA.x, posB.x) || Mathf.Approximately(posA.y, posB.y);
+            bool sameAxis = IsSameAxis(posA.x, posB.x) || IsSameAxis(posA.y, posB.y);
 
             if (!sameAxis)
             {
@@ -133,5 +133,10 @@ public class LaserManager : MonoBehaviour
         if (laserLineRefCount[goal] > 0) { isLineActive = true; }
 
         sr.SetBool("on", isLineActive);
+    }
+
+    bool IsSameAxis(float a, float b, float tolerance = 1e-4f)
+    {
+        return Mathf.Abs(a - b) <= tolerance;
     }
 }
