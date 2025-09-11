@@ -318,6 +318,7 @@ public class StageSelectManager : MonoBehaviour
             preSelectAreaIndex = curSelectAreaIndex;
             areaManagers[curSelectAreaIndex].ClearEffect();
             gradientObj.SetIndex(curSelectAreaIndex);
+            audioPlay.SE2();
         }
 
         if (Input.GetButtonDown("Select"))
@@ -339,7 +340,7 @@ public class StageSelectManager : MonoBehaviour
             Debug.Log("curSelectAreaIndex" + curSelectAreaIndex);
             areaManagers[curSelectAreaIndex].AreaSelectAnime(false);
             areaManagers[curSelectAreaIndex].SetSelectActive(false);
-
+            audioPlay.SE2();
         }
         //ƒZƒ‹‚ÌˆÚ“®
         areaManagers[curSelectAreaIndex].ChangeCell(inputDire);

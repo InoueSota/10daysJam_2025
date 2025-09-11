@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseController : MonoBehaviour
 {
@@ -22,15 +23,33 @@ public class PauseController : MonoBehaviour
     [SerializeField] Animator canvasAnime;
     [SerializeField] SceneTransition sceneTransitionPrefab;
     SceneTransition sceneTransition;
+    [SerializeField] private PauseToggle pauseToggle;
 
+
+    public bool isTechniquMenu;
+    [SerializeField] Animator TechniqueCanvas;
+
+    [SerializeField] Image hintImage;
+    int hintImageIndex;
+    int preHintImageIndex;
+    [SerializeField]
+    GameObject[] hintImageBack;
+    [SerializeField]
+    SetTextScript[] levelText;
+    [SerializeField]
+    AmpritudePosition[] ampritudePos;
     [SerializeField] AudioPlay audioplay;
+
+    [SerializeField] SetTextScript sceNameText;
     void Start()
     {
         // PauseScene が Additive でロードされた時点で呼ばれる
         Time.timeScale = 0f;
         // PauseFreezer.Freeze(pauseSceneName, strict: true);
         animators[0].SetBool("Select", true);
-
+        if(GameManager.hintImageStatic[0]!=null) hintImage.sprite = GameManager.hintImageStatic[0];
+        hintImageBack[0].SetActive(true);
+        sceNameText.SetText(StageCell.lastSelectSellName);
     }
 
     private void Update()
@@ -58,25 +77,11 @@ public class PauseController : MonoBehaviour
         //debugText.SetText(index);
 
         if (change) {return; }
-        if (inputDire.y < 0)
-        {
-            animators[index].SetBool("Select", false);
-            index++;
 
-            if (index >= 3) { index = 0; }
-            animators[index].SetBool("Select", true);
-            audioplay.SE2();
-        }
-        else if (inputDire.y > 0)
-        {
-            animators[index].SetBool("Select", false);
+        PauseMenuUpdate();
+        TechniqueMenuUpdate();
 
-            index--;
-            if (index < 0) { index = 2; }
-            animators[index].SetBool("Select", true);
-            audioplay.SE2();
-        }
-        SelectMode();
+
 
     }
 
@@ -153,8 +158,15 @@ public class PauseController : MonoBehaviour
             {
                 OnRestart();
             }
-            //セレクトへ戻る
             else if (index == 2)
+            {
+                Debug.Log("わざへ");
+                isTechniquMenu = true;
+                TechniqueCanvas.SetTrigger("Stay");
+                change = false;
+            }
+            //セレクトへ戻る
+            else if (index == 3)
             {
                 Debug.Log("セレクト画面に戻る");
                 OnGoSelect();
@@ -198,5 +210,82 @@ public class PauseController : MonoBehaviour
         }
 
 
+    }
+
+    void PauseMenuUpdate() {
+        if(isTechniquMenu) {return;}
+        if (inputDire.y < 0)
+        {
+            animators[index].SetBool("Select", false);
+            index++;
+
+            if (index >= 4) { index = 0; }
+            animators[index].SetBool("Select", true);
+            audioplay.SE2();
+        }
+        else if (inputDire.y > 0)
+        {
+            animators[index].SetBool("Select", false);
+
+            index--;
+            if (index < 0) { index = 3; }
+            animators[index].SetBool("Select", true);
+            audioplay.SE2();
+        }
+        SelectMode();
+    }
+
+    void TechniqueMenuUpdate()
+    {
+        if (!isTechniquMenu) { return; }
+
+        if (Input.GetButtonDown("Menu"))
+        {
+            isTechniquMenu = false;
+            TechniqueCanvas.SetTrigger("End");
+            inputDelay = 0.5f;
+            audioplay.SE1();
+        }
+
+        if (inputDire.x > 0)
+        {
+            hintImageIndex++;
+        }else if(inputDire.x < 0)
+        {
+            hintImageIndex--;
+        }
+
+
+        hintImageIndex = (int)Mathf.Clamp(hintImageIndex, 0, 2);
+
+        if (preHintImageIndex!=hintImageIndex)
+        {
+            hintImageBack[preHintImageIndex].SetActive(false);
+            hintImageBack[hintImageIndex].SetActive(true);
+            levelText[0].SetText("レベル" + (hintImageIndex + 1));
+            levelText[1].SetText("Next:" + "レベル"+ (hintImageIndex + 2));
+            if (hintImageIndex == 0)
+            {
+                levelText[1].SetText("一手目");
+            }
+            else if (hintImageIndex == 1)
+            {
+                levelText[1].SetText("中盤");
+            }
+            else if (hintImageIndex == 2)
+            {
+                levelText[1].SetText("ゴール直前");
+            }
+
+            for (int i = 0; i < ampritudePos.Length; i++)
+            {
+                ampritudePos[i].EaseStart();
+            }
+
+            preHintImageIndex = hintImageIndex;
+
+            audioplay.SE2();
+            if (GameManager.hintImageStatic[hintImageIndex] != null) hintImage.sprite = GameManager.hintImageStatic[hintImageIndex];
+        }
     }
 }

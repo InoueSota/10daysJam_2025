@@ -36,7 +36,7 @@ public class StageCell : MonoBehaviour
     public bool activeFlag;
 
     public bool clear;
-
+    public static string lastSelectSellName;
     public string GetCellStageName() { return cellStagename; }
     //アクティブ(選択可能)にする
     public bool GetSetActive
@@ -75,7 +75,8 @@ public class StageCell : MonoBehaviour
         get { return clear; }
     }
 
-    public void SetSelectObj(bool active) { selectObj.SetActive(active); }
+    public void SetSelectObj(bool active) {
+        selectObj.SetActive(active); }
 
     public Sprite GetStageImage() { return stageImage; }
 
@@ -154,7 +155,10 @@ public class StageCell : MonoBehaviour
         return null;
     }
 
-    public string GetStageName() { return stageName; }
+    public string GetStageName() {
+        lastSelectSellName = cellStagename;//入ったステージ名の保存
+
+        return stageName; }
 
     public void StartClearEffect()
     {

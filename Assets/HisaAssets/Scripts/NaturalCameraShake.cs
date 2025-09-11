@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// カメラや任意のオブジェクトを「自然に」揺らすスクリプト。
 /// ・PerlinNoiseで滑らかに揺れる常時Sway
 /// ・イベント用の単発ShakeOnce
 /// ・位置/回転の強度・軸・周波数・減衰を調整可能
-/// 使い方：カメラ(または親の空オブジェクト)にアタッチ
+/// 使い方：カメラ/オブジェクト/Canvas内のUI(=RectTransform)にアタッチ
 /// </summary>
 [DisallowMultipleComponent]
 public class NaturalCameraShake : MonoBehaviour
@@ -21,8 +22,8 @@ public class NaturalCameraShake : MonoBehaviour
     [Min(0f)] public float swaySpeed = 0.6f;
 
     [Header("Sway 強度（常時ゆらぎ）")]
-    public Vector3 swayPosStrength = new Vector3(0.01f, 0.01f, 0.0f); // メートル
-    public Vector3 swayRotStrength = new Vector3(0.2f, 0.2f, 0.3f);   // 度
+    public Vector3 swayPosStrength = new Vector3(0.01f, 0.01f, 0.0f); // メートル（UI時はXYのみ使用）
+    public Vector3 swayRotStrength = new Vector3(0.2f, 0.2f, 0.3f);   // 度（UI時は主にZ回転が有効）
 
     [Header("Shake（単発）")]
     [Tooltip("ShakeOnceのデフォルト時間(秒)")]
@@ -34,15 +35,27 @@ public class NaturalCameraShake : MonoBehaviour
     [Tooltip("Shake減衰。大きいほど早く収束")]
     [Min(0f)] public float shakeDamping = 3.0f;
 
-    [Header("ノイズと座標設定")]
-    [Tooltip("ローカル座標で揺らす（親子付けに便利）")]
+    [Header("ノイズと座標設定（3D Transform 用）")]
+    [Tooltip("ローカル座標で揺らす（親子付けに便利）。UI時は無視")]
     public bool useLocalSpace = true;
+
     [Tooltip("ノイズのランダムオフセット種")]
     public int noiseSeed = 1234;
 
-    // 内部状態
+    [Header("UI(RectTransform)で使う場合")]
+    [Tooltip("UI(Image/Text 等)のRectTransformを揺らすならON")]
+    public bool imagePos = false;
+
+    // ---- 内部状態（3D/通常 Transform 用） ----
     Vector3 _baseLocalPos;
     Quaternion _baseLocalRot;
+
+    // ---- 内部状態（UI/RectTransform 用）----
+    RectTransform _rt;
+    Vector2 _baseAnchoredPos;
+    Quaternion _baseLocalRotUI;
+
+    // ランタイム状態
     float _tSway;
     float _shakeTimeLeft;
     float _shakePhase;
@@ -53,13 +66,32 @@ public class NaturalCameraShake : MonoBehaviour
 
     void Awake()
     {
-        _baseLocalPos = transform.localPosition;
-        _baseLocalRot = transform.localRotation;
-
+        // 乱数オフセット
         var rng = new System.Random(noiseSeed);
         _offsetX = (float)rng.NextDouble() * 1000f;
         _offsetY = (float)rng.NextDouble() * 1000f + 111f;
         _offsetZ = (float)rng.NextDouble() * 1000f + 222f;
+
+        if (imagePos)
+        {
+            _rt = GetComponent<RectTransform>();
+            if (_rt == null)
+            {
+                Debug.LogWarning("imagePos が有効ですが RectTransform が見つかりません。通常Transform処理にフォールバックします。");
+                imagePos = false;
+            }
+        }
+
+        if (imagePos)
+        {
+            _baseAnchoredPos = _rt.anchoredPosition;
+            _baseLocalRotUI = _rt.localRotation;
+        }
+        else
+        {
+            _baseLocalPos = transform.localPosition;
+            _baseLocalRot = transform.localRotation;
+        }
     }
 
     void OnEnable()
@@ -70,8 +102,16 @@ public class NaturalCameraShake : MonoBehaviour
     void OnDisable()
     {
         // 元の姿勢に戻す
-        transform.localPosition = _baseLocalPos;
-        transform.localRotation = _baseLocalRot;
+        if (imagePos && _rt != null)
+        {
+            _rt.anchoredPosition = _baseAnchoredPos;
+            _rt.localRotation = _baseLocalRotUI;
+        }
+        else
+        {
+            transform.localPosition = _baseLocalPos;
+            transform.localRotation = _baseLocalRot;
+        }
         _shakeTimeLeft = 0f;
         _shakeAmpRuntime = 0f;
     }
@@ -87,20 +127,20 @@ public class NaturalCameraShake : MonoBehaviour
         Vector3 rotSway = Vector3.zero;
         GetPerlinTriplet(_tSway, out float nx, out float ny, out float nz);
 
-        posSway.x = (nx) * swayPosStrength.x;
-        posSway.y = (ny) * swayPosStrength.y;
-        posSway.z = (nz) * swayPosStrength.z;
+        posSway.x = nx * swayPosStrength.x;
+        posSway.y = ny * swayPosStrength.y;
+        posSway.z = nz * swayPosStrength.z;
 
-        rotSway.x = (nx) * swayRotStrength.x;
-        rotSway.y = (ny) * swayRotStrength.y;
-        rotSway.z = (nz) * swayRotStrength.z;
+        rotSway.x = nx * swayRotStrength.x;
+        rotSway.y = ny * swayRotStrength.y;
+        rotSway.z = nz * swayRotStrength.z;
 
         // 単発Shake（時間減衰）
         if (_shakeTimeLeft > 0f)
         {
             _shakeTimeLeft -= dt;
             float t = Mathf.Clamp01(_shakeTimeLeft / Mathf.Max(0.0001f, defaultShakeDuration));
-            // 減衰カーブ：指数的（お好みで）
+            // 減衰カーブ（指数的）
             float decay = Mathf.Exp(-shakeDamping * (1f - t));
 
             _shakePhase += swaySpeed * shakeSpeedMultiplier * dt;
@@ -117,18 +157,34 @@ public class NaturalCameraShake : MonoBehaviour
             _shakeAmpRuntime = 0f;
         }
 
-        // 反映
-        if (useLocalSpace)
+        // ---- 反映 ----
+        if (imagePos && _rt != null)
         {
-            transform.localPosition = _baseLocalPos + posSway;
-            transform.localRotation = _baseLocalRot * Quaternion.Euler(rotSway);
+            // 位置：anchoredPosition (XYのみ)
+            Vector2 ap = _baseAnchoredPos + new Vector2(posSway.x, posSway.y);
+            _rt.anchoredPosition = ap;
+
+            // 回転：localRotation（基本Z回転がUIで視覚効果に寄与）
+            _rt.localRotation = _baseLocalRotUI * Quaternion.Euler(rotSway);
         }
         else
         {
-            transform.position = transform.parent ? transform.parent.TransformPoint(_baseLocalPos + posSway)
-                                                  : _baseLocalPos + posSway;
-            transform.rotation = (transform.parent ? transform.parent.rotation : Quaternion.identity)
-                                 * _baseLocalRot * Quaternion.Euler(rotSway);
+            if (useLocalSpace)
+            {
+                transform.localPosition = _baseLocalPos + posSway;
+                transform.localRotation = _baseLocalRot * Quaternion.Euler(rotSway);
+            }
+            else
+            {
+                // ワールド空間揺らし
+                Vector3 worldPos = transform.parent ? transform.parent.TransformPoint(_baseLocalPos + posSway)
+                                                    : _baseLocalPos + posSway;
+                transform.position = worldPos;
+
+                Quaternion worldRot = (transform.parent ? transform.parent.rotation : Quaternion.identity)
+                                      * _baseLocalRot * Quaternion.Euler(rotSway);
+                transform.rotation = worldRot;
+            }
         }
     }
 
@@ -153,8 +209,16 @@ public class NaturalCameraShake : MonoBehaviour
     {
         if (!enabled)
         {
-            transform.localPosition = _baseLocalPos;
-            transform.localRotation = _baseLocalRot;
+            if (imagePos && _rt != null)
+            {
+                _rt.anchoredPosition = _baseAnchoredPos;
+                _rt.localRotation = _baseLocalRotUI;
+            }
+            else
+            {
+                transform.localPosition = _baseLocalPos;
+                transform.localRotation = _baseLocalRot;
+            }
         }
         playSwayOnStart = enabled;
     }
@@ -165,5 +229,26 @@ public class NaturalCameraShake : MonoBehaviour
         x = Mathf.PerlinNoise(_offsetX + t, 0.0f) * 2f - 1f;
         y = Mathf.PerlinNoise(_offsetY + t, 0.0f) * 2f - 1f;
         z = Mathf.PerlinNoise(_offsetZ + t, 0.0f) * 2f - 1f;
+    }
+
+    // ------------- 便利メソッド -------------
+    /// <summary>現在のUI基準位置を取り直す（UI運用時のレイアウト変更後に）</summary>
+    public void RebindUIBaseFromCurrent()
+    {
+        if (imagePos && _rt != null)
+        {
+            _baseAnchoredPos = _rt.anchoredPosition;
+            _baseLocalRotUI = _rt.localRotation;
+        }
+    }
+
+    /// <summary>現在のTransform基準姿勢を取り直す（3D運用時の初期化し直しに）</summary>
+    public void RebindTransformBaseFromCurrent()
+    {
+        if (!imagePos)
+        {
+            _baseLocalPos = transform.localPosition;
+            _baseLocalRot = transform.localRotation;
+        }
     }
 }
