@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cdc6ce73a91658b4084cc94ea871acfc
+guid: cc88b1a014c97a9409fdaebe50db8a06
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6229479465886278328
-    second: Paper01_0
+      213: -264009466172644133
+    second: "\u30B9\u30AF\u30EA\u30FC\u30F3\u30B7\u30E7\u30C3\u30C8 2025-09-12 041320_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Paper01_0
+      name: "\u30B9\u30AF\u30EA\u30FC\u30F3\u30B7\u30E7\u30C3\u30C8 2025-09-12 041320_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 768
+        width: 925
+        height: 682
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8b2edbba19e837650800000000000000
-      internalID: 6229479465886278328
+      spriteID: bd4607f0acc065cf0800000000000000
+      internalID: -264009466172644133
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Paper01_0: 6229479465886278328
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

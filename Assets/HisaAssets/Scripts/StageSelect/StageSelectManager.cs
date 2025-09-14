@@ -43,7 +43,7 @@ public class StageSelectManager : MonoBehaviour
     float sceneChangeCT;
 
     //エリア1は目的の値から＋1する、最後のindexは次のエリアが無いので数を大きくする
-    public static int[] areaOpenClearNum = new int[5] { 7, 10, 8, 5, 500 };// { 7, 10, 8, 5, 500 };//
+    public static int[] areaOpenClearNum = new int[5] { 9, 10, 8, 5, 500 };// { 9, 10, 8, 5, 500 };//
 
     public bool[] areaOpenFlag = new bool[5];
 
@@ -60,6 +60,8 @@ public class StageSelectManager : MonoBehaviour
 
     [SerializeField] string allClearSceneName;
     float allCleartalkTime;//検知するのに制限をつけて処理を軽くする
+
+    [SerializeField] XInputRumbler rumbler;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -204,19 +206,24 @@ public class StageSelectManager : MonoBehaviour
         }
 
 
-
+        abutton.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        abutton.SetActive(areaSelect);
+        if (allCleartalkTime >= 0.5f)
+        {
+            abutton.SetActive(areaSelect);
+        }
+        
 
         if (allCleartalkTime < 0.5)
         {
             StartTalk();
             King();
             allCleartalkTime += Time.deltaTime;
+           
         }
         
         ChangeScene();
@@ -319,6 +326,7 @@ public class StageSelectManager : MonoBehaviour
             areaManagers[curSelectAreaIndex].ClearEffect();
             gradientObj.SetIndex(curSelectAreaIndex);
             audioPlay.SE2();
+           if(allCleartalkTime>=0.5f) rumbler.StartRumble(0.1f, 0.2f, 0.1f);
         }
 
         if (Input.GetButtonDown("Select"))
@@ -327,6 +335,7 @@ public class StageSelectManager : MonoBehaviour
             areaManagers[curSelectAreaIndex].AreaSelectAnime(true);
             areaManagers[curSelectAreaIndex].SetSelectActive(true);
             audioPlay.SE1();
+            rumbler.StartRumble(0.1f);
         }
 
     }
@@ -384,6 +393,7 @@ public class StageSelectManager : MonoBehaviour
                 }
                 Debug.Log(debugLogtext);
                 audioPlay.SE1();
+                rumbler.StartRumble(0.1f);
             }
         }
         //ステージ選択画面→タイトルへの遷移

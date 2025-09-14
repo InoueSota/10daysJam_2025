@@ -25,6 +25,8 @@ public class TitileManager : MonoBehaviour
             allClear.SetActive(true);
         }
 
+        StageSelectManager.areaSelect = true;//タイトルに戻ったらエリアセレクトから始める
+
     }
 
     // Update is called once per frame

@@ -208,6 +208,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5069327744559235923, guid: 14a6dab40f74c7a489499e2b40387043, type: 3}
   m_PrefabInstance: {fileID: 3130435647542248753}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &334995703 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1571299875879342653, guid: 98077ea4391c32f42b7c93663a585244, type: 3}
+  m_PrefabInstance: {fileID: 8236961842973521847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &939355269 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4677511222644641467, guid: 44607435379ddc4468c33a5cc3a9d6fd, type: 3}
@@ -310,6 +315,26 @@ PrefabInstance:
     - target: {fileID: 2743709098170660133, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4517602276582405243, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 334995703}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773064441018521022, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 2062054235
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53362,8 +53387,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: talkSceneName
-      value: 
+      value: TalkArea1Stage7
       objectReference: {fileID: 0}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: hintImage.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'hintImage.Array.data[0]'
+      value: 
+      objectReference: {fileID: -5109509213635064235, guid: a21102fc7871b3343bb93cb530bc5fe6, type: 3}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'hintImage.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1578189246859156954, guid: fffcabcc574b1c64482cb597598dafac, type: 3}
+    - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
+      propertyPath: 'hintImage.Array.data[2]'
+      value: 
+      objectReference: {fileID: -5627295027915418381, guid: 376b4f28940a25e429fc0a40048bdaf9, type: 3}
     - target: {fileID: 7361798446708528711, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

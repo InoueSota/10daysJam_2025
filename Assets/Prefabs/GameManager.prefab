@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7021328880487853478}
   - component: {fileID: 4544434381622202761}
   - component: {fileID: 156574479665341904}
+  - component: {fileID: 594672296781674155}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -55,16 +56,14 @@ MonoBehaviour:
   areaName: Area1
   stageName: 
   talkSceneName: TalkArea1Stage1
-  hintImage:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  hintImage: []
   undoCanvas: {fileID: 6280388185270357380, guid: 5919efadcd739784ea41306be991e9bf, type: 3}
   stackCanvas: {fileID: 3327001535966130526, guid: f1231427f50818f46a2760dcc03bbf28, type: 3}
   stackTime: 0
   stackInstatiateTime: 0
   sceneTransitionPrefab: {fileID: 4797439248035837154, guid: 1f39edc61cfb6ba45a62d3dea926acdc, type: 3}
   notHaikuDire: -1
+  rumbler: {fileID: 594672296781674155}
 --- !u!114 &2001972069336573037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +189,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8562d1ea732e4fc489c8eab787e65c96, type: 3}
   - {fileID: 8300000, guid: e8ded6e92d2f90345b5c43aaba054e4b, type: 3}
   - {fileID: 8300000, guid: 13d1169f2fadce346a63452bb35c0608, type: 3}
+--- !u!114 &594672296781674155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802900266127030161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8576db90a44a5e14db6f40302c9fb92e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userIndex: 0
+  defaultLow: 0.25
+  defaultHigh: 0.35

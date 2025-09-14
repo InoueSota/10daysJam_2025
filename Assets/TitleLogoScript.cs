@@ -15,6 +15,7 @@ public class TitleLogoScript : MonoBehaviour
     SoundInstantiateScript sound;
 
     Animator animator;
+    XInputRumbler rumbler;
 
     float angle = 0f;
 
@@ -25,6 +26,7 @@ public class TitleLogoScript : MonoBehaviour
     {
         sound = GetComponent<SoundInstantiateScript>();
         animator = GetComponent<Animator>();
+        rumbler=GetComponent<XInputRumbler>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,7 @@ public class TitleLogoScript : MonoBehaviour
             if (Input.GetButtonDown("Select"))
             {
                 sound.PlaySound(0,0.6f);
+                rumbler.StartRumble(0.1f, 0.2f, 0.2f);
                 SetFlag1();
             }
         }
@@ -78,11 +81,13 @@ public class TitleLogoScript : MonoBehaviour
     private void PlaySound1()
     {
         sound.PlaySound(1, 0.4f);
+        rumbler.PlayJaki();
     }
 
     private void PlaySound2()
     {
         sound.PlaySound(2, 0.4f);
+        rumbler.PlayJaki();
     }
 
 }
