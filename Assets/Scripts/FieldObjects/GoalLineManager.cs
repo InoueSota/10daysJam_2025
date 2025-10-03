@@ -107,15 +107,20 @@ public class GoalLineManager : MonoBehaviour
             GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 
             // 縦ゴール配置
-            if (Mathf.Approximately(pointA.position.x, pointB.position.x))
+            if (IsSameAxis(pointA.position.x, pointB.position.x))
             {
                 gameManager.CheckGoal(false);
             }
             // 横ゴール配置
-            else if (Mathf.Approximately(pointA.position.y, pointB.position.y))
+            else if (IsSameAxis(pointA.position.y, pointB.position.y))
             {
                 gameManager.CheckGoal(true);
             }
         }
+    }
+
+    bool IsSameAxis(float a, float b, float tolerance = 1e-4f)
+    {
+        return Mathf.Abs(a - b) <= tolerance;
     }
 }
