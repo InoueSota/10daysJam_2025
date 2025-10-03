@@ -53,6 +53,7 @@ public class StageSelectManager : MonoBehaviour
     float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
     bool talkEnd;
 
+
     public int maxIndex;
     [SerializeField] GameObject[] arrowImage;
     [SerializeField] AudioPlay audioPlay;
@@ -62,6 +63,8 @@ public class StageSelectManager : MonoBehaviour
     float allCleartalkTime;//検知するのに制限をつけて処理を軽くする
 
     [SerializeField] XInputRumbler rumbler;
+
+    public static bool allOpenFlag;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -97,6 +100,8 @@ public class StageSelectManager : MonoBehaviour
             areaManagers[i].SetSelectSell(cellSelectTmp[i]);//セレクト画面に戻ったら保存したセルに移動させる
         }
 
+       
+
         //エリアの開放状態
         for (int i = 1; i < areaOpenFlag.Length; i++)
         {
@@ -108,6 +113,24 @@ public class StageSelectManager : MonoBehaviour
             }
         }
         areaOpenFlag[0] = true;//エリア1は最初から開放する
+
+        //ステージを全て開放する
+        if (allOpenFlag)
+        {
+            for (int i = 1; i < areaOpenFlag.Length; i++)
+            {
+                string areaName = "Area" + (i + 1);
+                PlayerPrefs.SetInt("areaName", 2);
+                areaOpenFlag[i] = true;
+            }
+
+            foreach (AreaManager area in areaManagers)
+            {
+                area.SetAllActive();
+            }
+            PlayerPrefs.SetInt("SelectTalk", 5);//全クリア以外の会話シーンを完了扱いにする
+            PlayerPrefs.Save();
+        }
 
         //最後に遊んだステージが保存されてる時はそっちにする
         if (lastAreaName != "")
@@ -207,6 +230,9 @@ public class StageSelectManager : MonoBehaviour
 
 
         abutton.SetActive(false);
+
+
+
     }
 
     // Update is called once per frame
@@ -216,19 +242,19 @@ public class StageSelectManager : MonoBehaviour
         {
             abutton.SetActive(areaSelect);
         }
-        
+
 
         if (allCleartalkTime < 0.5)
         {
             StartTalk();
             King();
             allCleartalkTime += Time.deltaTime;
-           
+
         }
-        
+
         ChangeScene();
         InputDire();
-        Debug.Log(areaSelect);
+        // Debug.Log(areaSelect);
         if (areaSelect)
         {
             AreaSelect();
@@ -238,6 +264,8 @@ public class StageSelectManager : MonoBehaviour
         {
             StageSelect();
         }
+
+        AllStageOpen();
 
         //ChangeCell();
 
@@ -326,7 +354,7 @@ public class StageSelectManager : MonoBehaviour
             areaManagers[curSelectAreaIndex].ClearEffect();
             gradientObj.SetIndex(curSelectAreaIndex);
             audioPlay.SE2();
-           if(allCleartalkTime>=0.5f) rumbler.StartRumble(0.1f, 0.2f, 0.1f);
+            if (allCleartalkTime >= 0.5f) rumbler.StartRumble(0.1f, 0.2f, 0.1f);
         }
 
         if (Input.GetButtonDown("Select"))
@@ -428,14 +456,14 @@ public class StageSelectManager : MonoBehaviour
 
     void DebugUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            debugActive = !debugActive;
-            for (int i = 0; i < selectAnime.Length; i++)
-            {
-                selectAnime[i].SetBool("StageSelect", debugActive);
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    debugActive = !debugActive;
+        //    for (int i = 0; i < selectAnime.Length; i++)
+        //    {
+        //        selectAnime[i].SetBool("StageSelect", debugActive);
+        //    }
+        //}
     }
 
     [ContextMenu("セーブ削除")]
@@ -479,6 +507,7 @@ public class StageSelectManager : MonoBehaviour
     }
     void ChangeTalkScene(int index)
     {
+        if (index >= areaOpenFlag.Length) { return; }
         if (talkSceneName[index] != "" && !talkEnd)
         {
             if (changeTalkSceneTime > 0)
@@ -512,7 +541,7 @@ public class StageSelectManager : MonoBehaviour
                 PlayerPrefs.SetString("King", "true");
                 PlayerPrefs.Save();
                 pauseToggle.Pause(allClearSceneName);
-               
+
             }
         }
     }
@@ -540,4 +569,20 @@ public class StageSelectManager : MonoBehaviour
             ChangeTalkScene(4);
         }
     }
+
+    void AllStageOpen()
+    {
+        if (isSceneChange) { return; }
+        if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.E) && Input.GetKey(KeyCode.N))
+        {
+            allOpenFlag = true;
+
+            isSceneChange = true;
+            sceneTransitionObj = Instantiate(sceneTransitionPrefab);
+            sceneTransitionObj.StartTransition("StageSelectScene");
+            Debug.Log("バック");
+            audioPlay.SE1();
+        }
+    }
 }
+

@@ -292,4 +292,11 @@ public class AreaManager : MonoBehaviour
         return cells[index].GetStageName();
     }
 
+    public void SetAllActive()
+    {
+        foreach (var cell in cells)
+        {
+            cell.GetSetActive = true;
+        }
+    }
 }

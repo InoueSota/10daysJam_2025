@@ -26,7 +26,7 @@ public class TitileManager : MonoBehaviour
         }
 
         StageSelectManager.areaSelect = true;//タイトルに戻ったらエリアセレクトから始める
-
+        StageSelectManager.allOpenFlag =false;
     }
 
     // Update is called once per frame
@@ -67,9 +67,9 @@ public class TitileManager : MonoBehaviour
         if (Input.GetButton("Menu"))//GetButton("Menu")
         {
             deleteTime += Time.deltaTime;
-            deleteGauge.SetRatio(deleteTime/3);
+            deleteGauge.SetRatio(deleteTime/2);
 
-            if (deleteTime > 3)
+            if (deleteTime > 2)
             {
                 delete = true;
                 Instantiate(saveDeleteObj);
@@ -81,7 +81,7 @@ public class TitileManager : MonoBehaviour
         else
         {
             deleteTime = 0;
-            deleteGauge.SetRatio(deleteTime / 3);
+            deleteGauge.SetRatio(deleteTime / 2);
 
         }
 
