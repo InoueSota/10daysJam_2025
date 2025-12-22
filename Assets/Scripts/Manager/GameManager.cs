@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField, Header("会話シーンがある場合は名前を入力")] string talkSceneName;
     [SerializeField, Header("ヒントの写真。3枚にすること")] Sprite[] hintImage;
 
-    public static Sprite[] hintImageStatic=new Sprite[3];
+    public static Sprite[] hintImageStatic = new Sprite[3];
 
     float changeTalkSceneTime;//初期化の揺れ対策で、一瞬だけ待つ
     bool talkEnd;
@@ -79,12 +79,18 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < hintImage.Length; i++)
         {
-            hintImageStatic[i]=hintImage[i];
+            hintImageStatic[i] = hintImage[i];
         }
     }
 
     void Update()
     {
+        // デバッグ用ゴール
+        if (Input.GetKey(KeyCode.G) && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))
+        {
+            CheckGoal(true);
+        }
+
         delayTimer -= Time.deltaTime;
         if (delayTimer < 0f) { undoOrReset = false; }
 
@@ -107,25 +113,53 @@ public class GameManager : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             PlayerController controller = player.GetComponent<PlayerController>();
 
-            if (!controller.GetIsRocketMoving())
+            if (Input.GetKey(KeyCode.G) && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))
             {
-                if (controller.GetIsMoving())
+                if (Input.GetKey(KeyCode.UpArrow))
                 {
-                    // 右壁にぶつかってノックバック
-                    if (!_horizontalGoal && controller.GetRocketVector() == Vector3.right)
+                    goalDirection = GoalDirection.DOWN;
+                }
+                else if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    goalDirection = GoalDirection.UP;
+                }
+                else if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    goalDirection = GoalDirection.RIGHT;
+                }
+                else if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    goalDirection = GoalDirection.LEFT;
+                }
+                controller.SetDirection((int)goalDirection);
+            }
+            else
+            {
+                if (!controller.GetIsRocketMoving())
+                {
+                    if (controller.GetIsMoving())
                     {
-                        goalDirection = GoalDirection.RIGHT;
-                        controller.SetDirection(2);
-                    }
-                    else if (!_horizontalGoal && controller.GetRocketVector() == Vector3.left)
-                    {
-                        goalDirection = GoalDirection.LEFT;
-                        controller.SetDirection(0);
-                    }
-                    else if (_horizontalGoal && controller.GetRocketVector() == Vector3.up)
-                    {
-                        goalDirection = GoalDirection.DOWN;
-                        controller.SetDirection(1);
+                        // 右壁にぶつかってノックバック
+                        if (!_horizontalGoal && controller.GetRocketVector() == Vector3.right)
+                        {
+                            goalDirection = GoalDirection.RIGHT;
+                            controller.SetDirection(2);
+                        }
+                        else if (!_horizontalGoal && controller.GetRocketVector() == Vector3.left)
+                        {
+                            goalDirection = GoalDirection.LEFT;
+                            controller.SetDirection(0);
+                        }
+                        else if (_horizontalGoal && controller.GetRocketVector() == Vector3.up)
+                        {
+                            goalDirection = GoalDirection.DOWN;
+                            controller.SetDirection(1);
+                        }
+                        else
+                        {
+                            goalDirection = GoalDirection.UP;
+                            controller.SetDirection(3);
+                        }
                     }
                     else
                     {
@@ -133,21 +167,15 @@ public class GameManager : MonoBehaviour
                         controller.SetDirection(3);
                     }
                 }
-                else
-                {
-                    goalDirection = GoalDirection.UP;
-                    controller.SetDirection(3);
-                }
+                else { goalDirection = (GoalDirection)controller.GetDirection(); }
             }
-            else { goalDirection = (GoalDirection)controller.GetDirection(); }
 
             // プレイヤーの動きを止める
             controller.SetStop();
 
-
             //俳句を出さない方向でクリアした場合
-
             GoalDirection goalDire = GoalDirection.NONE;
+
             //ゴールの方向を見た目と一致させる
             switch (goalDirection)
             {
@@ -174,7 +202,7 @@ public class GameManager : MonoBehaviour
             {
                 notHaikuFlag = true;
                 Debug.Log("俳句なし");
-               // uiManager.SetActiveFalseIndex();
+                // uiManager.SetActiveFalseIndex();
             }
 
             isGoal = true;
@@ -490,7 +518,7 @@ public class GameManager : MonoBehaviour
         }
 
         //このエリアのクリア数が規定の数超えたら次のエリアを開放する
-        if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex-1])
+        if (areaClearNum >= StageSelectManager.areaOpenClearNum[curAreaIndex - 1])
         {
             if (PlayerPrefs.GetInt(nextArea) < 1)//まだエリアを開放してない時
             {
