@@ -53363,15 +53363,15 @@ PrefabInstance:
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: 'hintImage.Array.data[0]'
       value: 
-      objectReference: {fileID: -1936940802785038488, guid: cc44621a7570a7147995792d039eee02, type: 3}
+      objectReference: {fileID: 1416480984038901003, guid: b7ec0d3507c91e24896379562bdb3bc1, type: 3}
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: 'hintImage.Array.data[1]'
       value: 
-      objectReference: {fileID: 4712453579860044927, guid: cf963f40ed5a4d2459166d35f3359663, type: 3}
+      objectReference: {fileID: 7944885639979697657, guid: ea928ee087f0f754bab9434b480730f8, type: 3}
     - target: {fileID: 7229779872476006553, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: 'hintImage.Array.data[2]'
       value: 
-      objectReference: {fileID: -3681460204231229796, guid: 46417386d4ac8344f902013862b2e46a, type: 3}
+      objectReference: {fileID: 1499391375058313314, guid: 36aa4387e03bb9a48b60eee5c56f8e36, type: 3}
     - target: {fileID: 7361798446708528711, guid: 3253406c2e2a7494bade210b68f3264c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
