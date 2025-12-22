@@ -771,6 +771,11 @@ MonoBehaviour:
   activeSprite:
   - {fileID: 5148261649612004997}
   - {fileID: 7418795463213138513}
+  sellConnects:
+  - {fileID: 13004961592776005}
+  - {fileID: 5292884799401880221}
+  - {fileID: 5812446149565052823}
+  - {fileID: 6746879111566892773}
   activeFlag: 0
   clear: 0
 --- !u!50 &8219269314236367785

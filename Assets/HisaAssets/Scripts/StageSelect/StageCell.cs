@@ -32,6 +32,7 @@ public class StageCell : MonoBehaviour
     [SerializeField] GameObject selectObj;
     [SerializeField] GameObject clearEffect;
     [SerializeField] GameObject[] activeSprite;//ƒNƒŠƒAŽž‚É”ñ•\Ž¦‚É‚·‚é
+    [SerializeField] SellConnectCollider[] sellConnects;
 
 
 
@@ -189,4 +190,16 @@ private void Awake()
         clearEffect.SetActive(true);
     }
 
+    [ContextMenu("Connect")]
+    public void CellConnect()
+    {
+        upConnectStage=null;
+        downConnectStage = null;
+        rightConnectStage = null;
+        leftConnectStage = null;
+        for (int i = 0; i < sellConnects.Length; i++)
+        {
+            sellConnects[i].EditorConnect();
+        }
+    }
 }
