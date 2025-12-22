@@ -60,7 +60,7 @@ MonoBehaviour:
     texture: {fileID: -8328923581568760697, guid: 4be661f01ac4404479f35b8356bcd696, type: 3}
     sprites: []
   - name: Space
-    texture: {fileID: -8328923581568760697, guid: 7e364e5be8a4968479270962f59191f3, type: 3}
+    texture: {fileID: -8328923581568760697, guid: 505eca89800bfc94aaa1ca6f6d53878f, type: 3}
     sprites:
     - {fileID: 0}
   - name: J

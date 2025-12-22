@@ -124,10 +124,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5166746263181068377, guid: 642b7c31a7bf5c64693e2eb158ed591f, type: 3}
-      propertyPath: sliceWidth
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 5166746263181068377, guid: 642b7c31a7bf5c64693e2eb158ed591f, type: 3}
       propertyPath: buttonSpriteRenderer
       value: 
       objectReference: {fileID: 788975169435705312}
