@@ -10,6 +10,7 @@ TagManager:
   - Canvas
   - ParticleParent
   - PaperManager
+  - CellBody
   layers:
   - Default
   - TransparentFX

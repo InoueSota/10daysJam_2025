@@ -105,6 +105,12 @@ public class AreaManager : MonoBehaviour
             audioplay.SE1();
             rumbler.StartRumble(0.1f, 0.2f, 0.1f);
         }
+        else
+        {
+            //ƒZƒ‹‚ª–³‚¢•ûŒü‚ÉˆÚ“®‚µ‚æ‚¤‚Æ‚µ‚Ä‚é
+            audioplay.SE3();
+            Debug.Log("‚»‚Ì•ûŒü‚É‚Í–³‚¢");
+        }
     }
 
 

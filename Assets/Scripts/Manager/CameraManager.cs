@@ -1,15 +1,12 @@
 using DG.Tweening;
-using DG.Tweening.Core.Easing;
 using UnityEngine;
-using UnityEngine.Audio;
+using UnityEngine.Rendering.Universal;
 
 public class CameraManager : MonoBehaviour
 {
     // 自コンポーネント
     private AudioSource audioSource;
-
-    // 他コンポーネント
-    private PlayerManager playerManager;
+    private PixelPerfectCamera pixelPerfectCamera;
 
     // 原点
     private Vector3 originPosition;
@@ -35,10 +32,8 @@ public class CameraManager : MonoBehaviour
     {
         // 自コンポーネントの取得
         audioSource = GetComponent<AudioSource>();
+        pixelPerfectCamera = GetComponent<PixelPerfectCamera>();
 
-        // 他コンポーネントの取得
-        playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-        
         originPosition = transform.position;
 
         GameManager gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -52,6 +47,8 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
+        pixelPerfectCamera.assetsPPU = (int)Mathf.Lerp(0, 72, Screen.width / 1920f);
+
         // カメラ更新処理
         CameraUpdate();
     }

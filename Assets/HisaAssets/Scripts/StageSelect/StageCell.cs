@@ -15,10 +15,12 @@ public class StageCell : MonoBehaviour
     }
 
 
+
     // [SerializeField] StageCell[] connectStage = new StageCell[4];
     [SerializeField, Header("このセルで遷移するステージ")] string stageName;
     [SerializeField, Header("このセルのステージ画像")] Sprite stageImage;
     [SerializeField, Header("このセルで表示するステージ名")] string cellStagename;
+    [SerializeField] string cellNumber;
     [Header("自分を基準に接続先のステージ")]
     [SerializeField] StageCell upConnectStage;
     [SerializeField] StageCell downConnectStage;
@@ -32,6 +34,9 @@ public class StageCell : MonoBehaviour
     [SerializeField] GameObject selectObj;
     [SerializeField] GameObject clearEffect;
     [SerializeField] GameObject[] activeSprite;//クリア時に非表示にする
+    [SerializeField] SellConnectCollider[] sellConnects;
+    [SerializeField] SetTextScript[] cellText;
+
 
     public bool activeFlag;
 
@@ -78,9 +83,30 @@ public class StageCell : MonoBehaviour
     public void SetSelectObj(bool active) {
         selectObj.SetActive(active); }
 
+
     public Sprite GetStageImage() { return stageImage; }
 
-    private void Awake()
+    public void SetConnectCell(int index, StageCell connectCell)
+    {
+        if (index == 0) {
+            upConnectStage = connectCell;
+        }else if (index == 1)
+        {
+            downConnectStage = connectCell;
+        }
+        else if (index == 2)
+        {
+            leftConnectStage = connectCell;
+        }
+        else if (index == 3)
+        {
+            rightConnectStage = connectCell;
+        }
+        
+    }
+
+
+private void Awake()
     {
         activeObj.SetActive(false);
         selectObj.SetActive(false);
@@ -166,4 +192,26 @@ public class StageCell : MonoBehaviour
         clearEffect.SetActive(true);
     }
 
+    [ContextMenu("Connect")]
+    public void CellConnect()
+    {
+        upConnectStage=null;
+        downConnectStage = null;
+        rightConnectStage = null;
+        leftConnectStage = null;
+        for (int i = 0; i < sellConnects.Length; i++)
+        {
+            sellConnects[i].EditorConnect();
+        }
+    }
+
+    [ContextMenu("nameChange")]
+
+    public void NameChange()
+    {
+        for (int i = 0; i < cellText.Length; i++)
+        {
+            cellText[i].SetText(cellNumber);
+        }
+    }
 }
