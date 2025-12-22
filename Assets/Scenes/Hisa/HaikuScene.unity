@@ -790,6 +790,9 @@ MonoBehaviour:
   - line5a: "\u6BB5\u30DC\u30FC\u30EB"
     line7: "\u30CF\u30B5\u30DF\u3067\u5207\u308B\u3068"
     line5b: "\u6307\u75DB\u3044"
+  - line5a: "\u3057\u304C\u307F\u3064\u304D"
+    line7: "\u3044\u306E\u3046\u3048\u305D\u3046\u305F"
+    line5b: "\u304B\u306A\u3044\u307F\u3093"
   haikuText:
   - {fileID: 98148733}
   - {fileID: 1142946310}
