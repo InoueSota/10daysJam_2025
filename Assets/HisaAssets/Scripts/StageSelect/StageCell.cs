@@ -33,6 +33,8 @@ public class StageCell : MonoBehaviour
     [SerializeField] GameObject clearEffect;
     [SerializeField] GameObject[] activeSprite;//ƒNƒŠƒAŽž‚É”ñ•\Ž¦‚É‚·‚é
 
+
+
     public bool activeFlag;
 
     public bool clear;
@@ -78,9 +80,30 @@ public class StageCell : MonoBehaviour
     public void SetSelectObj(bool active) {
         selectObj.SetActive(active); }
 
+
     public Sprite GetStageImage() { return stageImage; }
 
-    private void Awake()
+    public void SetConnectCell(int index, StageCell connectCell)
+    {
+        if (index == 0) {
+            upConnectStage = connectCell;
+        }else if (index == 1)
+        {
+            downConnectStage = connectCell;
+        }
+        else if (index == 2)
+        {
+            rightConnectStage = connectCell;
+        }
+        else if (index == 3)
+        {
+            leftConnectStage = connectCell;
+        }
+        
+    }
+
+
+private void Awake()
     {
         activeObj.SetActive(false);
         selectObj.SetActive(false);
