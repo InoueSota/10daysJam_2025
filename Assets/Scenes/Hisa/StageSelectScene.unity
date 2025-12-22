@@ -5786,11 +5786,11 @@ PrefabInstance:
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: upConnectStage
       value: 
-      objectReference: {fileID: 156294755}
+      objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: downConnectStage
       value: 
-      objectReference: {fileID: 1273468627}
+      objectReference: {fileID: 0}
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: leftConnectStage
       value: 
@@ -5798,7 +5798,7 @@ PrefabInstance:
     - target: {fileID: 3161340301441201308, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: rightConnectStage
       value: 
-      objectReference: {fileID: 868836413}
+      objectReference: {fileID: 0}
     - target: {fileID: 3605535962816993148, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
       propertyPath: m_Name
       value: Stage2Camera

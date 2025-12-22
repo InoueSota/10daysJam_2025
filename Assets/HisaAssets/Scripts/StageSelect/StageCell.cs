@@ -93,11 +93,11 @@ public class StageCell : MonoBehaviour
         }
         else if (index == 2)
         {
-            rightConnectStage = connectCell;
+            leftConnectStage = connectCell;
         }
         else if (index == 3)
         {
-            leftConnectStage = connectCell;
+            rightConnectStage = connectCell;
         }
         
     }
