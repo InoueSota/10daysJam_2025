@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1025416490826941996}
   - component: {fileID: 8330407910357810112}
   - component: {fileID: 8935398570156646434}
+  - component: {fileID: 82252471056182029}
   m_Layer: 10
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -112,6 +113,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 1
+--- !u!114 &82252471056182029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143584330070509929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontString: 
+  backString: 
 --- !u!1 &2205209749569185223
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +140,7 @@ GameObject:
   - component: {fileID: 8844481099870535239}
   - component: {fileID: 8305441256203150097}
   - component: {fileID: 1301458955641809707}
+  - component: {fileID: 1926318529286370059}
   m_Layer: 10
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -223,6 +239,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0.7019608, g: 0.7490196, b: 0.9960785, a: 1}
   m_EffectDistance: {x: 20, y: 20}
   m_UseGraphicAlpha: 1
+--- !u!114 &1926318529286370059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2205209749569185223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontString: 
+  backString: 
 --- !u!1 &2665421022796491470
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +789,7 @@ MonoBehaviour:
   stageName: 
   stageImage: {fileID: 0}
   cellStagename: 
+  cellNumber: 
   upConnectStage: {fileID: 0}
   downConnectStage: {fileID: 0}
   rightConnectStage: {fileID: 0}
@@ -776,6 +807,9 @@ MonoBehaviour:
   - {fileID: 5292884799401880221}
   - {fileID: 5812446149565052823}
   - {fileID: 6746879111566892773}
+  cellText:
+  - {fileID: 1926318529286370059}
+  - {fileID: 82252471056182029}
   activeFlag: 0
   clear: 0
 --- !u!50 &8219269314236367785

@@ -15,10 +15,12 @@ public class StageCell : MonoBehaviour
     }
 
 
+
     // [SerializeField] StageCell[] connectStage = new StageCell[4];
     [SerializeField, Header("このセルで遷移するステージ")] string stageName;
     [SerializeField, Header("このセルのステージ画像")] Sprite stageImage;
     [SerializeField, Header("このセルで表示するステージ名")] string cellStagename;
+    [SerializeField] string cellNumber;
     [Header("自分を基準に接続先のステージ")]
     [SerializeField] StageCell upConnectStage;
     [SerializeField] StageCell downConnectStage;
@@ -33,7 +35,7 @@ public class StageCell : MonoBehaviour
     [SerializeField] GameObject clearEffect;
     [SerializeField] GameObject[] activeSprite;//クリア時に非表示にする
     [SerializeField] SellConnectCollider[] sellConnects;
-
+    [SerializeField] SetTextScript[] cellText;
 
 
     public bool activeFlag;
@@ -200,6 +202,16 @@ private void Awake()
         for (int i = 0; i < sellConnects.Length; i++)
         {
             sellConnects[i].EditorConnect();
+        }
+    }
+
+    [ContextMenu("nameChange")]
+
+    public void NameChange()
+    {
+        for (int i = 0; i < cellText.Length; i++)
+        {
+            cellText[i].SetText(cellNumber);
         }
     }
 }
