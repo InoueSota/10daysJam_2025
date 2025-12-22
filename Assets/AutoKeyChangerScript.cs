@@ -142,13 +142,12 @@ public class AutoKeyChangerScript : MonoBehaviour
             if (isImage == true)
             {
                 buttonImage.sprite = keys[(int)button].sprites[num];
-                buttonImage.gameObject.transform.localScale *= sizeMultiPer;
+                if(isObjectEnabledPushUI == true) buttonImage.gameObject.transform.localScale *= sizeMultiPer;
             }
             else
             {
                 buttonSpriteRenderer.sprite = keys[(int)button].sprites[num];
-                buttonSpriteRenderer.gameObject.transform.localScale *= sizeMultiPer;
-
+                if (isObjectEnabledPushUI == true) buttonSpriteRenderer.gameObject.transform.localScale *= sizeMultiPer;
             }
 
         }
