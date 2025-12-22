@@ -185,13 +185,13 @@ public class StageSelectManager : MonoBehaviour
         {
             arrowImage[i].SetActive(true);
         }
-        if (areaOpenFlag[4])
-        {
-            foreach (var arrow in arrowImage)
-            {
-                arrow.SetActive(true);
-            }
-        }
+        //if (areaOpenFlag[4])
+        //{
+        //    foreach (var arrow in arrowImage)
+        //    {
+        //        arrow.SetActive(true);
+        //    }
+        //}
 
         //エリア解放された時にカメラ選択を自動でする
         if (PlayerPrefs.GetInt("Area2") == 1)
@@ -328,15 +328,16 @@ public class StageSelectManager : MonoBehaviour
 
         if (curSelectAreaIndex < 0)
         {
-            if (areaOpenFlag[4]) //最後のエリアが解放されたら一周できるようにする
-            {
-                curSelectAreaIndex = areaManagers.Length - 1;
+            curSelectAreaIndex = 0;
+            //if (areaOpenFlag[4]) //最後のエリアが解放されたら一周できるようにする
+            //{
+            //    curSelectAreaIndex = areaManagers.Length - 1;
 
-            }
-            else
-            {
-                curSelectAreaIndex = 0;
-            }
+            //}
+            //else
+            //{
+            //    curSelectAreaIndex = 0;
+            //}
         }
 
 
@@ -552,22 +553,32 @@ public class StageSelectManager : MonoBehaviour
         {
             ChangeTalkScene(0);
         }
-        else if (areaOpenFlag[1] && PlayerPrefs.GetInt("SelectTalk") < 1)
+
+        for (int i = areaOpenFlag.Length-1; i > 0; i--)
         {
-            ChangeTalkScene(1);
+            if (areaOpenFlag[i] && PlayerPrefs.GetInt("SelectTalk") < i)
+            {
+                ChangeTalkScene(i);
+                break;
+            }
         }
-        else if (areaOpenFlag[2] && PlayerPrefs.GetInt("SelectTalk") < 2)
-        {
-            ChangeTalkScene(2);
-        }
-        else if (areaOpenFlag[3] && PlayerPrefs.GetInt("SelectTalk") < 3)
-        {
-            ChangeTalkScene(3);
-        }
-        else if (areaOpenFlag[4] && PlayerPrefs.GetInt("SelectTalk") < 4)
-        {
-            ChangeTalkScene(4);
-        }
+
+        //else if (areaOpenFlag[1] && PlayerPrefs.GetInt("SelectTalk") < 1)
+        //{
+        //    ChangeTalkScene(1);
+        //}
+        //else if (areaOpenFlag[2] && PlayerPrefs.GetInt("SelectTalk") < 2)
+        //{
+        //    ChangeTalkScene(2);
+        //}
+        //else if (areaOpenFlag[3] && PlayerPrefs.GetInt("SelectTalk") < 3)
+        //{
+        //    ChangeTalkScene(3);
+        //}
+        //else if (areaOpenFlag[4] && PlayerPrefs.GetInt("SelectTalk") < 4)
+        //{
+        //    ChangeTalkScene(4);
+        //}
     }
 
     void AllStageOpen()

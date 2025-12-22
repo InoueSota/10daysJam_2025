@@ -2078,17 +2078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6bae8d760fad94284c33785599bb50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &334106129 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
-  m_PrefabInstance: {fileID: 180007939}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122e96b46dbfdf0488d4530b0ab96a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &386059632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4431,17 +4420,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819198937}
   m_CullTransparentMesh: 1
---- !u!114 &819224822 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
-  m_PrefabInstance: {fileID: 549255641}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122e96b46dbfdf0488d4530b0ab96a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &819500421 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8042620355699926766, guid: 060f3780700dd144cb3ce2a947df0836, type: 3}
@@ -6758,9 +6736,6 @@ MonoBehaviour:
   areaManagers:
   - {fileID: 688819303}
   - {fileID: 251596779}
-  - {fileID: 819224822}
-  - {fileID: 1723766951}
-  - {fileID: 334106129}
   areaPixelCameraTransform: {fileID: 714845140}
   areaPixelCamera: {fileID: 714845141}
   selectAnime:
@@ -6770,14 +6745,11 @@ MonoBehaviour:
   sceneTransitionPrefab: {fileID: 4797439248035837154, guid: 1f39edc61cfb6ba45a62d3dea926acdc, type: 3}
   gameStartTransitionPrefab: {fileID: 3264338480748370636, guid: 021dd611c8eef52498d4967af896e534, type: 3}
   isSceneChange: 0
-  areaOpenFlag: 0000000000
+  areaOpenFlag: 0000
   pauseToggle: {fileID: 1189015381}
   talkSceneName:
   - Select1
   - Select2
-  - Select3
-  - Select4
-  - Select5
   maxIndex: 0
   arrowImage:
   - {fileID: 7427069}
@@ -8815,17 +8787,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6680925e11ff0f14f9559fb5617e5908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1723766951 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 890472010101985684, guid: e2949b6a98593c244b4c965f2b706074, type: 3}
-  m_PrefabInstance: {fileID: 1949920273}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122e96b46dbfdf0488d4530b0ab96a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1725011100 stripped
