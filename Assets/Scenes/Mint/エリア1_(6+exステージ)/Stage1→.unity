@@ -291,6 +291,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4828535773904995920, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: isObjectEnabledPushUI
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4856824737774344475, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -321,6 +325,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8521298242967721454, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9037228560913595216, guid: 062d10098c23b1440b8787181ef8c37f, type: 3}
+      propertyPath: isObjectEnabledPushUI
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
