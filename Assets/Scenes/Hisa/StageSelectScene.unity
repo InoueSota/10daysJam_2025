@@ -6763,7 +6763,7 @@ MonoBehaviour:
   - {fileID: 1145156459}
   - {fileID: 2052503822}
   - {fileID: 814066664}
-  audioPlay: {fileID: 0}
+  audioPlay: {fileID: 1189015383}
   abutton: {fileID: 1084443856}
   allClearSceneName: AllClear
   rumbler: {fileID: 1189015385}
