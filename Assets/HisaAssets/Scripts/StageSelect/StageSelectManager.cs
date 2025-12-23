@@ -175,7 +175,7 @@ public class StageSelectManager : MonoBehaviour
             }
             maxIndex = i;
         }
-
+        if (maxIndex >= 2) { maxIndex = 1; }//コンテスト用にエリア2までに限定する
         foreach (var arrow in arrowImage)
         {
             arrow.SetActive(false);

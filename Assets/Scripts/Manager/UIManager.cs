@@ -248,7 +248,16 @@ public class UIManager : MonoBehaviour
 
     public void SetAreaOpenText(int areOpenIndex)
     {
-        areaOpenTexts.text = "エリア" + areOpenIndex + "が解放した!";
+        if (areOpenIndex == 3)//コンテスト用にエリア3解放時のテキストを変える
+        {
+            areaOpenTexts.text = "はさ爺が何かを言いたそうだ...";
+            areaOpenTexts.transform.localScale *= 0.7f;
+        }
+        else
+        {
+            areaOpenTexts.text = "エリア" + areOpenIndex + "が解放した!";
+
+        }
     }
 
 

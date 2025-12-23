@@ -19,7 +19,7 @@
             "stageId": "2_Stage1↑",
             "dir": "Right",
             "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage6↓"
+            "neighborStageId": "2_Stage4↓"
         },
         {
             "areaId": "Area2",
@@ -54,70 +54,70 @@
             "stageId": "2_Stage3→",
             "dir": "Right",
             "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage4↓"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage4↓",
-            "dir": "Down",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage5↓"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage4↓",
-            "dir": "Left",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage3→"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage5↓",
-            "dir": "Up",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage4↓"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage5↓",
-            "dir": "Down",
-            "neighborAreaId": "Area2",
             "neighborStageId": "2_Stage6↓"
         },
         {
             "areaId": "Area2",
-            "stageId": "2_Stage5↓",
-            "dir": "Left",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage2↑"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage6↓",
+            "stageId": "2_Stage4↓",
             "dir": "Up",
             "neighborAreaId": "Area2",
             "neighborStageId": "2_Stage5↓"
         },
         {
             "areaId": "Area2",
-            "stageId": "2_Stage6↓",
+            "stageId": "2_Stage4↓",
             "dir": "Down",
             "neighborAreaId": "Area2",
             "neighborStageId": "2_Stage7_☆☆_→←"
         },
         {
             "areaId": "Area2",
-            "stageId": "2_Stage6↓",
+            "stageId": "2_Stage4↓",
             "dir": "Left",
             "neighborAreaId": "Area2",
             "neighborStageId": "2_Stage1↑"
         },
         {
             "areaId": "Area2",
-            "stageId": "2_Stage7_☆☆_→←",
+            "stageId": "2_Stage5↓",
             "dir": "Up",
             "neighborAreaId": "Area2",
             "neighborStageId": "2_Stage6↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage5↓",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage4↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage5↓",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage2↑"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage6↓",
+            "dir": "Down",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage5↓"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage6↓",
+            "dir": "Left",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage3→"
+        },
+        {
+            "areaId": "Area2",
+            "stageId": "2_Stage7_☆☆_→←",
+            "dir": "Up",
+            "neighborAreaId": "Area2",
+            "neighborStageId": "2_Stage4↓"
         },
         {
             "areaId": "Area2",
@@ -220,51 +220,9 @@
         {
             "areaId": "Area2",
             "stageId": "2_Stage12_☆☆☆↓",
-            "dir": "Down",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage13_テクニカル☆☆☆→(←)"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage12_☆☆☆↓",
             "dir": "Right",
             "neighborAreaId": "Area2",
             "neighborStageId": "2_Stage11_☆チュートリアル←"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage13_テクニカル☆☆☆→(←)",
-            "dir": "Up",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage12_☆☆☆↓"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage13_テクニカル☆☆☆→(←)",
-            "dir": "Left",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage_☆☆←"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage13_テクニカル☆☆☆→(←)",
-            "dir": "Right",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage14qp_☆↓↑"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage_☆☆←",
-            "dir": "Up",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage12_☆☆☆↓"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage_☆☆←",
-            "dir": "Right",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage13_テクニカル☆☆☆→(←)"
         },
         {
             "areaId": "Area2",
@@ -272,20 +230,6 @@
             "dir": "Up",
             "neighborAreaId": "Area2",
             "neighborStageId": "2_Stage11_☆チュートリアル←"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage14qp_☆↓↑",
-            "dir": "Down",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage_テクニカル☆☆☆↑→←EX"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage14qp_☆↓↑",
-            "dir": "Left",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage13_テクニカル☆☆☆→(←)"
         },
         {
             "areaId": "Area2",
@@ -293,195 +237,6 @@
             "dir": "Right",
             "neighborAreaId": "Area2",
             "neighborStageId": "2_Stage10__☆→"
-        },
-        {
-            "areaId": "Area2",
-            "stageId": "2_Stage_テクニカル☆☆☆↑→←EX",
-            "dir": "Up",
-            "neighborAreaId": "Area2",
-            "neighborStageId": "2_Stage14qp_☆↓↑"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage1_☆←チュートリアル",
-            "dir": "Left",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage2_☆☆↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage2_☆☆↓",
-            "dir": "Down",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage3_☆←"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage2_☆☆↓",
-            "dir": "Right",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage1_☆←チュートリアル"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage3_☆←",
-            "dir": "Up",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage2_☆☆↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage3_☆←",
-            "dir": "Down",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage6_↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage3_☆←",
-            "dir": "Left",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage4_☆☆↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage4_☆☆↓",
-            "dir": "Down",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage5_←→"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage4_☆☆↓",
-            "dir": "Right",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage3_☆←"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage5_←→",
-            "dir": "Up",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage4_☆☆↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage5_←→",
-            "dir": "Down",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_8↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage5_←→",
-            "dir": "Left",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_11LAST↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage5_←→",
-            "dir": "Right",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage6_↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage6_↓",
-            "dir": "Up",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage3_☆←"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage6_↓",
-            "dir": "Down",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_7←"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage6_↓",
-            "dir": "Left",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage5_←→"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage6_↓",
-            "dir": "Right",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_12LAST"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_7←",
-            "dir": "Up",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage6_↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_7←",
-            "dir": "Left",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_8↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_8↓",
-            "dir": "Up",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage5_←→"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_8↓",
-            "dir": "Down",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_9←"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_8↓",
-            "dir": "Right",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_7←"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_9←",
-            "dir": "Up",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_8↓"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_9←",
-            "dir": "Left",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_10LAST←"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_10LAST←",
-            "dir": "Right",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage_9←"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_11LAST↓",
-            "dir": "Right",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage5_←→"
-        },
-        {
-            "areaId": "Area5",
-            "stageId": "5_Stage_12LAST",
-            "dir": "Left",
-            "neighborAreaId": "Area5",
-            "neighborStageId": "5_Stage6_↓"
         },
         {
             "areaId": "Area1",
@@ -594,258 +349,6 @@
             "dir": "Left",
             "neighborAreaId": "Area1",
             "neighborStageId": "Stage8_→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage1_↑",
-            "dir": "Up",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage2_→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage1_↑",
-            "dir": "Right",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage4_→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage2_→",
-            "dir": "Down",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage1_↑"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage2_→",
-            "dir": "Right",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage3_↓"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage3_↓",
-            "dir": "Up",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage8_☆☆☆☆→ 1"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage3_↓",
-            "dir": "Down",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage4_→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage3_↓",
-            "dir": "Left",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage2_→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage3_↓",
-            "dir": "Right",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage6_↑→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage4_→",
-            "dir": "Up",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage3_↓"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage4_→",
-            "dir": "Left",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage1_↑"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage4_→",
-            "dir": "Right",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage5_↑"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage5_↑",
-            "dir": "Up",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage6_↑→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage5_↑",
-            "dir": "Left",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage4_→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage6_↑→",
-            "dir": "Up",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage7_←"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage6_↑→",
-            "dir": "Down",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage5_↑"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage6_↑→",
-            "dir": "Left",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage3_↓"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage6_↑→",
-            "dir": "Right",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage_9→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage7_←",
-            "dir": "Down",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage6_↑→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage7_←",
-            "dir": "Left",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage8_☆☆☆☆→ 1"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage8_☆☆☆☆→ 1",
-            "dir": "Down",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage3_↓"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage8_☆☆☆☆→ 1",
-            "dir": "Right",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage7_←"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage_9→",
-            "dir": "Left",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage6_↑→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage_9→",
-            "dir": "Right",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage_10↑↓"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage_10↑↓",
-            "dir": "Up",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage_11↓"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage_10↑↓",
-            "dir": "Left",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage_9→"
-        },
-        {
-            "areaId": "Area3",
-            "stageId": "3_Stage_11↓",
-            "dir": "Down",
-            "neighborAreaId": "Area3",
-            "neighborStageId": "3_Stage_10↑↓"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_1↓",
-            "dir": "Down",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_2→ 1"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_2→ 1",
-            "dir": "Up",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_1↓"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_2→ 1",
-            "dir": "Right",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_3→"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_3→",
-            "dir": "Left",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_2→ 1"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_3→",
-            "dir": "Right",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_4↑↓"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_4↑↓",
-            "dir": "Up",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_5↑"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_4↑↓",
-            "dir": "Down",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_6↑ ☆☆☆☆"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_4↑↓",
-            "dir": "Left",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_3→"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_5↑",
-            "dir": "Down",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_4↑↓"
-        },
-        {
-            "areaId": "Area4",
-            "stageId": "4_Stage_6↑ ☆☆☆☆",
-            "dir": "Up",
-            "neighborAreaId": "Area4",
-            "neighborStageId": "4_Stage_4↑↓"
         }
     ]
 }
